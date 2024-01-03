@@ -1,0 +1,107 @@
+.encabezado{ page-break-after: always; }
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+a {
+  color: #5D6975;
+  text-decoration: underline;
+}
+
+
+
+header{
+  margin-top: 30px;
+}
+
+#logo{
+  float: left;
+}
+
+img{
+  width: 20%;
+}
+#label-cotizacion{
+  float: right;  
+  
+  color:#FF8000;
+}
+
+#project{
+  clear: both;
+  text-align: right;
+}
+
+#project span{
+  font-size: 1em;
+}
+
+.bloques{
+  background-color: #FF8000;
+  
+  padding: 7px;
+  border-radius: 5px;
+  color: white;
+}
+
+.inicio-cuerpo{
+  margin-top: 35px;
+  margin-left: 55px;
+
+}
+
+.cuerpo-cotizacion{
+  margin-top: 20px;
+  margin-left: 55px;
+  margin-right: 55px;
+  text-align: justify;
+}
+
+.lista{
+  list-style:none;
+margin: 10px;  
+}
+
+.lista li{
+
+padding: 15px;
+}
+
+th{
+  margin-top: 2px;
+}
+
+p{
+  margin: 20px;
+}
+
+.footer{
+  position: fixed;
+  bottom: 0px;
+  color: #A4A4A4;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.final-firma{
+  margin: 1px;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.firma-acepto{
+  padding: 25px;
+  font-size: 0.9em;
+}
+
+.alcance{
+  padding-top: 20px;
+}
+
+.alcance-servicio{
+  padding-top: 5px;
+}
+

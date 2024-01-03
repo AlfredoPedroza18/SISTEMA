@@ -1,0 +1,17 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class CP extends Model
+{
+   protected $table='codigospostales';
+
+   protected $fillable=[
+   'FK_CodigoPostal',
+   'Colonia',
+   'Municipio',
+   'Estado'
+   ];
+}

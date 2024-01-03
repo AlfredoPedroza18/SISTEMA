@@ -1,0 +1,83 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ReciboEmpleado extends Model
+{
+    protected $table = 'master_personal';
+    protected $primaryKey = 'IdPersonal';
+    protected $fillable = [
+        'IdPersonal',
+        'IdEmpresa',
+        'CodigoPersonal',
+        'Nombre',
+        'APaterno',
+        'AMaterno',
+        'Sexo',
+        'Edad',
+        'Telefono',
+        'Movil',
+        'CorreoElectronico',
+        'Curp',
+        'Rfc',
+        'NSS',
+        'Calle',
+        'Colonia',
+        'NoInt',
+        'NoExt',
+        'IdCiudad',
+        'Estado',
+        'Municipio',
+        'Localicad',
+        'IdCodigoPostal',
+        'CodigoPostal',
+        'IdClinica',
+        'LugarNacimiento',
+        'AlergicoPadecimiento',
+        'InicioDescuento',
+        'OtorgamientoCredito',
+        'LetraCredencial',
+        'ChecaTarjeta',
+        'NumeroTarjeta',
+        'TarjetaMifare',
+        'NumeroBiometrico',
+        'TieneHuella',
+        'TipoDescuento',
+        'ValorDescuento',
+        'NoAjusteAnual',
+        'PagoEnTransferencia',
+        'DisminucionTasa',
+        'NumeroCredito',
+        'CreditoActivo',
+        'EvaluacionFecha',
+        'EvaluacionFechaProxima',
+        'Resultado',
+        'NumeroFonacot',
+        'FechaNacimiento',
+        'EntidadNacimiento',
+        'IdNacionalidad',
+        'IdNacionalidad',
+        'IdGrupoDispositivos',
+        'IdEstadoCivil',
+        'IdConfidencialidad',
+        'IdTipoPrestamo',
+        'FechaAlta',
+        'Imagen',
+        'Observaciones_Imagen',
+        'Tipo_Imagen',
+        'Activo',
+        'FechaImss',
+        'CantidadHuella',
+        'Eventual',
+        'Huella',
+        'PerteneceBrigada',
+        'TipoBrigada',
+        'RolBrigada',
+        'ConocimientoTeorico',
+        'ConocimientoPractico',
+        'NumeroPiso'
+    ];
+
+}

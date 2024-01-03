@@ -1,0 +1,144 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Evaluación 360</title>
+<!-- <link href="estilos.css" rel="stylesheet" type="text/css"> -->
+<style type="text/css">
+  #div1{
+    position:absolute;
+    border:red 1px solid;
+    height:100px;
+    width:99%;
+    }
+  /* tabla con estilo css*/
+  body {font-family: Arial, Helvetica, sans-serif;}
+  table {
+    font-family: “Lucida Sans Unicode”;, “Lucida Grande”, Sans-Serif;
+    font-size: 12px; margin: 45px; width: 750px; text-align: left; border-collapse: collapse;
+    }
+  th {
+    font-size: 13px; font-weight: normal; padding: 8px; background: #b9c9fe;
+    border-top: 4px solid #aabcfe; border-bottom: 1px solid #fff; color: #039;
+    }
+  td {
+    padding: 8px; background: #e8edff; border-bottom: 1px solid #fff;
+    color: #669; border-top: 1px solid transparent; }
+</style>
+</head>
+
+<body>
+  <div id="div1">
+    <form action="registro.php" method="POST">
+      <h2><em>Datos del evauliador</em></h2>
+        <label for="nombre">Nombre <span><em>(requerido)</em></span></label>
+        <input type="text" name="nombre" class="form-input" required/>
+        <label for="apellido">Apellido <span><em>(requerido)</em></span></label>
+        <input type="text" name="apellido" class="form-input" required/>
+        <label for="email">Email <span><em>(requerido)</em></span></label>
+        <input type="email" name="email" class="form-input" />
+      </p>
+      <h2><em>Datos del evaluado</em></h2>
+        <label for="nombre">Codigo de quién evalua<span><em>(requerido)</em></span></label>
+        <input type="text" name="nombre" class="form-input" required/>
+        <label for="apellido">Código de quién es evaluado<span><em>(requerido)</em></span></label>
+        <input type="text" name="apellido" class="form-input" required/>
+        <label for="evaluado">código <span><em>(requerido)</em></span></label>
+        <input type="email" name="codigo" class="form-input" />
+        <center> <input class="form-btn" name="submit" type="submit" value="Suscribirse" /></center>
+      </p>
+    </form>
+    <form>
+    <table class="egt">
+      <tr>
+        <td>Concepto</td>
+        <td>Casi siempre</td>
+        <td>Frecuentemente</td>
+        <td>A veces</td>
+        <td>Pocas veces</td>
+        <td>Casi nunca</td>
+      </tr>
+      <tr>
+        <td>1. Comparte su conocimiento y ayuda a sus compañeros.</td>
+        <td><input type="checkbox" name="R1A" value="1"> </td>
+        <td><input type="checkbox" name="R1B" value="2"> </td>
+        <td><input type="checkbox" name="R1C" value="3"> </td>
+        <td><input type="checkbox" name="R1D" value="4"> </td>
+        <td><input type="checkbox" name="R1E" value="5"> </td>
+      </tr>
+      <tr>
+        <td>2. Asume sus roles y da soporte en actividades fuera de su especialidad.</td>
+        <td><input type="checkbox" name="R2A" value="1"> </td>
+        <td><input type="checkbox" name="R2B" value="2"> </td>
+        <td><input type="checkbox" name="R2C" value="3"> </td>
+        <td><input type="checkbox" name="R2D" value="4"> </td>
+        <td><input type="checkbox" name="R2E" value="5"> </td>
+      </tr>
+      <tr>
+        <td>3. Se apoyan para trabajar, da y pide ayuda.</td>
+        <td><input type="checkbox" name="R3A" value="1"> </td>
+        <td><input type="checkbox" name="R3B" value="2"> </td>
+        <td><input type="checkbox" name="R3C" value="3"> </td>
+        <td><input type="checkbox" name="R3D" value="4"> </td>
+        <td><input type="checkbox" name="R3E" value="5"> </td>
+      </tr>
+      <tr>
+        <td>4. Da y recibe retroalimentación de manera adecuada.</td>
+        <td><input type="checkbox" name="R4A" value="1"> </td>
+        <td><input type="checkbox" name="R4B" value="2"> </td>
+        <td><input type="checkbox" name="R4C" value="3"> </td>
+        <td><input type="checkbox" name="R4D" value="4"> </td>
+        <td><input type="checkbox" name="R4E" value="5"> </td>
+      </tr>
+       <tr>
+        <td>5. Hace la diferencia en su equipo o grupo de trabajo.</td>
+        <td><input type="checkbox" name="R5A" value="1"> </td>
+        <td><input type="checkbox" name="R5B" value="2"> </td>
+        <td><input type="checkbox" name="R5C" value="3"> </td>
+        <td><input type="checkbox" name="R5D" value="4"> </td>
+        <td><input type="checkbox" name="R5E" value="5"> </td>
+      </tr>
+    </table>
+      <table >
+    <caption>Contenido nutricional por cada 100 g de alimento.</caption>
+      <tr>
+        <th>Alimento</th>
+        <th>Calorías (kCal)</th>
+        <th>Grasas (g)</th>
+        <th>Proteína (g)</th>
+        <th>Carbohidratos (g)</th>
+      </tr>
+      <tr>
+        <td>Arándano</td>
+        <td>49</td>
+        <td>0.2</td>
+        <td>0.4</td>
+        <td>12.7</td>
+      </tr>
+      <tr>
+        <td>Plátano</td>
+        <td>90</td>
+        <td>0.3</td>
+        <td>1.0</td>
+        <td>23.5</td>
+      </tr>
+      <tr>
+        <td>Cereza</td>
+        <td>46</td>
+        <td>0.4</td>
+        <td>0.9</td>
+        <td>10.9</td>
+      </tr>
+      <tr>
+        <td>Fresa</td>
+        <td>37</td>
+        <td>0.5</td>
+        <td>0.8</td>
+        <td>8.3</td>
+      </tr>
+      </table>
+    </form>
+  </div>
+</body>
+</html>
