@@ -25,6 +25,8 @@
 		<li>{{ link_to('home', $title = 'Módulos', $parameters = array(), $attributes = array()) }}</li>
 
 			<li class="active">CRM-Dashboard</li>
+		
+
 
 		@elseif(Auth::user()->tipo=='c')
 
@@ -41,6 +43,61 @@
 	<!-- begin page-header -->
 	@if(Auth::user()->tipo!="c")
 	<h1 class="page-header text-center">DASHBOARD<small></small></h1>
+
+	<div class="row">
+
+<!-- begin col-6 potlet #1 -->
+
+<div class="col-md-4 col-md-offset-4 col-sm-6">
+
+	<div class="panel panel-inverse">
+
+		<div class="panel-heading">
+
+			<div class="panel-heading-btn">
+
+
+			</div>
+
+			<h4 class="panel-title">Período</h4>
+
+		</div>
+
+
+
+		<div class="panel-body table-responsive" style="height: 100px;">
+
+			<div class="row">
+
+				<div class="col-md-8 col-sm-12">
+
+					<div class="form-group">
+
+						<label for="">Fecha Inicio</label>
+
+						<input type="month" class="form-control form-control-sm" id="fechainicio">
+
+					</div>
+
+				</div>
+
+				<div class="col-md-4 col-md-12">
+					<div class="form-group">
+
+						<label for="">&nbsp;</label>
+						<input class="btn btn-sm btn-success form-control form-control-sm" id="btnPeriod"  type="button" value="Aplicar filtro">
+					</div>
+				</div>
+
+			
+
+		</div>
+
+	</div>
+
+	</div><!-- end colspan 6-->
+
+	</div>
 	@else
 	<h1 class="page-header text-center">Inicio<small></small></h1>
 	@endif
@@ -182,9 +239,9 @@
 
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-				<div class="stats-title">Total de Clientes</div>
+				<div class="stats-title">Clientes</div>
 
-				<div class="stats-number" id="total_clientes_cuadro">0</div>
+				<div class="stats-number" id="total_clientes_cuadro">{{$cli[0]->con}}</div>
 
 				<div class="stats-progress progress">
 
@@ -192,7 +249,7 @@
 
 				</div>
 
-				<div class="stats-desc">Clientes del mes de <label class="mes_actual stats-desc"></label> </div>
+				<div class="stats-desc">Clientes del mes de {{$mes}}<label class="mes_actual stats-desc"></label> </div>
 
 			</div>
 
@@ -208,9 +265,9 @@
 
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-				<div class="stats-title">Total Prospectos</div>
+				<div class="stats-title">Prospectos</div>
 
-				<div class="stats-number" id="total_prospectos">0</div>
+				<div class="stats-number" id="total_prospectos">{{$pros[0]->con}}</div>
 
 				<div class="stats-progress progress">
 
@@ -218,7 +275,7 @@
 
 				</div>
 
-				<div class="stats-desc">Prospectos del mes de <label class="mes_actual stats-desc"></div>
+				<div class="stats-desc">Prospectos del mes de {{$mes}}<label class="mes_actual stats-desc"></div>
 
 			</div>
 
@@ -226,15 +283,15 @@
 
 		<!-- end col-3 -->
 
-		<div class="col-md-2 col-sm-6">
+		<div class="col-md-3 col-sm-6">
 
 			<div class="widget widget-stats bg-aqua">
 
-				<div class="stats-icon stats-icon-lg"><i class="fa fa-tags fa-fw"></i></div>
+				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-				<div class="stats-title">Prospectos Clientes</div>
+				<div class="stats-title">Total Clientes</div>
 
-				<div class="stats-number" id="total_porcentaje_cuadro">0 %</div>
+				<div class="stats-number" id="total_porcentaje_cuadro">{{$cli[0]->con + $pros[0]->con}}</div>
 
 				<div class="stats-progress progress">
 
@@ -242,7 +299,7 @@
 
 				</div>
 
-				<div class="stats-desc">Monto de contratos</div>
+				<div class="stats-desc">Prospecto del mes de {{$mes}}</div>
 
 			</div>
 

@@ -1378,9 +1378,12 @@ function activarLink( $url = '' )
 
                             </li> -->
 
+
+                            <li class="{{ activarLink('catalogo/clientes') }}"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+
                             @permission('crear.clientes|eliminar.clientes|editar.clientes|clientes.cambiarcn')
 
-                            <li class="{{ activarLink('catalogo/clientes') }}"><a href="{{url('catalogo/clientes')}}">Clientes y prospectos</a></li>
+                            <li class="{{ activarLink('catalogo/clientes') }}"><a href="{{route('sig-erp-crm::clientes.index')}}">Clientes y prospectos</a></li>
 
                             @endpermission
 

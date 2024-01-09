@@ -60,7 +60,7 @@
 
                     <div class="form-group">
 
-                        <label>{{ Form::label('Cargo', '* Cargo') }}</label>
+                        <label>{{ Form::label('Cargo', 'Cargo') }}</label>
 
                         {{ Form::text('cargo[]','{cargo}',['class' => 'form-control','placeholder'=>'Lider','id'=>'cargo','data-parsley-group'=>'wizard-step-4','maxlength'=>''])}}
 
@@ -129,7 +129,7 @@
 
                     <div class="form-group">
 
-                         <label>{{ Form::label('telefono1', '* Teléfono 1') }}</label>
+                         <label>{{ Form::label('telefono1', 'Teléfono 1') }}</label>
 
                         {{ Form::text('telefono1[]','{telefono1}',['class' => 'form-control telefono1 telefonos-size','placeholder'=>'58702093','id'=>'telefono1','data-parsley-group'=>'wizard-step-3','maxlength'=>'15','onblur'=>'sizeTelefonos(this)'])}}
 

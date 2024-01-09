@@ -73,59 +73,11 @@
             <font size="1">Nota: (Los campos marcados con * son obligatorios )</font>
             <p>
 
-            <div class="form-group block1 row col-md-4">
-
-                <legend class="pull-left width-full">Datos de usuario </legend>
-
-                <div>
-
-                    <label>{{ Form::label('nombre_de_usuario','* Nombre de usuario') }}</label>
-
-                    {{ Form::text('nombre_de_usuario',$username,['class' => 'form-control','placeholder'=>'Ejemplo: usuarioDelCliente3','onblur' => 'users();','id'=>'nombre_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
-
-                    <label id="alerta" nombre="alerta"></label>
-
-
-
-                </div>
-
-
-
-                <div>
-
-                    <label>{{ Form::label('telefono_de_usuario','* Telefono') }}</label>
-
-                    {{ Form::text('telefono_de_usuario',$userTelephone,['class' => 'form-control phone_with_ddd','placeholder'=>'Ejemplo: 921-302-0022','id'=>'telefono_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
-
-                </div>
-
-
-
-                <div>
-
-                    <label>{{ Form::label('correo_de_usuario','* Correo') }}</label>
-
-                    {{ Form::email('correo_de_usuario',$userEmail,['class' => 'form-control','placeholder'=>'Ejemplo: default@gmail.com','id'=>'correo_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
-
-                </div>
-
-                <br>
-
-            </div>
-
-
-
-            <br>
-
-            <br>
-
-            <br>
-
-
+            
 
             <div class="col-md-4">
 
-                <label>{{ Form::label ('archivo', '* Archivo')}}</label>
+                <label>{{ Form::label ('archivo', 'Archivo')}}</label>
 
                 <input type="hidden" name="archivopdf" id="archivopdf" value="{{$Archivo}}">
 
@@ -227,11 +179,11 @@
 
 
 
-                        <label>{{ Form::label('Forma Juridica', '* Forma Juridica') }}</label>
+                        <label>{{ Form::label('Forma Juridica', 'Forma Juridica') }}</label>
 
 
 
-                        {{ Form::select('forma_juridica',[''=>'Selecciona una opci&oacute;n','1'=>'Persona Fisica','2'=>'Persona Moral'],null,['class'=>'form-control','data-parsley-group'=>'wizard-step-1','data-size'=>'10','id'=>'forma_juridica']) }}
+                        {{ Form::select('forma_juridica',[''=>'Selecciona una opci&oacute;n','1'=>'Persona Fisica','2'=>'Persona Moral'],$cliente->forma_juridica,['class'=>'form-control','data-parsley-group'=>'wizard-step-1','data-size'=>'10','id'=>'forma_juridica']) }}
 
 
 
@@ -251,7 +203,7 @@
 
                     <div class="form-group pm" style="display:none">
 
-                        <label>{{ Form::label('Razon Social', ' * Razon Social') }}</label>
+                        <label>{{ Form::label('Razon Social', ' Razon Social') }}</label>
 
                         {{ Form::text('razon_social',$cliente->razon_social,['class' => 'form-control','placeholder'=>'S.A de C.V','id'=>'razon_social','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -259,7 +211,7 @@
 
                     <div class="form-group pf" style="display:none" id="curp-nombre">
 
-                        <label>{{ Form::label('Nombre','* Nombre') }}</label>
+                        <label>{{ Form::label('Nombre','Nombre') }}</label>
 
                         {{ Form::text('nombre',$cliente->nombre,['class' => 'form-control','placeholder'=>'Arturo','id'=>'nombre','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -287,7 +239,7 @@
 
                     <div class="form-group block1" id="curp-apellido_paterno">
 
-                        <label>{{ Form::label('Apellido Paterno', '* Apellido Paterno') }}</label>
+                        <label>{{ Form::label('Apellido Paterno', 'Apellido Paterno') }}</label>
 
                         {{ Form::text('apellido_paterno',$cliente->apellido_paterno,['class' => 'form-control','placeholder'=>'Gonzalez','id'=>'apellido_paterno','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -309,7 +261,7 @@
 
 
 
-                        <label>{{ Form::label('Apellido Materno', '* Apellido Materno') }}</label>
+                        <label>{{ Form::label('Apellido Materno', 'Apellido Materno') }}</label>
 
                         {{ Form::text('apellido_materno',$cliente->apellido_materno,['class' => 'form-control','placeholder'=>'Tapia','id'=>'apellido_materno','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -329,9 +281,9 @@
 
                     <div class="form-group" id="curp-genero">
 
-                        <label>{{ Form::label('Genero', '* Genero') }}</label><br>
+                        <label>{{ Form::label('Genero', 'Genero') }}</label><br>
 
-                        {{ Form::select('genero',[''=>'Selecciona una opci&oacute;n','H'=>'Masculino','M'=>'Femenino'],null,['class'=>'form-control ','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'genero']) }}
+                        {{ Form::select('genero',[''=>'Selecciona una opci&oacute;n','H'=>'Masculino','M'=>'Femenino'],$cliente->genero,['class'=>'form-control ','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'genero']) }}
 
                     </div>
 
@@ -351,7 +303,7 @@
 
                     <div class="form-group block1" id="curp-fec_nacimiento">
 
-                        <label>{{ Form::label('Fecha Nacimiento', '* Fecha Nacimiento') }}</label>
+                        <label>{{ Form::label('Fecha Nacimiento', 'Fecha Nacimiento') }}</label>
 
                         {{ Form::date('fecha_nacimiento_pros',$cliente->fecha_nacimiento_pros,['class' => 'form-control','id'=>'fecha_nacimiento_pros','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
 
@@ -373,9 +325,9 @@
 
 
 
-                        <label>{{ Form::label('Lugar de Nacimiento', '* Lugar de Nacimiento') }}</label>
+                        <label>{{ Form::label('Lugar de Nacimiento', 'Lugar de Nacimiento') }}</label>
 
-                        {{ Form::select('lugar_nacimiento',$lugar_nacimiento,null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'lugar_nacimiento']) }}
+                        {{ Form::select('lugar_nacimiento',$lugar_nacimiento,$cliente->lugar_nacimiento,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'lugar_nacimiento']) }}
 
 
 
@@ -393,7 +345,7 @@
 
                     <div class="form-group">
 
-                        <label>{{ Form::label('CURP', '* CURP') }}</label>
+                        <label>{{ Form::label('CURP', 'CURP') }}</label>
 
                         {{ Form::text('curp',$cliente->curp,['class' => 'form-control','placeholder'=>'BADD110313HCMLNS09','id'=>'curp','data-parsley-group'=>'wizard-step-1','maxlength'=>'18'])}}
 
@@ -421,7 +373,7 @@
 
                         <label>{{ Form::label('CLASE DE PM', 'Clase de PM') }}</label>
 
-                        {{ Form::select('clase_pm',[''=>'Selecciona una opci&oacute;n','1'=>'SA','2'=>'S.A de C.V','3'=>' S. de RL de CV','4'=>'SC','5'=>'AC'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'clase_pm']) }}
+                        {{ Form::select('clase_pm',[''=>'Selecciona una opci&oacute;n','1'=>'SA','2'=>'S.A de C.V','3'=>' S. de RL de CV','4'=>'SC','5'=>'AC'],$cliente->clase_pm,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'clase_pm']) }}
 
                     </div>
 
@@ -429,7 +381,7 @@
 
                     <div class="form-group">
 
-                        <label>{{ Form::label('RFC ', '* RFC') }}</label>
+                        <label>{{ Form::label('RFC ', 'RFC') }}</label>
 
                         {{ Form::text('rfc',$cliente->rfc,['class' => 'form-control','placeholder'=>'CUPU800825569','id'=>'rfc','data-parsley-group'=>'wizard-step-1','maxlength'=>'13'])}}
 
@@ -455,7 +407,7 @@
 
 
 
-                        {{ Form::select('actividad_economica',$actividad_economica,null,['class'=>'js-example-basic-multiple-limit default-select2 form-control input-lg form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'actividad_economica']) }}
+                        {{ Form::select('actividad_economica',$actividad_economica,$cliente->actividad_economica,['class'=>'js-example-basic-multiple-limit default-select2 form-control input-lg form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'actividad_economica']) }}
 
 
 
@@ -477,7 +429,7 @@
 
                         <label>{{ Form::label('Status', 'Status') }}</label>
 
-                        {{ Form::select('status',['1'=>'Activo','2'=>'Inactivo','3'=>'Suspención'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'status']) }}
+                        {{ Form::select('status',['1'=>'Activo','2'=>'Inactivo','3'=>'Suspención'],$cliente->status,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'status']) }}
 
 
 
@@ -507,7 +459,7 @@
 
                         <label>{{ Form::label('Registro Patronal', 'Registro Patronal') }}</label>
 
-                        {{ Form::select('registro_patronal',[''=>'Selecciona una opci&oacute;n','1'=>'Clase RT','2'=>'Clase I','3'=>'Clase II','4'=>'Clase III','5'=>'Clase IV','6'=>'Clase V'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'registro_patronal']) }}
+                        {{ Form::select('registro_patronal',[''=>'Selecciona una opci&oacute;n','1'=>'Clase RT','2'=>'Clase I','3'=>'Clase II','4'=>'Clase III','5'=>'Clase IV','6'=>'Clase V'],$cliente->registro_patronal,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'registro_patronal']) }}
 
                     </div>
 
@@ -515,7 +467,7 @@
                 <div class="col-md-4">
 
                                 <div class="form-group">
-                                    <label>{{ Form::label('TipoDeCliente', 'Tipo de Cliente') }}</label>
+                                    <label>{{ Form::label('TipoDeCliente', '* Tipo de Cliente') }}</label>
                                     {{ Form::select('TipoDeCliente',$tipoCliente,$cliente->tipo,['class'=>'js-example-basic-multiple-limit default-select2 form-control input-lg form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'TipoDeCliente']) }}
                                 </div>
                             </div>
@@ -945,7 +897,7 @@
 
                             <div class="form-group">
 
-                                <label>{{ Form::label('Cargo', '* Cargo') }}</label>
+                                <label>{{ Form::label('Cargo', 'Cargo') }}</label>
 
                                 {{ Form::text('cargo[]',$contacto->cargo,['class' => 'form-control','placeholder'=>'Lider','id'=>'cargo','data-parsley-group'=>'wizard-step-4','maxlength'=>''])}}
 
@@ -1019,7 +971,7 @@
 
                             <div class="form-group">
 
-                                <label>{{ Form::label('telefono1', '* Teléfono 1') }}</label>
+                                <label>{{ Form::label('telefono1', 'Teléfono 1') }}</label>
 
                                 {{ Form::text('telefono1[]',$contacto->telefono1,['class' => 'form-control phone_with_ddd','placeholder'=>'587-020-9993','id'=>'telefono1','data-parsley-group'=>'wizard-step-3','maxlength'=>'10'])}}
 
@@ -1197,7 +1149,7 @@
 
                             <div class="form-group">
 
-                                <label>{{ Form::label('Página web', '* Página Web') }}</label>
+                                <label>{{ Form::label('Página web', 'Página Web') }}</label>
 
                                 {{ Form::text('pagina_web[]',$contacto->pagina_web,['class' => 'form-control','placeholder'=>'http://www.test.domain.com','id'=>'pagina_web','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
 
@@ -1251,7 +1203,7 @@
 
                         <label>{{ Form::label('Medio de Contácto', '* Medio de Contácto') }} </label>
 
-                        {{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','3'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','-1'=>'Otro'],$mediocontacto,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
+                        {{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','3'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','Otro'=>'Otro'],$mediocontacto,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
 
                         <input type="text" name="medio_contacto" class='form-control' id="medio_contacto_tabla">
 
@@ -1338,7 +1290,7 @@
 
                     <div class="form-group">
 
-                        <label>{{ Form::label('Contrato a', '* Contrato a') }} </label>
+                        <label>{{ Form::label('Contrato a', 'Contrato a') }} </label>
 
                         {{ Form::select('contrato_a',[''=>'Selecciona una opci&oacute;n','1'=>'PSCC','2'=>'Admon TH','3'=>'Capacitando','4'=>'Human DEV','5'=>'ARCADIA'],$contratoa,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'contrato_a']) }}
 

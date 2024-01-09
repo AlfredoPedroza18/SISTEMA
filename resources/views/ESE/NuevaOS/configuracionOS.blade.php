@@ -68,6 +68,7 @@
 
   #Estudio textarea:empty:required {
     border: 1px solid red;
+
   }
 
   #Estudio select:not(:valid) {
@@ -210,6 +211,9 @@
     to {transform: rotate(360deg);}
   }
 
+  #Trayectoria, #Escolar, #Resumen{
+    height: 130px;
+  }
   .spinner-border{
       display: inline-block;
       width: 2rem;
@@ -852,16 +856,16 @@
           </div>
           <br>
           <div class="row">
-            <div class="form-group col-md-4">
-                <label>Resumen Situación Economica</label>
+            <div class="form-group col-md-12">
+                <label>Resumen Situación Económica</label>
                 {!! Form::textarea('Resumen', $ResumenEconomica, ['class'=>'form-control', 'id'=>'Resumen','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'','style' => 'resize:none']) !!}
             </div>
-            <div class="form-group col-md-4">
-                <label>Resumen Escolar</label>
+            <div class="form-group col-md-12">
+                <label>Resumen Escolaridad</label>
                 {!! Form::textarea('Escolar', $ResumenEscolar, ['class'=>'form-control', 'id'=>'Escolar','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'','style' => 'resize:none']) !!}
             </div>
 
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-12">
                 <label>Resumen Trayectoria Laboral</label>
                 {!! Form::textarea('Trayectoria', $ResumenTrayectoriaLaboral, ['class'=>'form-control', 'id'=>'Trayectoria','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'','style' => 'resize:none']) !!}
             </div>

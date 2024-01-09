@@ -65,6 +65,7 @@ class ClientesController extends Controller
 
         $id_cn = $request->id_cn;//ob
 
+        
         $id_ejecutivo =$request->id_ejecutivo;//ob
 
         if ($id_ejecutivo==''){$id_ejecutivo=1;}
@@ -135,6 +136,7 @@ class ClientesController extends Controller
 
         //$cliente   = Cliente::create($request->all());
 
+        
        DB::insert('insert into clientes (`id_cn`, `id_ejecutivo`, `id_contacto_principal`, `tipo`, `contrato_a`, `id_user`, `nombre_comercial`, `forma_juridica`, `razon_social`, `fecha_constitucion`,
 
  `nombre`, `apellido_paterno`, `apellido_materno`, `genero`, `fecha_nacimiento_pros`, `lugar_nacimiento`, `clase_pm`, `rfc`, `curp`, `registro_patronal`, `registro_p`, `actividad_economica`, `status`,
@@ -143,11 +145,11 @@ class ClientesController extends Controller
 
    `dc_num_exterior`, `dc_num_interior`, `medio_contacto`, `tipo_cliente`, `comentario`, `db_forma_pago`, `db_banco`, `db_dias_credito`, `db_limite_credito`, `db_cta_clientes`, `db_clabe`, `db_iva`,
 
-    `clientescol`,`nickname`, `password`, `Username`, `TipoCliente`)
+    `clientescol`,`nickname`, `password`, `Username`, `TipoCliente`,`created_at`)
 
-       values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+       values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now())',
 
-            [$id_cn,$id_ejecutivo,$id_contacto_principal,'c',$contrato_a,$id_user,$nombre_comercial,$forma_juridica,$razon_social,'0000-00-00',$nombre,$apellido_paterno,$apellido_materno,
+            [$id_cn,$id_ejecutivo,$id_contacto_principal,$request->TipoDeCliente,$contrato_a,$id_user,$nombre_comercial,$forma_juridica,$razon_social,'0000-00-00',$nombre,$apellido_paterno,$apellido_materno,
 
                 $genero,$fecha_nacimiento_pros,$lugar_nacimiento,$clase_pm,$rfc,$curp,$registro_patronal,$registro_p,$actividad_economica,$status,$df_cp,$df_estado,$df_municipio,$df_ciudad,$df_colonia
 
@@ -161,20 +163,130 @@ class ClientesController extends Controller
 
         DB::insert('insert into cliente_cn_actual (id_cn,id_cliente) values (?,?)', [$id_cn,$id_cliente[0]->id]);
 
+        $file= $request->file("archivo");
 
-
-       $idcn_user = auth()->user()->idcn;
-
-       $userPass =  bcrypt($request->password_de_usuario);
-
-        DB::insert('insert into users (idcn,username,email,password,telefono_movil,tipo) values (?,?,?,?,?,?)', [$idcn_user,$request->nombre_de_usuario,$request->correo_de_usuario,
-
-        $userPass,$request->telefono_de_usuario,'c'
-
-        ]);
+        $archivopdf=$request->input('archivopdf');
 
 
 
+        if($file == null){
+
+            $base64 = null;
+
+        }else{
+
+            $imagedata = file_get_contents(Input::file('archivo'));
+
+            $base64 = base64_encode($imagedata);
+
+        }
+
+        DB::table('clientes')
+
+            ->where('id',$id_cliente[0]->id)
+
+            ->update([
+
+                'tipo'=>$request->TipoDeCliente,
+
+                'nombre_comercial' => $request->nombre_comercial,
+
+                'id_cn' => $request->id_cn,
+
+                'forma_juridica'   =>  $request->forma_juridica,
+
+                'razon_social'=> $request->razon_social,
+
+                'fecha_constitucion'=> $request->fecha_constitucion,
+
+                'nombre'=> $request->nombre,
+
+                'apellido_paterno'=> $request->apellido_paterno,
+
+                'apellido_materno'=> $request->apellido_materno,
+
+                'genero'=> $request->genero,
+
+                'fecha_nacimiento_pros'=> $request->fecha_nacimiento_pros,
+
+                'lugar_nacimiento'=> $request->lugar_nacimiento,
+
+                'clase_pm'=> $request->clase_pm,
+
+                'rfc'=> $request->rfc,
+
+                'curp'=> $request->curp,
+
+                'registro_patronal'=> $request->registro_patronal,
+
+                'registro_p'=> $request->registro_p,
+
+                'actividad_economica'=> $request->actividad_economica,
+
+                'status'=> $request->status,
+
+                'df_cp'=> $request->df_cp,
+
+                'df_estado'=> $request->df_estado,
+
+                'df_municipio'=> $request->df_municipio,
+
+                'df_ciudad'=> $request->df_ciudad,
+
+                'df_colonia'=> $request->df_colonia,
+
+                'df_calle'=> $request->df_calle,
+
+                'df_num_exterior'=> $request->df_num_exterior,
+
+                'df_num_interior'=> $request->df_num_interior,
+
+                'dc_cp'=> $request->dc_cp,
+
+                'dc_estado'=> $request->dc_estado,
+
+                'dc_municipio'=> $request->dc_municipio,
+
+                'dc_ciudad'=> $request->dc_ciudad,
+
+                'dc_colonia'=> $request->dc_colonia,
+
+                'dc_calle'=> $request->dc_calle,
+
+                'dc_num_exterior'=> $request->dc_num_exterior,
+
+                'dc_num_interior'=> $request->dc_num_interior,
+
+                'medio_contacto'=> $request->medio_contacto,
+
+                'tipo_cliente'=> $request->tipo_cliente,
+
+                'comentario'=> $request->comentario,
+
+                'db_forma_pago'=> $request->db_forma_pago,
+
+                'db_banco'=> $request->db_banco,
+
+                'db_dias_credito'=> $request->db_dias_credito,
+
+                'db_limite_credito'=> $request->db_limite_credito,
+
+                'db_cta_clientes'=> $request->db_cta_clientes,
+
+                'db_clabe'=> $request->db_clabe,
+
+                'db_iva'=> $request->db_iva,
+
+                'id_ejecutivo' => $id_ejecutivo,
+
+                'bLogo'=>$base64,
+
+                'contrato_a'=>$request->contrato_a,
+
+
+
+
+            ]);
 
 
         $last_client = DB::select('SELECT id FROM clientes ORDER BY id DESC LIMIT 1');
@@ -189,11 +301,7 @@ class ClientesController extends Controller
 
             ->update(['id_user' => $last_user[0]->id]);
 
-        DB::table('users')
-
-            ->where('id', $last_user[0]->id)
-
-            ->update(['IdCliente' => $last_client[0]->id]);
+        
 
         $peticion = $request->path();
 
@@ -481,7 +589,7 @@ class ClientesController extends Controller
 
         foreach ($estados as $estado) {
 
-            $lugar_nacimiento[$estado->renapo] = $estado->FK_nombre_estado;
+            $lugar_nacimiento[$estado->IdEstado] = $estado->FK_nombre_estado;
 
         }
 
@@ -1655,21 +1763,13 @@ class ClientesController extends Controller
 
         foreach ($estados as $estado) {
 
-            $lugar_nacimiento[$estado->renapo] = $estado->FK_nombre_estado;
+            $lugar_nacimiento[$estado->IdEstado] = $estado->FK_nombre_estado;
 
         }
 
         /** Se obtienen los datos del usuario */
 
-        $user = DB::select("SELECT username,email,password,telefono_movil FROM users WHERE IdCliente=?", [$id]);
-
-        $username = ($user > 0) ? $user[0]->username:"";
-
-        $userEmail = ($user > 0) ? $user[0]->email:"";
-
-        $userPassword = ($user > 0) ? $user[0]->password:"";
-
-        $userTelephone = ($user > 0) ? $user[0]->telefono_movil:"";
+        
 
 
 
@@ -1728,8 +1828,9 @@ class ClientesController extends Controller
 
         }
 
-        $ejecut = DB::select('SELECT u.id,CONCAT(IFNULL(u.name,"")," ", IFNULL(u.apellido_paterno,"")," ",IFNULL(u.apellido_materno,"")) AS nombre FROM users u WHERE u.idcn ='.$sid_cn.' AND u.tipo = "s" ');
-
+        $ej = DB::select("select id_cn from clientes c where c.id = $id");
+        
+        $ejecut = DB::select('SELECT u.id,CONCAT(IFNULL(u.name,"")," ", IFNULL(u.apellido_paterno,"")," ",IFNULL(u.apellido_materno,"")) AS nombre FROM users u WHERE u.idcn ='.$ej[0]->id_cn.' AND u.tipo = "s" ');
 
 
 
@@ -1816,13 +1917,6 @@ class ClientesController extends Controller
 
                      'tipo_cliente_lista'=>$tipo_cliente_lista,
 
-                     'username' => $username,
-
-                     'userEmail' => $userEmail,
-
-                     'userPassword' => $userPassword,
-
-                     'userTelephone' => $userTelephone,
 
                      'Archivo'=> $Imagen,
 
@@ -2449,22 +2543,6 @@ class ClientesController extends Controller
         $id_ejecutivo = ($request->id_ejecutivo == "") ? $id_ejecutivo[0]->id_ejecutivo : $request->id_ejecutivo;
 
 
-
-        DB::table('users')
-
-            ->where('IdCliente', $id)
-
-            ->update([
-
-                'idcn' => $request->id_cn,
-
-                'username' => $request->nombre_de_usuario,
-
-                'email' => $request->correo_de_usuario,
-
-                'telefono_movil'   =>  $request->telefono_de_usuario
-
-            ]);
 
         for($i=0; $i<count($request->nombre_con); $i++){
             DB::table('contactos')

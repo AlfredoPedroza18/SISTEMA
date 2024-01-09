@@ -1768,7 +1768,7 @@ $(document).ready(function(){
 
 
 
-  $('#curp').focus(function(){
+  /*$('#curp').focus(function(){
 
         var nombre       = omitirAcentos($('#nombre').val());
 
@@ -1984,7 +1984,7 @@ $(document).ready(function(){
 
       });
 
-
+*/
 
       /******************************************************************************************
 

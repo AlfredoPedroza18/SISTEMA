@@ -268,12 +268,12 @@
 							                </div>
 							    </div>
 					          <hr>
-                             <table id="data-table" class="table table-striped table-bordered">
+                             <table  class="table table-striped table-bordered">
                              	<thead>
-                             	    <tr>
+                             	    <tr><th>Fecha de acción</th>
                              	    	<th>Acción</th>
                              	    	<th>Descripción</th>
-                             	    	<th>Fecha de acción</th>
+                             	    	
                              	    	<th>Fecha de seguimiento</th>
                              	    	<th>Contácto</th>
                              	    	<th>Usuario</th>

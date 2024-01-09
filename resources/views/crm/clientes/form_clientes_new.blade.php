@@ -74,70 +74,7 @@
 
 
 
-                                            <div class="form-group block1 row col-md-4">
-
-                                            <legend class="pull-left width-full">Datos de usuario </legend>
-
-                                            <div >
-
-                                                <label>{{ Form::label('nombre_de_usuario','* Nombre de usuario') }}</label>
-
-                                                {{ Form::text('nombre_de_usuario',null,['class' => 'form-control','placeholder'=>'Ejemplo: usuarioDelCliente3','onblur' => 'users();','id'=>'nombre_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
-
-                                                <label id="alerta" nombre="alerta"></label>
-
-
-
-                                            </div>
-
-                            <br>
-
-                                                <div >
-
-                                                    <label>{{ Form::label('password_de_usuario','* Password') }}</label>
-
-                                                    <input id="password_de_usuario" type="password" class="form-control" name="password_de_usuario" data-parsley-group = "'wizard-step-1'">
-
-
-
-
-
-
-
-                                                </div>
-
-                                                <br>
-
-                                                <div >
-
-                                                    <label>{{ Form::label('telefono_de_usuario','* Telefono') }}</label>
-
-                                                    {{ Form::number('telefono_de_usuario',null,['class' => 'form-control','placeholder'=>'Ejemplo: 9213020022','id'=>'telefono_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
-
-
-
-
-
-                                                </div>
-
-
-
-                                                <div >
-
-                                                    <label>{{ Form::label('correo_de_usuario','* Correo') }}</label>
-
-                                                    {{ Form::email('correo_de_usuario',null,['class' => 'form-control','placeholder'=>'Ejemplo: default@gmail.com','id'=>'correo_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
-
-
-
-
-
-                                                </div>
-
-                                                <br>
-
-                                            </div>
-
+                                            
                                            <hr>
 
 
@@ -190,7 +127,7 @@
 
 
 
-														<label>{{ Form::label('Forma Juridica', '* Forma Juridica') }}</label>
+														<label>{{ Form::label('Forma Juridica', 'Forma Juridica') }}</label>
 
 
 
@@ -214,7 +151,7 @@
 
 													<div class="form-group pm" style="display:none" >
 
-														<label>{{ Form::label('Razon Social', ' * Razon Social') }}</label>
+														<label>{{ Form::label('Razon Social', 'Razon Social') }}</label>
 
 														{{ Form::text('razon_social',null,['class' => 'form-control','placeholder'=>'S.A de C.V','id'=>'razon_social','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -222,7 +159,7 @@
 
 													<div class="form-group pf" style="display:none" id="curp-nombre" >
 
-														<label>{{ Form::label('Nombre','* Nombre') }}</label>
+														<label>{{ Form::label('Nombre','Nombre') }}</label>
 
 														{{ Form::text('nombre',null,['class' => 'form-control','placeholder'=>'Arturo','id'=>'nombre','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -250,7 +187,7 @@
 
 													<div class="form-group block1" id="curp-apellido_paterno">
 
-														<label>{{ Form::label('Apellido Paterno', '* Apellido Paterno') }}</label>
+														<label>{{ Form::label('Apellido Paterno', 'Apellido Paterno') }}</label>
 
 															{{ Form::text('apellido_paterno',null,['class' => 'form-control','placeholder'=>'Gonzalez','id'=>'apellido_paterno','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -272,7 +209,7 @@
 
 													 
 
-														<label>{{ Form::label('Apellido Materno', '* Apellido Materno') }}</label>
+														<label>{{ Form::label('Apellido Materno', 'Apellido Materno') }}</label>
 
 														{{ Form::text('apellido_materno',null,['class' => 'form-control','placeholder'=>'Tapia','id'=>'apellido_materno','data-parsley-group'=>'wizard-step-1'])}}
 
@@ -292,7 +229,7 @@
 
 													<div class="form-group" id="curp-genero" >
 
-														<label>{{ Form::label('Genero', '* Genero') }}</label><br>
+														<label>{{ Form::label('Genero', 'Genero') }}</label><br>
 
 														{{ Form::select('genero',[''=>'Selecciona una opci&oacute;n','H'=>'Masculino','M'=>'Femenino'],null,['class'=>'form-control ','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'genero']) }}
 
@@ -314,7 +251,7 @@
 
                                                     <div class="form-group block1" id="curp-fec_nacimiento">
 
-                                                        <label>{{ Form::label('Fecha Nacimiento', '* Fecha Nacimiento') }}</label>
+                                                        <label>{{ Form::label('Fecha Nacimiento', 'Fecha Nacimiento') }}</label>
 
                                                            {{ Form::date('fecha_nacimiento_pros',null,['class' => 'form-control','id'=>'fecha_nacimiento_pros','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
 
@@ -336,7 +273,7 @@
 
                                                      
 
-                                                        <label>{{ Form::label('Lugar de Nacimiento', '* Lugar de Nacimiento') }}</label>
+                                                        <label>{{ Form::label('Lugar de Nacimiento', 'Lugar de Nacimiento') }}</label>
 
                                                        {{ Form::select('lugar_nacimiento',$lugar_nacimiento,null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'lugar_nacimiento']) }}
 
@@ -356,7 +293,7 @@
 
                                                     <div class="form-group" >
 
-                                                        <label>{{ Form::label('CURP', '* CURP') }}</label>
+                                                        <label>{{ Form::label('CURP', 'CURP') }}</label>
 
                                                         {{ Form::text('curp',null,['class' => 'form-control','placeholder'=>'BADD110313HCMLNS09','id'=>'curp','data-parsley-group'=>'wizard-step-1','maxlength'=>'18'])}}
 
@@ -392,9 +329,9 @@
 
                                                     <div class="form-group" >
 
-                                                        <label>{{ Form::label('RFC ', '* RFC') }}</label>
+                                                        <label>{{ Form::label('RFC ', 'RFC') }}</label>
 
-                                                        {{ Form::text('rfc',null,['class' => 'form-control','placeholder'=>'CUPU800825569','id'=>'rfc','data-parsley-group'=>'wizard-step-1','maxlength'=>'13'])}}
+                                                        {{ Form::text('rfc',null,['class' => 'form-control','placeholder'=>'CUPU800825569','id'=>'rfc','data-parsley-group'=>'wizard-step-1','maxlength'=>'15'])}}
 
                                                     </div>
 
@@ -480,7 +417,7 @@
 
                                                       <div class="form-group" >
 
-                                                          <label>{{ Form::label('TipoDeCliente', 'Tipo de Cliente') }}</label>
+                                                          <label>{{ Form::label('TipoDeCliente', '*Tipo de Cliente') }}</label>
 
 
 
@@ -974,7 +911,7 @@
 
                                                         <div class="form-group">
 
-                                                            <label>{{ Form::label('Cargo', '* Cargo') }}</label>
+                                                            <label>{{ Form::label('Cargo', 'Cargo') }}</label>
 
                                                             {{ Form::text('cargo[]',null,['class' => 'form-control','placeholder'=>'Lider','id'=>'cargo','data-parsley-group'=>'wizard-step-4','maxlength'=>''])}}
 
@@ -1048,7 +985,7 @@
 
                                                         <div class="form-group">
 
-                                                             <label>{{ Form::label('telefono1', '* Teléfono 1') }}</label>
+                                                             <label>{{ Form::label('telefono1', 'Teléfono 1') }}</label>
 
                                                             {{ Form::text('telefono1[]',null,['class' => 'form-control telefono1','placeholder'=>'58702093','id'=>'telefono1','data-parsley-group'=>'wizard-step-3','maxlength'=>'10'])}}
 
@@ -1226,7 +1163,7 @@
 
                                                         <div class="form-group">
 
-                                                             <label>{{ Form::label('Página web', '* Página Web') }}</label>
+                                                             <label>{{ Form::label('Página web', 'Página Web') }}</label>
 
                                                             {{ Form::text('pagina_web[]',null,['class' => 'form-control','placeholder'=>'http://www.test.domain.com','id'=>'pagina_web','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
 
@@ -1280,7 +1217,7 @@
 
                                                     <label>{{ Form::label('Medio de Contácto', '* Medio de Contácto') }}</label>
 
-{{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','3'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','-1'=>'Otro'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
+{{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','3'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','Otro'=>'Otro'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
 
                                                     <input type="text" name="medio_contacto" class='form-control' id="medio_contacto_tabla" >
 
@@ -1350,7 +1287,7 @@
 
                                                   <div class="form-group">
 
-                                                        <label>{{ Form::label('Contrato a', '* Contrato a') }}</label>
+                                                        <label>{{ Form::label('Contrato a', 'Contrato a') }}</label>
 
 {{ Form::select('contrato_a',[''=>'Selecciona una opci&oacute;n','1'=>'PSCC','2'=>'Admon TH','3'=>'Capacitando','4'=>'Human DEV','5'=>'ARCADIA'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'contrato_a']) }}
 

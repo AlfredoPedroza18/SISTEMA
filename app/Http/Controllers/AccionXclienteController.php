@@ -12,7 +12,7 @@ use App\Administrador\Kardex;
 use App\Administrador\SubModulo;
 use App\Administrador\Modulo;
 use App\Administrador\Accion;
-
+use Illuminate\Support\Facades\Auth;
 
 class AccionXclienteController extends Controller
 {
@@ -57,15 +57,15 @@ class AccionXclienteController extends Controller
      // $aleatorio=str_random(6);
       $nombre=$file->getClientOriginalName();
     //  $file->move('anexos-accionXcliente'.$request->id_cliente."_".str_replace(" ","",$request->nombre_comercial),$nombre);
-      $ruta=public_path()."\\anexos-accionXcliente\\".$request->id_cliente."_".str_replace(" ","",$request->nombre_comercial);    
+      $ruta=public_path()."/anexos-accionXcliente"."/".$request->id_cliente."_".str_replace(" ","",$request->nombre_comercial);    
       //$fichero=mkdir($ruta);
 
             if (file_exists($ruta))
-               $file->move('anexos-accionXcliente\\'.$carpeta_cliente,$nombre);
+               $file->move('anexos-accionXcliente/'.$carpeta_cliente,$nombre);
             else{
           
                 mkdir($ruta);
-                $file->move('anexos-accionXcliente\\'.$carpeta_cliente,$nombre);
+                $file->move('anexos-accionXcliente/'.$carpeta_cliente,$nombre);
             }
 
 
@@ -80,12 +80,27 @@ class AccionXclienteController extends Controller
 
               
          $accionXcliente                    = AccionXcliente::create($request->all());
-         $accionXcliente->ruta              = $ruta."\\".$nombre;
+         $accionXcliente->ruta              = $ruta."/".$nombre;
          $accionXcliente->nombre_archivo    = $nombre;
          $accionXcliente->carpeta_cliente   = $carpeta_cliente;
          $accionXcliente->hr_inicio         = $fecha_hr_inicio;
          $accionXcliente->hr_fin            = $fecha_hr_fin;
+        
          $accionXcliente->save();
+
+         $d = DB::select(" SELECT id FROM kardex order by id DESC LIMIT 1");
+
+         DB::table('kardex')
+
+            ->where('id',$d[0]->id)
+
+            ->update([
+
+                "id_user" => Auth::user()->id
+
+            ]);
+       
+
           if($accionXcliente){
            
 
@@ -202,7 +217,7 @@ class AccionXclienteController extends Controller
                     "on kardex.id_cliente=clientes.id ".
                     "left join (SELECT id,id_cliente,(nombre_con) AS nombre_con,telefono1,celular1 FROM contactos   group by id_cliente) contactos ".
                     "on clientes.id=contactos.id_cliente ".
-                    "where kardex.id_cliente = ? ";
+                    "where kardex.id_cliente = ? order by fecha_accion desc";
 
              $kardex = DB::select($query1,[$id]);
 
@@ -260,7 +275,7 @@ class AccionXclienteController extends Controller
     public function downloadAnexo($carpetacliente,$pathToFile)
     {
      
-        $ruta=public_path("anexos-accionXcliente\\".$carpetacliente."\\".$pathToFile);
+        $ruta=public_path("anexos-accionXcliente/".$carpetacliente."/".$pathToFile);
 
         
         return response()->download($ruta);  

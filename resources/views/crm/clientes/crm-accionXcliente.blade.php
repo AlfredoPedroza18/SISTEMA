@@ -230,7 +230,7 @@
 							                      <div style="position:relative; display:none;" id="anexo_fade">
                                           	 <a class='btn btn-success btn-lg' href='javascript:;'>
                   								 Anexar documento &nbsp;<i class="fa fa-1x fa-cloud-upload"></i>
-<input type="file" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40" id="file_source"  onchange='
+<input type="file" accept="application/pdf" style='position:absolute;z-index:2;top:0;left:0;filter: alpha(opacity=0);-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;background-color:transparent;color:transparent;' name="file_source" size="40" id="file_source"  onchange='
          var  ruta=$(".upload-file-info").html($(this).val() );
          $("#ruta").val($(this).val());
          '>
@@ -271,9 +271,10 @@
                              <table id="data-table" class="table table-striped table-bordered">
                              	<thead>
                              	    <tr>
+									 <th>Fecha de acción</th>
                              	    	<th>Acción</th>
                              	    	<th>Descripción</th>
-                             	    	<th>Fecha de acción</th>
+                             	    	
                              	    	<th>Fecha de seguimiento</th>
                              	    	<th>Contácto</th>
                              	    	<th>Usuario</th>
@@ -283,8 +284,9 @@
                              	</thead>
 	                             	 <tbody>
 	                             	 @foreach($kardex as $clave)
-	                             	       
+									  	
 	                             	     <tr>
+											<td class="text-center">{{$clave->fecha_accion}}</td>
 	                             	 	 <td class="text-center">
 			                             	 	  @if($clave->actividad=='1')
 			                             	 	    <i class="fa fa-2x fa-fax" data-toggle="tooltip" title="Llamada"  ></i> <p class="text-warning">Llamada</p>
@@ -305,7 +307,7 @@
 	                                         <a  href="{{url('downloadFile',[$clave->carpeta_cliente,$clave->nombre_archivo])}}"><i class="fa fa-2x fa-download "></i></a>
 	                             	 	 	@endif
 	                             	 	 </td>	 
-	                             	 	 <td class="text-center">{{$clave->fecha_accion}}</td>	 
+	                             	 	  
 	                             	 	 <td class="text-center">{{$clave->fecha_seguimiento}}</td>	 
 	                             	 	 <td>{{$clave->nombre_contacto}}</td>	 
 	                             	 	 <td>{{$clave->nombre_user}}</td>	 

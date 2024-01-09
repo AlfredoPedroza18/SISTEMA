@@ -13,8 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use DB;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 
@@ -73,8 +72,15 @@ class DashboardController extends Controller
             $nESE = $n->numero;
         }
 
-        if($request->user()->is('admin')){
+        $query_clientes = "Select count(id) as con from clientes where  Month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 2 ";
+        $query_pros = "Select count(id) as con from clientes where month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 1 ";
+      
 
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+
+             
+            
+            
             $query_cotizaciones =   "SELECT    crm_cotizaciones.id,
 
                                             clientes.nombre_comercial as nombre,
@@ -115,6 +121,9 @@ class DashboardController extends Controller
 
         }else{
 
+            $query_clientes.= " AND id_cn = ?";
+            $query_pros .= " AND id_cn = ?";
+            
                 $query_cotizaciones =   "SELECT    crm_cotizaciones.id,
 
                                             clientes.nombre_comercial as nombre,
@@ -155,7 +164,7 @@ class DashboardController extends Controller
 
         }
 
-                if($request->user()->is('admin')){
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
 
                     $agenda=DB::select(
 
@@ -187,7 +196,8 @@ class DashboardController extends Controller
 
                 }
 
-        if($request->user()->is('admin')){
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+        
 
             $query_contratos="
 
@@ -245,9 +255,38 @@ class DashboardController extends Controller
 
                 
 
+
         //dd($contratos);
 
+        $pros=DB::select($query_pros,[Auth::user()->idcn]);
+        $cli=DB::select($query_clientes,[Auth::user()->idcn]);
+
+        $fecha = DB::select("select MONTH(CURDATE()) as mes");
+        $Año = DB::select("select YEAR(CURDATE()) año");
+        $array = array(
+            1  => "Enero",
+            2  => "Febrero",
+            3  => "Marzo",
+            4  => "Abril",
+            5  => "Mayo",
+            6  => "Junio",
+            7  => "Julio",
+            8  => "Agosto",
+            9  => "Septiembre",
+            10  => "Octubre",
+            11 => "Noviembre",
+            12 => "Diciembre"
+        );
+
+        $mes= "";
+        for( $i = 1; $i<=12;$i++){
+            if($fecha[0]->mes == $i )
+                $mes = $array[$i] . "-" . $Año[0]->año;
+        }
         return view('crm.dashboard.crm-dashboard',['prospectos'=>$prospectos,
+        'mes'=>$mes,
+        'pros'=>$pros,
+        'cli'=>$cli,
         'ESEinvT'=>$ESEinvT,
         'ESEinvA'=>$ESEinvA,
         'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE]);

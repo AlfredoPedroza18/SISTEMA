@@ -654,7 +654,7 @@ $('#dc_cp').on('change',function(){
 
 
 //--------------------------end validacion -----------------------------------------//
-
+/*
 	$('#curp').focus(function(){
 
 		var nombre 			 = omitirAcentos($('#nombre').val());
@@ -767,8 +767,9 @@ $('#dc_cp').on('change',function(){
 
 	});
 
+*/
 
-
+/*
 	$('#rfc').focus(function(){
 
 		var nombre 			 = omitirAcentos($('#nombre').val());
@@ -873,9 +874,9 @@ $('#dc_cp').on('change',function(){
 
 	});
 
+*/
 
-
-});//END DOCUMENT READY PRINCIPAL
+}); //END DOCUMENT READY PRINCIPAL
 
 //------------------------- DIRECCION FISCAL -----------------------------------------------------------------------
 

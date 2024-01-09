@@ -374,9 +374,9 @@
   <table class="tabla" style="margin-top: 0;">
   <tr>
       <td class="gris_blanca" style="border-top: none;">Identificación oficial vigente</td>
-      <td class="gris_blanca"  style="font-weight:bold; text-align: center; border-top: none;">Clave:</td>
+      <td class="gris_blanca"  style="font-weight:bold; text-align: center; border-top: none;">Clave/Núm:</td>
       <td class="gris_blanca"  style="text-align: center; border-top: none;">@if($ClaveIne=='NA') No aplica @else @if($ClaveIne=='') &nbsp; @endif {{$ClaveIne}} @endif</td>
-      <td class="gris_blanca"  style="font-weight:bold; text-align: center; border-top: none;">OCR:</td>
+      <td class="gris_blanca"  style="font-weight:bold; text-align: center; border-top: none;">OCR/Cad:</td>
       <td class="gris_blanca"  style="text-align: center; border-top: none;">@if($ClaveIne=='NA') - @else  @if($OCRIne=='') &nbsp; @endif {{$OCRIne}} @endif</td>
       <td class="gris_blanca" style="text-align: center; border-top: none;">@if($ValidacionIne=='') &nbsp; @endif {{$ValidacionIne}}</td>
     </tr>
