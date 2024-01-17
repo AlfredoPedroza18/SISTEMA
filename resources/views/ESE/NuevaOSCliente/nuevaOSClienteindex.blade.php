@@ -256,7 +256,7 @@
 
 
 
-								<h4 class="panel-title">Solicitar Servicio</h4>
+								<h4 class="panel-title">Solicitar Servici</h4>
 
 
 

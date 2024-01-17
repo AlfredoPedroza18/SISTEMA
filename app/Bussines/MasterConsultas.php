@@ -73,7 +73,10 @@ class MasterConsultas
 
         foreach ($replacedParams  as $key => $value)
         {
-            $sql = str_replace(':'.$key, '\''.$value.'\'', $sql);
+            if($value == -1)
+                $sql = str_replace(':'.$key, ''.$value.'', $sql);
+            else 
+                $sql = str_replace(':'.$key, '\''.$value.'\'', $sql);
         }
 
         return  $sql ;

@@ -2720,7 +2720,7 @@
             error : function(xhr, status)
             {
               show_error_message(xhr.status);
-              console.error('Upss, algo salio mal!! '+xhr.status);
+              //console.error('Upss, algo salio mal!! '+xhr.status);
             }
         });
       return false;
@@ -2788,6 +2788,7 @@
                       $("#Asignada").removeClass('normal');
                       $("#Asignada").addClass('verde');
                       $('#IdServicioEse').val(response.IdServicioEse);
+                      console.log(response.message);
                  
                   }
                   else{

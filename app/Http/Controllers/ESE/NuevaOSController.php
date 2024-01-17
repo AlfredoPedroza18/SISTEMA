@@ -2332,6 +2332,7 @@ class NuevaOSController extends Controller
                     if($IdAnalistaSec!=2){
                         $ntf = new Notificaciones();
                         $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-SEC-ASIG','AnalistaSec',$IdAnalistaSec);
+
                     }
                     return response()->json(array(
                         'status_alta' => 'success',
@@ -2388,9 +2389,8 @@ class NuevaOSController extends Controller
 			//Finaliza bandera de programación ejecución
             if($flap){
               $srv = MasterEseProgramacion::where('IdServicioEse', $request->input('IdServicioEse'))->first();
-              if ($srv !== null) {
-                  $srv->update(["IdServicioEse" => $id,
-                  "FechaEjecucion"     => $FechaEjecucion,
+                          $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-SEC-ASIG','AnalistaSec',$IdAnalistaSec);
+cucion"     => $FechaEjecucion,
                   "Estatus"            => 'Agendada'
                   ]);
 

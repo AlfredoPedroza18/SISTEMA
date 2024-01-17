@@ -236,7 +236,7 @@ class Notificaciones extends Controller
       $replace_labels = '';
 
       $response["body"]["data"]["rows"] = [];
-
+ 
       $msql = MasterConsultas::exeSQL(
           'mob_labels_email_ese',
           'READONLY',
@@ -253,14 +253,105 @@ class Notificaciones extends Controller
           
             $obj = preg_replace("/[\r\n]+/", " ", $obj);
             //$obj = json_encode($obj);
-            $data = json_decode($obj);
+            $data = json_decode($obj,true);
          
-           //$data = is_array($data) ? $data : array($data);
-          foreach($data as $key => $value)
-          {
-              $replace_labels = str_replace("{".$key."}","$value", $replace_labels);
-          }
+       
 
+        $datos = DB::select("SELECT
+        ms.*, mc.nombre_comercial AS Cliente,
+        mm.descripcion AS Modalidad,
+        CONCAT((SELECT
+            descripcion
+          FROM master_ese_tiposervicio AS tp
+          WHERE tp.IdTipoServicio = mp.IdTipoServicio), ' ',
+        IFNULL((SELECT
+            CONCAT(' - ', tp.Tipos)
+          FROM master_ese_tipos AS tp
+          WHERE tp.IdTipos = mp.IdTipos), '')
+        ) AS servicio,
+        (SELECT
+            os.IdServicioOS
+          FROM master_ese_srv_os AS os
+          WHERE os.IdServicioSRV = ms.IdServicioEse) AS os,
+        mpr.descripcion AS Prioridad,
+        mp.DescripcionPlantilla AS Formato,
+        CONCAT((SELECT
+            CAST(mese.ValorCargado AS char) AS Candidato
+          FROM master_ese_srv_entrada AS mese
+          WHERE mese.IdServicioEse = ms.IdServicioEse
+          AND mese.IdEntrada = 1), ' ', (SELECT
+            CAST(mese.ValorCargado AS char) AS Candidato
+          FROM master_ese_srv_entrada AS mese
+          WHERE mese.IdServicioEse = ms.IdServicioEse
+          AND mese.IdEntrada = 497), ' ', (SELECT
+            CAST(mese.ValorCargado AS char) AS Candidato
+          FROM master_ese_srv_entrada AS mese
+          WHERE mese.IdServicioEse = ms.IdServicioEse
+          AND mese.IdEntrada = 498)) AS Candidato,
+        a.IdInvestigador,
+        mee.IdEmpleado,
+        u.id IdUsuario ,
+        CONCAT(mee.nombre, ' ', IFNULL(mee.ApellidoPaterno, ''), ' ', IFNULL(mee.ApellidoMaterno, '')) AS Investigador,
+        (SELECT
+            CONCAT(e.name, ' ', IFNULL(e.apellido_paterno, ''), ' ', IFNULL(e.apellido_materno, ''))
+          FROM users AS e
+          WHERE e.id = a.IdAnalista) AS Analista,
+          (SELECT
+            CONCAT(e.name, ' ', IFNULL(e.apellido_paterno, ''), ' ', IFNULL(e.apellido_materno, ''))
+          FROM users AS e
+          WHERE e.id = a.IdAnalistasec) AS AnalistaSec,
+          (SELECT
+            CONCAT(e.name, ' ', IFNULL(e.apellido_paterno, ''), ' ', IFNULL(e.apellido_materno, ''))
+          FROM users AS e
+          WHERE e.id = a.IdLider) AS Lider,
+        CONCAT(cn.nombre, ' (', cn.nomenclatura, ')') AS centro_negocio
+      FROM master_ese_srv_servicio AS ms
+        INNER JOIN clientes mc
+          ON mc.id = ms.IdCliente
+        INNER JOIN centros_negocio cn
+          ON mc.id_cn = cn.id
+        INNER JOIN master_ese_plantilla_cliente mcl
+          ON mcl.IdPlantillaCliente = ms.IdPlantillaCliente
+        INNER JOIN master_ese_plantilla mp
+          ON mp.IdPlantilla = mcl.IdPlantilla
+        LEFT JOIN master_ese_modalidad mm
+          ON mm.IdModalidad = ms.IdModalidad
+        LEFT JOIN master_ese_prioridades mpr
+          ON mpr.IdPrioridad = ms.IdPrioridad
+        LEFT JOIN master_ese_srv_asignacion AS a
+          ON a.IdServicioEse = ms.IdServicioEse
+        left join master_ese_empleado mee on mee.IdEmpleado = a.IdInvestigador 
+        left join users u on u.IdEmpleado = mee.IdEmpleado where ms.IdServicioEse=?",[$idServicioEse]); 
+          
+          foreach($datos as $value)
+          {
+                     
+                  $replace_labels = str_replace("{Analista}",$value->Analista, $replace_labels);
+                  $replace_labels = str_replace("{Investigador}",$value->Investigador, $replace_labels);
+                  $replace_labels = str_replace("{AnalistaSec}",$value->AnalistaSec, $replace_labels);
+                  $replace_labels = str_replace("{Cliente}",$value->Cliente, $replace_labels);
+                  $replace_labels = str_replace("{Lider}",$value->Lider, $replace_labels);
+          }
+        
+          $resultActual = DB::select("SELECT  srve.ValorCargado, mee.CampoNombre
+        FROM master_ese_srv_entrada srve 
+        inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
+        INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
+        INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
+        WHERE srve.IdServicioEse=? AND mee.Formato NOT LIKE '%Matriz%' AND 
+          mee.Formato NOT IN ('PDF', 'JPEG');",[$idServicioEse]);
+
+        foreach($resultActual as $value)
+        {
+            $replace_labels = str_replace("{".$value->CampoNombre."}",$value->ValorCargado, $replace_labels);
+        }
+
+        $FE = DB::select ("SELECT IF(mesp.FechaEjecucion IS NULL, '', concat(DATE_FORMAT(mesp.FechaEjecucion, '%d/%m/%Y'),' a las ',time(mesp.FechaEjecucion))) AS FechaEjecucion FROM 
+        master_ese_srv_programacion mesp WHERE mesp.IdServicioEse = ?",[$idServicioEse] );
+
+        if($FE!=""||$FE!=null)
+            $replace_labels = str_replace("{FechaEjecucion}",$FE[0]->FechaEjecucion,$replace_labels);
+        
       }
 
      
@@ -319,6 +410,8 @@ class Notificaciones extends Controller
       $emailSettings = $this->getEmailSettings($modulo, $idServicioEse);
 
       if($emailSettings["Settings"] != []) {
+          
+        
           $titulo      = $emailSettings["Settings"]->TituloEmail;
           $cuerpo      = $emailSettings["Settings"]->CuerpoEmail;
           $descripcion = $emailSettings["Settings"]->DescripcionPlantilla;
@@ -326,8 +419,10 @@ class Notificaciones extends Controller
 
           #Poner aquí la logica para reemplazar las variables del email y el titulo
            $titulo         = $this->replaceDataLabels($idServicioEse, $titulo);
+           $titulo         = $this->replaceDataLabels($idServicioEse, $titulo);
            $cuerpo         = $this->replaceDataLabels($idServicioEse, $cuerpo);
            $descripcion    = $this->replaceDataLabels($idServicioEse, $descripcion);
+          
           #Despues de reemplazar, enviar el Email
 
           if($emailSettings["Settings"]->Correo == "Si"){
@@ -385,76 +480,7 @@ class Notificaciones extends Controller
     }
 }
   //envio de correo para el modulo de Nuevo/Solicitar Servicio
-  public function notificationRequestService($modulos,$emailCliente,$emailCandidato,$emailLider){
-      $isSendEmail = false;
-      try {
-            $settings = $this->getEmailSettingsForService("notification_ese_email_conf",array(
-                                                            "cliente" => $modulos[0],
-                                                            "candidato" => $modulos[1],
-                                                            "lider" => $modulos[2]
-                                                        ));
-            $Cliente = "";
-            $Candidato = "";
-            $email="";
-            $candidatos = [];
-            foreach($emailCandidato as $key => $candidato){
-                array_push($candidatos,$candidato['nombre']);
-            }
-            foreach($settings['Settings'] as $setting){
-                if($setting->Modulo == $modulos[0]){
-                    if(count($emailCliente) >0){
-                        $Cliente = $emailCliente['nombre'];
-                        $contentEmail = $setting->CuerpoEmail;
-                        $titleEmail = $setting->TituloEmail;
-                        $footerEmail = $setting->FooterEmail;
-                        $recipientsEmail = array("nombre" => $emailCliente['nombre'],"email" => $emailCliente['email']);
-                        $contentEmail = $this->replaceParameters(array("Cliente" => $emailCliente['nombre'],
-                                                                "NombreCandidato" => join(",",$candidatos)
-                                                                ),$contentEmail);
-                        if($emailCliente['email'] != "" && $emailCliente['email'] != null)
-                            $this->send_email([$recipientsEmail],$titleEmail,$contentEmail,$footerEmail,'');                           
-                    }        
-                }
-                if($setting->Modulo == $modulos[1]){
-                    $contentEmail = $setting->CuerpoEmail;
-                    $titleEmail = $setting->TituloEmail;
-                    $footerEmail = $setting->FooterEmail;
-                    $Cliente = $emailCliente['nombre'];
-                    if(count($emailCandidato) > 0){
-                        foreach($emailCandidato as $key => $candidato){
-                            $contentEmailForCandidato = $contentEmail;
-                            $recipientsEmail = array("nombre" => $candidato['nombre'],"email" => $candidato['email']);
-                            $contentEmailForCandidato = $this->replaceParameters(array("NombreCandidato" => $candidato['nombre'],
-                                                                                "Cliente" => $Cliente
-                                                                                ),$contentEmailForCandidato);
-                            $this->send_email([$recipientsEmail],$titleEmail,$contentEmailForCandidato,$footerEmail,'');   
-                        }
-                    }
-                }
-                if($setting->Modulo == $modulos[2]){
-                    $contentEmail = $setting->CuerpoEmail;
-                    $titleEmail = $setting->TituloEmail;
-                    $footerEmail = $setting->FooterEmail;
-                    $Cliente = $emailCliente['nombre'];
-                    if(count($emailLider) > 0){
-                        foreach($emailLider as $key => $lider){
-                            $contentEmailForLider = $contentEmail;
-                            $recipientsEmail = array("nombre" => $lider->nombreuser,"email" => $lider->email);
-                            $contentEmailForLider = $this->replaceParameters(array("NombreCandidato" => join(",",$candidatos),
-                                                                            "Cliente" => $Cliente,
-                                                                            "Lider" => $lider->nombreuser
-                                                                            ),$contentEmailForLider);
-                            $this->send_email([$recipientsEmail],$titleEmail,$contentEmailForLider,$footerEmail,'');  
-                        }
-                    }
-                }
-            }
-            $isSendEmail=true;
-            return $isSendEmail;
-      } catch (\Exception $e) {
-        return [$isSendEmail,$e->getMessage(),$e->getLine()];
-      }
-  } 
+ 
  
     //envio de correo para el modulo de Nuevo/Solicitar Servicio Encuesta
     public function notificationRequestServiceEncuesta($idServicio,$modulo,$tipo,$id_user=''){

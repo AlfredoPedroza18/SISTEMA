@@ -341,7 +341,7 @@ var AddEstudio = function(){
                     },
                     error : function(xhr, status)
                     {
-                        console.error('Upss, algo salio mal!!');
+                        console.error('Upss, algo salio mal!!'+xhr.status);
                     }
 		        });
         }else{

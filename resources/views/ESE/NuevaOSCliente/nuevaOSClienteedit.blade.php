@@ -520,7 +520,7 @@ var AddEstudio = function(){
 
                     {
 
-                        console.error('Upss, algo salio mal!!');
+                        console.error('Upss, algo salio mal!!'+xhr.status);
 
                     }
 

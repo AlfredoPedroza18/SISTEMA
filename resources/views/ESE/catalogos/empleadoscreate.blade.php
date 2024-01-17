@@ -446,7 +446,7 @@
 
 					<select class="form-control" name="EstatusInvesId" id="EstatusInvesId">
 						@foreach($CatalogoEstatusInves as $row)
-							<option @if ($CatalogoEstatusInvesSelected == $row->id) selected	@endif  value={{ $row->id }}>{{ $row->Descripcion }}</option>
+							<option @if ($CatalogoEstatusInves Selected == $row->id) selected	@endif  value={{ $row->id }}>{{ $row->Descripcion }}</option>
 						@endforeach
 					</select>
 				</div>

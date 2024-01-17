@@ -2586,7 +2586,7 @@ class NuevoOSClienteController extends Controller
               $LastLider = MasterConsultas::exeSQL("getLastLider","READONLY",array("_type"=>"lider","_idc"=>"$idc"));
               $LastLider = (count($LastLider) > 0)?$LastLider[0]->IdLider:0;
               //se asigna el id del "No aplica Investigador" cuando el tipo de modalidad es telefonica
-              $investigator = ($g->modalidad == "Telefónica") ? 1 : 0;
+              $investigator = 0;
               DB::table('master_ese_srv_asignacion')
                       ->where('IdServicioEse', $IdServicioEse)
                       ->update([
