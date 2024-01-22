@@ -728,9 +728,9 @@ class Dashboard
         
         }else{
             if(Auth::user()->tipo == "s"){
-                //$clientesFiltr .=" where c.id_cn = ".Auth::user()->idcn;
-                //$analistaFiltr .=" where c.id_cn = ".Auth::user()->idcn;
-                //$investigadorFiltr .=" where c.id_cn = ".Auth::user()->idcn;
+                $clientesFiltr .=" where c.id_cn = ".Auth::user()->idcn;
+                $analistaFiltr .=" where c.id_cn = ".Auth::user()->idcn;
+                $investigadorFiltr .=" where c.id_cn = ".Auth::user()->idcn;
                 $cliente .=" where c.id_cn = ".Auth::user()->idcn;
                 $analis .=" where c.id_cn = ".Auth::user()->idcn;
                 $investigador .=" where c.id_cn = ".Auth::user()->idcn;
