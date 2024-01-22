@@ -14,7 +14,7 @@
                 height: 28px;" href="#collapseExampleEstudioP"  role="button" aria-expanded="true" aria-controls="collapseExample">
                         <table class="table" style="width:100%;">
                           <tr>
-                              <td> <strong>Evaluado:</strong> <span class="changCandidatoEstudioP" id="Nombre-EstudioP">N/A</span></td>
+                              <td> <strong>Candidato:</strong> <span class="changCandidatoEstudioP" id="Nombre-EstudioP">N/A</span></td>
                               <td> <strong>Servicio:</strong> <span class="changservEstudioP" id="Servicio-EstudioP" >N/A</span></td>
                               <td><strong>Modalidad:</strong> <span class="changMdEstudioP" id="mod-EstudioP">N/A&nbsp;</span> </td>
                               <td> <strong>Prioridad:</strong> <span class="changPrEstudioP" id="Prioridad-EstudioP">N/A</span></td>

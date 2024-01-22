@@ -2332,7 +2332,6 @@ class NuevaOSController extends Controller
                     if($IdAnalistaSec!=2){
                         $ntf = new Notificaciones();
                         $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-SEC-ASIG','AnalistaSec',$IdAnalistaSec);
-
                     }
                     return response()->json(array(
                         'status_alta' => 'success',
@@ -2389,8 +2388,9 @@ class NuevaOSController extends Controller
 			//Finaliza bandera de programación ejecución
             if($flap){
               $srv = MasterEseProgramacion::where('IdServicioEse', $request->input('IdServicioEse'))->first();
-                          $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-SEC-ASIG','AnalistaSec',$IdAnalistaSec);
-cucion"     => $FechaEjecucion,
+              if ($srv !== null) {
+                  $srv->update(["IdServicioEse" => $id,
+                  "FechaEjecucion"     => $FechaEjecucion,
                   "Estatus"            => 'Agendada'
                   ]);
 
@@ -5028,6 +5028,91 @@ cucion"     => $FechaEjecucion,
     }
 
 //SE CAMBIO EL QUERY PARA REALIZAR LA VALIDACIÓN SOBRE LOS CAMPOS REQUERIDOS
+public function GuardarEstudioInput2(Request $request)
+{
+    try {
+        //$id = $request->input("id");
+        //$value =   $request->input("value");
+        
+        // $value =   json_encode($request->input("value"), JSON_FORCE_OBJECT);
+        
+        $json = json_decode($request->input("json"));
+
+       
+        $ids = "";
+        $con = "";
+        $id = "";
+        
+       
+        foreach($json as $key => $value)
+        {
+            if($key != "con" && $key !="ids"){
+                
+                $srv_entr = MasterEseServicioEntrada::where('IdServicioEseEntrada', $key)->first();
+                $srv_entr->update(['ValorCargado' => $value]);
+                $id = $key;
+             
+            }elseif($key =="ids"){
+                $ids = $value;
+            }
+            
+        }
+        $sqlMod = DB::select("select IdModalidad from master_ese_srv_servicio where IdServicioEse = $ids");
+        
+        foreach ($sqlMod as $mpt) {
+            $ValMod=$mpt->IdModalidad;
+        }
+
+        $calculado="select mec.idContenedor,
+            case 
+                when mesa.ValorCargado is null then false
+                when mee.Formato = 'Combo' then mee.Items like concat('%',concat(mesa.ValorCargado, '%'))
+                when mee.Formato in ('Fecha', 'Moneda', 'Número', 'TextArea', 'Texto') and (length(mesa.ValorCargado) > cast(replace(mee.Longitud, 'C','') as UNSIGNED) or length(mesa.ValorCargado) = 0 ) then false
+                when mee.Formato = 'JPEG' and (length(mesa.ValorCargado) = 0 or mesa.ValorCargado is null) then false
+                when mee.Formato = 'Checkbox' and mesa.ValorCargado not in ('No', 'Si') then false 
+                else true
+            end as isValid 
+            from master_ese_contenedor mec
+            Inner Join master_ese_agrupador mea  ON mea.IdContenedor = mec.IdContenedor
+            Inner Join master_ese_entrada mee ON mee.IdAgrupador = mea.IdAgrupador
+            Inner Join master_ese_srv_entrada mesa ON mesa.IdEntrada = mee.IdEntrada
+            where mesa.IdServicioEse = ? and mesa.Requerido = 1 and mec.IdContenedor = (select mea.IdContenedor  from master_ese_srv_entrada mese 
+            join master_ese_entrada mee on mese.IdEntrada = mee.IdEntrada 
+            join master_ese_agrupador mea on mee.IdAgrupador = mea.IdAgrupador 
+            where mese.IdServicioEseEntrada = ?)";
+
+            if($ValMod == 1){               
+                $calculado.="  and mesa.Telefonico=1 ";
+            }
+            else{
+                $calculado.="  and mesa.Presencial=1 ";
+            }
+            $calculado=DB::select($calculado,[$ids,$id]);
+
+            $toValido = true;
+            foreach ($calculado as $c) {
+                $dato=$c->idContenedor;
+                if ($c->isValid ==false){
+                    $toValido = false;
+                }
+            }
+
+            if($toValido){
+                $result = 'verde';
+            }else {
+                $result = 'amarrillo';
+            }
+        // if($value=="")
+        // $value=null;
+       
+
+
+        return response()->json(array("status" => "success",$dato,$result));
+    } catch (\Exception $e) {
+        return response()->json(array("status" => "error",$e->getLine(),$e->getMessage(),$e->getCode()));
+    }
+}
+
     public function GuardarEstudioInput(Request $request)
     {
         try {

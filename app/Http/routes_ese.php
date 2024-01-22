@@ -533,6 +533,7 @@ Route::group(['as' => 'sig-erp-ese::','middleware' => ['auth','auth.module:ese']
 
 
     Route::post('GuardarEstudioInput', 'ESE\NuevaOSController@GuardarEstudioInput');
+    Route::post('GuardarEstudioInput2', 'ESE\NuevaOSController@GuardarEstudioInput2');
 
     Route::post('saveResetValueInput', 'ESE\NuevaOSController@saveResetValueInput');
 

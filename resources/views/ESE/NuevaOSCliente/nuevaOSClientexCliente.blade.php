@@ -447,7 +447,7 @@
 
                               <div class="modal-footer">
 
-                                <button type="button" class="btn btn-primary" id="btnContinuar" onclick="continuar(this.id);" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Espere...">Continuar con servicios pendientes</button>
+                                <button type="button" class="btn btn-primary continuar" id="btnContinuar" onclick="serv2(this.id);" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Espere...">Continuar y crear uno nuevo</button>
 
                                 <button type="button" class="btn btn-danger" id="btnEliminar" onclick="elimina(this.id);" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Eliminando...">Eliminar y crear nuevo servicio</button>
 
@@ -558,6 +558,32 @@
 
 
         }
+
+
+        var serv2= function(id){
+
+        clie=$('#cntC').val();
+
+
+
+        var ids=$("#IdTipo").val();
+
+
+
+        if(clie!=''){
+
+            //$(".seleccionar").attr('href', '{{ url("PlantillaClienteOS") }}/'+ids+'/'+clie);
+            location.href ='{{ url("PlantillaClienteOS") }}/'+ids+'/'+clie;
+
+
+        }else{
+
+            $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar un <strong>Cliente</strong> ya que es campo obligatorio.<span class='close' data-dismiss='alert'>×</span></div>");
+
+        }
+
+        }
+
 
 
 

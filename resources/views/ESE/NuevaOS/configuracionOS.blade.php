@@ -2726,6 +2726,69 @@
       return false;
     }
 
+
+    var GuardadoInput2 = function(id,value){
+
+     
+      var ids = $("#IdServicioEse").val();
+      var token = $('meta[name="csrf-token"]').attr('content');
+      var con = 0;
+      var json = "{";
+      
+      for(var i=0; i<value.length;i++){
+
+      if(!isNaN(value[i]))
+        json += '"'+id[i]+'":'+value[i]  ;  
+      else
+        if(value[i]== "$$$"){
+          json += '"'+id[i]+'": ""' ;  
+        }else 
+          json += '"'+id[i]+'": "'+value[i] +'"' ;  
+        json += ",";
+        con +=1;
+      }
+      json+= '"ids":'+ids+',"con":'+con +"}";
+
+      console.log (json);
+        $.ajax({
+            headers: {'X-CSRF-TOKEN':token},
+            url: "{{ url('GuardarEstudioInput2') }}",
+            type: "POST",
+            cache: false,
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+            beforeSend: function (xhr) {
+              var token = $('meta[name="csrf_token"]').attr('content');
+                if (token) {
+                      return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+                }
+            },
+            data: {json:json} ,
+            dataType: "json",
+            success: function( response )
+            {
+              if(response.status == "success"){
+                $("#"+response[0]).removeClass(); //se elimino todas las clases 
+                $("#"+response[0]).addClass(response[1]); //se agrega la validación segun los datos
+                
+                for(var i=0; i<id.length;i++){
+                  $("#checkmark"+id[i]).css("display","inline-block");
+                  $data = $("[name='"+id[i]+"']");
+                  $data.css("border", "1px solid #ccd0d4");
+                }
+              }else{
+                
+                show_error_message(500);
+              }
+            },
+            error : function(xhr, status)
+            {
+              show_error_message(xhr.status);
+              console.error('Upss, algo salio mal!! '+xhr.status);
+            }
+        });
+      return false;
+    }
+
     function Asignacion(id){
         loaderButton(id,true);
         var IdCliente   = $("#IdCliente").val();
@@ -4098,13 +4161,24 @@
      */
 
      const saveAutoCompleteInputs = (allInputs,InputIgnore) => {
+      var idsss = [];
+      var values = [];
       allInputs.forEach(input => {
         if(input.name != ''){
-          if(document.getElementsByName(`${input.name}`)[0].id != InputIgnore){
-              GuardadoInput(input.name,document.getElementsByName(`${input.name}`)[0].value);
-          }
+          
+              //GuardadoInput(input.name,document.getElementsByName(`${input.name}`)[0].value);
+            idsss.push(input.name);
+            if(input.type == "file"){
+              values.push("$$$");
+              console.log(input.name);
+            }else
+              values.push(document.getElementsByName(`${input.name}`)[0].value);
+          
         }
+        
       });
+      
+      GuardadoInput2(idsss,values);
      }
 
      /*

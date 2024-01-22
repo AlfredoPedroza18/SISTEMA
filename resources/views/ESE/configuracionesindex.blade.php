@@ -277,7 +277,7 @@
 
                 <div class="stats-link">
 
-                    <a href="{{ route('sig-erp-ese::configuracionFormatos.index') }}">Ir a formatos<i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="{{ url('PlantillaGenericaP') }}">Ir a formatos<i class="fa fa-arrow-circle-o-right"></i></a>
 
                 </div>
             </div>
