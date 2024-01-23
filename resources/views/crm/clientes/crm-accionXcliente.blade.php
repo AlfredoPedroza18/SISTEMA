@@ -112,7 +112,7 @@
 									                           <address class="m-t-5 m-b-5">
 									                            <strong>Ciudad:</strong><br />
 									                          
-					{{"D.Fiscal:".($cliente[0]->df_ciudad!=''?$cliente[0]->df_ciudad:'Sin Ciudad ')." D.Comercial".($cliente[0]->dc_ciudad!=''?$cliente[0]->dc_ciudad:' Sin Ciudad') }}<br />
+					{{($cliente[0]->df_ciudad!=''?$cliente[0]->df_ciudad:'Sin Ciudad ') }}<br />
 									                           </address>
 									                    </div>
 							                     </div><!-- end col1 -->
@@ -122,7 +122,7 @@
 									                           <address class="m-t-5 m-b-5">
 									                            <strong>Código Postal:</strong><br />
 									                          
-{{"Fiscal:".($cliente[0]->df_cp!=''?$cliente[0]->df_cp:' S/N')." Comercial:".($cliente[0]->dc_cp!=' '?$cliente[0]->dc_cp:' S/N')
+{{($cliente[0]->df_cp!=''?$cliente[0]->df_cp:' S/N')
 									                                                      }}<br />
 									                           </address>
 									                    </div>
@@ -168,7 +168,7 @@
 									                           <address class="m-t-5 m-b-5">
 									                            <strong>Departamento:</strong><br />
 									                          
-									                           {{ $cliente[0]->departamento }}
+																{{ $cliente[0]->nombre_cn }} ({{ $cliente[0]->nomenclatura }})
 									                           </address>
 									                    </div>
 							                     </div><!-- end col1 -->

@@ -55,6 +55,20 @@
                     </div>
 
                 </div>
+                <div class="col-md-3">
+                   <div class="form-group">
+                         <label>{{ Form::label('Apellido Paterno', 'Apellido Paterno') }}</label>
+                        {{ Form::text('ap_p[]',$contacto->apellido_paterno_con,['class' => 'form-control','placeholder'=>'Perez','id'=>'ap_p','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                      <div class="form-group">
+                             <label>{{ Form::label('Apellido Materno', 'Apellido Materno') }}</label>
+                             {{ Form::text('ap_m[]',$contacto->apellido_materno_con,['class' => 'form-control','placeholder'=>'Lopez','id'=>'ap_m','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+                       </div>
+                </div>
+
 
                 <div class="col-md-3">
 
@@ -129,7 +143,7 @@
 
                     <div class="form-group">
 
-                         <label>{{ Form::label('telefono1', 'Teléfono 1') }}</label>
+                         <label>{{ Form::label('telefono1', '* Teléfono 1') }}</label>
 
                         {{ Form::text('telefono1[]','{telefono1}',['class' => 'form-control telefono1 telefonos-size','placeholder'=>'58702093','id'=>'telefono1','data-parsley-group'=>'wizard-step-3','maxlength'=>'15','onblur'=>'sizeTelefonos(this)'])}}
 

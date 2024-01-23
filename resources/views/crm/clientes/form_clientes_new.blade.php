@@ -905,6 +905,29 @@
 
                                                     <!-- end col-4 -->
 
+                                                    <div class="col-md-3">
+
+                                                        <div class="form-group">
+
+                                                            <label>{{ Form::label('Apellido Paterno', 'Apellido Paterno') }}</label>
+
+                                                            {{ Form::text('ap_p[]',null,['class' => 'form-control','placeholder'=>'Perez','id'=>'ap_p','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="col-md-3">
+
+                                                        <div class="form-group">
+
+                                                            <label>{{ Form::label('Apellido Materno', 'Apellido Materno') }}</label>
+
+                                                            {{ Form::text('ap_m[]',null,['class' => 'form-control','placeholder'=>'Lopez','id'=>'ap_m','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+
+                                                        </div>
+
+                                                    </div>
                                                     <!-- begin col-4 -->
 
                                                     <div class="col-md-3">
@@ -923,37 +946,7 @@
 
                                                     <!-- end col-4 -->
 
-                                                    <!-- begin col-4 -->
-
-                                                    <div class="col-md-3">
-
-                                                        <div class="form-group">
-
-                                                             <label>{{ Form::label('Departamento', 'Departamento') }}</label>
-
-                                                            {{ Form::text('departamento[]',null,['class' => 'form-control','placeholder'=>'Sistemas','id'=>'departamento','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <!-- end col-6 -->
-
-                                                    <!-- begin col-4 -->
-
-                                                    <div class="col-md-3">
-
-                                                        <div class="form-group">
-
-                                                            <label>{{ Form::label('Genero', 'Genéro') }}</label>
-
-                                            {{ Form::select('genero_con[]',[''=>'Selecciona una opci&oacute;n','1'=>'Masculino','2'=>'Femenino'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'genero_con']) }}
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <!-- end col-6 -->
+                                                   
 
                                                 </div>
 
@@ -963,6 +956,48 @@
 
                                                 <div class="row">
 
+                                                 <!-- begin col-4 -->
+                                                  <!-- begin col-4 -->
+
+                                                  <div class="col-md-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>{{ Form::label('Departamento', 'Departamento') }}</label>
+
+                                                        {{ Form::text('departamento[]',null,['class' => 'form-control','placeholder'=>'Sistemas','id'=>'departamento','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+
+                                                    </div>
+
+                                                    </div>
+
+                                                    <!-- end col-6 -->
+
+                                                    <!-- begin col-4 -->
+
+                                                    <div class="col-md-3">
+
+                                                    <div class="form-group">
+
+                                                        <label>{{ Form::label('Genero', 'Genéro') }}</label>
+
+                                                    {{ Form::select('genero_con[]',[''=>'Selecciona una opci&oacute;n','1'=>'Masculino','2'=>'Femenino'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'genero_con']) }}
+
+                                                    </div>
+
+                                                    </div>
+
+<!-- end col-6 -->
+
+                                                 
+
+                                                    <!-- end col-6 -->
+
+                                                    <!-- begin col-4 -->
+
+                                                    
+
+                                                    <!-- end col-6 -->
                                                 <!-- begin col-1 -->
 
                                                    <div class="col-md-3">
@@ -981,68 +1016,72 @@
 
                                                 <!-- begin col-2 -->
 
-                                                     <div class="col-md-2">
+                                                </div>
 
-                                                        <div class="form-group">
 
-                                                             <label>{{ Form::label('telefono1', 'Teléfono 1') }}</label>
+                                                <div class="row">
+                                                    
+                                                <div class="col-md-2">
 
-                                                            {{ Form::text('telefono1[]',null,['class' => 'form-control telefono1','placeholder'=>'58702093','id'=>'telefono1','data-parsley-group'=>'wizard-step-3','maxlength'=>'10'])}}
+                                                    <div class="form-group">
 
-                                                        </div>
+                                                        <label>{{ Form::label('telefono1', '* Teléfono 1') }}</label>
 
-                                                    </div>
-
-                                                <!-- end col-2 -->
-
-                                                <!-- begin col-3 -->
-
-                                                     <div class="col-md-1">
-
-                                                        <div class="form-group">
-
-                                                             <label>{{ Form::label('Extensión', 'Extensión') }}</label>
-
-                                                            {{ Form::text('ext1[]',null,['class' => 'form-control ext1','placeholder'=>'140','id'=>'ext1','data-parsley-group'=>'wizard-step-3'])}}
-
-                                                        </div>
+                                                        {{ Form::text('telefono1[]',null,['class' => 'form-control telefono1','placeholder'=>'58702093','id'=>'telefono1','data-parsley-group'=>'wizard-step-3','maxlength'=>'10'])}}
 
                                                     </div>
 
-                                                <!-- end col-3 -->
+                                                    </div>
 
-                                                 <!-- begin col-4 -->
+                                                    <!-- end col-2 -->
 
-                                                     <div class="col-md-2">
+                                                    <!-- begin col-3 -->
 
-                                                        <div class="form-group">
+                                                    <div class="col-md-1">
 
-                                                             <label>{{ Form::label('telefono2', 'Teléfono 2') }}</label>
+                                                    <div class="form-group">
 
-                                                            {{ Form::text('telefono2[]',null,['class' => 'form-control telefono2','placeholder'=>'58702093','id'=>'telefono2','data-parsley-group'=>'wizard-step-3','maxlength'=>'5','maxlength'=>'10'])}}
+                                                        <label>{{ Form::label('Extensión', 'Extensión') }}</label>
 
-                                                        </div>
+                                                        {{ Form::text('ext1[]',null,['class' => 'form-control ext1','placeholder'=>'140','id'=>'ext1','data-parsley-group'=>'wizard-step-3'])}}
 
                                                     </div>
 
-                                                <!-- end col-4 -->
+                                                    </div>
 
-                                                <!-- begin col-5 -->
+                                                    <!-- end col-3 -->
 
-                                                     <div class="col-md-1">
+                                                    <!-- begin col-4 -->
 
-                                                        <div class="form-group">
+                                                    <div class="col-md-2">
 
-                                                             <label>{{ Form::label('Extemsión', 'Extensión') }}</label>
+                                                    <div class="form-group">
 
-                                                            {{ Form::text('ext2[]',null,['class' => 'form-control ext2','placeholder'=>'140','id'=>'ext2','data-parsley-group'=>'wizard-step-3','maxlength'=>'5'])}}
+                                                        <label>{{ Form::label('telefono2', 'Teléfono 2') }}</label>
 
-                                                        </div>
+                                                        {{ Form::text('telefono2[]',null,['class' => 'form-control telefono2','placeholder'=>'58702093','id'=>'telefono2','data-parsley-group'=>'wizard-step-3','maxlength'=>'5','maxlength'=>'10'])}}
 
                                                     </div>
 
-                                                <!-- end col-5 -->
+                                                    </div>
 
+                                                    <!-- end col-4 -->
+
+                                                    <!-- begin col-5 -->
+
+                                                    <div class="col-md-1">
+
+                                                    <div class="form-group">
+
+                                                        <label>{{ Form::label('Extemsión', 'Extensión') }}</label>
+
+                                                        {{ Form::text('ext2[]',null,['class' => 'form-control ext2','placeholder'=>'140','id'=>'ext2','data-parsley-group'=>'wizard-step-3','maxlength'=>'5'])}}
+
+                                                    </div>
+
+                                                    </div>
+
+<!-- end col-5 -->
                                                 </div>
 
                                                 <!--  end row 2 -->

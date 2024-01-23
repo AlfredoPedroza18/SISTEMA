@@ -889,6 +889,20 @@
 
                         </div>
 
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                 <label>{{ Form::label('Apellido Paterno', 'Apellido Paterno') }}</label>
+                                {{ Form::text('ap_p[]',$contacto->apellido_paterno_con,['class' => 'form-control','placeholder'=>'Perez','id'=>'ap_p','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+                           </div>
+                        </div>
+
+                        <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ Form::label('Apellido Materno', 'Apellido Materno') }}</label>
+                                     {{ Form::text('ap_m[]',$contacto->apellido_materno_con,['class' => 'form-control','placeholder'=>'Lopez','id'=>'ap_m','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+                               </div>
+                        </div>
+
                         <!-- end col-4 -->
 
                         <!-- begin col-4 -->
@@ -1033,6 +1047,70 @@
 
                     <!--  end row 2 -->
 
+                    <div class="row">
+                    <div class="col-md-2">
+
+                        <div class="form-group">
+
+                            <label>{{ Form::label('telefono1', '* Teléfono 1') }}</label>
+
+                            {{ Form::text('telefono1[]',$contacto->telefono1,['class' => 'form-control phone_with_ddd','placeholder'=>'587-020-9993','id'=>'telefono1','data-parsley-group'=>'wizard-step-3','maxlength'=>'10'])}}
+
+                        </div>
+
+                        </div>
+
+                        <!-- end col-2 -->
+
+                        <!-- begin col-3 -->
+
+                        <div class="col-md-1">
+
+                        <div class="form-group">
+
+                            <label>{{ Form::label('Extensión', 'Extensión') }}</label>
+
+                            {{ Form::text('ext1[]',$contacto->ext1,['class' => 'form-control ext1','placeholder'=>'140','id'=>'ext1','data-parsley-group'=>'wizard-step-3'])}}
+
+                        </div>
+
+                        </div>
+
+                        <!-- end col-3 -->
+
+                        <!-- begin col-4 -->
+
+                        <div class="col-md-2">
+
+                        <div class="form-group">
+
+                            <label>{{ Form::label('telefono2', 'Teléfono 2') }}</label>
+
+                            {{ Form::text('telefono2[]',$contacto->telefono2,['class' => 'form-control phone_with_ddd','placeholder'=>'587-020-9993','id'=>'telefono2','data-parsley-group'=>'wizard-step-3','maxlength'=>'5','maxlength'=>'10'])}}
+
+                        </div>
+
+                        </div>
+
+                        <!-- end col-4 -->
+
+                        <!-- begin col-5 -->
+
+                        <div class="col-md-1">
+
+                        <div class="form-group">
+
+                            <label>{{ Form::label('Extemsión', 'Extensión') }}</label>
+
+                            {{ Form::text('ext2[]',$contacto->ext2,['class' => 'form-control ext2','placeholder'=>'140','id'=>'ext2','data-parsley-group'=>'wizard-step-3','maxlength'=>'5'])}}
+
+                        </div>
+
+                        </div>
+
+<!-- end col-5 -->
+
+                    </div>
                     <!-- begin row 3-->
 
                     <div class="row">
@@ -1206,7 +1284,7 @@
                         {{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','3'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','Otro'=>'Otro'],$mediocontacto,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
 
                         <input type="text" name="medio_contacto" class='form-control' id="medio_contacto_tabla">
-
+<h1>{{$mediocontacto}}</h1>
                     </div>
 
                 </div>

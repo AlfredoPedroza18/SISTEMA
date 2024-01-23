@@ -349,9 +349,9 @@ class ClientesController extends Controller
 
         $contacto_principal     = $request->input('contacto_principal');
 
-        $apellido_materno_con   = $request->input('apellido_materno_con');
+        $apellido_materno_con   = $request->input('ap_m');
 
-        $apellido_paterno_con   = $request->input('apellido_paterno_con');
+        $apellido_paterno_con   = $request->input('ap_p');
 
 
 
@@ -390,6 +390,10 @@ class ClientesController extends Controller
                                             'pagina_web'            => $pagina_web[$i],
 
                                             'principal'             => $contacto_principal[$i],
+
+                                            'apellido_paterno_con' => $apellido_paterno_con[$i],
+
+                                            'apellido_materno_con' => $apellido_materno_con[$i]
 
                                         ]);
 
@@ -2563,12 +2567,19 @@ class ClientesController extends Controller
                     "correo1" => $request->correo1[$i],
                     "correo2" => $request->correo2[$i],
                     "pagina_web" => $request->pagina_web[$i],
+                    "apellido_paterno_con" =>$request->ap_p[$i],
+                    "apellido_materno_con" =>$request->ap_m[$i]
             ]);
         }
 
 
 
-      $response =   DB::table('clientes')
+        if($request->medio_contacto!= null && $request->medio_contacto!= ""&&$request->medio_contacto!= " " ){
+            $response =   DB::table('clientes')
+            ->where('id', $id)
+            ->update(['medio_contacto'=> $request->medio_contacto]);
+        }
+            $response =   DB::table('clientes')
 
             ->where('id', $id)
 
@@ -2643,8 +2654,6 @@ class ClientesController extends Controller
                 'dc_num_exterior'=> $request->dc_num_exterior,
 
                 'dc_num_interior'=> $request->dc_num_interior,
-
-                'medio_contacto'=> $request->medio_contacto,
 
                 'tipo_cliente'=> $request->tipo_cliente,
 
