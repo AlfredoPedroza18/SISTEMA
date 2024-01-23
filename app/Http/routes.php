@@ -602,6 +602,9 @@ Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm
 
     Route::get('estadisticas_cuadros', 'DashboardController@cuadrosEstadisticos');
 
+    Route::get('filtroDash/{mes}/{anoi}', 'DashboardController@filtroDash');
+
+
     Route::get('clientes_mes_dashboard', 'DashboardController@portletClientesMes');
 
     /*********************************************************************************************************************

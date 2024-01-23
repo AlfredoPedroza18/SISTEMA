@@ -3001,7 +3001,7 @@
 		response.totalestatus_proceso.forEach(function(element) {
 
 
-			if (element.Estatus == "Asignada" || element.Estatus == "Creada" || element.Estatus == "Pendiente" || element.Estatus == "Programada") {
+			if (element.Estatus == "Capturado" || element.Estatus == "Asignada" || element.Estatus == "Creada" || element.Estatus == "Pendiente" || element.Estatus == "Programada") {
 				totalP += parseInt(element.Total);
 			} else if (element.Estatus == "Cancelado") {
 				totalC += parseInt(element.Total);

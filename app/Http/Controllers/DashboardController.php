@@ -39,6 +39,57 @@ class DashboardController extends Controller
 
      */
 
+    public function filtroDash($mes,$anio){
+        $query_clientes = "Select count(id) as con from clientes where  Month(created_at) = {$mes} AND YEAR(created_at) = {$anio} AND tipo = 2 ";
+        $query_pros = "Select count(id) as con from clientes where month(created_at) = {$mes} AND YEAR(created_at) = {$anio} AND tipo = 1 ";
+        $queryMontoCotizaciones = 'SELECT IFNULL(FORMAT(SUM(total),2),"00.00") AS total_cotizaciones FROM crm_cotizaciones WHERE crm_cotizaciones.contrato = 0 AND 
+        Month(crm_cotizaciones.fecha_cotizacion) = '.$mes.' AND YEAR(crm_cotizaciones.fecha_cotizacion) = '.$anio.'';
+
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+        }else{
+            $queryMontoCotizaciones .= 'AND crm_cotizaciones.id_cn = ' . Auth::user()->idcn;
+            $query_clientes.= " AND id_cn = ". Auth::user()->idcn;
+            $query_pros .= " AND id_cn = ". Auth::user()->idcn;
+
+        }
+        $pros=DB::select($query_pros);
+        $cli=DB::select($query_clientes);
+        
+        $Mcot=DB::select($queryMontoCotizaciones);
+
+        $TotalCota = $Mcot[0]->total_cotizaciones;
+        $TotalClientes = $cli[0]->con;
+        $TotalProspectos = $pros[0]->con;
+        $TotalClientesProspectos = $TotalClientes + $TotalProspectos;
+
+        $array = array(
+            1  => "Enero",
+            2  => "Febrero",
+            3  => "Marzo",
+            4  => "Abril",
+            5  => "Mayo",
+            6  => "Junio",
+            7  => "Julio",
+            8  => "Agosto",
+            9  => "Septiembre",
+            10  => "Octubre",
+            11 => "Noviembre",
+            12 => "Diciembre"
+        );
+
+        $meses= "";
+        for( $i = 1; $i<=12;$i++){
+            if($mes == $i )
+                $meses = $array[$i] . "-" .$anio;
+        }
+        return response()->json(["TotalCota"=> $TotalCota,
+            "TotalClientes"=>$TotalClientes,
+            "TotalProspectos"=>$TotalProspectos,
+            "TotalClientesProspectos"=>$TotalClientesProspectos,
+            "meses"=>$meses
+        ]);
+
+    }
     public function index(Request $request)
 
     {
@@ -74,7 +125,9 @@ class DashboardController extends Controller
 
         $query_clientes = "Select count(id) as con from clientes where  Month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 2 ";
         $query_pros = "Select count(id) as con from clientes where month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 1 ";
-      
+        $queryMontoCotizaciones = 'SELECT IFNULL(FORMAT(SUM(total),2),"00.00") AS total_cotizaciones FROM crm_cotizaciones WHERE crm_cotizaciones.contrato = 0 AND 
+        Month(crm_cotizaciones.fecha_cotizacion) = MONTH(CURDATE()) AND YEAR(crm_cotizaciones.fecha_cotizacion) = YEAR(CURDATE()) ';
+
 
         if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
 
@@ -120,7 +173,7 @@ class DashboardController extends Controller
             
 
         }else{
-
+            $queryMontoCotizaciones .= 'AND crm_cotizaciones.id_cn = ' . Auth::user()->idcn;
             $query_clientes.= " AND id_cn = ?";
             $query_pros .= " AND id_cn = ?";
             
@@ -260,6 +313,7 @@ class DashboardController extends Controller
 
         $pros=DB::select($query_pros,[Auth::user()->idcn]);
         $cli=DB::select($query_clientes,[Auth::user()->idcn]);
+        $Mcot=DB::select($queryMontoCotizaciones);
 
         $fecha = DB::select("select MONTH(CURDATE()) as mes");
         $Año = DB::select("select YEAR(CURDATE()) año");
@@ -289,7 +343,8 @@ class DashboardController extends Controller
         'cli'=>$cli,
         'ESEinvT'=>$ESEinvT,
         'ESEinvA'=>$ESEinvA,
-        'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE]);
+        'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE,
+        'Mcot'=>$Mcot]);
 
     }
 

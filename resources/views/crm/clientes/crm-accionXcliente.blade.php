@@ -33,8 +33,8 @@
                            <div class="invoice">
                            			<div class="invoice-company">
 					                    <span class="pull-right hidden-print">
-					                        <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-success m-b-10" data-toggle="tooltip" title="Print"><i class="fa fa-print m-r-5" ></i> Print</a>
-					                    </span>
+					                      <!--  <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-success m-b-10" data-toggle="tooltip" title="Print"><i class="fa fa-print m-r-5" ></i> Print</a>
+--></span>
 					                    <form method="GET" action="{{url('expediente_ids')}}">
 					                    <input type="hidden"  name="_token" value="{{ csrf_token() }}">
 					                    <span class="pull-right hidden-print">
@@ -42,36 +42,49 @@
 					                       <input type="hidden" name="id_cliente" value="{{$cliente[0]->id}}">
 					                       <input type="hidden" name="nombre_comercial" value="{{ $cliente[0]->nombre_comercial }}">
 					                       
-					                        <a href="{{url('expediente_ids',[$cliente[0]->cli_idUser,$cliente[0]->id,$cliente[0]->nombre_comercial])}}" class="btn btn-sm btn-success m-b-10" data-toggle="tooltip" title="Expediente"><i class="fa fa-1x fa-folder-open"></i>Expediente</a>
-					                    
+					                     <!--   <a href="{{url('expediente_ids',[$cliente[0]->cli_idUser,$cliente[0]->id,$cliente[0]->nombre_comercial])}}" class="btn btn-sm btn-success m-b-10" data-toggle="tooltip" title="Expediente"><i class="fa fa-1x fa-folder-open"></i>Expediente</a>
+-->
 					                    </span>
 					                    </form>
 					                    <span class="pull-right hidden-print">
-					                        <a href="{{url('correos')}}"  class="btn btn-sm btn-success m-b-10" data-toggle="tooltip" title="Correo"><i class="fa fa-1x fa-envelope"></i> Correo</a>
-					                    </span>
+					                        <!--<a href="{{url('correos')}}"  class="btn btn-sm btn-success m-b-10" data-toggle="tooltip" title="Correo"><i class="fa fa-1x fa-envelope"></i> Correo</a>
+-->
+										</span>
 					                {{ $cliente[0]->nombre_comercial }}
 					                </div>
 					                <div class="invoice-header">
 					                     <div class="row"><!-- degin row 1 -->
-							                     <div class="col-md-4"><!-- begin col1 -->
-							                              <div class="invoice-from">
+											 	<div class="col-md-4"><!-- begin col2 -->
+							                          <div class="invoice-from">
 									                           <address class="m-t-5 m-b-5">
-									                            <strong>Departamento.</strong><br />
-									                          
-									                           {{ $cliente[0]->departamento }}<br />
-									                           </address>
-									                    </div>
-							                     </div><!-- end col1 -->
-							                     <div class="col-md-4"><!-- begin col2 -->
-							                              <div class="invoice-from">
-									                           <address class="m-t-5 m-b-5">
-									                            <strong>Encargado.</strong><br />
+									                            <strong>Contacto:</strong><br />
 									                          
 									                           {{ $cliente[0]->nombre_contacto }}<br />
 									                           </address>
 									                    </div>
 							                     </div><!-- end col2 -->
-							                     <div class="col-md-4"><!-- begin col3 -->
+							                
+												 
+							                     <div class="col-md-4"><!-- begin col2 -->
+							                              <div class="invoice-from">
+									                           <address class="m-t-5 m-b-5">
+									                            <strong>Celular:</strong><br />
+									                          
+								            {{ $cliente[0]->celular1==' '?' S/N':$cliente[0]->celular1 }}<br />
+									                           </address>
+									                    </div>
+							                     </div><!-- end col2 -->
+
+												 <div class="col-md-4"><!-- begin col1 -->
+							                              <div class="invoice-from">
+									                           <address class="m-t-5 m-b-5">
+									                            <strong>Telefono:</strong><br />
+																{{ $cliente[0]->telefono1==' '?' S/N':$cliente[0]->telefono1 }}
+									                           </address>
+									                    </div>
+							                     </div><!-- end col1 
+							                     
+							                     <div class="col-md-4">begin col3 
 							                              <div class="invoice-from">
 									                           <address class="m-t-5 m-b-5">
 									                            <strong>Centro de Negocio.</strong><br />
@@ -80,52 +93,56 @@
 									                           {{ $cliente[0]->nombre_cn }}
 									                           </address>
 									                    </div>
-							                     </div><!-- end col3 -->
+							                     </div>end col3 -->
 					                     </div><!-- end row 1 row -->
 					                         <div class="row"><!-- degin row 2 -->
 							                     <div class="col-md-4"><!-- begin col1 -->
 							                              <div class="invoice-from">
 									                           <address class="m-t-5 m-b-5">
-									                            <strong>Dirección Fiscal.</strong><br />
+									                            <strong>Dirección Fiscal:</strong><br />
 									                          
-	{{ "Colonia: ".($cliente[0]->df_colonia!=''?$cliente[0]->df_colonia:' S/C')."  Calle: ".($cliente[0]->df_calle==''?' S/C':$cliente[0]->df_calle)."  #Ext. ".($cliente[0]->df_num_exterior==''?' S/N':$cliente[0]->df_num_exterior)."  #Int. ".($cliente[0]->df_num_interior==''?' S/N':$cliente[0]->df_num_interior)  }}<br />
+	{{ "Calle: ".($cliente[0]->df_calle==''?' S/C':$cliente[0]->df_calle)."  #Ext. ".($cliente[0]->df_num_exterior==''?' S/N':$cliente[0]->df_num_exterior)."  #Int. ".($cliente[0]->df_num_interior==''?' S/N':$cliente[0]->df_num_interior) ."  Colonia: ".($cliente[0]->df_colonia!=''?$cliente[0]->df_colonia:' S/C')}}<br />
 									                           </address>
 									                    </div>
 							                     </div><!-- end col1 -->
-							                     <div class="col-md-4"><!-- begin col2 -->
-							                              <div class="invoice-from">
-									                           <address class="m-t-5 m-b-5">
-									                            <strong>Asesor comercial.</strong><br />
-									                          
-									                           {{ $cliente[0]->nombre_ejecutivo }}<br />
-									                           </address>
-									                    </div>
-							                     </div><!-- end col2 -->
-							                     <div class="col-md-4"><!-- begin col3 -->
-							                              <div class="invoice-from">
-									                           <address class="m-t-5 m-b-5">
-									                            <strong>Nombre empresa.</strong><br />
-									                          
-									                           {{ $cliente[0]->empresa_facturadora }}<br />
-									                          
-									                           </address>
-									                    </div>
-							                     </div><!-- end col3 -->
-					                     </div><!-- end row 2 row -->
-					                      <div class="row"><!-- beegin row 3 -->
+
+												 
 							                     <div class="col-md-4"><!-- begin col1 -->
 							                              <div class="invoice-from">
 									                           <address class="m-t-5 m-b-5">
-									                            <strong>Dirección Comercial.</strong><br />
+									                            <strong>Ciudad:</strong><br />
 									                          
-{{ "Colonia: ".($cliente[0]->dc_colonia!=''?$cliente[0]->dc_colonia:' S/C')."  Calle: ".($cliente[0]->dc_calle!=''?$cliente[0]->dc_calle: ' S/C')."  #Ext. ".($cliente[0]->dc_num_exterior!=''?$cliente[0]->dc_num_exterior:' S/N')."  #Int. ".($cliente[0]->dc_num_interior!=''?$cliente[0]->dc_num_interior:' S/N')  }}<br />
+					{{"D.Fiscal:".($cliente[0]->df_ciudad!=''?$cliente[0]->df_ciudad:'Sin Ciudad ')." D.Comercial".($cliente[0]->dc_ciudad!=''?$cliente[0]->dc_ciudad:' Sin Ciudad') }}<br />
 									                           </address>
 									                    </div>
 							                     </div><!-- end col1 -->
+
+												 <div class="col-md-4"><!-- begin col1 -->
+							                              <div class="invoice-from">
+									                           <address class="m-t-5 m-b-5">
+									                            <strong>Código Postal:</strong><br />
+									                          
+{{"Fiscal:".($cliente[0]->df_cp!=''?$cliente[0]->df_cp:' S/N')." Comercial:".($cliente[0]->dc_cp!=' '?$cliente[0]->dc_cp:' S/N')
+									                                                      }}<br />
+									                           </address>
+									                    </div>
+							                    
+							                    </div>
+					                     </div><!-- end row 2 row -->
+					                      <div class="row"><!-- beegin row 3 -->
+												 <div class="col-md-4"><!-- begin col2 -->
+							                              <div class="invoice-from">
+									                           <address class="m-t-5 m-b-5">
+									                            <strong>Sitio web:</strong><br />
+									                          
+					{{ $cliente[0]->pagina_web==' '?'Sin pag.web':$cliente[0]->pagina_web}}<br />
+									                           </address>
+									                    </div>
+							                     </div><!-- end col2 -->
 							                     <div class="col-md-4"><!-- begin col2 -->
 							                              <div class="invoice-from">
 									                           <address class="m-t-5 m-b-5">
-									                            <strong>Medio de Contácto.</strong><br />
+									                            <strong>Medio de Contácto:</strong><br />
 									                          
 									                           {{ $cliente[0]->medio_contacto }}<br />
 									                           </address>
@@ -133,45 +150,40 @@
 							                     </div><!-- end col2 -->
 							                   </div><!-- end row 3 row -->
 							                    <div class="row"><!-- beegin row 4 -->
-							                     <div class="col-md-4"><!-- begin col1 -->
-							                              <div class="invoice-from">
-									                           <address class="m-t-5 m-b-5">
-									                            <strong>Código Postal.</strong><br />
-									                          
-{{"Fiscal:".($cliente[0]->df_cp!=''?$cliente[0]->df_cp:' S/N')." Comercial:".($cliente[0]->dc_cp!=' '?$cliente[0]->dc_cp:' S/N')
-									                                                      }}<br />
-									                           </address>
-									                    </div>
-							                     </div><!-- end col1 -->
-							                     <div class="col-md-4"><!-- begin col2 -->
-							                              <div class="invoice-from">
-									                           <address class="m-t-5 m-b-5">
-									                            <strong>Teléfono.</strong><br />
-									                          
-								            {{ $cliente[0]->telefono1==' '?' S/N':$cliente[0]->telefono1 }}<br />
-									                           </address>
-									                    </div>
-							                     </div><!-- end col2 -->
+							                     
 							                   </div><!-- end row 4 row -->
 							                    <div class="row"><!-- beegin row 4 -->
-							                     <div class="col-md-4"><!-- begin col1 -->
+												<div class="col-md-4"><!-- begin col2 -->
 							                              <div class="invoice-from">
 									                           <address class="m-t-5 m-b-5">
-									                            <strong>Ciudad.</strong><br />
+									                            <strong>Asesor comercial:</strong><br />
 									                          
-					{{"D.Fiscal:".($cliente[0]->df_ciudad!=''?$cliente[0]->df_ciudad:'Sin Ciudad ')." D.Comercial".($cliente[0]->dc_ciudad!=''?$cliente[0]->dc_ciudad:' Sin Ciudad') }}<br />
-									                           </address>
-									                    </div>
-							                     </div><!-- end col1 -->
-							                     <div class="col-md-4"><!-- begin col2 -->
-							                              <div class="invoice-from">
-									                           <address class="m-t-5 m-b-5">
-									                            <strong>Sitio web.</strong><br />
-									                          
-					{{ $cliente[0]->pagina_web==' '?'Sin pag.web':$cliente[0]->pagina_web}}<br />
+									                           {{ $eje[0]->nombre }}<br />
 									                           </address>
 									                    </div>
 							                     </div><!-- end col2 -->
+
+												 <div class="col-md-4"><!-- begin col1 -->
+							                              <div class="invoice-from">
+									                           <address class="m-t-5 m-b-5">
+									                            <strong>Departamento:</strong><br />
+									                          
+									                           {{ $cliente[0]->departamento }}
+									                           </address>
+									                    </div>
+							                     </div><!-- end col1 -->
+							                     
+
+							                     <div class="col-md-4"><!-- begin col3 -->
+							                              <div class="invoice-from">
+									                           <address class="m-t-5 m-b-5">
+									                            <strong>Nombre empresa:</strong><br />
+									                          
+									                           {{ $cliente[0]->empresa_facturadora }}<br />
+									                          
+									                           </address>
+									                    </div>
+							                     </div><!-- end col3 -->
 							                   </div><!-- end row 4 row -->
 					                </div><!-- end invoice-header-->
 

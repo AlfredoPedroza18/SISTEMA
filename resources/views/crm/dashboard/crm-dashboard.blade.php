@@ -45,55 +45,62 @@
 	<h1 class="page-header text-center">DASHBOARD<small></small></h1>
 
 	<div class="row">
-
-<!-- begin col-6 potlet #1 -->
-
-<div class="col-md-4 col-md-offset-4 col-sm-6">
+	<div class="col-md-4 col-md-offset-4 col-sm-6">
 
 	<div class="panel panel-inverse">
 
-		<div class="panel-heading">
 
-			<div class="panel-heading-btn">
+<div class="panel-heading">
 
+	<div class="panel-heading-btn">
+
+
+	</div>
+
+	<h4 class="panel-title">Período</h4>
+
+</div>
+
+
+
+<div class="panel-body table-responsive" style="height: 100px;">
+
+	<div class="row">
+
+		<div class="col-md-8 col-sm-12">
+
+			<div class="form-group">
+
+				<label for="">Fecha Inicio</label>
+
+				<input type="month" class="form-control form-control-sm" id="fechainicio" value="<?php echo date("Y-m");?>" max = "<?php echo date("Y-m");?>" min = "2015-01">
 
 			</div>
 
-			<h4 class="panel-title">Período</h4>
-
 		</div>
 
+		<div class="col-md-4 col-md-12">
+			<div class="form-group">
 
-
-		<div class="panel-body table-responsive" style="height: 100px;">
-
-			<div class="row">
-
-				<div class="col-md-8 col-sm-12">
-
-					<div class="form-group">
-
-						<label for="">Fecha Inicio</label>
-
-						<input type="month" class="form-control form-control-sm" id="fechainicio">
-
-					</div>
-
-				</div>
-
-				<div class="col-md-4 col-md-12">
-					<div class="form-group">
-
-						<label for="">&nbsp;</label>
-						<input class="btn btn-sm btn-success form-control form-control-sm" id="btnPeriod"  type="button" value="Aplicar filtro">
-					</div>
-				</div>
-
-			
-
+				<label for="">&nbsp;</label>
+				<input class="btn btn-sm btn-success form-control form-control-sm" id="btnPeriod"  type="button" value="Aplicar filtro">
+			</div>
 		</div>
 
+	
+
+</div>
+</div>
+</div>
 	</div>
+	<div class="row">
+
+<!-- begin col-6 potlet #1 -->
+
+
+<div class="col-md-4 col-md-offset-4 col-sm-6">
+
+	
 
 	</div><!-- end colspan 6-->
 
@@ -233,7 +240,7 @@
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-3 col-md-offset-2 col-sm-6">
+		<div class="col-md-4  col-sm-6">
 
 			<div class="widget widget-stats bg-purple">
 
@@ -249,7 +256,7 @@
 
 				</div>
 
-				<div class="stats-desc">Clientes del mes de {{$mes}}<label class="mes_actual stats-desc"></label> </div>
+				<div class="stats-desc">Clientes del mes de <span id="fechaClientes">{{$mes}}</span><label class="mes_actual stats-desc"></label> </div>
 
 			</div>
 
@@ -259,7 +266,7 @@
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-3 col-sm-6">
+		<div class="col-md-4 col-sm-6">
 
 			<div class="widget widget-stats bg-black">
 
@@ -275,7 +282,7 @@
 
 				</div>
 
-				<div class="stats-desc">Prospectos del mes de {{$mes}}<label class="mes_actual stats-desc"></div>
+				<div class="stats-desc">Prospectos del mes de <span id="fechaProspectos">{{$mes}}</span><label class="mes_actual stats-desc"></div>
 
 			</div>
 
@@ -283,7 +290,7 @@
 
 		<!-- end col-3 -->
 
-		<div class="col-md-3 col-sm-6">
+		<div class="col-md-4 col-sm-6">
 
 			<div class="widget widget-stats bg-aqua">
 
@@ -299,7 +306,7 @@
 
 				</div>
 
-				<div class="stats-desc">Prospecto del mes de {{$mes}}</div>
+				<div class="stats-desc">Prospecto del mes de <span id="fechatotal">{{$mes}}</span></div>
 
 			</div>
 
@@ -311,7 +318,7 @@
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-5 col-md-offset-1 col-sm-6">
+		<div class="col-md-6  col-sm-6">
 
 			<div class="widget widget-stats bg-green">
 
@@ -319,7 +326,7 @@
 
 				<div class="stats-title">Total Cotizaciones</div>
 
-				<div class="stats-number" id="total_cotizaciones_cuadro">$ 0.00</div>
+				<div class="stats-number" id="total_cotizaciones_cuadro">$ {{$Mcot[0]->total_cotizaciones}}</div>
 
 				<div class="stats-progress progress">
 
@@ -327,7 +334,7 @@
 
 				</div>
 
-				<div class="stats-desc">Monto de cotizaciones del mes de <label class="mes_actual stats-desc"></div>
+				<div class="stats-desc">Monto de cotizaciones del mes de <span id="fechatotal_cotizaciones">{{$mes}}</span><label class="mes_actual stats-desc"></div>
 
 			</div>
 
@@ -337,7 +344,7 @@
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-5 col-sm-6">
+		<div class="col-md-6 col-sm-6">
 
 			<div class="widget widget-stats bg-blue">
 
@@ -353,7 +360,7 @@
 
 				</div>
 
-				<div class="stats-desc">Monto de contratos del mes de <label class="mes_actual stats-desc"></div>
+				<div class="stats-desc">Monto de contratos del mes de <span id="">{{$mes}}</span><label class="mes_actual stats-desc"></div>
 
 			</div>
 
@@ -718,7 +725,43 @@
 
 
 	<script type="text/javascript">
-		$(function() {
+		
+		$("#btnPeriod").on("click", function() {
+
+		var dateIni =$("#fechainicio").val()+"-1";
+		var dato = new Date (dateIni);
+
+		var mes= dato.getMonth() + 1;
+		var año=dato.getFullYear();
+
+			console.log
+		$.ajax({
+			url: "{{ url('filtroDash') }}/"+mes + "/"+año,
+			type: "GET",
+
+			
+			success: function(response) {
+				console.log(response.TotalCota +" "+ response.TotalClientes +" " + response.TotalProspectos +" " + response.TotalClientesProspectos+" "+ response.meses);
+				
+				$('#total_clientes_cuadro').html(response.TotalClientes);
+				$('#fechaClientes').html(response.meses);
+				$('#total_prospectos').html(response.TotalProspectos);
+				$('#fechaProspectos').html(response.meses);
+				$('#total_porcentaje_cuadro').html(response.TotalClientesProspectos);
+				$('#fechatotal').html(response.meses);
+				$('#total_cotizaciones_cuadro').html("$"+response.TotalCota);
+				$('#fechatotal_cotizaciones').html(response.meses);
+			},
+
+			error: function() {
+
+				console.log("perro");
+			}
+		})
+
+		});
+
+		/*$(function() {
 
 			$('#container').highcharts({
 
@@ -816,15 +859,15 @@
 
 				},
 
-				series: pintarGrafica()
+				//series: pintarGrafica()
 
 			});
 
 
 
-			iniciarCuadrosDashBoard();
+			//iniciarCuadrosDashBoard();
 
-		});
+		});*/
 
 
 
@@ -834,8 +877,7 @@
 
 			$.ajax({
 
-				url: '{{ url('
-				estadisticas_cuadros ') }}',
+				url: '{{ url("'+estadisticas_cuadros+'") }}',
 
 				type: 'GET',
 
@@ -972,8 +1014,7 @@
 
 			$.ajax({
 
-				url: '{{ url('
-				clientes_mes_dashboard ') }}',
+				url: '{{ url("'+clientes_mes_dashboard+ '") }}',
 
 				dataType: 'json',
 
@@ -1128,6 +1169,9 @@
 			return lista;
 
 		}
+
+
+
 	</script>
 
 	@endsection

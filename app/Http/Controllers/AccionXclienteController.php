@@ -229,9 +229,11 @@ class AccionXclienteController extends Controller
        
 
 
+        $eje = DB::select('SELECT CONCAT(u.name," ",u.apellido_paterno," ",u.apellido_materno) as nombre FROM users u
+        INNER JOIN clientes c ON c.id_ejecutivo = u.id where c.id = ?',[$id]);
 
 
-        return view("crm.clientes.crm-accionXcliente",['cliente'=>$cliente,'kardex'=>$kardex]);
+        return view("crm.clientes.crm-accionXcliente",['cliente'=>$cliente,'kardex'=>$kardex,'eje'=>$eje]);
 
 
 
