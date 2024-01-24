@@ -75,63 +75,7 @@
 
             
 
-            <div class="col-md-4">
-
-                <label>{{ Form::label ('archivo', 'Archivo')}}</label>
-
-                <input type="hidden" name="archivopdf" id="archivopdf" value="{{$Archivo}}">
-
-
-
-                <input class="form-control" type="file" name="archivo" id="archivo">
-
-                <div class="alert alert-warning" role="alert" style="margin-top: 2px">
-
-                    Imagenes Tipo: png.
-
-                    Tamaño: No mayor a 200.0 KB.
-
-                    Dimensiones: 250 x 150 px.
-
-                </div>
-
-            </div>
-
-
-
-            <div class="col-md-4">
-
-                <label>{{ Form::label ('archivoactual', 'Archivo Actual: ')}}</label>
-
-                @if($Archivo != null)
-
-                <div class="row">
-
-                    <div class="col-md-6">
-
-                        <button type="button" class="form-control btn btn-warning" id="verpdf" name="verpdf" onclick="showPDF({{$IdCliente}});">Ver Imagen</button>
-
-                    </div>
-
-                </div>
-
-                @else
-
-                <div class="row">
-
-                    <div class="col text-center">
-
-                        <p style="font-size: small">No hay archivo para este registro</p>
-
-                    </div>
-
-                </div>
-
-                @endif
-
-            </div>
-
-
+            
 
             <legend class="pull-left width-full">Datos Prospectos </legend>
 
