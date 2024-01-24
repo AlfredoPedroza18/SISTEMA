@@ -1,6 +1,11 @@
 @extends('layouts.masterMenuView')
 @section('section')
-
+<style>
+	.neg{
+		font-weight: bold;
+		font-size: 13px;
+	}
+</style>
 <div id="content" class="content">
 <ol class="breadcrumb ">
 		<li><a href="{{url('dashboard')}}">CRM</a></li>
@@ -51,7 +56,8 @@
 -->
 										</span>
 					                {{ $cliente[0]->nombre_comercial }}
-					                </div>
+									<a href="{{ route('sig-erp-crm::clientes.index') }}/{{$cliente[0]->id}}/edit" class="btn btn-success " style="margin-left:55vw; margin-top:-10px">Editar Cliente</a>
+					              
 					                <div class="invoice-header">
 					                     <div class="row"><!-- degin row 1 -->
 											 	<div class="col-md-4"><!-- begin col2 -->
@@ -182,6 +188,7 @@
 									                           {{ $cliente[0]->empresa_facturadora }}<br />
 									                          
 									                           </address>
+															   
 									                    </div>
 							                     </div><!-- end col3 -->
 							                   </div><!-- end row 4 row -->
@@ -224,9 +231,16 @@
 													</div>
 							                     </div><!-- end col1 -->
 							                     <div class="col-md-2"><!-- begin col2 -->
-							                              <label>{{ Form::label('Fecha de seguimiento', '* Fecha de seguimiento') }}</label>
+												 
+												 	{{Form::checkbox('agenda_valor', 'yes', false,['id'=>'agenda_valor'])}} 
+													<strong><label>{{ Form::label('Guardar en Agenda', 'Guardar en Agenda',['class'=>'neg'])}}</label></strong>  <br> 
+													
+													<br>
+							                        <label>{{ Form::label('Fecha de seguimiento', '* Fecha de seguimiento') }}</label>
 							                         {{ Form::date('fecha_seguimiento',null,['class' => 'form-control','id'=>'fecha_seguimietno'])}}
-
+														
+													 <label>{{ Form::label('Hora Agenda', '* Hora Agenda') }}</label>
+							                         {{ Form::time('hora_agenda',null,['class' => 'form-control','id'=>'hora_agenda'])}}
 							                           
 							                     </div><!-- end col2 -->
 							                     <div class="col-md-6"><!-- begin col2 -->
@@ -387,7 +401,7 @@
     TableManageCombine.init();
     @if (session('alta'))
     	                        swal({                                  
-                                title: "<h3>¡ Se agrego correctamente la actividad al kardex. !</h3> ",
+                                title: "<h3>¡ Se agrego correctamente la actividad. !</h3> ",
                                 html: true,
                                 type: "success",   
                                 confirmButtonText: "OK"                                                 
@@ -469,8 +483,9 @@
 	   var ruta=$.trim($("#ruta").val());
 	   //validacion de campos del formulario
 
-	 
-       var fecha_atual=año+"/"+mes+"/"+dia;
+	   var hora_agenda = $.trim($("#hora_agenda").val());
+       
+		var fecha_atual=año+"/"+mes+"/"+dia;
 
 	   var fecha_seg=fecha_seguimiento.replace("-","/");
 	   var ms = Date.parse(fecha_seg);
@@ -480,6 +495,13 @@
        var fecha_hoy=new Date(f_act);
     
 //alert("fecha_seguimiento:"+fecha_segui+" fecha hoy"+hoy );
+	 if(hora_agenda == "")
+	  {
+	  	 $('#fe_act_seg').html("<div class='alert alert-danger fade in m-b-15'><span class='label label-danger'>Error!</span></strong> Seleccionar una <strong>hora de agenda</strong> anterior a la actual .<span class='close' data-dismiss='alert'>×</span></div>");
+        $('#fe_act_seg').fadeIn("slow");
+        $('#fe_act_seg').fadeOut(9000);
+	  	return false;
+	  }
 	  if(fecha_segui < fecha_hoy)
 	  {
 	  	 $('#fe_act_seg').html("<div class='alert alert-danger fade in m-b-15'><span class='label label-danger'>Error!</span></strong> No puede seleccionar una <strong>fecha de seguimiento</strong> anterior a la actual .<span class='close' data-dismiss='alert'>×</span></div>");

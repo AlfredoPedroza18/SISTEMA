@@ -199,7 +199,8 @@ class agendaController extends Controller
         $query="SELECT ".
                "evento as title,".
                "f_inicio as start,".
-               "f_fin as end ".
+               "f_fin as end, ".
+               'Concat ("accionXcliente/",agenda.idcliente) as url '.
                "FROM agenda ".
                "left join users on agenda.id_usuario=users.id ".
                "WHERE agenda.status=1 and agenda.id_usuario=".$request->iduser;

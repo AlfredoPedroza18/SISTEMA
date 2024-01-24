@@ -1380,12 +1380,18 @@ function activarLink( $url = '' )
 
 
                             <li class="{{ activarLink('catalogo/clientes') }}"><a href="{{url('/dashboard')}}">Dashboard</a></li>
+                            @permission('agenda.cancelar')
 
+                                <li class="{{ activarLink('agenda') }}"><a href="{{url('agenda')}}">Agenda</a></li>
+
+                            @endpermission
                             @permission('crear.clientes|eliminar.clientes|editar.clientes|clientes.cambiarcn')
 
                             <li class="{{ activarLink('catalogo/clientes') }}"><a href="{{route('sig-erp-crm::clientes.index')}}">Clientes y prospectos</a></li>
 
                             @endpermission
+
+                            
 
                             @permission('cotizaciones.contrato')
 
@@ -1399,63 +1405,9 @@ function activarLink( $url = '' )
 
                             @endpermission
 
-                            @permission('agenda.cancelar')
-
-                            <li class="{{ activarLink('agenda') }}"><a href="{{url('agenda')}}">Agenda</a></li>
-
-                            @endpermission
-
-                            <li class="has-sub">
-
-                                    <a href="javascript:;">
-
-                                        <b class="caret pull-right"></b>
-
-                                        eMail
-
-                                    </a>
-
-                                    <ul class="sub-menu">
-
-                                        
-
-                                        <li class="modulos-desa {{ activarLink('') }}">
-
-                                            <a href="{{url('#')}}">eMail Ejecutivo</a>
-
-                                        </li>
-
-                                       
-
-                                        @permission('correos.send')
-
-                                        <li class="{{ activarLink('correos') }}">
-
-                                            <a href="{{url('correos')}}">Correos masivos</a>
-
-                                        </li>
-
-                                        @endpermission
-
-                                    </ul>
-
-                            </li>
-
                             
 
-                            
-
-                            <li class="modulos-desa">
-
-                                <a href="#">Reportes</a>
-
-                            </li>
-
-                            
-
-                            </li>
-
-
+                           
 
 
 

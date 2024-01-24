@@ -78,7 +78,10 @@ class AccionXclienteController extends Controller
         $date_fin           = new \DateTime($request->hr_fin);
         $fecha_hr_fin       = $date_fin->format('Y-m-d\TH:i:s');
 
-              
+        
+        $fech        = new \DateTime($request->fecha_seguimiento);
+        $fecha    = $fech->format('Y-m-d');
+
          $accionXcliente                    = AccionXcliente::create($request->all());
          $accionXcliente->ruta              = $ruta."/".$nombre;
          $accionXcliente->nombre_archivo    = $nombre;
@@ -115,8 +118,18 @@ class AccionXclienteController extends Controller
                                         "id_accion"     => $accion_kardex[0]->id,
                                         "id_objeto"     => $accionXcliente->id,
                                         "descripcion"   => "Alta Accion X Cliente: " . $this->getActividad($request->actividad) . ", " . $request->descripcion ]);
-
-
+            $acc = "";
+            if($request->agenda_valor == 'yes'){
+                if($request->actividad == 1) $acc = "Llamada a $request->nombre_comercial";
+                if($request->actividad == 2) $acc = "Correo a $request->nombre_comercial";
+                if($request->actividad == 3) $acc = "Cita con $request->nombre_comercial";
+                if($request->actividad != 4) {
+                    $agenda = DB::insert('INSERT INTO agenda (evento,hora_inicio,hora_fin,fecha_inicio,fecha_fin,f_inicio,f_fin,STATUS,id_usuario,ocurrencia_evento,idcliente)
+                    VALUES
+                    ("'.$acc.'","'.$request->hora_agenda.'","'.$request->hora_agenda.'","'.$fecha.'","'.$fecha.'","'.$fecha.'","'.$fecha.'",1,'.$request->user()->id.',"MONTH","'.$request->id_cliente.'");
+                    ');
+                }
+            }
            return redirect()->route('sig-erp-crm::accionClientes.show', ['id' => $request->id_cliente])->with('alta','success');
          //  return response()->json(['status_alta' => 'success']);
            }
