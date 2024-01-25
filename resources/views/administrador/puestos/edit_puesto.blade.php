@@ -828,7 +828,38 @@
                                     ]
                                 },
                             ]
-                        }
+                        },
+
+                        { id: '120', key: '120', title: 'Facturación', folder:true, @if( in_array(120, $permisos_asignados) ) selected:true,  @endif  children: [
+                                {   id: '121',
+                                    key:'121',
+                                    title: 'Facturación',
+                                    @if( in_array(121, $permisos_asignados) ) selected:true  @endif 
+
+                                }
+                        ]},
+
+                        { id: '122', key: '122', title: 'Encuestas', folder:true, 
+                                    @if( in_array(122, $permisos_asignados) ) selected:true ,@endif  children: [
+                                {   id: '123',
+                                    key:'123',
+                                    @if( in_array(123, $permisos_asignados) ) selected:true,  @endif 
+                                    title: 'Nuevo servicio'
+
+                                },
+                                {   id: '124',
+                                    key:'124',
+                                    @if( in_array(124, $permisos_asignados) ) selected:true,  @endif
+                                    title: 'Nom 035'
+
+                                },
+                                {   id: '125',
+                                    key:'125',
+                                    @if( in_array(125, $permisos_asignados) ) selected:true,  @endif
+                                    title: 'Catalogos'
+
+                                }
+                        ]}
                     ]
                 }
             ],

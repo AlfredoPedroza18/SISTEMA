@@ -1626,7 +1626,7 @@ function activarLink( $url = '' )
             @endpermission
 
 
-
+            @permission('facturacion.main')
             <li class="has-sub {{	activarLink('facturacion')}}">
 
                     <a href="javascript:;">
@@ -1639,13 +1639,15 @@ function activarLink( $url = '' )
 
                     </a>
 
+                    @permission('facturacion.facturacion')
                     <ul class="sub-menu">
 
                         <li class="{{ activarLink('facturacion') }}"><a href="{{url('facturacion')}}">Facturación</a></li>
 
                     </ul>
-
+                    @endpermission
             </li>
+            @endpermission
 
 
 

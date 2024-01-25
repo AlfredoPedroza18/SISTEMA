@@ -540,8 +540,21 @@
 
 
 
-                ]}
-                ]}
+                        ]}
+                    ]},
+                    
+                    { id: '48', key: '48', title: 'Facturación', folder:true,  children: [
+                        { id: '49', key: '49', title: 'Empleados', folder:true,  children: [
+                            {   id: '50',
+                                key:'50',
+                                title: 'Ver Recibos de Empleado'
+
+                            }
+
+
+
+                        ]}
+                    ]}
 
 
 

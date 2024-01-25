@@ -1139,7 +1139,43 @@
                                     ]
                                 },
                             ]
-                        }
+                        },
+
+                        
+                    
+                        { id: '120', key: '120', title: 'Facturación', folder:true,  children: [
+                                {   id: '121',
+                                    key:'121',
+                                    title: 'Facturación'
+
+                                }
+                        ]},
+
+                        { id: '120', key: '120', title: 'Facturación', folder:true,  children: [
+                                {   id: '121',
+                                    key:'121',
+                                    title: 'Facturación'
+
+                                }
+                        ]},
+
+                        { id: '122', key: '122', title: 'Encuestas', folder:true,  children: [
+                                {   id: '123',
+                                    key:'123',
+                                    title: 'Nuevo servicio'
+
+                                },
+                                {   id: '124',
+                                    key:'124',
+                                    title: 'Nom 035'
+
+                                },
+                                {   id: '125',
+                                    key:'125',
+                                    title: 'Catalogos'
+
+                                }
+                        ]}
                     ]
                 }
             ],
