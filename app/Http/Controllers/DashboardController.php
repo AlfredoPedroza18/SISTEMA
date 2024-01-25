@@ -532,10 +532,39 @@ class DashboardController extends Controller
         }
 
                 
+        $fecha = DB::select("select MONTH(CURDATE()) as mes");
+        $Año = DB::select("select YEAR(CURDATE()) año");
+        $array = array(
+            1  => "Enero",
+            2  => "Febrero",
+            3  => "Marzo",
+            4  => "Abril",
+            5  => "Mayo",
+            6  => "Junio",
+            7  => "Julio",
+            8  => "Agosto",
+            9  => "Septiembre",
+            10  => "Octubre",
+            11 => "Noviembre",
+            12 => "Diciembre"
+        );
 
+        $mes= "";
+        for( $i = 1; $i<=12;$i++){
+            if($fecha[0]->mes == $i )
+                $mes = $array[$i] . "-" . $Año[0]->año;
+        }
         //dd($contratos);
+        $query_clientes = "Select count(id) as con from clientes where  Month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 2 ";
+        $query_pros = "Select count(id) as con from clientes where month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 1 ";
+        $queryMontoCotizaciones = 'SELECT IFNULL(FORMAT(SUM(total),2),"00.00") AS total_cotizaciones FROM crm_cotizaciones WHERE crm_cotizaciones.contrato = 0 AND 
+        Month(crm_cotizaciones.fecha_cotizacion) = MONTH(CURDATE()) AND YEAR(crm_cotizaciones.fecha_cotizacion) = YEAR(CURDATE()) ';
 
-        return view('crm.dashboard.crm-dashboard',['prospectos'=>$prospectos,'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE]);
+
+        $cli=DB::select($query_clientes);
+        $pros=DB::select($query_pros);
+        $Mcot =DB::select($queryMontoCotizaciones);
+        return view('crm.dashboard.crm-dashboard',["Mcot"=>$Mcot,"pros"=>$pros,"cli"=>$cli,"mes"=>$mes,'prospectos'=>$prospectos,'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE]);
 
     }
 

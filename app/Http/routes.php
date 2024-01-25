@@ -180,6 +180,8 @@ Route::group(['prefix' => 'utilerias',
 
 
 
+    Route::resource('dashboardAdministracion', 'Administrador\dashboardAdminController');
+
 Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm']], function () {
 
 // Route::group(['as' => 'sig-erp-crm::'], function () {
