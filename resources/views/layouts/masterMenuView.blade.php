@@ -976,62 +976,6 @@ function activarLink( $url = '' )
 
     @if( Auth::user()->tipo=='s')
 
-
-
-            <li class="has-sub {{ 	activarLink( 'utilerias/*' ) }}">
-
-                <a href="javascript:;">
-
-                    <b class="caret pull-right"></b>
-
-                    <i class="fa fa-briefcase"></i>
-
-                    <span id="">Utilerías</span>
-
-                </a>
-
-                <ul class="sub-menu" >
-
-
-
-                    <li class="{{ activarLink('utilerias/plantillas') }}">
-
-                        <a href="{{ url('utilerias/plantillas') }}">Plantillas Cotizador</a>
-
-                    </li>
-
-                    <li class="{{ activarLink('utilerias/plantilla_contratos') }}">
-
-                        <a href="{{ url('utilerias/plantilla_contratos') }}">Plantillas Contratos</a>
-
-                    </li>
-
-                    <li class="{{ activarLink('utilerias/impuestos') }}">
-
-                        <a href="{{ url('utilerias/impuestos') }}">Impuestos</a>
-
-                    </li>
-
-                    <li class="{{ activarLink('utilerias/plantillas') }}">
-
-                        <a href="{{ url('utilerias/codigospostales') }}">Codigos postales</a>
-
-                    </li>
-
-
-
-
-
-
-
-                </ul>
-
-
-
-            </li>
-
-
-
             {{-- Fin Utilerias --}}
 
 
@@ -1098,7 +1042,7 @@ function activarLink( $url = '' )
 
                     <li class="{{ activarLink('EmpresasFacturadoras').' '.activarLink('EmpresasFacturadoras/*') }}">
 
-                        <a href="{{ route('sig-erp-crm::EmpresasFacturadoras.index') }}">Empresas Facturadoras</a>
+                        <a href="{{ route('sig-erp-crm::EmpresasFacturadoras.index') }}">Empresa</a>
 
                     </li>
 
@@ -1108,7 +1052,7 @@ function activarLink( $url = '' )
 
                     <li class="{{ activarLink('EmpresasMaquiladoras').' '.activarLink('EmpresasMaquiladoras/*') }}">
 
-                        <a href="{{ url('EmpresasMaquiladoras') }}">Empresas Maquiladoras</a>
+                        <a href="{{ url('EmpresasMaquiladoras') }}">Gestión de Nómina</a>
 
                     </li>
 
@@ -1264,17 +1208,67 @@ function activarLink( $url = '' )
 
                     @endpermission
 
-                <!--  <li class="{{ activarLink( 'modulo/administrador/usuarios').' '.activarLink( 'modulo/administrador/usuarios/*') }}">  -->
+                    @permission('admin.utilerias|admin.utilerias.cotizador|admin.utilerias.plantilla.cotizador|admin.utilerias.platilla.contratos|admin.utilerias.inpuestos|admin.utilerias.codigos.postales')
+                    <li class="has-sub {{ 	activarLink( 'utilerias/*' ) }}">
 
-                    @permission('admin.cotizador')
+                    <a href="javascript:;">
 
-                    <li class="{{ activarLink('modulo/administrador/cotizador').' '.activarLink('modulo/administrador/cotizador/*') }}">
+                        <b class="caret pull-right"></b>
 
-                        <a href="{{ route('sig-erp-crm::modulo.administrador.cotizador.index') }}">Cotizador Cat. de Serv.</a>
+                        <span id="">Utilerías</span>
+
+                    </a>
+
+                    <ul class="sub-menu" >
+
+
+                        @permission('admin.utilerias.cotizador')
+                        <li class="{{ activarLink('modulo/administrador/cotizador').' '.activarLink('modulo/administrador/cotizador/*') }}">
+
+                            <a href="{{ route('sig-erp-crm::modulo.administrador.cotizador.index') }}">Cotizador Cat. de Serv.</a>
+
+                        </li>
+                        @endpermission
+
+                        @permission('admin.utilerias.plantilla.cotizador')
+                        <li class="{{ activarLink('utilerias/plantillas') }}">
+
+                            <a href="{{ url('utilerias/plantillas') }}">Plantillas Cotizador</a>
+
+                        </li>
+                        @endpermission
+
+                        @permission('admin.utilerias.platilla.contratos')
+                        <li class="{{ activarLink('utilerias/plantilla_contratos') }}">
+
+                            <a href="{{ url('utilerias/plantilla_contratos') }}">Plantillas Contratos</a>
+
+                        </li>
+                        @endpermission
+
+                        @permission('admin.utilerias.inpuestos')
+                        <li class="{{ activarLink('utilerias/impuestos') }}">
+
+                            <a href="{{ url('utilerias/impuestos') }}">Impuestos</a>
+
+                        </li>
+                        @endpermission
+
+                        @permission('admin.utilerias.codigos.postales')
+                        <li class="{{ activarLink('utilerias/plantillas') }}">
+
+                            <a href="{{ url('utilerias/codigospostales') }}">Codigos postales</a>
+
+                        </li>
+                        @endpermission
+                    </ul>
 
                     </li>
-
                     @endpermission
+
+                <!--  <li class="{{ activarLink( 'modulo/administrador/usuarios').' '.activarLink( 'modulo/administrador/usuarios/*') }}">  -->
+
+                
 
                     @permission('admin.kardex')
 

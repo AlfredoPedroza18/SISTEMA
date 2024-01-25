@@ -454,11 +454,53 @@
                                     ]
                                 },
                                 {   
-                                    id: '112',
-                                    key: '112',
-                                    title: 'Cotizador Cat. de Serv. ',
+                                    id: '126',
+                                    key: '126',
+                                    title: 'Utilerias',
                                     folder:true,
-                                    @if( in_array(112, $permisos_asignados) ) selected:true @endif
+                                    @if( in_array(126, $permisos_asignados) ) selected:true ,@endif
+                                    children: [
+                                                {   
+                                                    id: '127',
+                                                    key:'127',
+                                                    title: 'Cotizador Cat. de Serv',
+                                                    @if( in_array(127, $permisos_asignados) ) selected:true,@endif
+                                             
+                                                },
+
+                                                {   
+                                                    id: '128',
+                                                    key:'128',
+                                                    title: 'Plantillas Cotizador',
+                                                    @if( in_array(128, $permisos_asignados) ) selected:true ,@endif
+                                                
+                                                },
+
+                                                {   
+                                                    id: '129',
+                                                    key:'129',
+                                                    title: 'Plantillas Contratos',
+                                                    @if( in_array(129, $permisos_asignados) ) selected:true ,@endif
+                                              
+                                                },
+
+                                                {   
+                                                    id: '130',
+                                                    key:'130',
+                                                    title: 'Impuestos',
+                                                    @if( in_array(130, $permisos_asignados) ) selected:true ,@endif
+                                              
+                                                },
+
+                                                {   
+                                                    id: '131',
+                                                    key:'131',
+                                                    title: 'Codigos postales',
+                                                    @if( in_array(131, $permisos_asignados) ) selected:true ,@endif
+                                              
+                                                },
+                                    ]
+                                  
                                 },
                                 {   
                                     id: '113',

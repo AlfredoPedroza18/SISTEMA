@@ -517,26 +517,26 @@
                                 { 
                                     id: '52', 
                                     key: '52', 
-                                    title: 'Empresas Facturadoras', 
+                                    title: 'Empresa', 
                                     folder:true,
                           
 						            children: [
                                         {   
                                             id: '53',
                                             key:'53',
-                                            title: 'Crear Empresas Facturadoras',
+                                            title: 'Crear Empresa',
 			
                                         },
                                         {   
                                             id: '54',
                                             key:'54',
-                                            title: 'Eliminar Empresas Facturadoras',
+                                            title: 'Eliminar Empresa',
 						
                                         },
                                         {   
                                             id: '55',
                                             key:'55',
-                                            title: 'Editar Empresas Facturadoras',
+                                            title: 'Editar Empresa',
 						         
                                         },
                                     ]
@@ -544,26 +544,26 @@
                                 { 
                                     id: '56', 
                                     key: '56', 
-                                    title: 'Empresas Maquiladoras', 
+                                    title: 'Gestión de Nómina', 
                                     folder:true, 
                            
 						            children: [
                                         {   
                                             id: '57',
                                             key:'57',
-                                            title: 'Crear Empresas Maquiladoras',
+                                            title: 'Crear Gestión de Nómina',
 							        
                                         },
                                         {   
                                             id: '58',
                                             key:'58',
-                                            title: 'Eliminar Empresas Maquiladoras',
+                                            title: 'Eliminar Gestión de Nómina',
 						
                                         },
                                         {   
                                             id: '59',
                                             key:'59',
-                                            title: 'Editar Empresas Maquiladoras',
+                                            title: 'Editar Gestión de Nómina',
 
                                         },
                                     ]
@@ -767,10 +767,46 @@
                                     ]
                                 },
                                 {   
-                                    id: '112',
-                                    key: '112',
-                                    title: 'Cotizador Cat. de Serv. ',
+                                    id: '126',
+                                    key: '126',
+                                    title: 'Utilerias',
                                     folder:true,
+                                    children: [
+                                                {   
+                                                    id: '127',
+                                                    key:'86',
+                                                    title: 'Cotizador Cat. de Serv',
+                                             
+                                                },
+
+                                                {   
+                                                    id: '128',
+                                                    key:'128',
+                                                    title: 'Plantillas Cotizador',
+                                                
+                                                },
+
+                                                {   
+                                                    id: '129',
+                                                    key:'129',
+                                                    title: 'Plantillas Contratos',
+                                              
+                                                },
+
+                                                {   
+                                                    id: '130',
+                                                    key:'130',
+                                                    title: 'Impuestos',
+                                              
+                                                },
+
+                                                {   
+                                                    id: '131',
+                                                    key:'131',
+                                                    title: 'Codigos postales',
+                                              
+                                                },
+                                    ]
                                   
                                 },
                                 {   

@@ -503,6 +503,7 @@
 				</div>--}}
 				<!-- end col-3 -->
 				<!-- begin col-3 -->
+				@permission('facturacion.main|facturacion.facturacion')
 				<div class="col-md-4 col-sm-6 animacion-modulos">
 					<div class="widget widget-stats bg-black">
 						<div class="stats-icon"><i class="fa fa-clock-o"></i></div>
@@ -515,9 +516,10 @@
 						</div>
 					</div>
 				</div>
+				@endpermission
 				<!-- end col-3 -->
 				<!-- begin col-3 -->
-				@permission('ese.ordenes.servicio|ese.ordenes.servicio.cancelar|ese.ordenes.servicio.cerrar|ese.ordenes.servicio.detalle')
+				@permission('encuestas.main|encuestas.nom035|encuestas.nuevo.servicio|encuestas.catalogos')
 				<div class="col-md-4 col-sm-6 animacion-modulos">
 					<div class="widget widget-stats bg-red">
 						<div class="stats-icon"><i class="fa fa-clipboard"></i></div>
