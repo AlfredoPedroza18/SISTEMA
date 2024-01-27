@@ -145,9 +145,9 @@ class ClientesController extends Controller
 
    `dc_num_exterior`, `dc_num_interior`, `medio_contacto`, `tipo_cliente`, `comentario`, `db_forma_pago`, `db_banco`, `db_dias_credito`, `db_limite_credito`, `db_cta_clientes`, `db_clabe`, `db_iva`,
 
-    `clientescol`,`nickname`, `password`, `Username`, `TipoCliente`,`created_at`)
+    `clientescol`,`nickname`, `password`, `Username`, `TipoCliente`,`creacion`,`actualizacion`)
 
-       values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now())',
+       values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now())',
 
             [$id_cn,$id_ejecutivo,$id_contacto_principal,$request->TipoDeCliente,$contrato_a,$id_user,$nombre_comercial,$forma_juridica,$razon_social,'0000-00-00',$nombre,$apellido_paterno,$apellido_materno,
 
@@ -2579,6 +2579,18 @@ class ClientesController extends Controller
             ->where('id', $id)
             ->update(['medio_contacto'=> $request->medio_contacto]);
         }
+
+            $cli = DB::select("SELECT tipo FROM clientes where id = $id");
+
+            if($cli[0]->tipo != $request->TipoDeCliente){
+                $response =   DB::table('clientes')
+
+                ->where('id', $id)
+
+                ->update([
+                    "actualizacion"=> date('y-m-d')
+                ]);
+            }
             $response =   DB::table('clientes')
 
             ->where('id', $id)
@@ -2677,7 +2689,8 @@ class ClientesController extends Controller
 
                 'bLogo'=>$base64,
 
-                'contrato_a'=>$request->contrato_a
+                'contrato_a'=>$request->contrato_a,
+
 
 
 
