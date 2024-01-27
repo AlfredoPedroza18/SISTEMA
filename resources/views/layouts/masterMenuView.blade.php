@@ -1036,7 +1036,15 @@ function activarLink( $url = '' )
 
 
 
-                    <li class="modulos-desa"><a href="#">Suscripciones Servicios ERP</a></li>
+
+                    <!--<li class="modulos-desa"><a href="#">Suscripciones Servicios ERP</a></li>-->
+
+
+                    <li class="{{ activarLink('EmpresasFacturadoras').' '.activarLink('EmpresasFacturadoras/*') }}">
+
+                        <a href="{{url('/dashboardAdministracion')}}">Dashboard</a>
+
+                    </li>
 
                     @permission('admin.empresasfacturadoras')
 
@@ -1278,11 +1286,11 @@ function activarLink( $url = '' )
 
                    
 
-                    <li class="modulos-desa {{ activarLink('').' '.activarLink('') }}">
+                    <!--<li class="modulos-desa {{ activarLink('').' '.activarLink('') }}">
 
                         <a href="{{ url('#') }}">Soporte</a>
 
-                    </li>
+                    </li>-->
 
                     
 

@@ -44,55 +44,71 @@
 	@if(Auth::user()->tipo!="c")
 	<h1 class="page-header text-center">DASHBOARD<small></small></h1>
 
+	@if(Auth::user()->tipo!="f")
 	<div class="row">
-	<div class="col-md-4 col-md-offset-4 col-sm-6">
+		
+			<div class=" form-group col-md-3 col-sm-6" style="margin-left: -8px;">
+				<label>Tipo</label>
+				<div class="row">
+					<div class="input-group col-sm-12">
+						<select class="form-control" id="tipo_cliente" name="tipo_cliente" >
+							<option value="-1"> Sin Filtro</option>
+							<option value="1">Prospectos</option>
+							<option value="2">Clientes</option>
+						</select>
 
-	<div class="panel panel-inverse">
-
-
-<div class="panel-heading">
-
-	<div class="panel-heading-btn">
-
-
-	</div>
-
-	<h4 class="panel-title">Período</h4>
-
-</div>
-
-
-
-<div class="panel-body table-responsive" style="height: 100px;">
-
-	<div class="row">
-
-		<div class="col-md-8 col-sm-12">
-
-			<div class="form-group">
-
-				<label for="">Fecha Inicio</label>
-
-				<input type="month" class="form-control form-control-sm" id="fechainicio" value="<?php echo date("Y-m");?>" max = "<?php echo date("Y-m");?>" min = "2015-01">
-
+					</div>
+				</div>
 			</div>
 
-		</div>
+			<div class="form-group col-md-3 col-sm-6" style="margin-left: 3px;">
+				<label>Cliente/Prospecto</label>
+				<div class="row">
+					<div class="input-group col-sm-12">
+						<select class="form-control" id="clientes_prospectos" name="clientes_prospectos">
+							<option value="-1"> Sin Filtro</option>
+							@foreach($cli_pros as $clientes)
+								<option value="{{$clientes->id}}">{{$clientes->nombre_comercial}}</option>
+							@endforeach
+							
+						</select>
 
-		<div class="col-md-4 col-md-12">
-			<div class="form-group">
 
-				<label for="">&nbsp;</label>
-				<input class="btn btn-sm btn-success form-control form-control-sm" id="btnPeriod"  type="button" value="Aplicar filtro">
+					</div>
+				</div>
 			</div>
-		</div>
 
-	
+			<div class="form-group col-md-3 col-sm-6" style="margin-left: 4px;">
+				<label>Acción</label>
+				<div class="row">
+					<div class="input-group col-sm-12">
+						<select class="form-control" id="IdF3" name="IdInvestigador" >
+							<option value="-1"> Sin Filtro</option>
+							<option value="1">Llamada</option>
+							<option value="2">Correo</option>
+							<option value="3">Visita</option>
+							
+						</select>
+					</div>
+				</div>
+			</div>
 
-</div>
-</div>
-</div>
-	</div>
+			<div class="form-group col-md-3 col-sm-6" style="margin-left: 1px;">
+				<label>Departamentos</label>
+				<div class="row">
+					<div class="input-group col-sm-12">
+						<select class="form-control" id="IdF3" name="IdInvestigador" >
+							<option value="-1"> Sin Filtro</option>
+							@foreach($departamentos as $departamento)
+								<option value="{{$departamento->id}}"> {{$departamento->departamento}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+			</div>
+		
+	@endif
+		
 	<div class="row">
 
 <!-- begin col-6 potlet #1 -->
@@ -236,19 +252,20 @@
 	</div>
 </div>
 @else
+	
 	<div class="row">
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-4  col-sm-6">
+		<div class="col-md-3  col-sm-6">
 
 			<div class="widget widget-stats bg-purple">
 
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-				<div class="stats-title">Clientes</div>
+				<div class="panel-title">Clientes</div>
 
-				<div class="stats-number" id="total_clientes_cuadro">{{$cli[0]->con}}</div>
+				<div class="stats-number" id="total_clientes_cuadro">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -256,7 +273,7 @@
 
 				</div>
 
-				<div class="stats-desc">Clientes del mes de <span id="fechaClientes">{{$mes}}</span><label class="mes_actual stats-desc"></label> </div>
+				<div class="stats-desc"><label class="mes_actual stats-desc"></label> </div>
 
 			</div>
 
@@ -266,15 +283,15 @@
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-4 col-sm-6">
+		<div class="col-md-3 col-sm-6">
 
 			<div class="widget widget-stats bg-black">
 
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-				<div class="stats-title">Prospectos</div>
+				<div class="panel-title">Prospectos</div>
 
-				<div class="stats-number" id="total_prospectos">{{$pros[0]->con}}</div>
+				<div class="stats-number" id="total_prospectos">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -282,7 +299,7 @@
 
 				</div>
 
-				<div class="stats-desc">Prospectos del mes de <span id="fechaProspectos">{{$mes}}</span><label class="mes_actual stats-desc"></div>
+				<div class="stats-desc"><label class="mes_actual stats-desc">&nbsp;</div>
 
 			</div>
 
@@ -290,15 +307,15 @@
 
 		<!-- end col-3 -->
 
-		<div class="col-md-4 col-sm-6">
+		<div class="col-md-3 col-sm-6">
 
 			<div class="widget widget-stats bg-aqua">
 
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-				<div class="stats-title">Total Clientes</div>
+				<div class="panel-title">Total Clientes/Prospectos</div>
 
-				<div class="stats-number" id="total_porcentaje_cuadro">{{$cli[0]->con + $pros[0]->con}}</div>
+				<div class="stats-number" id="total_porcentaje_cuadro">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -306,11 +323,222 @@
 
 				</div>
 
-				<div class="stats-desc">Prospecto del mes de <span id="fechatotal">{{$mes}}</span></div>
+				<div class="stats-desc"><label class="mes_actual stats-desc">&nbsp;</div>
 
 			</div>
 
 		</div>
+
+		<div class="col-md-3 col-sm-6">
+
+				<div class="widget widget-stats " style="background-color: #17A589;">
+
+					<div class="row">
+
+						<div class="col-sm-12">
+
+							<div class="stats-icon stats-icon-lg"></div>
+
+
+							<div class="panel-title">Acciones</div>
+
+						</div>
+
+					</div>
+
+					<div class="panel-body table-responsive" style="height: 76px; padding:5px;">
+
+						<table style="height: 50px; width: 100%;">
+
+							<tbody id="accionxcliente">
+
+								
+
+								<tr>
+
+									
+
+								</tr>
+
+								
+
+							</tbody>
+
+						</table>
+
+					</div>
+
+				</div>
+
+			</div>
+
+	</div>
+
+	<div class="row">
+
+
+		<div class="col-md-3 col-sm-6">
+
+			<div class="panel panel-inverse">
+
+				<div class="panel-heading">
+
+					<div class="panel-heading-btn"></div>
+
+					<h4 class="panel-title">Periodo</h4>
+
+				</div>
+
+				<div class="panel-body table-responsive" style="height: 150px;">
+
+					<div class="row">
+
+						<div class="col-md-8 col-sm-12">
+
+							<div class="form-group">
+
+								<label for="">Fecha Inicio</label>
+
+								<input type="date" class="form-control form-control-sm" id="fechainicio" value="<?php echo date("Y-m-d");?>" max = "<?php echo date("Y-m-d");?>" min = "2015-01-01">
+
+							</div>
+
+						</div>
+
+						<div class="col-md-8 col-sm-12">
+
+							<div class="form-group">
+
+								<label for="">Periodo Final</label>
+			
+								@php
+									$fecha= date("Y-m-d");
+									$nuevafecha = strtotime ( '-30 day' , strtotime ( $fecha ) ) ;
+									$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+								@endphp
+
+								<input type="date" class="form-control form-control-sm" id="fechainicio" value="{{$nuevafecha}}" min = "2015-01-01">
+
+							</div>
+
+						</div>
+
+						<div class="col-md-4 col-md-12">
+							<div class="form-group">
+
+								<label for="">&nbsp;</label>
+								<input class="btn btn-sm btn-success form-control form-control-sm" id="btnPeriod"  type="button" value="Aplicar">
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div><!-- end colspan 6-->
+
+
+		<div class="col-md-3 col-sm-6">
+
+			<div class="panel panel-inverse">
+
+				<div class="panel-heading">
+
+					<div class="panel-heading-btn"></div>
+
+					<h4 class="panel-title">Clientes</h4>
+
+				</div>
+
+				<div class="panel-body table-responsive" style="height: 150px;">
+
+					<table style=" height: 50px; " id="TableClientes" class="container-data">
+
+						<tbody id="bodyTableClientes">
+
+							<tr>
+
+
+							</tr>
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+			</div>
+
+		</div><!-- end colspan 6-->
+
+		<div class="col-md-3 col-sm-6">
+
+			<div class="panel panel-inverse">
+
+				<div class="panel-heading">
+
+					<div class="panel-heading-btn"></div>
+
+					<h4 class="panel-title">Prospectos</h4>
+
+				</div>
+
+				<div class="panel-body table-responsive" style="height: 150px;">
+
+					<table style=" height: 50px; " id="TableClientes" class="container-data">
+
+						<tbody id="bodyTableClientes">
+
+							
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+			</div>
+
+		</div><!-- end colspan 6-->
+
+		<div class="col-md-3 col-sm-6">
+
+			<div class="panel panel-inverse">
+
+				<div class="panel-heading">
+
+					<div class="panel-heading-btn"></div>
+
+					
+					<table class="container-data">
+
+								<td><h4 class="panel-title">Asignación</h4></td>
+						
+
+					</table>
+
+				</div>
+
+				<div class="panel-body table-responsive" style="height: 150px;">
+
+					<table style=" height: 50px; " id="TableClientes" class="container-data">
+
+						<tbody id="bodyTableClientes">
+
+							
+
+						</tbody>
+
+					</table>
+
+				</div>
+
+			</div>
+
+		</div><!-- end colspan 6-->
+
 
 	</div>
 
@@ -318,15 +546,15 @@
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-6  col-sm-6">
+		<div class="col-md-3  col-sm-6">
 
 			<div class="widget widget-stats bg-green">
 
-				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-dollar"></i></div>
+				<div class="stats-icon stats-icon-lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M181.3 32.4c17.4 2.9 29.2 19.4 26.3 36.8L197.8 128h95.1l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3s29.2 19.4 26.3 36.8L357.8 128H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H347.1L325.8 320H384c17.7 0 32 14.3 32 32s-14.3 32-32 32H315.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8l9.8-58.7H155.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8L90.2 384H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l21.3-128H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3zM187.1 192L165.8 320h95.1l21.3-128H187.1z"/></svg></div>
 
-				<div class="stats-title">Total Cotizaciones</div>
+				<div class="panel-title">Número de Cotizaciones</div>
 
-				<div class="stats-number" id="total_cotizaciones_cuadro">$ {{$Mcot[0]->total_cotizaciones}}</div>
+				<div class="stats-number" id="total_cotizaciones_cuadro">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -334,7 +562,29 @@
 
 				</div>
 
-				<div class="stats-desc">Monto de cotizaciones del mes de <span id="fechatotal_cotizaciones">{{$mes}}</span><label class="mes_actual stats-desc"></div>
+				<div class="stats-desc"><label class="mes_actual stats-desc"></div>
+
+			</div>
+
+		</div>
+
+		<div class="col-md-3  col-sm-6">
+
+			<div class="widget widget-stats bg-green">
+
+				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-dollar"></i></div>
+
+				<div class="panel-title">Total Cotizaciones</div>
+
+				<div class="stats-number" id="total_cotizaciones_cuadro">&nbsp;</div>
+
+				<div class="stats-progress progress">
+
+					<div class="progress-bar" style="width: 70.1%;"></div>
+
+				</div>
+
+				<div class="stats-desc"><label class="mes_actual stats-desc"></div>
 
 			</div>
 
@@ -344,15 +594,15 @@
 
 		<!-- begin col-3 -->
 
-		<div class="col-md-6 col-sm-6">
+		<div class="col-md-3 col-sm-6">
 
 			<div class="widget widget-stats bg-blue">
 
-				<div class="stats-icon stats-icon-lg"><i class="fa fa-tags fa-fw"></i></div>
+				<div class="stats-icon stats-icon-lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M181.3 32.4c17.4 2.9 29.2 19.4 26.3 36.8L197.8 128h95.1l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3s29.2 19.4 26.3 36.8L357.8 128H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H347.1L325.8 320H384c17.7 0 32 14.3 32 32s-14.3 32-32 32H315.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8l9.8-58.7H155.1l-11.5 69.3c-2.9 17.4-19.4 29.2-36.8 26.3s-29.2-19.4-26.3-36.8L90.2 384H32c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l21.3-128H64c-17.7 0-32-14.3-32-32s14.3-32 32-32h68.9l11.5-69.3c2.9-17.4 19.4-29.2 36.8-26.3zM187.1 192L165.8 320h95.1l21.3-128H187.1z"/></svg></div>
 
-				<div class="stats-title">Total Contratos</div>
+				<div class="panel-title">Número Contratos</div>
 
-				<div class="stats-number" id="total_contratos_cuadro">$ 0.00</div>
+				<div class="stats-number" id="total_contratos_cuadro">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -360,7 +610,29 @@
 
 				</div>
 
-				<div class="stats-desc">Monto de contratos del mes de <span id="">{{$mes}}</span><label class="mes_actual stats-desc"></div>
+				<div class="stats-desc"><label class="mes_actual stats-desc"></div>
+
+			</div>
+
+		</div>
+
+		<div class="col-md-3 col-sm-6">
+
+			<div class="widget widget-stats bg-blue">
+
+				<div class="stats-icon stats-icon-lg"><i class="fa fa-tags fa-fw"></i></div>
+
+				<div class="panel-title">Total Contratos</div>
+
+				<div class="stats-number" id="total_contratos_cuadro">&nbsp;</div>
+
+				<div class="stats-progress progress">
+
+					<div class="progress-bar" style="width: 40.5%;"></div>
+
+				</div>
+
+				<div class="stats-desc"><label class="mes_actual stats-desc"></div>
 
 			</div>
 
@@ -725,7 +997,29 @@
 
 
 	<script type="text/javascript">
-		
+		$("#tipo_cliente").on("change",function(){
+
+			var id_tipo=$("#tipo_cliente").val();
+
+			$("#clientes_prospectos").html("");
+
+			$.ajax({
+				url:"{{ url('tipoCliente') }}"+"/"+id_tipo,
+				type:"GET",
+				success: function(response){
+					$("#clientes_prospectos").html("");
+					$("#clientes_prospectos").append(`<option value='-1'>Sin FIltro</option>`);
+					response.forEach(element => { 
+					$("#clientes_prospectos").append(`<option value='${element.id}'>${element.nombre_comercial}</option>`);
+					});
+				},
+				error:function(){
+					console.log(id_tipo);
+				}
+			})
+
+		});
+
 		$("#btnPeriod").on("click", function() {
 
 		var dateIni =$("#fechainicio").val()+"-1";
@@ -995,6 +1289,7 @@
 			return titulo;
 
 		}
+
 
 
 

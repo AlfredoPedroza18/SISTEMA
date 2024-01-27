@@ -182,6 +182,9 @@ Route::group(['prefix' => 'utilerias',
 
     Route::resource('dashboardAdministracion', 'Administrador\dashboardAdminController');
 
+    Route::get('tipoCliente/{id_tipo}', 'DashboardController@tipoCliente');
+
+
 Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm']], function () {
 
 // Route::group(['as' => 'sig-erp-crm::'], function () {

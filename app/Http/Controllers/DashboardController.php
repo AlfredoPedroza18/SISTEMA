@@ -7,7 +7,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-
+use App\Bussines\MasterConsultas;
 
 
 use App\Http\Requests;
@@ -123,11 +123,7 @@ class DashboardController extends Controller
             $nESE = $n->numero;
         }
 
-        $query_clientes = "Select count(id) as con from clientes where  Month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 2 ";
-        $query_pros = "Select count(id) as con from clientes where month(created_at) = MONTH(CURDATE()) AND YEAR(created_at) = YEAR(CURDATE()) AND tipo = 1 ";
-        $queryMontoCotizaciones = 'SELECT IFNULL(FORMAT(SUM(total),2),"00.00") AS total_cotizaciones FROM crm_cotizaciones WHERE crm_cotizaciones.contrato = 0 AND 
-        Month(crm_cotizaciones.fecha_cotizacion) = MONTH(CURDATE()) AND YEAR(crm_cotizaciones.fecha_cotizacion) = YEAR(CURDATE()) ';
-
+        
 
         if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
 
@@ -173,9 +169,7 @@ class DashboardController extends Controller
             
 
         }else{
-            $queryMontoCotizaciones .= 'AND crm_cotizaciones.id_cn = ' . Auth::user()->idcn;
-            $query_clientes.= " AND id_cn = ?";
-            $query_pros .= " AND id_cn = ?";
+            
             
                 $query_cotizaciones =   "SELECT    crm_cotizaciones.id,
 
@@ -311,43 +305,58 @@ class DashboardController extends Controller
 
         //dd($contratos);
 
-        $pros=DB::select($query_pros,[Auth::user()->idcn]);
-        $cli=DB::select($query_clientes,[Auth::user()->idcn]);
-        $Mcot=DB::select($queryMontoCotizaciones);
+    
 
-        $fecha = DB::select("select MONTH(CURDATE()) as mes");
-        $Año = DB::select("select YEAR(CURDATE()) año");
-        $array = array(
-            1  => "Enero",
-            2  => "Febrero",
-            3  => "Marzo",
-            4  => "Abril",
-            5  => "Mayo",
-            6  => "Junio",
-            7  => "Julio",
-            8  => "Agosto",
-            9  => "Septiembre",
-            10  => "Octubre",
-            11 => "Noviembre",
-            12 => "Diciembre"
+
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $cn = Auth::user()->idcn;
+            }
+        }
+
+        $cli_pros =  MasterConsultas::exeSQL("clientes_cn", "READONLY",
+            array(
+                "id_cn"=>$cn, 
+            )
         );
 
-        $mes= "";
-        for( $i = 1; $i<=12;$i++){
-            if($fecha[0]->mes == $i )
-                $mes = $array[$i] . "-" . $Año[0]->año;
-        }
+        $departamentos =  MasterConsultas::exeSQL("bashboard_crm_departamento", "READONLY",
+            array(
+                "id"=>$cn, 
+            )
+        );
+
+
         return view('crm.dashboard.crm-dashboard',['prospectos'=>$prospectos,
-        'mes'=>$mes,
-        'pros'=>$pros,
-        'cli'=>$cli,
         'ESEinvT'=>$ESEinvT,
         'ESEinvA'=>$ESEinvA,
         'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE,
-        'Mcot'=>$Mcot]);
+        "cli_pros"=>$cli_pros,
+        "departamentos"=> $departamentos
+        ]);
 
     }
 
+    public function tipoCliente ($id_tipo){
+        
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $cn = Auth::user()->idcn;
+            }
+        }
+
+        $clientes_tipo =  MasterConsultas::exeSQL("clientes_tipo", "READONLY",
+            array(
+                "id_cn"=>$cn, 
+                "tipo" => $id_tipo
+            )
+        );
+        return response()->json($clientes_tipo);
+    }
 
 
     public function Administrador(Request $request)
@@ -564,7 +573,28 @@ class DashboardController extends Controller
         $cli=DB::select($query_clientes);
         $pros=DB::select($query_pros);
         $Mcot =DB::select($queryMontoCotizaciones);
-        return view('crm.dashboard.crm-dashboard',["Mcot"=>$Mcot,"pros"=>$pros,"cli"=>$cli,"mes"=>$mes,'prospectos'=>$prospectos,'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE]);
+
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $cn = Auth::user()->idcn;
+            }
+        }
+
+        $cli_pros =  DB::select ("SELECT * from clientes where id_cn = $cn " );
+
+        return view('crm.dashboard.crm-dashboard',[
+            "Mcot"=>$Mcot,
+            "pros"=>$pros,
+            "cli"=>$cli,
+            "mes"=>$mes,
+            'prospectos'=>$prospectos,
+            'agenda'=>$agenda,
+            "contrato"=>$contratos,
+            "nESE"=>$nESE,
+            "cli_pros"=>$cli_pros
+        ]);
 
     }
 
