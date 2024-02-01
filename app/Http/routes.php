@@ -184,6 +184,9 @@ Route::group(['prefix' => 'utilerias',
 
     Route::get('tipoCliente/{id_tipo}', 'DashboardController@tipoCliente');
 
+    Route::get('iniciarDash/{fechaIni}/{fechaFin}', 'DashboardController@iniciarDash');
+
+
 
 Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm']], function () {
 
@@ -607,11 +610,14 @@ Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm
 
     Route::get('estadisticas_cuadros', 'DashboardController@cuadrosEstadisticos');
 
-    Route::get('filtroDash/{mes}/{anoi}', 'DashboardController@filtroDash');
+    Route::get('filtroDash/{fechaInicio}/{fechaFin}/{tipo}/{cliente}/{accion}/{cn}', 'DashboardController@filtroDash');
 
 
-    Route::get('clientes_mes_dashboard', 'DashboardController@portletClientesMes');
+    Route::get('clientes_mes_dashboard/{fechaIni}', 'DashboardController@portletClientesMes');
 
+    Route::get('cotizaciones_mes_dashboard/{fechaIni}/{fechaFin}', 'DashboardController@portletCotizacionesMes');
+    Route::get('contratos_mes_dashboard/{fechaIni}/{fechaFin}', 'DashboardController@portletContratosMes');
+    Route::get('clientes_mes_dashboard/{fechaIni}/{fechaFin}', 'DashboardController@portletClientes');
     /*********************************************************************************************************************
 
      * FIN ESTADISTICAS DASHBOARD

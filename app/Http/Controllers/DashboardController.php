@@ -5,13 +5,13 @@
 namespace App\Http\Controllers;
 
 
-
+use App\Bussines\DhasboarCRM;
 use Illuminate\Http\Request;
 use App\Bussines\MasterConsultas;
 
 
 use App\Http\Requests;
-
+use App\Servicio;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,62 +39,35 @@ class DashboardController extends Controller
 
      */
 
-    public function filtroDash($mes,$anio){
-        $query_clientes = "Select count(id) as con from clientes where  Month(created_at) = {$mes} AND YEAR(created_at) = {$anio} AND tipo = 2 ";
-        $query_pros = "Select count(id) as con from clientes where month(created_at) = {$mes} AND YEAR(created_at) = {$anio} AND tipo = 1 ";
-        $queryMontoCotizaciones = 'SELECT IFNULL(FORMAT(SUM(total),2),"00.00") AS total_cotizaciones FROM crm_cotizaciones WHERE crm_cotizaciones.contrato = 0 AND 
-        Month(crm_cotizaciones.fecha_cotizacion) = '.$mes.' AND YEAR(crm_cotizaciones.fecha_cotizacion) = '.$anio.'';
+    public function filtroDash($fechaIni,$fechaFin,$tipo,$cliente,$accion,$cn){
+        $objDashboard = new DhasboarCRM();
+        $chart = $objDashboard->filtrosDash($fechaIni,$fechaFin,$tipo,$cliente,$accion,$cn);
+        unset($objDashboard);
 
-        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
-        }else{
-            $queryMontoCotizaciones .= 'AND crm_cotizaciones.id_cn = ' . Auth::user()->idcn;
-            $query_clientes.= " AND id_cn = ". Auth::user()->idcn;
-            $query_pros .= " AND id_cn = ". Auth::user()->idcn;
-
-        }
-        $pros=DB::select($query_pros);
-        $cli=DB::select($query_clientes);
-        
-        $Mcot=DB::select($queryMontoCotizaciones);
-
-        $TotalCota = $Mcot[0]->total_cotizaciones;
-        $TotalClientes = $cli[0]->con;
-        $TotalProspectos = $pros[0]->con;
-        $TotalClientesProspectos = $TotalClientes + $TotalProspectos;
-
-        $array = array(
-            1  => "Enero",
-            2  => "Febrero",
-            3  => "Marzo",
-            4  => "Abril",
-            5  => "Mayo",
-            6  => "Junio",
-            7  => "Julio",
-            8  => "Agosto",
-            9  => "Septiembre",
-            10  => "Octubre",
-            11 => "Noviembre",
-            12 => "Diciembre"
-        );
-
-        $meses= "";
-        for( $i = 1; $i<=12;$i++){
-            if($mes == $i )
-                $meses = $array[$i] . "-" .$anio;
-        }
-        return response()->json(["TotalCota"=> $TotalCota,
-            "TotalClientes"=>$TotalClientes,
-            "TotalProspectos"=>$TotalProspectos,
-            "TotalClientesProspectos"=>$TotalClientesProspectos,
-            "meses"=>$meses
-        ]);
+        return response()->json([$chart]);
 
     }
+
+    public function iniciarDash($fechaIni,$fechaFin){
+        $objDashboard = new DhasboarCRM();
+        $chart = $objDashboard->iniciarDataosDashboard($fechaIni,$fechaFin);
+        unset($objDashboard);
+
+
+        return response()->json([$chart]);
+    }
+
     public function index(Request $request)
 
     {
 
+        $servicio = DB::select("SELECT servicio from  crm_cotizador_servicio");
         
+       $servicios = array();
+        foreach($servicio as $srv){
+            array_push($servicios,$srv->servicio);
+        }
+            
         $op = DB::select ('SELECT u.idempleado as e FROM users u 
         WHERE u.id = ?', [$request->user()->id]);
         
@@ -147,20 +120,16 @@ class DashboardController extends Controller
                                             DATE_ADD(crm_cotizaciones.fecha_cotizacion, interval 4 month) as mes_vencer,
 
                                             crm_tc_servicioscotizador.servicio
-
                                         FROM clientes
 
-                                            LEFT JOIN users             ON users.id = clientes.id_user
-
-                                            LEFT JOIN  crm_cotizaciones ON clientes.id=crm_cotizaciones.id_cliente 
-
-                                                                    AND crm_cotizaciones.id_usuario = users.id
+                                           inner join crm_cotizaciones on crm_cotizaciones.id_cliente = clientes.id 
 
                                             LEFT JOIN contactos ON contactos.id_cliente=clientes.id
 
                                             LEFT JOIN crm_tc_servicioscotizador ON crm_cotizaciones.id_servicio=crm_tc_servicioscotizador.id
 
                                             LEFT JOIN centros_negocio ON clientes.id_cn=centros_negocio.id and centros_negocio.id=crm_cotizaciones.id_cn
+                                            
 
                                         ORDER BY total DESC LIMIT 10"; 
 
@@ -173,39 +142,36 @@ class DashboardController extends Controller
             
                 $query_cotizaciones =   "SELECT    crm_cotizaciones.id,
 
-                                            clientes.nombre_comercial as nombre,
+                clientes.nombre_comercial as nombre,
 
-                                            contactos.nombre_con as contacto,
+                contactos.nombre_con as contacto,
 
-                                            contactos.telefono1 as telefono,
+                contactos.telefono1 as telefono,
 
-                                            contactos.celular1 as celular,
+                contactos.celular1 as celular,
 
-                                            crm_cotizaciones.total as total,
+                crm_cotizaciones.total as total,
 
-                                            DATEDIFF(CURDATE(),crm_cotizaciones.fecha_cotizacion)/30 AS FECHA,
+                DATEDIFF(CURDATE(),crm_cotizaciones.fecha_cotizacion)/30 AS FECHA,
 
-                                            DATE_ADD(crm_cotizaciones.fecha_cotizacion, interval 4 month) as mes_vencer,
+                DATE_ADD(crm_cotizaciones.fecha_cotizacion, interval 4 month) as mes_vencer,
 
-                                            crm_tc_servicioscotizador.servicio
+                crm_tc_servicioscotizador.servicio
+            FROM clientes
 
-                                        FROM clientes
+               inner join crm_cotizaciones on crm_cotizaciones.id_cliente = clientes.id 
 
-                                            LEFT JOIN users             ON users.id = clientes.id_user
+                LEFT JOIN contactos ON contactos.id_cliente=clientes.id
 
-                                            LEFT JOIN  crm_cotizaciones ON clientes.id=crm_cotizaciones.id_cliente 
+                LEFT JOIN crm_tc_servicioscotizador ON crm_cotizaciones.id_servicio=crm_tc_servicioscotizador.id
 
-                                                                    AND crm_cotizaciones.id_usuario = users.id
-
-                                            LEFT JOIN contactos ON contactos.id_cliente=clientes.id
-
-                                            LEFT JOIN crm_tc_servicioscotizador ON crm_cotizaciones.id_servicio=crm_tc_servicioscotizador.id
-
-                                        WHERE users.id = ?  and users.idcn=? AND crm_cotizaciones.contrato != 1 
+                LEFT JOIN centros_negocio ON clientes.id_cn=centros_negocio.id and centros_negocio.id=crm_cotizaciones.id_cn
+                
+                where clientes.id_cn= ?
 
                                         ORDER BY total DESC LIMIT 10"; 
 
-            $prospectos=DB::select($query_cotizaciones,[$request->user()->id,$request->user()->idcn]);
+            $prospectos=DB::select($query_cotizaciones,[$request->user()->idcn]);
 
 
 
@@ -329,12 +295,17 @@ class DashboardController extends Controller
         );
 
 
+        $logo = DB::select("select logo from master_ese_logo");
+
+
         return view('crm.dashboard.crm-dashboard',['prospectos'=>$prospectos,
         'ESEinvT'=>$ESEinvT,
         'ESEinvA'=>$ESEinvA,
         'agenda'=>$agenda,"contrato"=>$contratos,"nESE"=>$nESE,
         "cli_pros"=>$cli_pros,
-        "departamentos"=> $departamentos
+        "departamentos"=> $departamentos,
+        "servicios"=>$servicios,
+        "logo" => $logo[0]->logo
         ]);
 
     }
@@ -832,82 +803,110 @@ class DashboardController extends Controller
 
 
 
-    public function portletClientesMes(Request $request)
+    public function portletClientesMes( $fechaIni)
 
     {
 
-        $iduser=$request->user()->id;
-
-        $idcn=$request->user()->idcn;
-
-        if($request->user()->is('admin')){
-
-        $clientes_mes = 'SELECT 
-
-                            MONTH(crm_contratos.fecha_cotizacion) -1 AS meses_cotizaciones,
-
-                            crm_contratos.id_servicio,
-
-                            COUNT(DISTINCT crm_contratos.id_cliente) AS numero_clientes    
-
-                        FROM crm_contratos
-
-                            LEFT JOIN crm_cotizaciones  ON crm_cotizaciones.id = crm_contratos.id_cotizacion
-
-                            LEFT JOIN clientes          ON crm_contratos.id_cliente=clientes.id
-
-
-
-                        GROUP BY    
-
-                            meses_cotizaciones,
-
-                            crm_contratos.id_servicio
-
-                        ORDER BY 1';
-
-                        $resultado = DB::select($clientes_mes);
-
+       
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $id_cn = -1;
         }else{
-
-            $clientes_mes = "SELECT 
-
-                            MONTH(crm_contratos.fecha_cotizacion) -1 AS meses_cotizaciones,
-
-                            crm_contratos.id_servicio,
-
-                            COUNT(DISTINCT crm_contratos.id_cliente) AS numero_clientes    
-
-                        FROM crm_contratos
-
-                            LEFT JOIN crm_cotizaciones  ON crm_cotizaciones.id = crm_contratos.id_cotizacion
-
-                            LEFT JOIN clientes          ON crm_contratos.id_cliente=clientes.id
-
-                        where crm_contratos.id_usuario=$iduser and crm_contratos.id_cn=$idcn
-
-
-
-                        GROUP BY    
-
-                            meses_cotizaciones,
-
-                            crm_contratos.id_servicio
-
-                        ORDER BY 1";
-
-                        $resultado = DB::select($clientes_mes);
-
-
-
+            if(Auth::user()->tipo == "s"){
+                $id_cn = Auth::user()->idcn;
+            }
         }
 
-        
-
-
+        $resultado =  MasterConsultas::exeSQL("deashboard_grafica", "READONLY",
+            array(
+                "id_cn"=>$id_cn, 
+                "fechaIni"=>$fechaIni,
+            
+            )
+        );
 
         return response()->json($resultado);
 
+    }
+
+    public function portletCotizacionesMes($fechaIni, $fechaFin){
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $id_cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $id_cn = Auth::user()->idcn;
+            }
+        }
+
+        $resultado =  MasterConsultas::exeSQL("dashboard_crm_grafico_coti", "READONLY",
+            array(
+                "id_cn"=>$id_cn, 
+                "fechaIni"=>$fechaIni,
+                "fechaFin"=>$fechaFin
+            
+            )
+        );
+
+        return response()->json($resultado);
+    }
+
+    public function portletContratosMes($fechaIni, $fechaFin){
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $id_cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $id_cn = Auth::user()->idcn;
+            }
+        }
+
+        $resultado =  MasterConsultas::exeSQL("dashboard_crm_grafico_contra", "READONLY",
+            array(
+                "id_cn"=>$id_cn, 
+                "fechaIni"=>$fechaIni,
+                "fechaFin"=>$fechaFin
+            
+            )
+        );
+
+        return response()->json($resultado);
+    }
+
+    public function portletClientes($fechaIni, $fechaFin){
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $id_cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $id_cn = Auth::user()->idcn;
+            }
+        }
+
+        $nuevos =  MasterConsultas::exeSQL("dashboard_crm_clientes_nuevos", "READONLY",
+            array(
+                "id_cn"=>$id_cn, 
+                "fechaIni"=>$fechaIni,
+                "fechaFin"=>$fechaFin
+            
+            )
+        );
+
+        $activos =  MasterConsultas::exeSQL("dashboard_crm_clientes_activos", "READONLY",
+            array(
+                "id_cn"=>$id_cn, 
+                "fechaIni"=>$fechaIni,
+                "fechaFin"=>$fechaFin
+            
+            )
+        );
+
+        $inactivos =  MasterConsultas::exeSQL("dashboard_crm_clientes_inactivos", "READONLY",
+            array(
+                "id_cn"=>$id_cn, 
+                "fechaIni"=>$fechaIni,
+                "fechaFin"=>$fechaFin
+            
+            )
+        );
+
+        return response()->json([$nuevos,$activos,$inactivos]);
     }
 
 }

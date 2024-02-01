@@ -42,12 +42,22 @@
 
 	<!-- begin page-header -->
 	@if(Auth::user()->tipo!="c")
-	<h1 class="page-header text-center">DASHBOARD<small></small></h1>
+	<div style="display: flex; justify-content:end;">
+		<h1 style="width: 50vw;  font-size: 30px;" class="page-header text-center">DASHBOARD</h1>
+		
+		<div style="width: 10px;"></div>
+
+		<div style="width: 15vw; text-align: center; display: flex; justify-content: end;" >
+		<a class="btn btn-success text-center" onclick="pdfs()"  style="height: 30px; width: 130px; text-align: center;" target="_blank">Generar Reporte</a> 
+		</div>
+		
+		<div style="height: 10px;"></div>
+	</div>
 
 	@if(Auth::user()->tipo!="f")
 	<div class="row">
 		
-			<div class=" form-group col-md-3 col-sm-6" style="margin-left: -8px;">
+			<div class=" form-group col-md-4 col-sm-7" style="margin-left: -2px;">
 				<label>Tipo</label>
 				<div class="row">
 					<div class="input-group col-sm-12">
@@ -61,7 +71,7 @@
 				</div>
 			</div>
 
-			<div class="form-group col-md-3 col-sm-6" style="margin-left: 3px;">
+			<div class="form-group col-md-4 col-sm-7" style="margin-left: 0px;">
 				<label>Cliente/Prospecto</label>
 				<div class="row">
 					<div class="input-group col-sm-12">
@@ -78,26 +88,13 @@
 				</div>
 			</div>
 
-			<div class="form-group col-md-3 col-sm-6" style="margin-left: 4px;">
-				<label>Acción</label>
-				<div class="row">
-					<div class="input-group col-sm-12">
-						<select class="form-control" id="IdF3" name="IdInvestigador" >
-							<option value="-1"> Sin Filtro</option>
-							<option value="1">Llamada</option>
-							<option value="2">Correo</option>
-							<option value="3">Visita</option>
-							
-						</select>
-					</div>
-				</div>
-			</div>
+			
 
-			<div class="form-group col-md-3 col-sm-6" style="margin-left: 1px;">
+			<div class="form-group col-md-4 col-sm-7" style="margin-left: 1px;">
 				<label>Departamentos</label>
 				<div class="row">
 					<div class="input-group col-sm-12">
-						<select class="form-control" id="IdF3" name="IdInvestigador" >
+						<select class="form-control" id="depar" name="IdInvestigador" >
 							<option value="-1"> Sin Filtro</option>
 							@foreach($departamentos as $departamento)
 								<option value="{{$departamento->id}}"> {{$departamento->departamento}}</option>
@@ -315,7 +312,7 @@
 
 				<div class="panel-title">Total Clientes/Prospectos</div>
 
-				<div class="stats-number" id="total_porcentaje_cuadro">&nbsp;</div>
+				<div class="stats-number" id="total_clientes_prospectos">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -354,11 +351,7 @@
 
 								
 
-								<tr>
-
-									
-
-								</tr>
+								
 
 								
 
@@ -399,8 +392,15 @@
 
 								<label for="">Fecha Inicio</label>
 
-								<input type="date" class="form-control form-control-sm" id="fechainicio" value="<?php echo date("Y-m-d");?>" max = "<?php echo date("Y-m-d");?>" min = "2015-01-01">
+								@php
+									$fecha= date("Y-m-d");
+									$nuevafecha = strtotime ( '-30 day' , strtotime ( $fecha ) ) ;
+									$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+								@endphp
 
+								<input type="date" class="form-control form-control-sm" id="fechaFin" value="{{$nuevafecha}}" max = "<?php echo date("Y-m-d");?>" min = "2015-01-01">
+
+								
 							</div>
 
 						</div>
@@ -411,13 +411,7 @@
 
 								<label for="">Periodo Final</label>
 			
-								@php
-									$fecha= date("Y-m-d");
-									$nuevafecha = strtotime ( '-30 day' , strtotime ( $fecha ) ) ;
-									$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
-								@endphp
-
-								<input type="date" class="form-control form-control-sm" id="fechainicio" value="{{$nuevafecha}}" min = "2015-01-01">
+								<input type="date" class="form-control form-control-sm" id="fechaInicio" value="<?php echo date("Y-m-d");?>" max = "<?php echo date("Y-m-d");?>" min = "2015-01-01">
 
 							</div>
 
@@ -456,7 +450,7 @@
 
 					<table style=" height: 50px; " id="TableClientes" class="container-data">
 
-						<tbody id="bodyTableClientes">
+						<tbody id="bodyClientes">
 
 							<tr>
 
@@ -489,7 +483,7 @@
 
 					<table style=" height: 50px; " id="TableClientes" class="container-data">
 
-						<tbody id="bodyTableClientes">
+						<tbody id="bodyProspectos">
 
 							
 
@@ -525,7 +519,7 @@
 
 					<table style=" height: 50px; " id="TableClientes" class="container-data">
 
-						<tbody id="bodyTableClientes">
+						<tbody id="bodyAsignacion">
 
 							
 
@@ -554,7 +548,7 @@
 
 				<div class="panel-title">Número de Cotizaciones</div>
 
-				<div class="stats-number" id="total_cotizaciones_cuadro">&nbsp;</div>
+				<div class="stats-number" id="numero_cotizaciones_cuadro">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -602,7 +596,7 @@
 
 				<div class="panel-title">Número Contratos</div>
 
-				<div class="stats-number" id="total_contratos_cuadro">&nbsp;</div>
+				<div class="stats-number" id="numero_contratos_cuadro">&nbsp;</div>
 
 				<div class="stats-progress progress">
 
@@ -642,13 +636,153 @@
 
 	</div>
 
+	<div class="row" >
+			<div  class="col-md-6">
+					<div class="panel panel-inverse">
+
+						<div class="panel-heading">
+
+							<div class="panel-heading-btn">
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+
+							</div>
+
+							<h4 class="panel-title">Cotizaciones por servicio</h4>
+
+						</div>
+
+						<div class="panel-body table-responsive">
+
+							<div id="container2" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+						</div>
+
+
+
+						</div>
+					</div>
+		
+			
+			<div  class="col-md-6">
+					<div class="panel panel-inverse">
+
+						<div class="panel-heading">
+
+							<div class="panel-heading-btn">
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+								<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+
+							</div>
+
+							<h4 class="panel-title">Contratos por servicio</h4>
+
+						</div>
+
+						<div class="panel-body table-responsive">
+
+							<div id="container3" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+
+						</div>
+
+
+
+						</div>
+					</div>
+		</div>
+
 	<!-- begin row -->
 
+	<div class="row">
+		<div class="col-md-6">
+				<div class="panel panel-inverse">
+
+					<div class="panel-heading">
+
+						<div class="panel-heading-btn">
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+
+						</div>
+
+						<h4 class="panel-title">Clientes por mes</h4>
+
+					</div>
+
+					<div class="panel-body table-responsive">
+						
+							<div id="container1" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+						
+					</div>
+
+				</div>	
+		</div>
+
+		<div class="col-md-6">
+				<div class="panel panel-inverse">
+
+					<div class="panel-heading">
+
+						<div class="panel-heading-btn">
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+
+							<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+
+						</div>
+
+						<h4 class="panel-title">Clientes</h4>
+
+					</div>
+
+					<div class="panel-body table-responsive">
+						
+							<div id="container4" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
+						
+					</div>
+
+				</div>	
+		</div>
+	</div>
+
+
+	<div>
+		<input id= "data1" hidden>
+		<input  id= "data2" hidden>
+		<input   id= "data3" hidden>
+		<input  id= "data4" hidden>
+	</div>
 	<div class="row">
 
 		<!-- begin col-6 potlet #1 -->
 
+		
 		<div class="col-md-6">
+			
+			
+			
 
 			<div class="panel panel-inverse">
 
@@ -742,45 +876,18 @@
 
 				</div>
 
-			</div>
-
-
-
-
-
-			<div class="panel panel-inverse">
-
-				<div class="panel-heading">
-
-					<div class="panel-heading-btn">
-
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
-
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-repeat"></i></a>
-
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
-
-						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
-
-					</div>
-
-					<h4 class="panel-title">Clientes por mes</h4>
-
-				</div>
-
-				<div class="panel-body table-responsive">
-
-					<div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
-
-				</div>
-
-			</div>
-
-
-
+			
 
 
 		</div>
+
+
+		
+
+
+		</div>
+
+		
 
 		<!-- end col-8 -->
 
@@ -846,7 +953,7 @@
 
 								<td><span class="text-success">{{ $value->no_contrato }}</span></td>
 
-								<td>{{$value->nombre_comercial}}</td>
+								<td><a href="{{url('accionXcliente')}}/{{$value->id_cliente}}">{{$value->nombre_comercial}}</a></td>
 
 								<td>{{$value->fecha_fin}}</td>
 
@@ -956,6 +1063,8 @@
 
 			</div>
 
+			
+
 			<!-- end col-4 -->
 
 		</div>
@@ -963,7 +1072,11 @@
 		<!-- end row -->
 
 		@endif
+		
 
+		
+
+		
 	</div>
 
 	<!-- end #content -->
@@ -986,6 +1099,8 @@
 
 	@include('librerias.base.base-begin-page')
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" integrity="sha384-NaWTHo/8YCBYJ59830LTz/P4aQZK1sS0SneOgAvhsIl3zBu8r9RevNg5lHCHAuQ/" crossorigin="anonymous"></script>
+	
 
 
 	{!! Html::script('assets/js/highcharts.js') !!}
@@ -997,6 +1112,131 @@
 
 
 	<script type="text/javascript">
+		$(function() {
+			iniciarDatos();
+		});
+		
+		function iniciarDatos(){
+			var fechaInicio = $('#fechaInicio').val();
+			var fechaFin = $('#fechaFin').val();
+
+			$.ajax({
+				url:"{{ url('iniciarDash') }}"+"/"+fechaInicio+"/"+fechaFin,
+				type:"GET",
+				success: function(response){
+					
+					
+					Data_Obtencion(response[0]);
+				},
+				error:function(){
+					console.log(fechaInicio +"  "+ fechaFin);
+				}
+			})	
+		}
+
+		function Data_Obtencion (response){
+			var totalClientes = [];
+			var totalProspectos = [];
+			var totalClientesProspectos = [];
+
+			
+			response.TotalClientes.forEach(element => totalClientes.push(element.total));
+			response.TotalProspectos.forEach(element => totalProspectos.push(element.total));
+			response.TotalClientesProspectos.forEach(element => totalClientesProspectos.push(element.total));
+
+			totalClientesProspectosF(totalClientes,totalProspectos,totalClientesProspectos);
+			
+			var TotalCotizaiconesMonto = [];
+			var TotalCotizaiconesCantidad = [];
+			var TotalContratosMonto = [];
+			var TotalContratosCantidad = [];
+			
+			response.TotalCotizaiconesMonto.forEach(element => TotalCotizaiconesMonto.push(element.total_cotizaciones));
+			response.TotalCotizaiconesCantidad.forEach(element => TotalCotizaiconesCantidad.push(element.total_cotizaciones));
+			response.TotalContratosMonto.forEach(element => TotalContratosMonto.push(element.total_contratos));
+			response.TotalContratosCantidad.forEach(element => TotalContratosCantidad.push(element.total_contratos));
+			
+			//response.TotalClientesProspectos.forEach(element => totalClientesProspectos.push(element.total));
+
+			totalCotizacionContratos (TotalCotizaiconesMonto,TotalCotizaiconesCantidad,TotalContratosMonto,TotalContratosCantidad);
+		
+			var Clientes =[];
+			var Prospectos = [];
+			var Asignacion = []
+			response.Clientes.forEach(element => Clientes.push(element.Clientes));
+			response.Prospectos.forEach(element => Prospectos.push(element.Prospectos));
+
+			listas_ClientesProspectos (Clientes,Prospectos,response.Asignacion,response.Accion);
+
+			
+		
+		}
+
+		function totalClientesProspectosF (totalClientes,totalProspectos,totalClientesProspectos){
+			$("#total_clientes_cuadro").html("");
+			$("#total_prospectos").html('');
+			$("#total_clientes_prospectos").html('');
+
+			
+			$("#total_clientes_cuadro").html(totalClientes[0]);
+			$("#total_prospectos").html(totalProspectos[0]);
+			$("#total_clientes_prospectos").html(totalClientesProspectos[0]);
+		
+			
+		} 
+
+		function totalCotizacionContratos (TotalCotizaiconesMonto,TotalCotizaiconesCantidad,TotalContratosMonto,TotalContratosCantidad){
+			$("#numero_cotizaciones_cuadro").html("");
+			$("#total_cotizaciones_cuadro").html('');
+			$("#numero_contratos_cuadro").html("");
+			$("#total_contratos_cuadro").html('');
+			//$("#total_clientes_prospectos").html('');
+			
+			$("#numero_cotizaciones_cuadro").html(TotalCotizaiconesCantidad[0]);
+			$("#total_cotizaciones_cuadro").html("$"+TotalCotizaiconesMonto[0]);
+			$("#numero_contratos_cuadro").html(TotalContratosCantidad[0]);
+			$("#total_contratos_cuadro").html("$"+TotalContratosMonto[0]);
+			//$("#total_clientes_prospectos").html(totalClientesProspectos[0]);
+		}
+
+		function listas_ClientesProspectos (Clientes,Prospectos, Asignacion, Accion){
+
+			var bodyTableClientes;
+			var bodyTableProspectos;
+			var bodyTableAsignacion;
+			var accionxcliente;
+
+			$("#bodyClientes").html("");
+			$("#bodyProspectos").html("");
+			$("#bodyAsignacion").html("");
+			$("#accionxcliente").html("");
+
+			for(var i= 0; i<Clientes.length;i++ ){
+				bodyTableClientes += "<tr>"+"<th>"+Clientes[i]+"</th>"+"</tr>"
+			}
+
+			for(var i= 0; i<Prospectos.length;i++ ){
+				bodyTableProspectos += "<tr>"+"<th>"+Prospectos[i]+"</th>"+"</tr>"
+			}
+			
+
+			Asignacion.forEach(element => 
+				(bodyTableAsignacion += "<tr>"+"<th>"+element.Departamento+"  </th><th style='width:15px'> C:"+element.CClientes+"</th><th style='width:15px'>P:"+element.Prospectos+"</th>"+"</tr>")
+			);
+
+	
+			Accion.forEach(element => 
+				(accionxcliente += "<tr>"+"<th>"+element.accion+"  </th><th style='width:30px'>"+element.total+"</th>"+"</tr>")
+			);
+
+			$("#bodyClientes").html(bodyTableClientes);
+			$("#bodyProspectos").html(bodyTableProspectos);
+			$("#bodyAsignacion").html(bodyTableAsignacion);
+			$("#accionxcliente").html(accionxcliente);
+
+		}
+		
+
 		$("#tipo_cliente").on("change",function(){
 
 			var id_tipo=$("#tipo_cliente").val();
@@ -1016,35 +1256,120 @@
 				error:function(){
 					console.log(id_tipo);
 				}
+			});
+
+			var dateIni =$("#fechaInicio").val();
+			var dateFin =$("#fechaFin").val();
+			var tipo = $("#tipo_cliente").val();
+			var cliente  =  -1;
+			var accion = $("#accion").val();
+			var depar = $("#depar").val();
+
+			var dato = new Date (dateIni);
+			var año=dato.getFullYear();
+
+			$.ajax({
+				url: "{{ url('filtroDash') }}/"+dateIni + "/"+dateFin +"/"+tipo+"/"+cliente+"/"+accion+"/"+depar,
+				type: "GET",
+
+				
+				success: function(response) {
+					Data_Obtencion(response[0]);
+				},
+
+				error: function() {
+
+					console.log("Error en progrmable");
+				}
+			})
+		});
+
+
+		$('#clientes_prospectos').on("change", function(){
+
+			var dateIni =$("#fechaInicio").val();
+			var dateFin =$("#fechaFin").val();
+			var tipo = $("#tipo_cliente").val();
+			var cliente  =  $("#clientes_prospectos").val();
+			var accion = -1;
+			var depar = $("#depar").val();
+
+			var dato = new Date (dateIni);
+			var año=dato.getFullYear();
+
+			$.ajax({
+				url: "{{ url('filtroDash') }}/"+dateIni + "/"+dateFin +"/"+tipo+"/"+cliente+"/"+accion+"/"+depar,
+				type: "GET",
+
+				
+				success: function(response) {
+					Data_Obtencion(response[0]);
+				},
+
+				error: function() {
+
+					console.log("Error progrmable");
+				}
+			})
+
+		});
+
+		$('#depar').on("change", function(){
+
+			var dateIni =$("#fechaInicio").val();
+			var dateFin =$("#fechaFin").val();
+			var tipo = $("#tipo_cliente").val();
+			var cliente  =  $("#clientes_prospectos").val();
+			var accion = -1;
+			var depar = $("#depar").val();
+
+			var dato = new Date (dateIni);
+			var año=dato.getFullYear();
+
+			$.ajax({
+				url: "{{ url('filtroDash') }}/"+dateIni + "/"+dateFin +"/"+tipo+"/"+cliente+"/"+accion+"/"+depar,
+				type: "GET",
+
+				
+				success: function(response) {
+					Data_Obtencion(response[0]);
+				},
+
+				error: function() {
+
+					console.log("Error friltro");
+				}
 			})
 
 		});
 
 		$("#btnPeriod").on("click", function() {
 
-		var dateIni =$("#fechainicio").val()+"-1";
+		var dateIni =$("#fechaInicio").val();
+		var dateFin =$("#fechaFin").val();
+		var tipo = $("#tipo_cliente").val();
+		var cliente  =  $("#clientes_prospectos").val();
+		var accion = -1;
+		var depar = $("#depar").val();
+		
 		var dato = new Date (dateIni);
-
-		var mes= dato.getMonth() + 1;
 		var año=dato.getFullYear();
 
-			console.log
 		$.ajax({
-			url: "{{ url('filtroDash') }}/"+mes + "/"+año,
+			url: "{{ url('filtroDash') }}/"+dateIni + "/"+dateFin +"/"+tipo+"/"+cliente+"/"+accion+"/"+depar,
 			type: "GET",
 
 			
 			success: function(response) {
-				console.log(response.TotalCota +" "+ response.TotalClientes +" " + response.TotalProspectos +" " + response.TotalClientesProspectos+" "+ response.meses);
-				
-				$('#total_clientes_cuadro').html(response.TotalClientes);
-				$('#fechaClientes').html(response.meses);
-				$('#total_prospectos').html(response.TotalProspectos);
-				$('#fechaProspectos').html(response.meses);
-				$('#total_porcentaje_cuadro').html(response.TotalClientesProspectos);
-				$('#fechatotal').html(response.meses);
-				$('#total_cotizaciones_cuadro').html("$"+response.TotalCota);
-				$('#fechatotal_cotizaciones').html(response.meses);
+				pintarGrafico(año);
+				Data_Obtencion(response[0]);
+				pintarGraficoCoti();
+				pintarGraficoCotra ();
+				pintarGraficoClientes();
+				dataURL(1);
+				dataURL(2);
+				dataURL(3);
+				dataURL(4);
 			},
 
 			error: function() {
@@ -1055,113 +1380,381 @@
 
 		});
 
-		/*$(function() {
+		$(function() {
 
-			$('#container').highcharts({
+			var dateIni =$("#fechaFin").val();
+			var dateFin =$("#fechaInicio").val();
+			var dato = new Date (dateFin);
+			var año=dato.getFullYear();
+			
+			var servicios = dateIni +" a " + dateFin
+			
+			pintarGrafico(año);
+				
+			pintarGraficoCoti();
+			
+			pintarGraficoCotra ();
 
-				chart: {
+			pintarGraficoClientes ();
+			//iniciarCuadrosDashBoard();
 
-					type: 'column'
+			dataURL(1);
+			dataURL(2);
+			dataURL(3);
+			dataURL(4);
+			
 
-				},
+
+		});
+
+		function pintarGraficoClientes(){
+
+			var dateIni =$("#fechaFin").val();
+			var dateFin =$("#fechaInicio").val();
+			var dato = new Date (dateFin);
+			var año=dato.getFullYear();
+			
+			var servicios = dateIni +" a " + dateFin
+
+			$('#container4').highcharts({
+
+			chart: {
+
+				type: 'column'
+
+			},
+
+			title: {
+
+				text: 'Clientes'
+
+			},
+
+			subtitle: {
+
+				text: ''
+
+			},
+
+			xAxis: {
+
+				categories: [servicios],
+
+				crosshair: true
+
+			},
+
+			yAxis: {
+
+				min: 0,
 
 				title: {
 
-					text: 'CLIENTES POR MES'
+					text: '#Clientes'
 
-				},
+				}
 
-				subtitle: {
+			},
 
-					text: ''
+			tooltip: {
 
-				},
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
 
-				xAxis: {
+				pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
 
-					categories: [
+					'<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
 
-						getMes(0),
+				footerFormat: '</table>',
 
-						getMes(1),
+				shared: true,
 
-						getMes(2),
+				useHTML: true
 
-						getMes(3),
+			},
 
-						getMes(4),
+			plotOptions: {
 
-						getMes(5),
+				column: {
 
-						getMes(6),
+					pointPadding: 0.2,
 
-						getMes(7),
+					borderWidth: 0
 
-						getMes(8),
+				}
 
-						getMes(9),
+			},
 
-						getMes(10),
-
-						getMes(11)
-
-
-
-					],
-
-					crosshair: true
-
-				},
-
-				yAxis: {
-
-					min: 0,
-
-					title: {
-
-						text: '# Clientes'
-
-					}
-
-				},
-
-				tooltip: {
-
-					headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-
-					pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-
-						'<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
-
-					footerFormat: '</table>',
-
-					shared: true,
-
-					useHTML: true
-
-				},
-
-				plotOptions: {
-
-					column: {
-
-						pointPadding: 0.2,
-
-						borderWidth: 0
-
-					}
-
-				},
-
-				//series: pintarGrafica()
+			series: pintarGraficaClientes()
 
 			});
 
+			
 
+		}
 
-			//iniciarCuadrosDashBoard();
+		
+		function pintarGraficoCotra (){
+			var dateIni =$("#fechaFin").val();
+			var dateFin =$("#fechaInicio").val();
+			var dato = new Date (dateFin);
+			var año=dato.getFullYear();
+			
+			var servicios = dateIni +" a " + dateFin
 
-		});*/
+			$('#container3').highcharts({
+
+			chart: {
+
+				type: 'column'
+
+			},
+
+			title: {
+
+				text: 'Contratos'
+
+			},
+
+			subtitle: {
+
+				text: ''
+
+			},
+
+			xAxis: {
+
+				categories: [servicios],
+
+				crosshair: true
+
+			},
+
+			yAxis: {
+
+				min: 0,
+
+				title: {
+
+					text: '#Clientes'
+
+				}
+
+			},
+
+			tooltip: {
+
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+
+				pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+
+					'<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+
+				footerFormat: '</table>',
+
+				shared: true,
+
+				useHTML: true
+
+			},
+
+			plotOptions: {
+
+				column: {
+
+					pointPadding: 0.2,
+
+					borderWidth: 0
+
+				}
+
+			},
+
+			series: pintarGraficaCotratos ()
+
+			});
+
+		}
+
+		function pintarGraficoCoti (){
+			var dateIni =$("#fechaFin").val();
+			var dateFin =$("#fechaInicio").val();
+			var dato = new Date (dateFin);
+			var año=dato.getFullYear();
+			
+			var servicios = dateIni +" a " + dateFin
+
+			$('#container2').highcharts({
+
+			chart: {
+
+				type: 'column'
+
+			},
+
+			title: {
+
+				text: 'Cotizaciones '
+
+			},
+
+			subtitle: {
+
+				text: ''
+
+			},
+
+			xAxis: {
+
+				categories: [servicios],
+
+				crosshair: true
+
+			},
+
+			yAxis: {
+
+				min: 0,
+
+				title: {
+
+					text: '#Clientes'
+
+				}
+
+			},
+
+			tooltip: {
+
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+
+				pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+
+					'<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+
+				footerFormat: '</table>',
+
+				shared: true,
+
+				useHTML: true
+
+			},
+
+			plotOptions: {
+
+				column: {
+
+					pointPadding: 0.2,
+
+					borderWidth: 0
+
+				}
+
+			},
+
+			series: pintarGraficaCotizaicones()
+
+			});
+
+		}
+
+		function pintarGrafico(año){
+			$('#container1').highcharts({
+
+			chart: {
+
+				type: 'column'
+
+			},
+
+			title: {
+
+				text: 'CLIENTES POR MES '+año
+
+			},
+
+			subtitle: {
+
+				text: ''
+
+			},
+
+			xAxis: {
+
+				categories: [
+
+					getMes(0),
+
+					getMes(1),
+
+					getMes(2),
+
+					getMes(3),
+
+					getMes(4),
+
+					getMes(5),
+
+					getMes(6),
+
+					getMes(7),
+
+					getMes(8),
+
+					getMes(9),
+
+					getMes(10),
+
+					getMes(11)
+				],
+
+				crosshair: true
+
+			},
+
+			yAxis: {
+
+				min: 0,
+
+				title: {
+
+					text: '#Clientes'
+
+				}
+
+			},
+
+			tooltip: {
+
+				headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+
+				pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+
+					'<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+
+				footerFormat: '</table>',
+
+				shared: true,
+
+				useHTML: true
+
+			},
+
+			plotOptions: {
+
+				column: {
+
+					pointPadding: 0.2,
+
+					borderWidth: 0
+
+				}
+
+			},
+
+			series: pintarGrafica()
+
+			});
+		}
 
 
 
@@ -1293,159 +1886,106 @@
 
 
 
-		var pintarGrafica = function() {
 
-			lista = new Array();
+		 pintarGrafica = function() {
 
-			servicio_ese = {};
+			var lista = new Array();
 
-			servicio_rys = {};
+			var clientess = {};
 
-			servicio_maquila = {};
+			var prospectoss = {};
 
-			servicio_psicometricos = {};
+			var fechaFin = $('#fechaInicio').val();
+			
+			var arr_mes_clientes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+			var arr_mes_prospectos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+			var datos;
+			$.ajax({
+
+				url: '{{ url("clientes_mes_dashboard") }}/'+fechaFin,
+
+				async : false,
+				
+				type: 'GET',
+
+				success: function(response) {
+
+					for(var i =0; i<response.length; i++){
+						arr_mes_clientes[i] = parseInt (response[i].clientesConteo);
+						arr_mes_prospectos[i] = parseInt (response[i].prospectosConteo);
+					}
+
+					
+					
+				},
+
+				error: function(jqXHR, status, error) {
+
+					alert('Error ' + error);
+
+				}
+
+
+
+			});
+					clientess.name = 'Clientes';
+					clientess.data = arr_mes_clientes;
+					//clientes._colorIndex = 0;
+
+					prospectoss.name = 'Prospectos';
+					prospectoss.data = arr_mes_prospectos;
+					//prospectos._colorIndex = 1;
+					lista.push(clientess);
+					lista.push(prospectoss);
+
+
+					
+			return lista;
+
+		}
+
+		pintarGraficaClientes = function() {
+
+			var lista = new Array();
+
+			var fechaFin = $('#fechaFin').val();
+			var fechaInicio = $('#fechaInicio').val();
+
+			var lista = new Array();
+
+			var Nuevos = {};
+
+			var Inactivos = {};
+
+			var Activos = {};
 
 
 			$.ajax({
 
-				url: '{{ url("'+clientes_mes_dashboard+ '") }}',
+				url: '{{ url("clientes_mes_dashboard") }}/'+fechaInicio+"/"+fechaFin,
 
-				dataType: 'json',
-
-				async: false,
-
+				async : false,
+				
 				type: 'GET',
-
-				processData: false,
-
-				contentType: false,
 
 				success: function(response) {
 
-					arr_mes_ese = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-					arr_mes_rys = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-					arr_mes_maq = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-					arr_mes_psi = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-					longitud = response.length;
-
-
-
-					for (x = 0; x < longitud; x++) {
-
-
-
-						for (i = 0; i < 12; i++) {
-
-
-
-							for (j = 0; j < 1; j++) {
-
-
-
-
-
-								if (response[x].id_servicio == 0) {
-
-
-
-									if (response[x].meses_cotizaciones == i) {
-
-										arr_mes_ese[i] = response[x].numero_clientes;
-
-									}
-
-								}
-
-
-
-								if (response[x].id_servicio == 1) {
-
-
-
-									if ((response[x].meses_cotizaciones) == i) {
-
-										arr_mes_rys[i] = response[x].numero_clientes;
-
-									}
-
-								}
-
-								if (response[x].id_servicio == 2) {
-
-
-
-									if ((response[x].meses_cotizaciones) == i) {
-
-										arr_mes_maq[i] = response[x].numero_clientes;
-
-									}
-
-								}
-
-								if (response[x].id_servicio == 3) {
-
-
-
-									if ((response[x].meses_cotizaciones) == i) {
-
-										arr_mes_psi[i] = response[x].numero_clientes;
-
-									}
-
-								}
-
-
-
-
-
-							}
-
-						}
-
-					}
-
-
-
-
-
-
-
-					servicio_ese.name = 'ESE';
-
-					servicio_ese.data = arr_mes_ese;
-
-					servicio_rys.name = 'RYS';
-
-					servicio_rys.data = arr_mes_rys;
-
-					servicio_maquila.name = 'Maquila';
-
-					servicio_maquila.data = arr_mes_maq;
-
-					servicio_psicometricos.name = 'Psicométricos';
-
-					servicio_psicometricos.data = arr_mes_psi;
-
-
-
-					lista.push(servicio_ese);
-
-					lista.push(servicio_rys);
-
-					lista.push(servicio_maquila);
-
-					lista.push(servicio_psicometricos);
-
-
-
-
-
-
+				
+					Nuevos.name = 'Nuevos';
+					Nuevos.data = [parseInt(response[0][0].nuevo)];
+
+					Activos.name = 'Activos';
+					Activos.data = [parseInt(response[1][0].activos)];
+
+					Inactivos.name = 'Inactivos';
+					Inactivos.data = [parseInt(response[2][0].inactivos)];
+					
+					lista.push(Nuevos);
+					lista.push(Activos);
+					lista.push(Inactivos);
+
+				
 
 				},
 
@@ -1458,14 +1998,528 @@
 
 
 			});
-
-
+					
 
 			return lista;
 
+			}
+
+		pintarGraficaCotizaicones = function() {
+
+			var lista = new Array();
+
+			var fechaFin = $('#fechaFin').val();
+			var fechaInicio = $('#fechaInicio').val();
+
+			<?php for($i = 0; $i <count($servicios); $i++){ ?>
+
+			
+			var	{{print_r (strtr($servicios[$i]," ","_"))}}1= {} ;
+
+			<?php }?>
+
+			var datos;
+			$.ajax({
+
+				url: '{{ url("cotizaciones_mes_dashboard") }}/'+fechaInicio+"/"+fechaFin,
+
+				async : false,
+				
+				type: 'GET',
+
+				success: function(response) {
+
+				
+
+					var i =0;
+					<?php for($i = 0; $i <count($servicios); $i++){ ?>
+
+						
+							{{print_r (strtr($servicios[$i]," ","_"))}}1.name = response[i].servicio;
+							
+							{{print_r (strtr($servicios[$i]," ","_"))}}1.data = [parseInt (response[i].total)];
+							
+							
+						
+							i++;
+							
+							lista.push({{print_r (strtr($servicios[$i]," ","_"))}}1);
+					<?php }?>
+					
+				},
+
+				error: function(jqXHR, status, error) {
+
+					alert('Error ' + error);
+
+				}
+
+
+
+			});
+					
+
+				
+			return lista;
+
+			}
+
+			pintarGraficaCotratos = function() {
+
+				var lista = new Array();
+
+				var fechaFin = $('#fechaFin').val();
+				var fechaInicio = $('#fechaInicio').val();
+
+				<?php for($i = 0; $i <count($servicios); $i++){ ?>
+
+				var	{{print_r (strtr($servicios[$i]," ","_"))}}1= {} ;
+
+				<?php }?>
+
+				var datos;
+				$.ajax({
+
+					url: '{{ url("contratos_mes_dashboard") }}/'+fechaInicio+"/"+fechaFin,
+
+					async : false,
+					
+					type: 'GET',
+
+					success: function(response) {
+
+					
+
+						var i =0;
+						<?php for($i = 0; $i <count($servicios); $i++){ ?>
+
+							
+								{{print_r (strtr($servicios[$i]," ","_"))}}1.name = response[i].servicio;
+								
+								{{print_r (strtr($servicios[$i]," ","_"))}}1.data = [parseInt (response[i].total)];
+								
+								
+							
+								i++;
+								
+								lista.push({{print_r (strtr($servicios[$i]," ","_"))}}1);
+						<?php }?>
+						
+					},
+
+					error: function(jqXHR, status, error) {
+
+						alert('Error ' + error);
+
+					}
+
+
+
+				});
+						
+
+					
+				return lista;
+
+				}
+
+
+		function dataURL(grafico){
+			var svg = $("#container"+grafico).find('svg')[0],
+			svgSize = svg.getBoundingClientRect(),
+			svgData = new XMLSerializer().serializeToString(svg),
+			base64Image = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+
+			var canvas = document.createElement('canvas');
+			canvas.width = svgSize.width;
+			canvas.height = svgSize.height;
+			var ctx = canvas.getContext('2d');
+
+			let url;
+
+			var img = document.createElement('img');
+			img.setAttribute('src', base64Image);
+			
+			img.onload = function() {
+				ctx.drawImage(img, 0, 0);
+				
+				$("#data"+grafico).val(canvas.toDataURL('image/png'));
+				
+			};
+
+			
 		}
+		
+		function pdfs (){
+			dataURL(1);
+			dataURL(2);
+			dataURL(3);
+			dataURL(4);
+
+		
+			setTimeout(() => {
+				pdf();
+			},"2000");
+
+			
+		}
+		function pdf (){
 
 
+			var doc = new jsPDF();
+			var dateIni = $('#fechaFin').val();
+			var dateEnd = $('#fechaInicio').val();
+
+			doc.addImage("{{$logo}}", 'JPEG', 10, 5, 40,28);
+			doc.setFont("helvetica");
+			doc.setFontType('bold');
+			doc.setFontSize(17);
+			doc.text("CRM", 120, 20);
+			doc.setDrawColor(0);
+			doc.setFillColor(247,140,30);
+			doc.rect(60, 22 , 142, 1, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(9);
+			doc.text("Período: ", 148, 27);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.text(dateIni + " a " + dateEnd, 163, 27);
+
+			//total Total Cotizaciones #
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(10, 72, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Total Cotizaciones #",16, 77);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			con = 45;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(10, 79, 43, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("numero_cotizaciones_cuadro").innerHTML,31,con+=39);
+			//Fin Total Cotizaciones #
+			
+			//Total Cotizaciones $
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(59, 72, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Total Cotizaciones $",64, 77);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			con = 45;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(59, 79, 43, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("total_cotizaciones_cuadro").innerHTML,60,con+=39);
+			//Fin total Cotizaciones $
+
+			//Total Contratos #
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(108, 72, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Total Contratos #",115, 77);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			con = 45;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(108, 79, 43, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("numero_contratos_cuadro").innerHTML,129,con+=39);
+			//Fin Total Contratos #
+
+			//Total Contratos $
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(157, 72, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Total Contratos $",164, 77);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			con = 45;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(157, 79, 43, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("total_contratos_cuadro").innerHTML,158,con+=39);
+			//end Total Contratos $
+
+
+			//total clientes
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(10, 40, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Total Clientes",19, 45);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			con = 45;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(10, 47, 43, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("total_clientes_cuadro").innerHTML,31,con+=7);
+			//Fin total clientes
+			
+			//total Prospectos
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(59, 40, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Total Prospectos",67, 45);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			con = 45;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(59, 47, 43, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("total_prospectos").innerHTML,80,con+=7);
+			//Fin total Prospectos
+
+			//total Prospectos_Clientes
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(108, 40, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Clientes/Prospectos",112, 45);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			con = 45;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(108, 47, 43, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("total_clientes_prospectos").innerHTML,129,con+=7);
+			//Fin total Prospectos_clientes
+
+			//total acciones
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(157, 40, 43, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Acciones",171, 45);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			var Servicio = document.getElementById("accionxcliente");
+			var Serv=Servicio.getElementsByTagName("th");
+			var serv = [];
+			for(var i = 0; i< Serv.length; i++){
+				serv[i] = Serv[i].innerHTML;
+			}
+			con = 0;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 2 == 0){
+					con+=6;
+				}
+			}
+			con += 2;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(157, 47, 43, con, 'F');
+			con = 40 + 6;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 2 == 0){
+					doc.text(serv[i]+": "+serv[i+1],160, con+=6);
+				}
+			}
+			//end acciones
+
+			//total asignaciones
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(10, 93, 92, 7, 'F');
+
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Aasignación",48, 97);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			var Servicio = document.getElementById("bodyAsignacion");
+			var Serv=Servicio.getElementsByTagName("th");
+			var serv = [];
+			for(var i = 0; i< Serv.length; i++){
+				serv[i] = Serv[i].innerHTML;
+				
+			}
+			con = 0;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 3 == 0){
+					con+=6;
+				}
+			}
+			con += 2;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(10, 100, 92, con, 'F');
+			con = 98;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 3 == 0){
+					doc.text(serv[i],11, con+=6);
+					doc.text(serv[i+1],80, con);
+					doc.text(serv[i+1],90, con);
+				}
+			}
+			//end asignacion
+
+		
+
+			
+			doc.addImage($("#data2").val(), 'PNG',0, 170,  100,90);
+			doc.addImage($("#data3").val(), 'PNG',100, 170,  100,90);
+			
+
+			
+			doc.addPage();
+
+			doc.addImage("{{$logo}}", 'JPEG', 10, 5, 40,28);
+			doc.setFont("helvetica");
+			doc.setFontType('bold');
+			doc.setFontSize(17);
+			doc.text("CRM", 120, 20);
+			doc.setDrawColor(0);
+			doc.setFillColor(247,140,30);
+			doc.rect(60, 22 , 142, 1, 'F');
+
+			//inicio cuadro clientes
+			espacio = 41+100;
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(105, espacio , 92, 7, 'F');
+			doc.setFontType('bold');
+			espacio += 4;
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Prospectos",139, espacio+1);
+			espacio += 3;
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			Servicio = document.getElementById("bodyProspectos");
+			Serv=Servicio.getElementsByTagName("th");
+			serv = [];
+
+			for(var i = 0; i< Serv.length; i++){
+				serv[i] = Serv[i].innerHTML;
+			}
+			con = 0;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 2 == 0){
+					con+=6;
+				}
+			}
+			con +=2;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(105, espacio, 92, con, 'F');
+			con = espacio;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 2 == 0){
+					doc.text(serv[i],106,con+=6);
+				}
+			}
+			//termido tabla clientes
+		    espacio = 41+100;
+			doc.setDrawColor(0);
+			doc.setFillColor(116, 113, 112);
+			doc.rect(10, espacio , 92, 7, 'F');
+			doc.setFontType('bold');
+			espacio += 4;
+			doc.setFontType('bold');
+			doc.setFontSize(10);
+			doc.setTextColor(255,255,255);
+			doc.text("Clientes",50, espacio+1);
+			espacio += 3;
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.setTextColor(0,0,0);
+
+			var Servicio = document.getElementById("TableClientes");
+			var Serv=Servicio.getElementsByTagName("th");
+			var serv = [];
+
+			for(var i = 0; i< Serv.length; i++){
+				serv[i] = Serv[i].innerHTML;
+			}
+			con = 0;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 2 == 0){
+					con+=6;
+				}
+			}
+			con +=2;
+			doc.setDrawColor(0);
+			doc.setFillColor(232, 231, 231);
+			doc.rect(10, espacio, 92, con, 'F');
+			con = espacio;
+			for(var i = 0; i< serv.length; i++){
+				if(i % 2 == 0){
+					doc.text(serv[i],13,con+=5);
+				}
+			}
+
+			doc.addImage($("#data1").val(), 'PNG',0, 41,  100,90);
+			doc.addImage($("#data4").val(), 'PNG',100, 41,  100,90);
+
+			
+	
+			
+			
+			
+			doc.save('Reporte.pdf');  
+		
+		}
 
 	</script>
 
