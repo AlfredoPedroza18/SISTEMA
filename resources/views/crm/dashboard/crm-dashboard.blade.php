@@ -800,7 +800,7 @@
 
 					</div>
 
-					<h4 class="panel-title">Propectos con cotización menor a 4 meses</h4>
+					<h4 class="panel-title">Cotización menor a 4 meses</h4>
 
 				</div>
 
@@ -814,7 +814,7 @@
 
 							<tr>
 
-								<th>Nombre</th>
+								<th>Empresa</th>
 
 								<th>Contácto</th>
 
@@ -822,7 +822,7 @@
 
 								<th><span class="text-success"><i class="fa fa-1x fa-mobile-phone"></i></span> Celular</th>
 
-								<th>Propuesta</th>
+								<th>Servicio</th>
 
 								<th>Total</th>
 

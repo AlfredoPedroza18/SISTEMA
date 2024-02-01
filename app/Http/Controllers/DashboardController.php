@@ -119,14 +119,14 @@ class DashboardController extends Controller
 
                                             DATE_ADD(crm_cotizaciones.fecha_cotizacion, interval 4 month) as mes_vencer,
 
-                                            crm_tc_servicioscotizador.servicio
+                                            crm_cotizador_servicio.servicio
                                         FROM clientes
 
                                            inner join crm_cotizaciones on crm_cotizaciones.id_cliente = clientes.id 
 
                                             LEFT JOIN contactos ON contactos.id_cliente=clientes.id
 
-                                            LEFT JOIN crm_tc_servicioscotizador ON crm_cotizaciones.id_servicio=crm_tc_servicioscotizador.id
+                                            LEFT JOIN crm_cotizador_servicio ON crm_cotizaciones.id_servicio=crm_cotizador_servicio.id
 
                                             LEFT JOIN centros_negocio ON clientes.id_cn=centros_negocio.id and centros_negocio.id=crm_cotizaciones.id_cn
                                             
@@ -156,14 +156,14 @@ class DashboardController extends Controller
 
                 DATE_ADD(crm_cotizaciones.fecha_cotizacion, interval 4 month) as mes_vencer,
 
-                crm_tc_servicioscotizador.servicio
-            FROM clientes
+                crm_cotizador_servicio.servicio 
+                           FROM clientes
 
                inner join crm_cotizaciones on crm_cotizaciones.id_cliente = clientes.id 
 
                 LEFT JOIN contactos ON contactos.id_cliente=clientes.id
 
-                LEFT JOIN crm_tc_servicioscotizador ON crm_cotizaciones.id_servicio=crm_tc_servicioscotizador.id
+                LEFT JOIN crm_cotizador_servicio ON crm_cotizaciones.id_servicio=crm_cotizador_servicio.id
 
                 LEFT JOIN centros_negocio ON clientes.id_cn=centros_negocio.id and centros_negocio.id=crm_cotizaciones.id_cn
                 
