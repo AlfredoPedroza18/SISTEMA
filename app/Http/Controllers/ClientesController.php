@@ -4144,12 +4144,12 @@ return array($res, $rc);
 
         $guardar_registro   = true;
 
-
+        $list_campos_definidos = [];
 
         foreach ($campos_validacion as $key) {
 
             $list_campos[]=$key->nombre_campo;
-
+            $list_campos_definidos[] = $key->nombre;
         }
 
 
@@ -4173,38 +4173,12 @@ return array($res, $rc);
             if($tiene_propiedad){
 
 
+                $valores = $list_campos[$i];
 
-                if($campos_cliente->$list_campos[$i]==''){
-
-                    if($guardar_registro) $guardar_registro = false;
-
-
-
-                    $result_list_campos[] = $list_campos[$i];
-
-                }
-
-            }
-
-        }
-
-
-
-
-
-        for($i=0;$i<$cantidad_campos;$i++){
-
-            $tiene_propiedad = property_exists($campos_contacto, $list_campos[$i]);
-
-            if($tiene_propiedad){
-
-                if($campos_contacto->$list_campos[$i]==''){
+                if($campos_cliente->$valores==''){
 
                     if($guardar_registro) $guardar_registro = false;
-
-
-
-                    $result_list_campos[] = $list_campos[$i];
+                    $result_list_campos[] = $list_campos_definidos[$i];
 
                 }
 

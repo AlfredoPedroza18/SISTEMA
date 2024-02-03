@@ -345,6 +345,18 @@ var addServiceCotizacion = function( id,service,price,quantity,iva )
                 </tr>
             `);
 
+            swal({
+
+              title: "<h3>¡Producto Agregado!</h3> ",
+
+              html: true,
+
+              type: "success",
+
+              confirmButtonText: "OK"
+
+            });
+
         totalCotizado();
         desactivarBtnCotizar();
     }
@@ -385,6 +397,17 @@ var confirmSaveCotizacion = function()
     function(isConfirm){
       if (isConfirm) {
         $('#frm-cotizador-general').submit();
+        swal({
+
+          title: "<h3>¡Cotización Generada!</h3> ",
+
+          html: true,
+
+          type: "success",
+
+          confirmButtonText: "OK"
+
+        });
       }     
     }); 
     

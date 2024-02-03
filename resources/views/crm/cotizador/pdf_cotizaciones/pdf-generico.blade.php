@@ -318,7 +318,7 @@ textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.
 <script>
   
   @if( isset( $cotizacion ) )
-    window.print();
+  
   @endif
   
 </script>

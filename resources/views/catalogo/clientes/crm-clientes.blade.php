@@ -115,7 +115,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				<h4 class="modal-title"><center>Cambiar de Centro de Negocio</center></h4>
+				<h4 class="modal-title"><center>Cambiar de Departamento</center></h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
@@ -133,7 +133,7 @@
 					<div class="col-md-12">
 
 						<div class="form-group">
-							<label for="">Cambiar de Centro de Negocio</label>
+							<label for="">Cambiar de Departamento</label>
 								<form id="form-cn">
 
 								{{ Form::select('id_cn',$cn,null,['class'=>' form-control','id'=>'id_cn','style'=>'width: 100%']) }}
@@ -357,7 +357,7 @@
                                                 			      '</div>'+
                                                 			      '<div class="col-md-3" style="margin-right:8spx" >'+
                                                 			@permission('clientes.cambiarcn')
-                                                				'<button type="button" class="btn btn-info btn-icon btn-circle btn-sm btn-cambiar-cn" data-toggle="modal" data-target="#modal-dialog" data-placement="top" title="Cambiar de CN"><i class="fa fa-exchange"></i></button>&nbsp&nbsp&nbsp'+
+                                                				'<button type="button" class="btn btn-info btn-icon btn-circle btn-sm btn-cambiar-cn" data-toggle="modal" data-target="#modal-dialog" data-placement="top" title="Cambiar de Departamento"><i class="fa fa-exchange"></i></button>&nbsp&nbsp&nbsp'+
                                                 			@endpermission
                                                 			      '</div>'+
                                                 			'</div>'+
@@ -514,7 +514,7 @@
 			event.preventDefault();
 			var cn=$("#id_cn").val();
 			if(cn==''){
-				$("#err-cn").html("<div class=\"alert alert-warning\"><center><strong>Alerta!</strong> Favor de seleccionar un CN.</center></div>");
+				$("#err-cn").html("<div class=\"alert alert-warning\"><center><strong>Alerta!</strong> Favor de seleccionar un Departamento.</center></div>");
 				$("#err-cn").fadeOut(5000);
 			}else{
 				var datos=$("#form-cn").serialize();

@@ -428,8 +428,7 @@ Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm
 
     Route::get('catalogo/descarga_psicometrico/{id}', 'CotizadorPsicometricoController@downloadCotizacionPsico');
 
-    Route::post('catalogo/descarga_generico}', 'CotizadorGenericoController@downloadCotizacionGenerica')->name('download.cotizacion.generica');
-
+    Route::get('catalogo/{id_coti}/{id_plan}','CotizadorGenericoController@downloadCotizacionGenerica');
     Route::post('plantilla_generica/duplicate', 'Utilerias\PlantillasController@duplicateTemplate')->name('duplicate.cotizacion.generica');
 
 

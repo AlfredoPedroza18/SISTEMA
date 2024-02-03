@@ -156,9 +156,12 @@ class CotizadorController extends Controller
         $queryMontoCotizaciones = 'SELECT IFNULL(FORMAT(SUM(total),2),"00.00") AS total_cotizaciones FROM crm_cotizaciones WHERE crm_cotizaciones.contrato = 0 ';
 
 
-        if( !$request->user()->is('admin') ){
-            $queryMontoCotizaciones .= ' AND crm_cotizaciones.id_usuario = ' . $request->user()->id . ' AND crm_cotizaciones.id_cn = ' . $request->user()->idcn ;            
-        }       
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+
+             }else{
+            $queryMontoCotizaciones .= '  AND crm_cotizaciones.id_cn = ' . $request->user()->idcn ;            
+    
+        }    
 
         $total_cotizaciones = DB::select($queryMontoCotizaciones);
         
@@ -191,43 +194,38 @@ class CotizadorController extends Controller
 
     private function queryCotizaciones( Request $request )
     {
-        $query_cotizaciones = ' SELECT 
-                                    crm_cotizaciones.id_cn,
-                                    IF(clientes.id is null,0,clientes.id) AS id_cliente,    
-                                    crm_cotizaciones.id AS id_cotizacion,     
-                                    crm_cotizaciones.id_servicio,     
-                                    crm_cotizaciones.contrato,     
-                                    crm_tc_servicioscotizador.id AS id_servicio_a,      
-                                    CASE crm_cotizaciones.id_servicio      
-                                            WHEN 0 THEN  CONCAT("descarga_ese","/",crm_cotizaciones.id)      
-                                            WHEN 1 THEN  CONCAT("descarga_rys","/",crm_cotizaciones.id)      
-                                            WHEN 2 THEN  CONCAT("descarga_maquila","/",crm_cotizaciones.id)      
-                                            WHEN 3 THEN  CONCAT("descarga_psicometrico","/",crm_cotizaciones.id) 
-                                            WHEN 4 THEN  CONCAT("descarga_generico","/",crm_cotizaciones.id) END AS  ruta,       
-                                    CASE crm_cotizaciones.id_servicio      
-                                            WHEN 0 THEN  ("contrato_ese_preview")      
-                                            WHEN 1 THEN  ("contrato_rys_preview")      
-                                            WHEN 2 THEN  ("contrato_maquila_preview")      
-                                            WHEN 3 THEN  ("contrato_psicometrico_preview")
-                                            WHEN 4 THEN  ("contrato_generico_preview") END AS ruta_contrato,     
-                                    IFNULL(clientes.nombre_comercial,"") AS nombre_comercial,     
-                                    IFNULL(clientes.nombre,"") AS nombre, 
-                                    CONCAT("(",centros_negocio.nomenclatura,") ",centros_negocio.nombre)  AS centro_negocio,   
-                                    crm_tc_servicioscotizador.servicio,     
-                                    crm_cotizaciones.subtotal,     
-                                    crm_cotizaciones.iva,    
-                                    crm_cotizaciones.total,    
-                                    DATE_FORMAT(crm_cotizaciones.fecha_cotizacion,\'%d-%m-%Y\') AS fecha_cotizacion 
-                                FROM crm_cotizaciones 
-                                    INNER JOIN centros_negocio               ON centros_negocio.id = crm_cotizaciones.id_cn                    
-                                    LEFT JOIN clientes           ON clientes.id     = crm_cotizaciones.id_cliente 
-                                    INNER JOIN cliente_cn_actual ON cliente_cn_actual.id_cliente = crm_cotizaciones.id_cliente 
-                                    LEFT JOIN asignacion_cn      ON asignacion_cn.id_cliente = crm_cotizaciones.id                             
-                                                                AND asignacion_cn.id_cn = crm_cotizaciones.id_cn 
-                                    LEFT JOIN users              ON users.id        = crm_cotizaciones.id_usuario                             
-                                                                AND users.idcn      = cliente_cn_actual.id_cn 
-                                    LEFT JOIN crm_tc_servicioscotizador ON crm_tc_servicioscotizador.id = crm_cotizaciones.id_servicio 
-                                WHERE 1=1 AND crm_cotizaciones.contrato = 0 ORDER BY crm_cotizaciones.fecha_cotizacion DESC';                        
+        $query_cotizaciones = ' SELECT
+        crm_cotizaciones.id_cn,
+        IF(clientes.id is null,0,clientes.id) AS id_cliente,
+        crm_cotizaciones.id AS id_cotizacion,
+        crm_cotizaciones.id_servicio,
+        crm_cotizaciones.contrato,
+        crm_cotizador_servicio.id AS id_servicio_a,
+        CASE crm_cotizaciones.id_servicio
+        WHEN 0 THEN CONCAT("descarga_ese","/",crm_cotizaciones.id)
+        WHEN 1 THEN CONCAT("descarga_rys","/",crm_cotizaciones.id)
+        WHEN 2 THEN CONCAT("descarga_maquila","/",crm_cotizaciones.id)
+        WHEN 3 THEN CONCAT("descarga_psicometrico","/",crm_cotizaciones.id)
+        WHEN 4 THEN CONCAT("descarga_generico","/",crm_cotizaciones.id) END AS ruta,
+        CASE crm_cotizaciones.id_servicio
+        WHEN 0 THEN ("contrato_ese_preview")
+        WHEN 1 THEN ("contrato_rys_preview")
+        WHEN 2 THEN ("contrato_maquila_preview")
+        WHEN 3 THEN ("contrato_psicometrico_preview")
+        WHEN 4 THEN ("contrato_generico_preview") END AS ruta_contrato,
+        IFNULL(clientes.nombre_comercial,"") AS nombre_comercial,
+        IFNULL(clientes.nombre,"") AS nombre,
+        CONCAT("(",centros_negocio.nomenclatura,") ",centros_negocio.nombre) AS centro_negocio,
+        crm_cotizador_servicio.servicio,
+        crm_cotizaciones.subtotal,
+        crm_cotizaciones.iva,
+        crm_cotizaciones.total,
+        DATE_FORMAT(crm_cotizaciones.fecha_cotizacion,\'%d-%m-%Y\') AS fecha_cotizacion
+        FROM crm_cotizaciones
+        INNER JOIN centros_negocio ON centros_negocio.id = crm_cotizaciones.id_cn
+        Inner JOIN clientes ON clientes.id = crm_cotizaciones.id_cliente
+        Inner JOIN crm_cotizador_servicio ON crm_cotizador_servicio.id = crm_cotizaciones.id_servicio
+        WHERE 1=1 AND crm_cotizaciones.contrato = 0 ORDER BY crm_cotizaciones.fecha_cotizacion DESC';                        
         
 
         return $query_cotizaciones;

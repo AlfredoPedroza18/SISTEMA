@@ -37,8 +37,8 @@
 	                                    <th>Cliente</th>
 	                                    <th class="hidden-md hidden-lg">#</th>	
 	                                    <th>Servicio</th>	                                    
-	                                    <th>Centro Negocio</th>	                                    
-	                                    <th>Empresa Fcturadora</th>
+	                                    <th>Departamento</th>	                                    
+	                                    <th>Empresa</th>
 	                                    <th>N° Contrato</th>
 	                                    <th>Fecha Inicio</th>
 	                                    <th>Fecha Fin</th>

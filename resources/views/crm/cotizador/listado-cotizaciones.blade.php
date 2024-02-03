@@ -184,7 +184,8 @@
                         
             </tbody>
           </table>
-          <form action="{{ route('sig-erp-crm::download.cotizacion.generica') }}" method="POST" id="frmCotizacionGenerica">
+		  
+          <form action="" method="POST" id="frmCotizacionGenerica">
 			{{ csrf_field() }}	
 			<input type="hidden" id="id_cotizacion_download" name="id_cotizacion">
 			<input type="hidden" id="id_plantilla_download" name="id_plantilla">
@@ -323,7 +324,7 @@
 														+' <tr>'															
 	                                    					+' <th>Cliente</th>'
 	                                    					+' <th>Servicio</th>'
-	                                    					+' <th>Centro Negocio</th>'
+	                                    					+' <th>Departamento</th>'
 	                                    					+' <th>Cantidad</th>'
 	                                    					+' <th>Fecha</th>'
 	                                    					+' <th>Descargar</th>'
@@ -346,7 +347,7 @@
                                  	let link_servicio = cotizaciones[indice].id_servicio == '4' ? ' javascript:; ' : cotizaciones[indice].ruta;
                                  	let eventoLink 	  = cotizaciones[indice].id_servicio == '4' ? ' onclick="downloadCotizacion('+ cotizaciones[indice].id_cotizacion +')"' : '';
                                  	contrato_generado = (cotizaciones[indice].contrato != 0 ) ? '<spam class="label label-warning">Contrato generado</span>':'';
-  
+									console.log (link_servicio+" "+eventoLink);
                                  	 clase =  (contador%2) == 0 ? 'class="gradeA odd"': 'class="gradeA even"';
 									listadoCotizaciones+= 	'<tr>'+
 							                					'<td>'+ cotizaciones[indice].nombre_comercial 			+'</td>'+
@@ -395,34 +396,27 @@
 						        	if(!resultadoCampos['resultado']){	
 
 
+										var texHtml = "<h6><table class=\"text-center\">";
+										console.log(resultadoCampos.lista_campos);
+										for(var i=0;i <resultadoCampos.lista_campos.length;i++){
+											
+											if(i == 0 || i%3 == 0){
+												texHtml += "<tr><td>"+resultadoCampos.lista_campos[i]+"</td>";
+											}else if(i%2 == 0){
+												texHtml += "<td>"+resultadoCampos.lista_campos[i]+"</td>"+"</tr>";
+											}else{
+												texHtml += "<td>"+resultadoCampos.lista_campos[i]+"</td>"
+											}
+										}
+										console.log(texHtml);
 
+										texHtml += "</table></h6>";
 						        		swal({
 											  title: "<h4>¡El Cliente tiene campos obligatorios que no han sido llenados!</h4> ",
-											  text: "<h6><table class=\"text-center\">"+
-											  				"<tr>"+
-											  				"<td>Nombre Comercial<td> "+
-															"<td>Forma Juridica<td> "+
-															"<td>Actividad Económica<td> "+
-															"</tr>"+
-															"<tr>"+
-															"<td>Cargo<td> "+
-															"<td>Dirección Fiscal CP<td>"+
-															"<td>Dirección Fiscal Estado<td>"+
-															"</tr>"+
-															"<tr>"+
-															"<td>Dirección Fiscal Municipio<td>"+
-															"<td>Dirección Fiscal Colonia<td>"+
-															"<td>Dirección Fiscal Calle<td>"+
-															"</tr>"+
-															"<tr>"+
-															"<td>Dirección Fiscal No. Exterior<td>"+
-															"<td>Dirección Fiscal No. Interior<td>"+
-															"<td>Nombre Contácto<td>"+
-															"</tr>"+															
-															"<tr></table></h6>",
+											  text: texHtml,
 											  type: "warning",
 											  html:true,
-											  showCancelButton: false,
+											  showCancelButton: true,
 											  confirmButtonColor: "#ef9d1e",
 											  confirmButtonText: "Llenar campos",
 											  
@@ -797,7 +791,7 @@
 					
 				},
 				error : function(jqXHR, status, error) {
-				        alert('Disculpe, existió un problema comuniquese con el equipo de desarrollooooo');
+				        alert('Disculpe, existió un problema comuniquese con el equipo de desarrollooooo'+ error);
 				}
 
 			});
@@ -888,9 +882,14 @@
 
         var downloadCotizacionGenerica = function( id )
         {
-        	window.open('{{ url('catalogo/listado_cotizaciones') }}');
+        	
         	$('#id_plantilla_download').val( id );
-        	$('#frmCotizacionGenerica').submit();
+        	//$('#frmCotizacionGenerica').submit();
+
+			$('#id_plantilla_download').val( id );
+			var coti = $('#id_plantilla_download').val();
+			var plan = $('#id_cotizacion_download').val();
+			window.open ("{{url('catalogo')}}/"+coti +"/" +id);
         }
 		
 

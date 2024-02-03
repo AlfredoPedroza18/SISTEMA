@@ -128,7 +128,7 @@ class CotizadorGenericoController extends Controller
         //
     }
 
-    public function downloadCotizacionGenerica( Request $request )
+    public function downloadCotizacionGenerica(  $id_coti, $id_plan)
     {
         /*$colorHeader = '#aefaca';
         $encabezadoPadding = '20px 0px;';
@@ -137,8 +137,8 @@ class CotizadorGenericoController extends Controller
         return $pdf->download('reclutamiento-seleccion.pdf');*/
 
 
-        $cotizacion = Cotizacion::find( $request->input('id_cotizacion') );
-        $plantilla  = Plantilla::find( $request->input('id_plantilla') );
+        $cotizacion = Cotizacion::find( $id_coti );
+        $plantilla  = Plantilla::find( $id_plan );
         
         if( $cotizacion && $plantilla )
         {
