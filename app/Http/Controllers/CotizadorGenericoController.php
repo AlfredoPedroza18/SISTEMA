@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use PDF;
 use App\Cliente;
 use App\Servicio;
@@ -22,7 +22,7 @@ class CotizadorGenericoController extends Controller
      */
     public function index()
     {
-        $clientes  = Cliente::clientes()->get();
+        $clientes  = DB::select("Select * from clientes");
         $servicios = Servicio::where("status","1")->get();
         $impuestos = Impuesto::all();
         return view("crm.cotizador.crm-cotizador-general", compact('clientes','servicios','impuestos'));

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Cliente;
 use DB;
+use App\Bussines\MasterConsultas;
 
 class ListadoContratoController extends Controller
 {
@@ -26,11 +27,26 @@ class ListadoContratoController extends Controller
        /* $query=DB::select("SELECT * 
             FROM crm_contratos 
             where id_usuario=? and id_cn=?",[$request->user()->id,$request->user()->idcn]);*/
+
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+                $id_cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $id_cn = Auth::user()->idcn;
+            }
+        }
+
+        $TotalCotratos =  MasterConsultas::exeSQL("listado_contratos", "READONLY",
+                array(
+                    "id_cn"=>$id_cn, 
+                )
+        );
+
         $peticion = $request->path();
 
         $lista_contratos = $this->getContratos( $request );
   
-        return view("crm.lista_contratos.lista_contratos",["contratos"=>$lista_contratos ,'peticion' => $peticion]);
+        return view("crm.lista_contratos.lista_contratos",["contratos"=>$lista_contratos ,'peticion' => $peticion, "TotalCotratos"=>$TotalCotratos]);
     }
 
     /**
@@ -110,16 +126,18 @@ class ListadoContratoController extends Controller
                     DATE_FORMAT(crm_contratos.fecha_inicio,'%d-%m-%Y') AS fecha_inicio,
                     DATE_FORMAT(crm_contratos.fecha_fin,'%d-%m-%Y') AS fecha_fin,
                     CONCAT('(',centros_negocio.nomenclatura,') ',centros_negocio.nombre)  AS centro_negocio,
-                    facturadoras.nombre,
+                    master_empresa.fk_titulo as nombre,
                     clientes.nombre_comercial,
-                    crm_tc_servicioscotizador.servicio
+                    crm_cotizador_servicio.servicio,
+                    IFNULL(FORMAT(crm_cotizaciones.total,2),'0.00') as total
                 FROM crm_contratos 
                     INNER JOIN centros_negocio               ON centros_negocio.id = crm_contratos.id_cn                    
                     LEFT  JOIN asignacion_cn                 ON asignacion_cn.id_cliente = crm_contratos.id_cliente                             
                                                             AND asignacion_cn.id_cn = crm_contratos.id_cn 
-                    LEFT JOIN facturadoras                   ON crm_contratos.id_facturadora=facturadoras.id
+                    LEFT JOIN master_empresa                   ON crm_contratos.id_facturadora=master_empresa.idempresa
                     LEFT JOIN clientes                       ON crm_contratos.id_cliente=clientes.id
-                    LEFT JOIN crm_tc_servicioscotizador      ON crm_contratos.id_servicio=crm_tc_servicioscotizador.id 
+                    LEFT JOIN crm_cotizador_servicio      ON crm_contratos.id_servicio=crm_cotizador_servicio.id 
+                    LEFT JOIN crm_cotizaciones              ON crm_contratos.id_cotizacion = crm_cotizaciones.id
                 ORDER BY 1";        
 
         return $query;

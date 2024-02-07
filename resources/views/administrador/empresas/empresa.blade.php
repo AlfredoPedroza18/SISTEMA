@@ -4,26 +4,26 @@
 <div class="content">
 	<ol class="breadcrumb ">
 		<li><a href="javascript:;">Administrador</a></li>
-		<li>Empresas {{ $TiposEmpresas }}</li>
+		<li>Empresas </li>
 	</ol>
-	<h1 class="page-header text-center">Empresas {{ $TiposEmpresas }}</h1>
+	<h1 class="page-header text-center">Empresas </h1>
 
 	<div class="row">
 		<div class="col-md-12 text-right">
 			@if($TiposEmpresas == 'Facturadoras')
 				@permission('crear.empresasfacturadoras')
-				<a href="{{ route('sig-erp-crm::EmpresasFacturadoras.create') }}" class="btn btn-inverse btn-icon btn-circle btn-lg" data-toggle="tooltip" data-placement="top" title="Añadir Empresa Facturadora">
+				<a href="{{ route('sig-erp-crm::EmpresasFacturadoras.create') }}" class="btn btn-inverse btn-icon btn-circle btn-lg" data-toggle="tooltip" data-placement="top" title="Añadir Empresa">
 					<i class="fa fa-building-o fa-1x" aria-hidden="true"></i>
 				</a>
 				@endpermission
 			@else
 				@permission('crear.empresasmaquiladoras')
-				<a href="{{ route('sig-erp-crm::EmpresasFacturadoras.create') }}" class="btn btn-inverse btn-icon btn-circle btn-lg" data-toggle="tooltip" data-placement="top" title="Añadir Empresa Maquiladora">
+				<a href="{{ route('sig-erp-crm::EmpresasFacturadoras.create') }}" class="btn btn-inverse btn-icon btn-circle btn-lg" data-toggle="tooltip" data-placement="top" title="Añadir">
 					<i class="fa fa-building-o fa-1x" aria-hidden="true"></i>
 				</a>
 				@endpermission
 			@endif
-			<label>Añadir Empresa {{$TiposEmpresas}}</label>
+			<label>Añadir Empresa</label>
 		</div>
 	</div>
 	<br>
@@ -39,7 +39,7 @@
 						class="fa fa-minus"></i></a>
 
 			</div>
-			<h4 class="panel-title">Empresas {{$TiposEmpresas}}</h4>
+			<h4 class="panel-title">Empresas</h4>
 		</div>
 		<div class="panel-body">
 
@@ -200,14 +200,14 @@
                                 buttons: [
                                     {
                 extend: 'excelHtml5',
-                title: 'Reporte de Empresas Facturadoras',
+                title: 'Reporte de Empresas',
                  exportOptions: {
                     columns: [ 0, 1, 2,3 ]
                 }          
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Reporte de Empresas Facturadoras',
+                title: 'Reporte de Empresas',
                 pageSize: 'LEGAL',
                 exportOptions: {
                     columns: [ 0, 1, 2,3 ]
@@ -219,7 +219,7 @@
              },
              {
                 extend: 'print',
-                title: 'Reporte de Empresas Facturadoras',
+                title: 'Reporte de Empresas',
                 exportOptions: {
                     columns: [ 0, 1, 2,3 ]
                 }

@@ -854,7 +854,7 @@
                                             }, 0 );
                              
                                         // Update footer
-                                       $( api.column( 3 ).footer() ).html('TOTAL VISTA $ '+number_format(pageTotal,2));
+                                       $( api.column( 3 ).footer() ).html('TOTAL $'+number_format(pageTotal,2));
                                         
                                     
                                 }

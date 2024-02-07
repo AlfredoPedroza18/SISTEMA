@@ -16,7 +16,26 @@
 	</ol>
 	
 	<h1 class="page-header text-center">LISTADO DE CONTRATOS <small></small></h1>
+
+	<div class="row">
+			<div class="col-md-3 col-md-offset-9 col-xs-12 col-sm-12">
+					<div class="invoice-price">
+							<div class="invoice-price-right">
+								<small>TOTAL CONTRATOS</small> 
+								<div id="total-cotizaciones">$ {{$TotalCotratos[0]->total_contratos}}</div>
+								<input type="hidden" class="form-control" id="total_ese" name="total_ese">
+							</div>
+					</div><!-- end invoice price-->
+			</div>
+	</div>
+
+	<p></p>
+
 	<div class="panel panel-inverse" data-sortable-id="ui-widget-14" data-init="true">
+						
+				
+	
+
                         <div class="panel-heading">
                             <div class="panel-heading-btn">
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -40,6 +59,7 @@
 	                                    <th>Departamento</th>	                                    
 	                                    <th>Empresa</th>
 	                                    <th>N° Contrato</th>
+										<th>Cantidad</th>
 	                                    <th>Fecha Inicio</th>
 	                                    <th>Fecha Fin</th>
 	                                    <th >#</th>
@@ -64,6 +84,7 @@
 						                           	 <td>{{ $value->centro_negocio}}</td>
 						                           	 <td>{{ $value->nombre}}</td>
 						                           	 <td>{{ $value->no_contrato}}</td>
+													 <td>${{ $value->total}}</td>
 						                           	 <td>{{ $value->fecha_inicio}}</td>
 						                           	 <td>{{ $value->fecha_fin}}</td>
 						                           	 <td>
@@ -78,7 +99,19 @@
 							                    	</td>
 						                           	</tr>
 						                    @endforeach
+													
 						                          </tbody>
+
+												  <tfoot>
+													<tr>
+														
+														<td colspan="5">
+														<td colspan="4">
+															
+														</td> 
+													</tr>
+												  		
+												  </tfoot>
 						      </table>   
                         </div>
                     </div>
@@ -161,7 +194,7 @@
                 extend: 'excelHtml5',
                 title: 'Listado de contratos',
                 exportOptions: {
-                    columns: [ 0,1,2,3,4,5,6 ]
+                    columns: [ 0,1,2,3,4,5,6,7,8,9 ]
                 }         
             },
             {
@@ -169,7 +202,7 @@
                 title: 'Listado de contratos',
                 pageSize: 'LEGAL',
                 exportOptions: {
-                    columns: [ 0,1,2,3,4,5,6 ]
+                    columns: [ 0,1,2,3,4,5,6,7,8,9 ]
                 }
                  
             },
@@ -180,7 +213,7 @@
                 extend: 'print',
                 title: 'Listado de contratos',
                 exportOptions: {
-                    columns: [ 0,1,2,3,4,5,6]
+                    columns: [ 0,1,2,3,4,5,6,7,8,9]
                 }
              }
                                 ],
@@ -200,14 +233,14 @@
                              
                                         // Total over this page
                                         pageTotal = api
-                                            .column( 2, { page: 'current'} )
+                                            .column( 6, { page: 'current'} )
                                             .data()
                                             .reduce( function (a, b) {
                                                 return intVal(a) + intVal(b);
                                             }, 0 );
                              
                                         // Update footer
-                                       $( api.column( 0 ).footer() ).html('TOTAL VISTA $ '+number_format(pageTotal,2));
+                                       $( api.column( 6 ).footer() ).html('TOTAL $'+number_format(pageTotal,2));
                                         
                                     
                                 }

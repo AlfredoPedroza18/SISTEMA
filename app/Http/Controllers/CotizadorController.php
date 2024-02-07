@@ -140,7 +140,7 @@ class CotizadorController extends Controller
 
     public function listadoCotizaciones(Request $request){
 
-       $empresas_facturadoras = Facturadora::all();
+       $empresas_facturadoras = DB::select(' SELECT idempresa as id, fk_titulo as nombre FROM master_empresa WHERE master_empresa.TipoEmpresa = "facturadora";');
        $peticion = $request->path();
        $plantillas = Plantilla::all();
        
