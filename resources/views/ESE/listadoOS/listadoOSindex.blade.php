@@ -244,6 +244,10 @@
 
                         <th>Formato</th>
 
+                        @if (Auth::user()->tipo != "f")
+                        <th>Dictamen</th>
+
+                        @endif
                         <th>Acción</th>
 
                         </tr>
@@ -270,10 +274,13 @@
                             <td>{{ $LOS->Prioridad }}</td>
                             <td class="text-center"><span class="badge {{($LOS->Estatus=="Asignada")?"badge-success":"badge-primary"}}">{{ $LOS->Estatus}}</span></td>
                             <td>{{ $LOS->Formato }}</td>
+                            @if (Auth::user()->tipo != "f")
+                            <td>{{ $LOS->EstatusE }}</td>
+                            @endif
                             <td class="text-center" style="width:10%;">
 
                         
-
+                           
                             @if (Auth::user()->tipo == "f" && ($LOS->Estatus=="Cancelado" || $LOS->Estatus=="Cerrado"))
                             
                             @else

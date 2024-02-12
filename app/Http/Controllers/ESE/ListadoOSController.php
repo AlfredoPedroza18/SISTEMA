@@ -54,7 +54,9 @@ class ListadoOSController extends Controller
         CONCAT(e.name, ' ', IFNULL(e.apellido_paterno, ''), ' ', IFNULL(e.apellido_materno, ''))
       FROM users AS e
       WHERE e.id = a.IdAnalista) AS Analista,
-    CONCAT(cn.nombre, ' (', cn.nomenclatura, ')') AS centro_negocio
+    CONCAT(cn.nombre, ' (', cn.nomenclatura, ')') AS centro_negocio,
+
+    (SELECT Estatus FROM master_ese_srv_dictamen_inv WHERE master_ese_srv_dictamen_inv.IdServicioEse = ms.IdServicioEse) as EstatusE
   FROM master_ese_srv_servicio AS ms
     INNER JOIN clientes mc
       ON mc.id = ms.IdCliente
@@ -128,7 +130,8 @@ class ListadoOSController extends Controller
                         INNER JOIN master_ese_srv_entrada mse ON me.IdEntrada = mse.IdEntrada 
                         WHERE mse.IdServicioEse = ms.IdServicioEse AND me.CampoNombre = "apellidomaternoCandidato"), "")
                         ),""
-        ) AS Candidato
+        ) AS Candidato,
+        (SELECT IFNULL (Estatus , "S/N") FROM master_ese_srv_dictamen_inv WHERE master_ese_srv_dictamen_inv.IdServicioEse = ms.IdServicioEse) as EstatusE
         FROM users u
         INNER JOIN clientes c ON c.id = u.IdCliente
         INNER JOIN master_ese_srv_servicio ms ON u.IdCliente = ms.IdCliente
@@ -805,19 +808,14 @@ class ListadoOSController extends Controller
 
                 $td .= "<td> $LOS->Formato </td>";
 
+                $td .= "<td> $LOS->EstatusE </td>";
+
                 $td .= "<td class=\"text-center\" style=\"width:10%;\">";
 
                 $td .= "<a href=\"ConfiguracionOSEdit/$LOS->IdServicioEse/$LOS->IdCliente\" class=\"btn btn-primary btn-icon btn-circle btn-sm btn-editar-registro\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Editar Registro\"><i class=\"fa fa-pencil\"></i></a>&nbsp&nbsp
 
                 <input type=\"hidden\"  value=\"\" data-id=\"\">";
 
-                if (Auth::user()->tipo != "c"){
-
-                    $td .= "<button type=\"submit\" class=\"btn btn-danger btn-icon btn-circle btn-sm btn-editar-registro-responsivo\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Eliminar Registro\">
-                                <i class=\"fa fa-trash-o\"></i>
-                            </button>";
-
-                }
                 if (Auth::user()->tipo == "c"){
                     $name = Auth::user()->name;
                     $td .= "<button class=\"btn btn-danger btn-icon btn-circle btn-sm\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"Cancelar Registro\" onclick=\"cancelService( $LOS->os ,$LOS->IdPlantillaCliente,$LOS->IdCliente,'$name')\"><i class=\"fa fa-ban\" aria-hidden=\"true\"></i></button>";   

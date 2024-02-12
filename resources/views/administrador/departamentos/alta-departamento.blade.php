@@ -36,7 +36,7 @@
         <!-- begin col-1 -->
         <div class="col-md-3">
             <!-- ====================* FORMULARIO *===================> -->
-            <form>
+            <form action="{{utl('nuevodepartamento_create')}}">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>{{ Form::label('Código Postal', 'Código Postal') }}</label>

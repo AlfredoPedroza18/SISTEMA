@@ -729,7 +729,7 @@ function activarLink( $url = '' )
 
                             <li >
 
-                                <a href="javascript:;" class="icoRss text-center popovers"
+                                <a href="{{ url('cotizador_general') }}" class="icoRss text-center popovers"
 
                                    data-trigger="focus"
 
@@ -739,53 +739,8 @@ function activarLink( $url = '' )
 
                                    data-placement="bottom"
 
-                                   data-content='
-
-							<table class="table table-hover table-condensed">
-
-														<tbody>
-
-															<tr>
-
-																<td>Gen-T</td>
-
-																<td>
-
-																	<a 	class="btn btn-circle btn-icon-only btn-success"
-
-																		href="{{ url('cotizador') }}">
-
-																		<i class="fa fa-calculator"></i>
-
-																	</a>
-
-																</td>
-
-															</tr>
-
-															<tr>
-
-																<td>Genérico</td>
-
-																<td>
-
-																	<a 	class="btn btn-circle btn-icon-only btn-primary"
-
-																		href="{{ url('cotizador_general') }}">
-
-																		<i class="fa fa-calculator"></i>
-
-																	</a>
-
-																</td>
-
-															</tr>
-
-														</tbody>
-
-											'
-
-                                   data-original-title="<strong>Tipo de cotizador</strong>"><i class="fa fa-calculator"></i></a>
+                                   
+                                   ><i class="fa fa-calculator"></i></a>
 
                             </li>
 

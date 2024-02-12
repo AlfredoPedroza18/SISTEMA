@@ -31,6 +31,20 @@
                             <span class="input-group-addon"><i class="fa fa-1x fa-building"></i></span>
                         </div>
                     </div>
+                    <div class="form-group" id="cotizador-id-servicosTipo">
+                        <label>Tipos de servicio</label><br>
+                        <div class="input-group">
+                            <select class="form-control" name="id-servicosTipo" id="id-servicosTipo">
+                                <option value='-1'>Selecciona un tipo de servicio...</option>
+                                @foreach ( $servicosTipo as $servicosTip )
+                                  <option   value='{{$servicosTip->id}}'>
+                                              {{ $servicosTip->servicio}}
+                                  </option>
+                                @endforeach
+                            </select>
+                            <span class="input-group-addon"><i class="fa fa-1x fa-building"></i></span>
+                        </div>
+                    </div>
                 </div>                  
                 <div class="col-md-1 ">
                     <br>

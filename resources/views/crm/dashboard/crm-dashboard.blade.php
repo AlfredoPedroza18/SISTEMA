@@ -72,7 +72,7 @@
 			</div>
 
 			<div class="form-group col-md-4 col-sm-7" style="margin-left: 0px;">
-				<label>Cliente/Prospecto</label>
+				<label>Cliente / Prospecto</label>
 				<div class="row">
 					<div class="input-group col-sm-12">
 						<select class="form-control" id="clientes_prospectos" name="clientes_prospectos">
@@ -310,7 +310,7 @@
 
 				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-				<div class="panel-title">Total Clientes/Prospectos</div>
+				<div class="panel-title">Total Clientes / Prospectos</div>
 
 				<div class="stats-number" id="total_clientes_prospectos">&nbsp;</div>
 
@@ -931,11 +931,8 @@
 
 								<th>Dias por vencer</th>
 
-								@if(Auth::user()->is('admin'))
-
 								<th>Ejecutivo</th>
 
-								@endif
 
 
 
@@ -959,11 +956,9 @@
 
 								<td><label class="label label-danger">{{$value->dias_vencer}}</label></td>
 
-								@if(Auth::user()->is('admin'))
+								
 
 								<th>{{$value->name}}</th>
-
-								@endif
 
 
 
@@ -1249,9 +1244,12 @@
 				success: function(response){
 					$("#clientes_prospectos").html("");
 					$("#clientes_prospectos").append(`<option value='-1'>Sin FIltro</option>`);
-					response.forEach(element => { 
-					$("#clientes_prospectos").append(`<option value='${element.id}'>${element.nombre_comercial}</option>`);
-					});
+					if(response.length != 0 && response.length != null){
+						response.forEach(element => { 
+						$("#clientes_prospectos").append(`<option value='${element.id}'>${element.nombre_comercial}</option>`);
+						});
+					}
+					console.log (response);
 				},
 				error:function(){
 					console.log(id_tipo);
@@ -1382,6 +1380,7 @@
 
 		$(function() {
 
+			@if(Auth::user()->tipo == "s")
 			var dateIni =$("#fechaFin").val();
 			var dateFin =$("#fechaInicio").val();
 			var dato = new Date (dateFin);
@@ -1402,7 +1401,7 @@
 			dataURL(2);
 			dataURL(3);
 			dataURL(4);
-			
+			@endif
 
 
 		});
@@ -1668,7 +1667,7 @@
 
 			title: {
 
-				text: 'CLIENTES POR MES '+año
+				text: 'Clientes por mes '+año
 
 			},
 

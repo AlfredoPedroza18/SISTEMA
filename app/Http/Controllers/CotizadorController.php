@@ -184,7 +184,7 @@ class CotizadorController extends Controller
             }
 
 
-            $lista_cotizaciones = $cotizaciones;    
+            //$lista_cotizaciones = $cotizaciones;    
         }
 
         return $lista_cotizaciones;
@@ -194,6 +194,13 @@ class CotizadorController extends Controller
 
     private function queryCotizaciones( Request $request )
     {
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $id_cn = -1;
+        }else{
+                        
+            $id_cn = $request->user()->idcn;
+        }    
+
         $query_cotizaciones = ' SELECT
         crm_cotizaciones.id_cn,
         IF(clientes.id is null,0,clientes.id) AS id_cliente,
@@ -225,7 +232,9 @@ class CotizadorController extends Controller
         INNER JOIN centros_negocio ON centros_negocio.id = crm_cotizaciones.id_cn
         Inner JOIN clientes ON clientes.id = crm_cotizaciones.id_cliente
         Inner JOIN crm_cotizador_servicio ON crm_cotizador_servicio.id = crm_cotizaciones.id_servicio
-        WHERE 1=1 AND crm_cotizaciones.contrato = 0 ORDER BY crm_cotizaciones.fecha_cotizacion DESC';                        
+        WHERE 1=1 AND crm_cotizaciones.contrato = 0 
+        AND (-1 = '.$id_cn.' or (-1<>'.$id_cn.' AND crm_cotizaciones.id_cn = '.$id_cn.')) 
+        ORDER BY crm_cotizaciones.fecha_cotizacion DESC';                        
         
 
         return $query_cotizaciones;

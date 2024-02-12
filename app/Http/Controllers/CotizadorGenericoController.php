@@ -25,7 +25,8 @@ class CotizadorGenericoController extends Controller
         $clientes  = DB::select("Select * from clientes");
         $servicios = Servicio::where("status","1")->get();
         $impuestos = Impuesto::all();
-        return view("crm.cotizador.crm-cotizador-general", compact('clientes','servicios','impuestos'));
+        $servicosTipo = DB::select ("select * from crm_cotizador_servicio");
+        return view("crm.cotizador.crm-cotizador-general", compact('clientes','servicios','impuestos','servicosTipo'));
     }
 
     /**
@@ -51,7 +52,7 @@ class CotizadorGenericoController extends Controller
         $cotizacion->id_cn = $request->user()->idcn;
         $cotizacion->id_usuario = $request->user()->id;
         $cotizacion->id_cliente = $request->input('id-cliente');
-        $cotizacion->id_servicio = CotizacionGeneral::SERVICIO;
+        $cotizacion->id_servicio = $request->input('id-servicosTipo');
         $cotizacion->subtotal = $request->input('subtotal-general-cotizado');
         $cotizacion->descuento = $request->input('descuento-general-cotizado');
         $cotizacion->iva_monto = $request->input('monto-impuesto-cotizado');

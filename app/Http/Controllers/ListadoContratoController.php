@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Cliente;
 use DB;
+use Illuminate\Support\Facades\Auth;
 use App\Bussines\MasterConsultas;
 
 class ListadoContratoController extends Controller
@@ -117,6 +118,15 @@ class ListadoContratoController extends Controller
 
     private function getQueryContratos(Request $request)
     {
+
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $id_cn = -1;
+        }else{
+            if(Auth::user()->tipo == "s"){
+                $id_cn = Auth::user()->idcn;
+            }
+        }
+
         $query = "SELECT DISTINCT
                     crm_contratos.id,
                     crm_contratos.id_servicio,
@@ -138,6 +148,7 @@ class ListadoContratoController extends Controller
                     LEFT JOIN clientes                       ON crm_contratos.id_cliente=clientes.id
                     LEFT JOIN crm_cotizador_servicio      ON crm_contratos.id_servicio=crm_cotizador_servicio.id 
                     LEFT JOIN crm_cotizaciones              ON crm_contratos.id_cotizacion = crm_cotizaciones.id
+                    where ($id_cn = -1 OR ($id_cn <> -1 AND $id_cn = crm_contratos.id_cn))
                 ORDER BY 1";        
 
         return $query;
@@ -158,7 +169,7 @@ class ListadoContratoController extends Controller
             }
 
 
-            $lista_contratos = $contratos;    
+            //$lista_contratos = $contratos;    
         }
 
         

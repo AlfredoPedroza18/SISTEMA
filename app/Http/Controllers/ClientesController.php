@@ -3545,10 +3545,17 @@ class ClientesController extends Controller
     public function listaClientes(Request $request)
 
     {
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+            $id_cn = -1;
+        }else{
+            
+            $id_cn = $request->user()->idcn;
+            
+        }
 
         $clientes="";
 
-        $id_cn   = $request->user()->idcn;
+       
 
         $id_user = $request->user()->id;
 
@@ -3585,7 +3592,7 @@ IFNULL(clientes.id,'') AS id, IFNULL(clientes.nombre_comercial,'') AS nombre_cli
  LEFT JOIN   tipos_clientes ON tipos_clientes.id  = clientes.tipo_cliente
 
 
-
+where -1 = $id_cn OR (-1<>$id_cn AND $id_cn = clientes.id_cn)
             
 
             ";
@@ -3721,7 +3728,7 @@ IFNULL(clientes.id,'') AS id, IFNULL(clientes.nombre_comercial,'') AS nombre_cli
 
 
             if($request->status == "Si" ){
-                $query .= " WHERE status = '1' ";
+                $query .= " AND status = '1' ";
 
                 if($request->tipo == "cli"){
                     $query .= "AND clientes.tipo = 2 ";
@@ -3733,7 +3740,7 @@ IFNULL(clientes.id,'') AS id, IFNULL(clientes.nombre_comercial,'') AS nombre_cli
 
             }else if($request->status == "No"){
                 // $query .= " AND clientes.status = $request->status ";
-                $query .= " WHERE status = '2' ";
+                $query .= " AND status = '2' ";
                 if($request->tipo == "cli"){
                     $query .= "AND clientes.tipo = 2 ";
                 }else if($request->tipo == "pros"){
@@ -3742,7 +3749,7 @@ IFNULL(clientes.id,'') AS id, IFNULL(clientes.nombre_comercial,'') AS nombre_cli
                     $query .=" ";
                 }
             }else if($request->status == "sus"){
-                $query .= " WHERE status = '3' ";
+                $query .= " AND status = '3' ";
                 if($request->tipo == "cli"){
                     $query .= "AND clientes.tipo = 2 ";
                 }else if($request->tipo == "pros"){
@@ -3753,9 +3760,9 @@ IFNULL(clientes.id,'') AS id, IFNULL(clientes.nombre_comercial,'') AS nombre_cli
             }else if ($request->status == "todos"){
                 $query .=" ";
                 if($request->tipo == "cli"){
-                    $query .= "where clientes.tipo = 2 ";
+                    $query .= "AND clientes.tipo = 2 ";
                 }else if($request->tipo == "pros"){
-                    $query .= "where clientes.tipo = 1 ";
+                    $query .= "AND clientes.tipo = 1 ";
                 }else{
                     $query .=" ";
                 }

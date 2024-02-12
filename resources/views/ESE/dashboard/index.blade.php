@@ -24,7 +24,7 @@
 		margin: 0 auto;
 	}
 
-	.text-color-amarillo {
+	. {
 
 		color: yellow;
 
@@ -71,7 +71,7 @@
 
 
 
-<div id="content" class="content">
+<div id="content" class="content ">
 
 
 
@@ -183,9 +183,11 @@
 
 					<div class="row">
 
+						<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+
 						<div class="col-sm-12">
 
-							<div class="stats-title">Total Servicios</div>
+							<div class=""><strong>Total Servicios</strong></div>
 
 						</div>
 
@@ -201,7 +203,7 @@
 
 									<td>
 
-										<div class="stats-number text-color-amarillo" id="total_clientes_cuadro">{{ $Totalservicio }}</div>
+										<div class="stats-number " id="total_clientes_cuadro">{{ $Totalservicio }}</div>
 
 									</td>
 
@@ -211,9 +213,16 @@
 
 						</table>
 
+
 					</div>
 
-					<!-- <div class="stats-number text-color-amarillo" id="total_clientes_cuadro">{{ $estudios_cerrados->count() }}</div> -->
+					<div class="stats-progress progress">
+
+						<div class="progress-bar" style="width: 70.1%;"></div>
+
+					</div>
+
+					<!-- <div class="stats-number " id="total_clientes_cuadro">{{ $estudios_cerrados->count() }}</div> -->
 
 				</div>
 
@@ -228,13 +237,13 @@
 
 			<div class="col-md-4 col-sm-6">
 
-				<div class="widget widget-stats bg-black">
+				<div class="widget widget-stats bg-orange">
 
 					<div class="row">
 
 						<div class="col-sm-12">
 
-							<div class="stats-title text-center">Servicios</div>
+							<div class=" text-center"><strong>Servicios</strong></div>
 
 						</div>
 
@@ -252,7 +261,7 @@
 
 									<th>{{ $tpsrv->Descripcion }}</th>
 
-									<th class="text-color-amarillo">{{ $tpsrv->Total }}</th>
+									<th class="">{{ $tpsrv->Total }}</th>
 
 								</tr>
 
@@ -262,10 +271,16 @@
 
 						</table>
 
+						
+
 					</div>
 
 
+					<div class="stats-progress progress">
 
+						<div class="progress-bar" style="width: 70.1%;"></div>
+
+					</div>
 
 
 				</div>
@@ -280,13 +295,13 @@
 
 			<div class="col-md-2 col-sm-6">
 
-				<div class="widget widget-stats bg-black">
+				<div class="widget widget-stats bg-purple">
 
 					<div class="row">
 
 						<div class="col-sm-12">
 
-							<div class="stats-title text-center">Prioridad</div>
+							<div class=" text-center"><strong>Prioridad</strong></div>
 
 						</div>
 
@@ -304,7 +319,7 @@
 
 									<th>{{ $psrv->Descripcion }}</th>
 
-									<th class="text-color-amarillo">{{ $psrv->Total }}</th>
+									<th class="">{{ $psrv->Total }}</th>
 
 								</tr>
 
@@ -316,6 +331,11 @@
 
 					</div>
 
+					<div class="stats-progress progress">
+
+						<div class="progress-bar" style="width: 70.1%;"></div>
+
+					</div>
 
 
 				</div>
@@ -328,13 +348,13 @@
 
 			<div class="col-md-2 col-sm-6">
 
-				<div class="widget widget-stats bg-black">
+				<div class="widget widget-stats bg-aqua">
 
 					<div class="row">
 
 						<div class="col-sm-12">
 
-							<div class="stats-title text-center">Tipo</div>
+							<div class=" text-center"> <strong>Tipo</strong></div>
 
 						</div>
 
@@ -352,7 +372,7 @@
 
 									<th>{{ $t->Tipos }}</th>
 
-									<th class="text-color-amarillo">{{ $t->Total }}</th>
+									<th class="">{{ $t->Total }}</th>
 
 								</tr>
 
@@ -363,6 +383,13 @@
 						</table>
 
 					</div>
+
+					<div class="stats-progress progress">
+
+						<div class="progress-bar" style="width: 70.1%;"></div>
+
+					</div>
+
 
 				</div>
 
@@ -376,13 +403,13 @@
 
 			<div class="col-md-2 col-sm-6">
 
-				<div class="widget widget-stats bg-black">
+				<div class="widget widget-stats " style="background-color: #17A589;">
 
 					<div class="row">
 
 						<div class="col-sm-12">
 
-							<div class="stats-title text-center">Modalidad</div>
+							<div class=" text-center"><strong>Modalidad</strong></div>
 
 						</div>
 
@@ -400,7 +427,7 @@
 
 									<th>{{ $msrv->Descripcion }}</th>
 
-									<th class="text-color-amarillo">{{ $msrv->Total }}</th>
+									<th class="">{{ $msrv->Total }}</th>
 
 								</tr>
 
@@ -411,6 +438,13 @@
 						</table>
 
 					</div>
+
+					<div class="stats-progress progress">
+
+						<div class="progress-bar" style="width: 70.1%;"></div>
+
+					</div>
+
 
 				</div>
 
@@ -816,11 +850,11 @@
 
 	<!-- fin row bloque 2-->
 
-	<div class="row">
+	<div class="row ">
 
 		<!-- begin col-4 potlet #1 -->
 
-		<div class="col-md-4 col-sm-6"><!------------->
+		<div class="col-md-4  col-sm-6"><!------------->
 
 			<div class="panel panel-inverse">
 
@@ -852,8 +886,11 @@
 
 					</center>
 
-					<div id="container-solicitadosChart" class="container-data" style="display:none;"><canvas id="solicitadosChart"></canvas></div>
+					<div id="container-solicitadosChart" class="container-data" style="display:none;"><div id="solicitadosChart"></div></div>
+					<div id="solicitadosChart2">
 
+					</div>
+					<input type="text" id="solicitadosChart_input" hidden>
 				</div>
 
 			</div>
@@ -895,10 +932,11 @@
 
 					</center>
 
-					<div id="container-tipoServicioChart" class="container-data" style="display:none;"><canvas id="tipoServicioChart"></canvas></div>
+					<div id="container-tipoServicioChart" class="container-data" style="display:none;"><div id="tipoServicioChart"></div></div>
 
 				</div>
-
+					<input type="text" id="tipoServicioChart_input" hidden
+					>
 			</div>
 
 
@@ -934,8 +972,9 @@
 
 					</center>
 
-					<div id="container-modalidadServicioChart" class="container-data" style="display:none;"><canvas id="modalidadServicioChart"></canvas></div>
+					<div id="container-modalidadServicioChart" class="container-data" style="display:none;"><div id="modalidadServicioChart"></div></div>
 
+					<input id= "modalidadServicioChart_input" type="text" hidden>
 				</div>
 
 
@@ -971,6 +1010,7 @@
 
 					<div id="container-clientesChart" class="container-data" style="display:none;"><canvas id="clientesChart"></canvas></div>
 
+					<input type="text" id="clientesChart_input" hidden>
 				</div>
 
 
@@ -986,10 +1026,11 @@
 
 
 	<div class="row">
+	<div class="row justify-content-md-center">
 
 		<!-- begin col-4 potlet #1 -->
-
-		<div class="col-md-4 col-sm-6">
+		<div class="col-md-2"></div>
+		<div class="col-md-4  col-sm-6">
 
 			<div class="panel panel-inverse">
 
@@ -1019,9 +1060,12 @@
 
 					</center>
 
-					<div id="container-procesoChart" class="container-data" style="display:none;"><canvas id="procesoChart"></canvas></div>
+					<div id="container-procesoChart" class="container-data" style="display:none;"><div id="procesoChart"></div></div>
 
+					<div id="procesoChart2"></div>
 				</div>
+
+				<input type="text" id="dictamenChart_input" hidden>
 
 			</div>
 
@@ -1064,9 +1108,11 @@
 
 					</center>
 
-					<div id="container-dictamenChart" class="container-data" style="display:none;"><canvas id="dictamenChart"></canvas></div>
-
+					<div id="container-dictamenChart" class="container-data" style="display:none;"><div id="dictamenChart"></div></div>
+					<div id="dictamenChart2"></div>
 				</div>
+
+				<input type="text" id="procesoChart_input" hidden>
 
 			</div>
 
@@ -1100,7 +1146,7 @@
 
 	</div><!-- end rowspan -->
 
-
+	</div>
 
 	<!--<div class="row">
 
@@ -1179,9 +1225,11 @@
 
 					</center>
 
-					<div id="container-respuestaAgendaChart" class="container-data" style="display:none;"><canvas id="respuestaAgendaChart" width="400" height="150"></canvas></div>
+					<div id="container-respuestaAgendaChart" class="container-data" style="display:none;"><div id="respuestaAgendaChart"></div></div>
 
 				</div>
+
+				<input type="text"  id="respuestaAgendaChart_input" hidden>
 
 			</div>
 
@@ -1219,10 +1267,11 @@
 
 					</center>
 
-					<div id="container-tiempoISLChart" class="container-data" style="display:none;"><canvas id="tiempoISLChart" width="400" height="150"></canvas></div>
+					<div id="container-tiempoISLChart" class="container-data" style="display:none;"><div id="tiempoISLChart" ></div></div>
 
 				</div>
 
+				<input type="text"  id="tiempoISLChart_input" hidden>
 			</div>
 
 		</div>
@@ -1259,12 +1308,13 @@
 
 					</center>
 
-					<div id="container-tiempoRespuestaChart" class="container-data" style="display:none;"><canvas id="tiempoRespuestaChart" width="400" height="150"></canvas></div>
+					<div id="container-tiempoRespuestaChart" class="container-data" style="display:none;"><div id="tiempoRespuestaChart" ></div></div>
 
 
 
 				</div>
 
+				<input type="text" id="tiempoRespuestaChart_input" hidden>
 			</div>
 
 		</div>
@@ -1397,6 +1447,12 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 {!! Html::script('assets/js/map/code.js') !!}
 
@@ -1780,9 +1836,7 @@
 
 	}
 
-	let colors = ['#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
-
-
+	
 
 	const optionpluginpercentage = {
 
@@ -1944,69 +1998,54 @@
 
 	function ChartSrvSolicitados(Chartlabels, ChartData) {
 
+	
 
-		var canvas = document.getElementById('solicitadosChart');
+		var colors = ["#3366cc","#990099","#ff9900","#109618",,"#dc3912",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
-		var ctxSolicitados = document.getElementById('solicitadosChart').getContext('2d');
+
+
+		var ChartData2 = [];
+		for(let i = 0; i<ChartData.length;i++){
+			ChartData2[i] =ChartData[i]+"";
+			ChartData[i] = parseInt(ChartData[i]);
+			
+		}
+
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = new google.visualization.DataTable();
+
+		data.addColumn('string', 'Tipo servicio'); // Implicit domain label col.
+		data.addColumn('number', 'Cantidad'); 
+		data.addColumn({ role: 'style' });
+		data.addColumn( { role: 'annotation' });
+
+
+
+		for(let i = 0; i<ChartData.length;i++){
+			data.addRow(
+				[Chartlabels[i],ChartData[i],colors[i],ChartData2[i]]
+			);
+
+			
+		}
 
 		
-		canvas.style.cssText = 'width: 400px; height: 400px;';
 
-		var solicitadosChart = new Chart(ctxSolicitados, {
+		var options = {
+				title: "",
+				height: 350,
+				height: 200,
+				bar: {groupWidth: "70%"},
+				legend: { position: "none" },
+			};
+		var chart = new google.visualization.BarChart(document.getElementById("solicitadosChart"));
+		chart.draw(data, options);
+		$("#solicitadosChart_input").val(chart.getImageURI());
 
-			type: 'bar',
-
-			data: {
-
-				labels: Chartlabels,
-
-				datasets: [{
-
-					label: '#',
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1
-
-				}]
-
-			},
-
-			options: {
-
-				scales: {
-
-					yAxes: [{
-
-						ticks: {
-
-							beginAtZero: true
-
-						}
-
-					}]
-
-				},
-
-				legend: {
-
-					display: false
-
-				},
-
-				plugins: {
-
-					datalabels: optionplugnormal
-
-				}
-
-			}
-
-		});
+		}
+      
 
 
 		
@@ -2014,653 +2053,312 @@
 
 	function ChartEstatusPreceso(Chartlabels, ChartData) {
 
-		var canvas = document.getElementById('procesoChart');
+		var colors = ["#F9E600","#109618","#dc3912","#990099","#ff9900","#3366cc",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
-		canvas.style.cssText = 'width: 400px; height: 400px;';
 
-		var ctxProceso = document.getElementById('procesoChart').getContext('2d');
+		var ChartData2 = [];
+		for(let i = 0; i<ChartData.length;i++){
+			ChartData2[i] = ChartData[i]+"";
+			ChartData[i] = parseInt(ChartData[i]);
+			
+			
+		}
 
-		var procesoChart = new Chart(ctxProceso, {
+		
+		google.charts.load("current", {packages:['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = new google.visualization.DataTable();
 
-			type: 'bar',
+			data.addColumn('string', 'Tipo servicio'); // Implicit domain label col.
+			data.addColumn('number', 'Cantidad'); 
+			data.addColumn({ role: 'style' });
+			data.addColumn( { role: 'annotation' });
 
-			data: {
 
-				labels: Chartlabels,
 
-				datasets: [{
+			for(let i = 0; i<ChartData.length;i++){
+				data.addRow(
+					[Chartlabels[i],ChartData[i],colors[i],ChartData2[i]]
+				);
 
-					label: '#',
-
-					data: ChartData,
-
-					backgroundColor:  ['#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'],
-
-					borderColor: colors,
-
-					borderWidth: 1
-
-				}]
-
-			},
-
-			options: {
-
-				scales: {
-
-					yAxes: [{
-
-						ticks: {
-
-							beginAtZero: true
-
-						}
-
-					}]
-
-				},
-
-				legend: {
-
-					display: false
-
-				},
-
-				plugins: {
-
-					datalabels: optionplugnormal
-
-				}
-
+				
 			}
 
-		});
+
+			var options = {
+				title: "",
+				height: 350,
+				height: 200,
+				bar: {groupWidth: "50%"},
+				legend: { position: "none" },
+			};
+			var chart = new google.visualization.ColumnChart(document.getElementById("procesoChart"));
+			chart.draw(data, options);
+			$("#procesoChart_input").val(chart.getImageURI());
+		}
+      
+		
 
 	}
 
 
 
 	function ChartSrvSolicitadosPercentage(Chartlabels, ChartData) {
-
-		var canvas = document.getElementById('clientesChart');
-
-		canvas.style.cssText = 'width: 400px; height: 400px;';
-
-		var ctxClientes = document.getElementById('clientesChart').getContext('2d');
-
-		var clientesChart = new Chart(ctxClientes, {
-
-			type: 'pie',
-
-			data: {
-
-				labels: Chartlabels,
-
-				datasets: [{
-
-					label: '',
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1,
-
-					datalabels: {
-
-						anchor: 'end'
-
-					}
-
-				}]
-
-			},
-
-			options: {
-
-				plugins: {
-
-					datalabels: optionpluginpercentage
-
-				},
-
-				layout: {
-
-					padding: paddinglayout
-
-				}
-
-			}
-
-		});
-
+		
 
 
 	}
 
 	function ChartTipoServicio(Chartlabels, ChartData) {
 
-		var canvas = document.getElementById('tipoServicioChart');
+		var colors = ["#dc3912","#F9E600","#990099","#ff9900","#109618","#3366cc",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
-		canvas.style.cssText = 'width: 400px; height: 400px;';
+		for(let i = 0; i<ChartData.length;i++){
+			
+			ChartData[i] = parseInt(ChartData[i]);
+			
+		}
 
-		var ctxTipoServicio = document.getElementById('tipoServicioChart').getContext('2d');
+	google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+		var data = new google.visualization.DataTable();
 
-		var tipoServicioChart = new Chart(ctxTipoServicio, {
-
-			type: 'horizontalBar',
-
-			data: {
-
-				labels: Chartlabels,
-
-				datasets: [{
-
-					label: ['#'],
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1,
-
-					datalabels: {
-
-						align: 'center',
-
-						anchor: 'center'
-
-					}
-
-				}]
-
-			},
-
-			options: {
-
-				scales: {
-
-					xAxes: [
-
-						{
+		data.addColumn('string', 'Tipo servicio'); // Implicit domain label col.
+		data.addColumn('number', 'Cantidad'); 
 
 
 
-							ticks: {
+		for(let i = 0; i<ChartData.length;i++){
+			data.addRow(
+				[Chartlabels[i],ChartData[i]]
+			);
 
-								beginAtZero: true
+			
+		}
+        var options = {
+          title: '',
+          pieHole: 0.1,
+		  slices: [{color: colors[0]} ,{color: colors[3]}],
+		  pieSliceTextStyle: {
+            color: 'black',
+          },
+        };
 
-							}
+        var chart = new google.visualization.PieChart(document.getElementById('tipoServicioChart'));
+        chart.draw(data, options);
+		$("#tipoServicioChart_input").val(chart.getImageURI());
 
-						}
-
-					],
-
-					yAxes: [
-
-						{
-
-							ticks: {
-
-								beginAtZero: true
-
-							}
-
-						}
-
-					]
-
-				},
-
-				responsive: true,
-
-				legend: {
-
-					display: false
-
-				},
-
-				plugins: {
-
-					datalabels: optionplugnormal2
-
-				}
-
-			}
-
-		});
-
+      }
 
 
 	}
 
 	function ChartModalidad(Chartlabels, ChartData) {
 
-		var canvas = document.getElementById('modalidadServicioChart');
+		var colors = ["#990099","#ff9900","#109618","#3366cc","#F9E600","#dc3912",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
-		canvas.style.cssText = 'width: 400px; height: 400px;';
+		for(let i = 0; i<ChartData.length;i++){
+			
+			ChartData[i] = parseInt(ChartData[i]);
+			
+		}
 
-		var ctxModalidadServicio = document.getElementById('modalidadServicioChart').getContext('2d');
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+		var data = new google.visualization.DataTable();
 
-		var modalidadServicioChart = new Chart(ctxModalidadServicio, {
-
-			type: 'doughnut',
-
-			data: {
-
-				labels: Chartlabels,
-
-				datasets: [{
-
-					label: Chartlabels,
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1,
-
-					datalabels: {
-
-						anchor: 'start'
-
-					}
-
-				}]
-
-			},
-
-			options: {
-
-				plugins: {
-
-					datalabels: optionpluginpercentage
-
-				}
-
-			}
-
-		});
+		data.addColumn('string', 'Tipo servicio'); // Implicit domain label col.
+		data.addColumn('number', 'Cantidad'); 
 
 
+
+		for(let i = 0; i<ChartData.length;i++){
+			data.addRow(
+				[Chartlabels[i],ChartData[i]]
+			);
+
+			
+}
+
+        var options = {
+          title: '',
+          pieHole: 0.1,
+		  slices: [{color: colors[0]} ,{color: colors[3]}],
+		  pieSliceTextStyle: {
+            color: 'black',
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('modalidadServicioChart'));
+        chart.draw(data, options);
+		$("#modalidadServicioChart_input").val(chart.getImageURI());
+		
+      }
 
 	}
 
+	
+
 	function ChartDictamen(Chartlabels, ChartData) {
+		var colors = ["#109618","#F9E600","#dc3912","#990099","#ff9900","#3366cc",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
-		var calculate = 0;
+		var ChartData2 = [];
+		for(let i = 0; i<ChartData.length;i++){
+			ChartData2[i] = ChartData[i]+"";
+			ChartData[i] = parseInt(ChartData[i]);
+			
+		}
+		
+		
+	
+		google.charts.load("current", {packages:['corechart']});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = new google.visualization.DataTable();
 
-		var canvas = document.getElementById('dictamenChart');
+			data.addColumn('string', 'Tipo servicio'); // Implicit domain label col.
+			data.addColumn('number', 'Cantidad'); 
+			data.addColumn({ role: 'style' });
+			data.addColumn( { role: 'annotation' });
 
-		canvas.style.cssText = 'width: 400px; height: 400px;';
 
-		var ctxDictamen = document.getElementById('dictamenChart').getContext('2d');
 
-		var dictamenChart = new Chart(ctxDictamen, {
+			for(let i = 0; i<ChartData.length;i++){
+				data.addRow(
+					[Chartlabels[i],ChartData[i],colors[i],ChartData2[i]]
+				);
 
-			type: 'bar',
-
-			data: {
-
-				labels: letterAndProcentage(Chartlabels, ChartData),
-
-				datasets: [{
-
-					label: ['#'],
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1
-
-				}]
-
-			},
-
-			options: {
-
-				scales: {
-
-					yAxes: [{
-
-						ticks: {
-
-							beginAtZero: true
-
-						}
-
-					}]
-
-				},
-
-				legend: {
-
-					display: false
-
-				},
-
-				plugins: {
-
-					datalabels: optionplugnormal
-
-				}
-
+				
 			}
 
-		});
 
+			var options = {
+				title: "",
+				height: 350,
+				height: 200,
+				bar: {groupWidth: "50%"},
+				legend: { position: "none" },
+			};
+			var chart = new google.visualization.ColumnChart(document.getElementById("dictamenChart"));
+			chart.draw(data, options);
+			$("#dictamenChart_input").val(chart.getImageURI());
+		}
+
+		
+      
 	}
 
 	function ChartDictamenIncidencias(Chartlabels, ChartData) {
 
-		var canvas = document.getElementById('porcentajeDictamenLChart');
-
-		canvas.style.cssText = 'width: 400px; height: 150px;';
-
-		var ctxPorcentajeDictamen = document.getElementById('porcentajeDictamenLChart').getContext('2d');
-
-		var porcentajeDictamenLChart = new Chart(ctxPorcentajeDictamen, {
-
-			type: 'bar',
-
-			data: {
-
-				labels: letterAndProcentage(Chartlabels, ChartData),
-
-				datasets: [{
-
-					label: '#',
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1,
-
-				}]
-
-			},
-
-			options: {
-
-				scales: {
-
-					yAxes: [{
-
-						ticks: {
-
-							beginAtZero: true
-
-						}
-
-					}]
-
-				},
-
-				legend: {
-
-					display: false
-
-				},
-
-				plugins: {
-
-					datalabels: optionplugnormal
-
-				}
-
-			}
-
-		});
-
+		
 	}
 
 	function ChartRespuestaAgenda(Desfasada, d1,d2,d3) {
 
-		var canvas = document.getElementById('respuestaAgendaChart');
-
-		canvas.style.cssText = 'width: 400px; height: 150px;';
-
-		var ctxRespuestaAgenda = document.getElementById('respuestaAgendaChart').getContext('2d');
-
-		var respuestaAgendaChart = new Chart(ctxRespuestaAgenda, {
-
-			type: 'horizontalBar',
-
-			data: {
-
-				labels: [ 'Desfasado','3 Días','2 Días','1 Día',],
-
-				datasets: [{
-
-					label: ['#'],
-
-					data: [Desfasada, d3,d2,d1],
-
-					backgroundColor: [ '#E74C3C', '#3498DB', '#F4D03F', '#28B463', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'],
-
-					borderColor:	[ '#E74C3C', '#3498DB', '#F4D03F', '#28B463', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'],
-
-					borderWidth: 1
-
-				}]
-
-			},
-
-			options: {
-
-				scales: {
-
-					xAxes: [
-
-						{
+		var colors = ["#990099","#ff9900","#109618","#3366cc","#F9E600","#dc3912",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
 
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+		var data = google.visualization.arrayToDataTable([
+			["Element", "Density", { role: "style" } ],
+			["Desfasado",Desfasada,colors[5]],
+			["Día 3", d3, colors[1]],
+			["Día 2", d2, colors[4]],
+			["Día 1", d1, colors[2]],
 
-							ticks: {
+		]);
 
-								beginAtZero: true
+		var view = new google.visualization.DataView(data);
+		view.setColumns([0, 1,
+						{ calc: "stringify",
+							sourceColumn: 1,
+							type: "string",
+							role: "annotation" },
+						2]);
 
-							}
-
-						}
-
-					],
-
-					yAxes: [
-
-						{
-
-							ticks: {
-
-								beginAtZero: true
-
-							}
-
-						}
-
-					]
-
-				},
-
-				legend: {
-
-					display: false
-
-				},
-
-				plugins: {
-
-					datalabels: optionplugnormal
-
-				}
-
-			}
-
-		});
-
-
+		var options = {
+			title: "",
+			width: 350,
+			height: 200,
+			bar: {groupWidth: "95%"},
+			legend: { position: "none" },
+			pieSliceTextStyle: {
+            	color: 'black',
+          	},
+		};
+		var chart = new google.visualization.BarChart(document.getElementById("respuestaAgendaChart"));
+		chart.draw(view, options);
+		$("#respuestaAgendaChart_input").val(chart.getImageURI());
+		}
 
 	}
 
 	function ChartRespuestaISL(Desfasada, EnTiempo) {
 
-		var sum = SumaTotal([Desfasada, EnTiempo]);
+		var colors = ["#990099","#ff9900","#109618","#3366cc","#F9E600","#dc3912",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
-		var percentageEnTiempo = 0;
 
-		var percentageDesfasada = 0;
+		console.log(Desfasada+ "raka "+EnTiempo);
+		google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ["Desafe","Dato"],
+		  ['Desfasada', 	Desfasada],
+          ['En Tiempo',     EnTiempo],         
+        ]);
 
-		if (sum > 0) {
+        var options = {
+          title: '',
+          pieHole: 0.4,
+		  slices: [{color: colors[5]} ,{color: colors[2]}],
+		  pieSliceTextStyle: {
+            color: 'black',
+          },
+        };
 
-			percentageEnTiempo = (parseInt(EnTiempo) / parseInt(sum)) * 100;
+        var chart = new google.visualization.PieChart(document.getElementById('tiempoISLChart'));
+        chart.draw(data, options);
+		$("#tiempoISLChart_input").val(chart.getImageURI());
 
-			percentageDesfasada = (parseInt(Desfasada) / parseInt(sum)) * 100;
-
-		}
-
-		var canvas = document.getElementById('tiempoISLChart');
-
-		canvas.style.cssText = 'width: 400px; height: 150px;';
-
-		var ctxTiempoISL = document.getElementById('tiempoISLChart').getContext('2d');
-
-		var tiempoISLChart = new Chart(ctxTiempoISL, {
-
-			type: 'doughnut',
-
-			data: {
-
-				labels: ['En tiempo', 'Desfasado'],
-
-				datasets: [{
-
-					label: ['En tiempo', 'Desfasado'],
-
-					data: [percentageEnTiempo.toFixed(2),
-
-						percentageDesfasada.toFixed(2)
-					],
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1,
-
-					datalabels: {
-
-						anchor: 'end'
-
-					}
-
-				}]
-
-			},
-
-			options: {
-
-				plugins: {
-
-					datalabels: optionpluginpercentage
-
-				},
-
-				layout: {
-
-					padding: paddinglayout
-
-				}
-
-			}
-
-		});
-
+      }
 	}
 
 	function ChartRespuesta(Desfasada, EnTiempo) {
+		
+		var colors = ["#990099","#ff9900","#109618","#3366cc","#F9E600","#dc3912",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
-		var sum = SumaTotal([Desfasada, EnTiempo]);
 
-		var percentageEnTiempo = 0;
+		google.charts.load("current", {packages:["corechart"]});
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+			['Modalidad', 'Estudios'],
+			['Desfasada',     Desfasada],
+			['En tiempo',     EnTiempo],
+			
+		]);
 
-		var percentageDesfasada = 0;
+			var options = {
+			title: '',
+			pieHole: 0.4,
+			slices: [{color: colors[5]} ,{color: colors[2]}],
+			pieSliceTextStyle: {
+           	 color: 'black',
+          	},
+			
+			};
 
-		if (sum > 0) {
-
-			percentageEnTiempo = (parseInt(EnTiempo) / parseInt(sum)) * 100;
-
-			percentageDesfasada = (parseInt(Desfasada) / parseInt(sum)) * 100;
+			var chart = new google.visualization.PieChart(document.getElementById('tiempoRespuestaChart'));
+			chart.draw(data, options);
+			$("#tiempoRespuestaChart_input").val(chart.getImageURI());
 
 		}
-
-		var canvas = document.getElementById('tiempoRespuestaChart');
-
-		canvas.style.cssText = 'width: 400px; height: 150px;';
-
-		var ctxTiempoRespuesta = document.getElementById('tiempoRespuestaChart').getContext('2d');
-
-		var tiempoRespuestaChart = new Chart(ctxTiempoRespuesta, {
-
-			type: 'pie',
-
-			data: {
-
-				labels: ['En tiempo', 'Desfasado'],
-
-				datasets: [{
-
-					label: 'Porcentaje',
-
-					data: [percentageEnTiempo.toFixed(2),
-
-						percentageDesfasada.toFixed(2)
-					],
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1,
-
-					datalabels: {
-
-						anchor: 'end'
-
-					}
-
-				}]
-
-			},
-
-			options: {
-
-				plugins: {
-
-					datalabels: optionpluginpercentage
-
-				},
-
-				layout: {
-
-					padding: paddinglayout
-
-				}
-
-			}
-
-		});
 
 	}
 
@@ -2668,144 +2366,12 @@
 
 	function ChartFacturaGlobal(Chartlabels, ChartData) {
 
-		var canvas = document.getElementById('facturacionGlobalChart');
-
-		canvas.style.cssText = 'width: 400px; height: 150px;';
-
-		var ctxfacturacionGlobal = document.getElementById('facturacionGlobalChart').getContext('2d');
-
-		var facturacionGlobalChart = new Chart(ctxfacturacionGlobal, {
-
-			type: 'bar',
-
-			data: {
-
-				labels: Chartlabels,
-
-				datasets: [{
-
-					label: '$ ',
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1
-
-				}]
-
-			},
-
-			options: {
-
-				scales: {
-
-					yAxes: [{
-
-						ticks: {
-
-							beginAtZero: true,
-
-							userCallback: function(value, index, values) {
-
-								// Convert the number to a string and splite the string every 3 charaters from the end
-
-								value = value.toString();
-
-								value = value.split(/(?=(?:...)*$)/);
-
-
-
-								// Convert the array to a string and format the output
-
-								value = value.join(',');
-
-								return '$' + value;
-
-							}
-
-						}
-
-					}]
-
-				},
-
-				legend: {
-
-					display: false
-
-				},
-
-				plugins: {
-
-					datalabels: optionpluginmoneda
-
-				}
-
-			}
-
-		});
-
+		
 	}
 
 	function ChartFacturaxServicio(Chartlabels, ChartData) {
 
-		var canvas = document.getElementById('factServicioChart');
-
-		canvas.style.cssText = 'width: 400px; height: 150px;';
-
-		var ctxFactServicio = document.getElementById('factServicioChart').getContext('2d');
-
-		var factServicioChart = new Chart(ctxFactServicio, {
-
-			type: 'doughnut',
-
-			data: {
-
-				labels: Chartlabels,
-
-				datasets: [{
-
-					label: ['%'],
-
-					data: ChartData,
-
-					backgroundColor: colors,
-
-					borderColor: colors,
-
-					borderWidth: 1,
-
-					datalabels: {
-
-						anchor: 'end'
-
-					}
-
-				}]
-
-			},
-
-			options: {
-
-				plugins: {
-
-					datalabels: optionpluginpercentage
-
-				},
-
-				layout: {
-
-					padding: paddinglayout
-
-				}
-
-			}
-
-		});
-
+	
 	}
 
 	function messageErrorChart() {
@@ -2974,12 +2540,6 @@
 
 		//var montofacturacion_x_servicios = [];
 
-
-
-		response.totalporservicio.forEach(element => tiposervicios.push(element.Descripcion));
-
-		response.totalporservicio.forEach(element => totalporservicios.push(element.Total));
-
 		response.prioridadservicios.forEach(element => totalprioridadservicios.push(element.Total));
 
 		response.prioridadservicios.forEach(element => tipoprioridad.push(element.Descripcion));
@@ -3041,7 +2601,7 @@
 
 			facturacionglobal.push(element.EstatusCobro);
 
-			montofacturacionglobal.push(element.Total);
+			montofacturacionglobal.push(element.Total);ChartSrvSolicitadoServicios 
 
 		});*/
 
@@ -3053,17 +2613,28 @@
 
 		});*/
 
+		response.totalporservicio.forEach(element => tiposervicios.push(element.Descripcion));
+
+		response.totalporservicio.forEach(element => totalporservicios.push(element.Total));
+
 		ChartSrvSolicitados(tiposervicios, totalporservicios);
 
-		ChartSrvSolicitadosPercentage(tiposervicios, percentage(totalporservicios));
+		//ChartSrvSolicitadosPercentage(tiposervicios, percentage(totalporservicios));
 
 		ChartTipoServicio(tipoprioridad, totalprioridadservicios);
 
-		ChartModalidad(modalidadservicios, percentage(totalmodalidadservicios));
+		ChartModalidad(modalidadservicios, totalmodalidadservicios);
 
 		ChartEstatusPreceso(estatus_proceso, totalestatus_proceso);
 
-		ChartDictamen(dictamen, totaldictamen);
+		var dic = ["Apto","Apto a Reserva","No Apto"];
+		var total = [0,0,0]
+		for(let i = 0; i<dictamen.length;i++){
+			if(dictamen[i] == dic[0]) total[0]= totaldictamen [i];
+			if(dictamen[i] == dic[1]) total[1]= totaldictamen [i];
+			if(dictamen[i] == dic[2]) total[2]= totaldictamen [i];
+		}
+		ChartDictamen(dic, total);
 
 		//ChartDictamenIncidencias(dictamenIncidencias, totaldictamenIncidencias);
 
@@ -3098,25 +2669,25 @@
 
 		Totalporservicio.forEach(function(element) {
 
-			totalporservicio = totalporservicio + '<tr><th>' + element.Descripcion + '</th><th class="text-color-amarillo">' + element.Total + '</th></tr>';
+			totalporservicio = totalporservicio + '<tr><th>' + element.Descripcion + '</th><th class="">' + element.Total + '</th></tr>';
 
 		});
 
 		Prioridadservicios.forEach(function(element) {
 
-			prioridad = prioridad + '<tr><th>' + element.Descripcion + '</th><th class="text-color-amarillo">' + element.Total + '</th></tr>';
+			prioridad = prioridad + '<tr><th>' + element.Descripcion + '</th><th class="">' + element.Total + '</th></tr>';
 
 		});
 
 		Tipos.forEach(function(element) {
 
-			tipo = tipo + '<tr><th>' + element.Tipos + '</th><th class="text-color-amarillo">' + element.Total + '</th></tr>';
+			tipo = tipo + '<tr><th>' + element.Tipos + '</th><th class="">' + element.Total + '</th></tr>';
 
 		});
 
 		Modalidadservicios.forEach(function(element) {
 
-			modalidadservicios = modalidadservicios + '<tr><th>' + element.Descripcion + '</th><th class="text-color-amarillo">' + element.Total + '</th></tr>';
+			modalidadservicios = modalidadservicios + '<tr><th>' + element.Descripcion + '</th><th class="">' + element.Total + '</th></tr>';
 
 		});
 
@@ -3769,51 +3340,51 @@
 
 		$("#container-solicitadosChart").html('');
 
-		$('#container-solicitadosChart').append('<canvas id="solicitadosChart" ></canvas>');
+		$('#container-solicitadosChart').append('<div id="solicitadosChart" ></div>');
 
 		$("#container-procesoChart").html('');
 
-		$('#container-procesoChart').append('<canvas id="procesoChart"></canvas>');
+		$('#container-procesoChart').append('<div id="procesoChart"></div>');
 
 		$("#container-clientesChart").html('');
 
-		$('#container-clientesChart').append('<canvas id="clientesChart"></canvas>');
+		$('#container-clientesChart').append('<div id="clientesChart"></div>');
 
 		$("#container-tipoServicioChart").html('');
 
-		$('#container-tipoServicioChart').append('<canvas id="tipoServicioChart"></canvas>');
+		$('#container-tipoServicioChart').append('<div id="tipoServicioChart"></div>');
 
 		$("#container-modalidadServicioChart").html('');
 
-		$('#container-modalidadServicioChart').append('<canvas id="modalidadServicioChart"></canvas>');
+		$('#container-modalidadServicioChart').append('<div id="modalidadServicioChart"></div>');
 
 		$("#container-dictamenChart").html('');
 
-		$('#container-dictamenChart').append('<canvas id="dictamenChart"></canvas>');
+		$('#container-dictamenChart').append('<div id="dictamenChart"></div>');
 
 		$("#container-porcentajeDictamenLChart").html('');
 
-		$('#container-porcentajeDictamenLChart').append('<canvas id="porcentajeDictamenLChart"></canvas>');
+		$('#container-porcentajeDictamenLChart').append('<div id="porcentajeDictamenLChart"></div>');
 
 		$("#container-respuestaAgendaChart").html('');
 
-		$('#container-respuestaAgendaChart').append('<canvas id="respuestaAgendaChart"></canvas>');
+		$('#container-respuestaAgendaChart').append('<div id="respuestaAgendaChart"></div>');
 
 		$("#container-tiempoISLChart").html('');
 
-		$('#container-tiempoISLChart').append('<canvas id="tiempoISLChart"></canvas>');
+		$('#container-tiempoISLChart').append('<div id="tiempoISLChart"></div>');
 
 		$("#container-tiempoRespuestaChart").html('');
 
-		$('#container-tiempoRespuestaChart').append('<canvas id="tiempoRespuestaChart"></canvas>');
+		$('#container-tiempoRespuestaChart').append('<div id="tiempoRespuestaChart"></div>');
 
 		$("#container-facturacionGlobalChart").html('');
 
-		$('#container-facturacionGlobalChart').append('<canvas id="facturacionGlobalChart"></canvas>');
+		$('#container-facturacionGlobalChart').append('<div id="facturacionGlobalChart"></div>');
 
 		$("#container-factServicioChart").html('');
 
-		$('#container-factServicioChart').append('<canvas id="factServicioChart"></canvas>');
+		$('#container-factServicioChart').append('<div id="factServicioChart"></div>');
 
 	}
 
@@ -3998,23 +3569,15 @@
 
 
 	function pdfs (){
-		var canvas = document.getElementById("solicitadosChart");
-		var canvas1 = document.getElementById('procesoChart');
-		var canvas2 = document.getElementById('tipoServicioChart');
-		var canvas3 = document.getElementById('modalidadServicioChart');
-		var canvas4 = document.getElementById('dictamenChart');
-		var canvas6 = document.getElementById('respuestaAgendaChart');
-		var canvas7 = document.getElementById('tiempoISLChart');
-		var canvas8 = document.getElementById('tiempoRespuestaChart');
 
-		var dataURL = canvas.toDataURL(1);
-		var dataURL1 = canvas1.toDataURL(1);
-		var dataURL2 = canvas2.toDataURL(1);
-		var dataURL3 = canvas3.toDataURL(1);
-		var dataURL4 = canvas4.toDataURL(1);
-		var dataURL6 = canvas6.toDataURL(1);
-		var dataURL7 = canvas7.toDataURL(1);
-		var dataURL8 = canvas8.toDataURL(1);
+		var dataURL1 =  $("#procesoChart_input").val();
+		var dataURL =  $("#solicitadosChart_input").val();
+		var dataURL2 = $("#tipoServicioChart_input").val();
+		var dataURL3 = $("#modalidadServicioChart_input").val();
+		var dataURL4 =  $("#dictamenChart_input").val();
+		var dataURL6 = $("#respuestaAgendaChart_input").val();
+		var dataURL7 = $("#tiempoISLChart_input").val();
+		var dataURL8 = $("#tiempoRespuestaChart_input").val();
 		
 		
 		
@@ -4032,65 +3595,73 @@
 
 		
 		@if(Auth::user()->tipo=="c")
-			var doc = new jsPDF( {orientation: "lanscape", unit: "in"});
+		var doc = new jsPDF();
 			
 			//Encabezado
-			doc.addImage("{{$logo}}", 'JPEG', 0.3, 0.2, 1.7, 1.3);
+			doc.addImage("{{$logo}}", 'JPEG', 10, 5, 45,25);
 			doc.setFont("helvetica");
 			doc.setFontType('bold');
-			doc.setFontSize(20);
-			doc.text("Estudio Socioeconómico", 4.4, 0.9);
+			doc.setFontSize(17);
+			doc.text("Estudio Socioeconómico", 90, 20);
 			doc.setDrawColor(0);
 			doc.setFillColor(247,140,30);
-			doc.rect(2.1, 1.1, 9.1, 0.1, 'F');
-			//Encabezado Cliente
-			doc.setFontType('bold');
-			doc.setFontSize(11);		
-			doc.text("Cliente:", 3.3, 1.5);
-			doc.setFontType('normal');			
-			doc.text(clientes[0],3.9,1.5);
+			doc.rect(60, 22 , 142, 1, 'F');
+
+
+			Servicio = document.getElementById("bodyTableClientes");
+			Serv=Servicio.getElementsByTagName("span");
+			serv = Serv[0].innerHTML;
 			//Periodo
 			doc.setFontType('bold');
-			doc.text("Período: ", 8.2, 1.5);
+			doc.setFontSize(9);
+			doc.text("Período: ", 148, 27);
 			doc.setFontType('normal');
-			doc.text(dateIni + " a " + dateEnd, 8.9, 1.5);
-			
+			doc.setFontSize(9);
+			doc.text(dateIni + " a " + dateEnd, 163, 27);
+			doc.setFontType('bold');
+			doc.setFontSize(9);
+			doc.text("Cliente: ", 60, 27);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.text(serv, 74, 27);
+
 			//cuadro total servicios 
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(0.4, 1.9, 2.3, 0.3, 'F');
+			doc.rect(10, 40, 45, 7, 'F');
 			
 			doc.setFontType('bold');
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Total de Servicios",0.8, 2.1);
+			doc.text("Total de Servicios",14, 45);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
+
 			var Servicio = document.getElementById("TiposServicios");
 			var Serv=Servicio.getElementsByTagName("th");
 			var serv = [];
 			for(var i = 0; i< Serv.length; i++){
 				serv[i] = Serv[i].innerHTML;
 			}
-			con = 2.0;
+			con = 45;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(0.4, 2.2, 2.3, con-1.7, 'F');
-			con = 2.2;
-			doc.text(document.getElementById("total_clientes_cuadro").innerHTML,1.5,con+=0.2);
+			doc.rect(10, 47, 45, con-38, 'F');
+			con = 45;
+			doc.text(document.getElementById("total_clientes_cuadro").innerHTML,31,con+=7);
 			
-			var espacio = con-0.2;
+			var espacio = con + 7;
 			
 			//cuadro servicios 
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(2.9, 1.9, 1.8, 0.3, 'F');
+			doc.rect(10, espacio , 45, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Servicios",3.4, 2.1);
+			doc.text("Servicios",22, espacio + 5);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4101,105 +3672,112 @@
 			for(var i = 0; i< Serv.length; i++){
 				serv[i] = Serv[i].innerHTML;
 			}
-			con = 2.1;
+			con = 0;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					con+=0.2;
+					con+=6;
 				}
 			}
+			con +=2;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(2.9, 2.2, 1.8, con-1.9, 'F');
-			con = 2.2;
+			doc.rect(10, espacio + 7, 45, con, 'F');
+			con = espacio + 6;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					doc.text(serv[i]+": "+serv[i+1],3,con+=0.2);
+					doc.text(serv[i]+": "+serv[i+1],13,con+=6);
 				}
 			}
-
+			espacio = con + 7;
 			
 
 			//cuadro prioridad 
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(4.9, 1.9, 1.8, 0.3, 'F');
+			doc.rect(10, espacio, 45, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Prioridad",5.4, 2.1);
+			doc.text("Prioridad",23, espacio + 5);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
-
+			var po = con;
 			var Servicio = document.getElementById("Prioridad");
 			var Serv=Servicio.getElementsByTagName("th");
 			var serv = [];
 			for(var i = 0; i< Serv.length; i++){
 				serv[i] = Serv[i].innerHTML;
 			}
-			con = 2.1;
+			con = 0;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					con+=0.2;
+					con+=6;
 				}
 			}
+			con += 2
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(4.9, 2.2, 1.8, con-1.9, 'F');
-			con = 2.2;
-			for(var i = 0; i< serv.length; i++){
+			doc.rect(10, espacio + 7 , 45, con, 'F');
+			con = espacio + 6;
+			for(var i = 0; i < serv.length; i++){
 				if(i % 2 == 0){
-					doc.text(serv[i]+": "+serv[i+1],5.1,con+=0.2);
+					doc.text(serv[i]+": "+serv[i+1],13,con+=6);
 				}
 			}
+
+			espacio = con + 7;
+			
 
 			//cuadro tipo
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(6.9, 1.9, 1.8, 0.3, 'F');
+			doc.rect(10, espacio , 45, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Tipo",7.6, 2.1);
+			doc.text("Tipo", 27, espacio + 5 );
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
 
+			po = con; 
 			var Servicio = document.getElementById("Tipo");
 			var Serv=Servicio.getElementsByTagName("th");
 			var serv = [];
 			for(var i = 0; i< Serv.length; i++){
 				serv[i] = Serv[i].innerHTML;
 			}
-			con = 2.1;
+			con = 0;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					con+=0.2;
+					con+=6;
 				}
 			}
+			con += 2;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(6.9, 2.2, 1.8, con-1.9, 'F');
-			con = 2.2;
+			doc.rect(10, espacio + 7, 45, con, 'F');
+			con = espacio + 6;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					doc.text(serv[i]+": "+serv[i+1],7,con+=0.2);
+					doc.text(serv[i]+": "+serv[i+1],13, con+=6);
 				}
 			}
 
+			espacio = con + 7;
 			
-
 			//cuadro modalidad
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(8.9, 1.9, 1.8, 0.3, 'F');
+			doc.rect(10, espacio , 45, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Modalidad",9.5, 2.1);
+			doc.text("Modalidad",20, espacio+5);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4210,31 +3788,38 @@
 			for(var i = 0; i< Serv.length; i++){
 				serv[i] = Serv[i].innerHTML;
 			}
-			con = 2.1;
+			con = 0;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					con+=0.2;
+					con+=6;
 				}
 			}
+			con+=2;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(8.9, 2.2, 1.8, con-1.9, 'F');
-			con = 2.2;
+			doc.rect(10, espacio+7 , 45, con, 'F');
+			con = espacio + 6;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					doc.text(serv[i]+": "+serv[i+1],9,con+=0.2);
+					doc.text(serv[i]+": "+serv[i+1],13,con+=6);
 				}
 			}
 
-			//cuadro Analistas
+			//cuadro clientes
+			
+
+			
+			
+			espacio = espacio = con + 7;
+			//cuadro Analista
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(0.4, espacio+0.7, 2.3, 0.3, 'F');
+			doc.rect(10,espacio, 53, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Analistas",1.1, espacio+0.9);
+			doc.text("Analista",29,espacio+5);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4245,59 +3830,56 @@
 			for(var i = 0; i< Serv.length; i++){
 				serv[i] = Serv[i].innerHTML;
 			}
-			con = 2.2;
+			con = 0;
 			for(var i = 0; i< serv.length; i++){
-					con+=0.2;
+					con+=5;
 			}
+			con+=2;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(0.4, espacio+1.0, 2.3, con-1.9, 'F');
-			con = espacio+1.0;
+			doc.rect(10,espacio+7, 53, con, 'F');
+			con =espacio+6;
 			for(var i = 0; i< serv.length; i++){
-					doc.text(serv[i],0.5, con+=0.2);
+				if(serv[i] != "" && serv[i]!=null)
+					doc.text(serv[i],11, con+=5);
 			}
+
+			espacio = 15 + 30;
 
 			doc.setFontType('bold');
 			doc.setFontSize(12);
-			doc.text("Servicios Solicitados",0.9,5.1)
-			doc.addImage(dataURL, 'JPEG', 0.4, 5.3, 3, 2.4);
-			doc.text("Prioridad",5.5,5.1)
-			doc.addImage(dataURL2, 'JPEG', 4.2, 5.3,3, 2.4);
-			doc.text("Modalidad del Servicio",8.2,5.1)
-			doc.addImage(dataURL3, 'JPEG', 8, 5.3, 2.4, 2.4);
-			
-			
-			doc.addPage();
-			//Encabezado
-			doc.addImage("{{$logo}}", 'JPEG', 0.3, 0.2, 1.7, 1.3);
-			doc.setFont("helvetica");
-			doc.setFontType('bold');
-			doc.setFontSize(20);
-			doc.text("Estudio Socioeconómico", 4.4, 0.9);
-			doc.setDrawColor(0);
-			doc.setFillColor(247,140,30);
-			doc.rect(2.1, 1.1, 9.1, 0.1, 'F');
-			//Encabezado Cliente
-			doc.setFontType('bold');
-			doc.setFontSize(11);		
-			doc.text("Cliente:", 3.3, 1.5);
-			doc.setFontType('normal');			
-			doc.text(clientes[0],3.9,1.5);
-			//Periodo
-			doc.setFontType('bold');
-			doc.text("Período: ", 8.2, 1.5);
-			doc.setFontType('normal');
-			doc.text(dateIni + " a " + dateEnd, 8.9, 1.5);
 
-			doc.setFontType('bold');
-			doc.text("Estatus del Proceso",2.2,2)
-			doc.addImage(dataURL1, 'JPEG', 0.6, 2.2, 4.3, 2.4);
-			doc.text("Dictamen",8.2,2)
-			doc.addImage(dataURL4, 'JPEG', 6.2, 2.2, 4.3, 2.4);
-			doc.text("Tiempo de Respuesta Agenda",1.8,5.4)
-			doc.addImage(dataURL6, 'JPEG', 1.2, 5.6, 3, 2.4);
-			doc.text("Tiempo de Respuesta",7.7,5.4)
-			doc.addImage(dataURL8, 'JPEG', 5.5, 5.6, 5.9, 2.3);
+			doc.addImage(dataURL, 'PNG/JPEG', 65, espacio ,80, 44);
+			doc.text("Servicios Solicitados",82,espacio);
+
+
+			doc.addImage(dataURL2, 'PNG/JPEG', 140, espacio,80, 44);
+			doc.text("Prioridad",165,espacio)
+
+			espacio = espacio + 54;
+
+			doc.addImage(dataURL3, 'PNG/JPEG', 65, espacio, 80, 44);
+			doc.text("Modalidad del Servicio",80,espacio)
+
+			doc.addImage(dataURL1, 'PNG/JPEG', 140, espacio,80, 44);
+			doc.text("Estatus del Proceso",162,espacio);
+
+			espacio += 54;
+
+			doc.addImage(dataURL4, 'PNG/JPEG', 95, espacio, 80, 44);
+			doc.text("Dictamen",127,espacio);
+
+			espacio += 59;
+
+			doc.addImage(dataURL6, 'PNG/JPEG', 65, espacio, 80, 44);
+			doc.text("Tiempo de Respuesta Agenda",72,espacio);
+
+
+			doc.addImage(dataURL8, 'PNG/JPEG',140, espacio, 80, 44);
+			doc.text("Tiempo de Respuesta",150,espacio);
+
+			
+
 	
 
 		@else
@@ -4305,7 +3887,7 @@
 		var doc = new jsPDF();
 			
 			//Encabezado
-			doc.addImage("{{$logo}}", 'JPEG', 10, 5, 45,30);
+			doc.addImage("{{$logo}}", 'PNG/JPEG', 10, 5, 40,25);
 			doc.setFont("helvetica");
 			doc.setFontType('bold');
 			doc.setFontSize(17);
@@ -4348,7 +3930,7 @@
 			con = 45;
 			doc.text(document.getElementById("total_clientes_cuadro").innerHTML,31,con+=7);
 			
-			var espacio = con + 15;
+			var espacio = con + 7;
 			
 			//cuadro servicios 
 			doc.setDrawColor(0);
@@ -4385,18 +3967,19 @@
 					doc.text(serv[i]+": "+serv[i+1],13,con+=6);
 				}
 			}
-			espacio = con + 17;
+			
+			
 			
 
 			//cuadro prioridad 
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(10, espacio, 45, 7, 'F');
+			doc.rect(110, espacio, 45, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Prioridad",23, espacio + 5);
+			doc.text("Prioridad",123, espacio + 5);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4416,26 +3999,25 @@
 			con += 2
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(10, espacio + 7 , 45, con, 'F');
+			doc.rect(110, espacio + 7 , 45, con, 'F');
 			con = espacio + 6;
 			for(var i = 0; i < serv.length; i++){
 				if(i % 2 == 0){
-					doc.text(serv[i]+": "+serv[i+1],13,con+=6);
+					doc.text(serv[i]+": "+serv[i+1],113,con+=6);
 				}
 			}
 
-			espacio = con + 17;
 			
 
 			//cuadro tipo
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(10, espacio , 45, 7, 'F');
+			doc.rect(60, espacio , 45, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Tipo", 27, espacio + 5 );
+			doc.text("Tipo", 77, espacio + 5 );
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4456,25 +4038,25 @@
 			con += 2;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(10, espacio + 7, 45, con, 'F');
+			doc.rect(60, espacio + 7, 45, con, 'F');
 			con = espacio + 6;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					doc.text(serv[i]+": "+serv[i+1],13, con+=6);
+					doc.text(serv[i]+": "+serv[i+1],63, con+=6);
 				}
 			}
 
-			espacio = con + 17;
+			
 			
 			//cuadro modalidad
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(10, espacio , 45, 7, 'F');
+			doc.rect(160, espacio , 45, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Modalidad",20, espacio+5);
+			doc.text("Modalidad",170, espacio+5);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4494,23 +4076,82 @@
 			con+=2;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(10, espacio+7 , 45, con, 'F');
+			doc.rect(160, espacio+7 , 45, con, 'F');
 			con = espacio + 6;
 			for(var i = 0; i< serv.length; i++){
 				if(i % 2 == 0){
-					doc.text(serv[i]+": "+serv[i+1],13,con+=6);
+					doc.text(serv[i]+": "+serv[i+1],163,con+=6);
 				}
 			}
 
+			espacio = con + 30;
+
+			doc.setFontType('bold');
+			doc.setFontSize(12);
+			
+			doc.addImage(dataURL, 'PNG/JPEG', 5, espacio ,80, 44);
+			doc.text("Servicios Solicitados",22,espacio);
+			
+			
+			doc.addImage(dataURL2, 'PNG/JPEG', 75, espacio,80, 44);
+			doc.text("Prioridad",100,espacio)
+
+			
+			doc.addImage(dataURL3, 'PNG/JPEG', 140, espacio, 80, 44);
+			doc.text("Modalidad del Servicio",155,espacio)
+
+			espacio += 60
+
+			doc.addImage(dataURL1, 'PNG/JPEG', 15, espacio,80, 44);
+			doc.text("Estatus del Proceso",37,espacio);
+			
+			doc.addImage(dataURL4, 'PNG/JPEG', 120, espacio, 80, 44);
+			doc.text("Dictamen",152,espacio);
+
+			espacio += 60
+
+			
+			doc.addImage(dataURL6, 'PNG/JPEG', 5, espacio, 80, 44);
+			doc.text("Tiempo de Respuesta Agenda",12,espacio);
+			
+			
+			doc.addImage(dataURL7, 'PNG/JPEG', 75, espacio, 80, 44);
+			doc.text("Tiempo de Respuesta ISL",87,espacio);
+			
+			doc.addImage(dataURL8, 'PNG/JPEG',140, espacio, 80, 44);
+			doc.text("Tiempo de Respuesta",150,espacio);
+
+			doc.addPage();
+			//Encabezado
+			doc.addImage("{{$logo}}", 'PNG/JPEG', 10, 5, 40,25);
+			doc.setFont("helvetica");
+			doc.setFontType('bold');
+			doc.setFontSize(17);
+			doc.text("Estudio Socioeconómico", 90, 20);
+			doc.setDrawColor(0);
+			doc.setFillColor(247,140,30);
+			doc.rect(60, 22 , 142, 1, 'F');
+
+			//Periodo
+			doc.setFontType('bold');
+			doc.setFontSize(9);
+			doc.text("Período: ", 148, 27);
+			doc.setFontType('normal');
+			doc.setFontSize(9);
+			doc.text(dateIni + " a " + dateEnd, 163, 27);
+
+			doc.setFontType('bold');
+			doc.setFontSize(12);
+			
 			//cuadro clientes
 			doc.setDrawColor(0);
 			doc.setFillColor(118, 113, 112);
-			doc.rect(65, 40, 64, 7, 'F');
+			doc.rect(10, 40, 60, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Clientes",89, 45);
+			doc.text("Clientes",34, 45);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4527,21 +4168,21 @@
 			}
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(65,47 , 64, con-45, 'F');
+			doc.rect(10,47 , 60, con-45, 'F');
 			con = 47;
 			for(var i = 0; i< serv.length; i++){
-					doc.text(serv[i],70, con+=5);
+					doc.text(serv[i],13, con+=5);
 			}
-			espacio = con + 10;
+			espacio = 40;
 			//cuadro Analista
 			doc.setDrawColor(0);
-			doc.setFillColor(116, 113, 112);
-			doc.rect(65,espacio, 64, 7, 'F');
+			doc.setFillColor(112, 113, 112);
+			doc.rect(76,espacio, 60, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Analista",89,espacio+5);
+			doc.text("Analista",96,espacio+5);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4559,22 +4200,22 @@
 			con+=2;
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(65,espacio+7, 64, con, 'F');
+			doc.rect(76,espacio+7, 60, con, 'F');
 			con =espacio+6;
 			for(var i = 0; i< serv.length; i++){
 				if(serv[i] != "" && serv[i]!=null)
-					doc.text(serv[i],68, con+=5);
+					doc.text(serv[i],79, con+=5);
 			}
 
 			//cuadro Investigador
 			doc.setDrawColor(0);
 			doc.setFillColor(116, 113, 112);
-			doc.rect(139,40, 64, 7, 'F');
+			doc.rect(142,40, 60, 7, 'F');
 			doc.setFontType('bold');
 
 			doc.setFontSize(12);
 			doc.setTextColor(255,255,255);
-			doc.text("Investigador",159, 45);
+			doc.text("Investigador",160, 45);
 			doc.setFontType('normal');
 			doc.setFontSize(9);
 			doc.setTextColor(0,0,0);
@@ -4591,75 +4232,16 @@
 			}
 			doc.setDrawColor(0);
 			doc.setFillColor(232, 231, 231);
-			doc.rect(139,47 , 64, con-45, 'F');
+			doc.rect(142,47 , 60, con-45, 'F');
 			con = 47;
 			for(var i = 0; i< serv.length; i++){
-				if(serv[i] != "" && serv[i]!=null && serv[i]!="null")
-					doc.text(serv[i],143, con+=5);
+				if(serv[i] != "" && serv[i]!=null && serv[i]!="null" && serv[i]!="NO Aplica Investigador" && serv[i]!="No Aplica Investigador")
+					doc.text(serv[i],145, con+=5);
 			}
-
-			doc.addPage();
-			//Encabezado
-			doc.addImage("{{$logo}}", 'JPEG', 10, 5, 45,30);
-			doc.setFont("helvetica");
-			doc.setFontType('bold');
-			doc.setFontSize(17);
-			doc.text("Estudio Socioeconómico", 90, 20);
-			doc.setDrawColor(0);
-			doc.setFillColor(247,140,30);
-			doc.rect(60, 22 , 142, 1, 'F');
-
-			//Periodo
-			doc.setFontType('bold');
-			doc.setFontSize(9);
-			doc.text("Período: ", 148, 27);
-			doc.setFontType('normal');
-			doc.setFontSize(9);
-			doc.text(dateIni + " a " + dateEnd, 163, 27);
-
-			doc.setFontType('bold');
-			doc.setFontSize(12);
-			doc.text("Servicios Solicitados",33,45)
-			doc.addImage(dataURL, 'JPEG', 15, 48 ,80, 70);
-			doc.text("Prioridad",156,45)
-			doc.addImage(dataURL2, 'JPEG', 120, 48,80, 70);
-			doc.text("Modalidad del Servicio",82,128)
-			doc.addImage(dataURL3, 'JPEG', 74, 131, 60, 60);
-			doc.setFontType('bold');
-			doc.text("Estatus del Proceso",37,200)
-			doc.addImage(dataURL1, 'JPEG', 15, 203,80,70);
-			doc.text("Dictamen",152,200)
-			doc.addImage(dataURL4, 'JPEG', 120, 203, 80, 70);
-
+			
+			
 			
 
-			doc.addPage();
-			//Encabezado
-			doc.addImage("{{$logo}}", 'JPEG', 10, 5, 45,30);
-			doc.setFont("helvetica");
-			doc.setFontType('bold');
-			doc.setFontSize(17);
-			doc.text("Estudio Socioeconómico", 90, 20);
-			doc.setDrawColor(0);
-			doc.setFillColor(247,140,30);
-			doc.rect(60, 22 , 142, 1, 'F');
-
-			//Periodo
-			doc.setFontType('bold');
-			doc.setFontSize(9);
-			doc.text("Período: ", 148, 27);
-			doc.setFontType('normal');
-			doc.setFontSize(9);
-			doc.text(dateIni + " a " + dateEnd, 163, 27);
-
-			doc.setFontType('bold');
-			doc.setFontSize(12);
-			doc.text("Tiempo de Respuesta Agenda",85,47)
-			doc.addImage(dataURL6, 'JPEG', 35, 49, 140, 70);
-			doc.text("Tiempo de Respuesta ISL",80,135)
-			doc.addImage(dataURL7, 'JPEG', 40, 137, 132,60);
-			doc.text("Tiempo de Respuesta",83,215)
-			doc.addImage(dataURL8, 'JPEG',40, 217,  132,60);
 		@endif
 
 		
@@ -4774,25 +4356,25 @@
 		doc.setFontType('bold');
 		doc.setFontSize(12);
 		doc.text("Servicios Solicitados",0.6,5)
-		doc.addImage(dataURL, 'JPEG', 0.4, 5, 3.5, 3);
+		doc.addImage(dataURL, 'PNG/JPEG', 0.4, 5, 3.5, 3);
 		doc.text("Prioridad",4.7,5)
-		doc.addImage(dataURL2, 'JPEG', 4.5, 5, 3.5, 3);
+		doc.addImage(dataURL2, 'PNG/JPEG', 4.5, 5, 3.5, 3);
 		doc.text("Modalidad del Servicio",8.3,5)
-		doc.addImage(dataURL3, 'JPEG', 8.1, 5, 3.5, 3);
+		doc.addImage(dataURL3, 'PNG/JPEG', 8.1, 5, 3.5, 3);
 		doc.addPage();
 		doc.text("Estatus del Proceso",0.6,1)
-		doc.addImage(dataURL1, 'JPEG', 0.4, 1.2, 3.5, 3);
+		doc.addImage(dataURL1, 'PNG/JPEG', 0.4, 1.2, 3.5, 3);
 		doc.text("Dictamen",4.7,1)
-		doc.addImage(dataURL4, 'JPEG', 4.5, 1.2, 3.5, 3);
+		doc.addImage(dataURL4, 'PNG/JPEG', 4.5, 1.2, 3.5, 3);
 		doc.text("Tiempo de Respuesta Agenda",8.3,1)
-		doc.addImage(dataURL6, 'JPEG', 8.1, 1.2, 3.5, 3);
+		doc.addImage(dataURL6, 'PNG/JPEG', 8.1, 1.2, 3.5, 3);
 		
 		@if(Auth::user()->tipo!="c")
 			doc.text("Tiempo de Respuesta ISL",0.6,5)
-			doc.addImage(dataURL7, 'JPEG', 0.4, 5, 3.5, 3);
+			doc.addImage(dataURL7, 'PNG/JPEG', 0.4, 5, 3.5, 3);
 		@endif
 		doc.text("Tiempo de Respuesta",4.7,5)
-		doc.addImage(dataURL8, 'JPEG', 4.5, 5, 3.5, 3);
+		doc.addImage(dataURL8, 'PNG/JPEG', 4.5, 5, 3.5, 3);
 		@endif
 
 
@@ -4802,25 +4384,25 @@
 		doc.setFontType('bold');
 		doc.setFontSize(12);
 		doc.text("Servicios Solicitados",0.6,1)
-		doc.addImage(dataURL, 'JPEG', 0.4, 1.2, 3.5, 3);
+		doc.addImage(dataURL, 'PNG/JPEG', 0.4, 1.2, 3.5, 3);
 		doc.text("Prioridad",4.7,1)
-		doc.addImage(dataURL2, 'JPEG', 4.5, 1.2, 3.5, 3);
+		doc.addImage(dataURL2, 'PNG/JPEG', 4.5, 1.2, 3.5, 3);
 		doc.text("Modalidad del Servicio",8.3,1)
-		doc.addImage(dataURL3, 'JPEG', 8.1, 1.2, 3.5, 3);
+		doc.addImage(dataURL3, 'PNG/JPEG', 8.1, 1.2, 3.5, 3);
 		doc.text("Estatus del Proceso",0.6,5)
-		doc.addImage(dataURL1, 'JPEG', 0.4, 5.2, 3.5, 3);
+		doc.addImage(dataURL1, 'PNG/JPEG', 0.4, 5.2, 3.5, 3);
 		doc.text("Dictamen",4.7,5)
-		doc.addImage(dataURL4, 'JPEG', 4.5, 5.2, 3.5, 3);
+		doc.addImage(dataURL4, 'PNG/JPEG', 4.5, 5.2, 3.5, 3);
 		doc.text("Tiempo de Respuesta Agenda",8.3,5)
-		doc.addImage(dataURL6, 'JPEG', 8.1, 5.2, 3.5, 3);
+		doc.addImage(dataURL6, 'PNG/JPEG', 8.1, 5.2, 3.5, 3);
 		doc.addPage();
 		
 		
 		doc.text("Tiempo de Respuesta ISL",0.6,1)
-		doc.addImage(dataURL7, 'JPEG', 0.4, 1.2, 3.5, 3);
+		doc.addImage(dataURL7, 'PNG/JPEG', 0.4, 1.2, 3.5, 3);
 		
 		doc.text("Tiempo de Respuesta",4.7,1)
-		doc.addImage(dataURL8, 'JPEG', 4.5, 1.2, 3.5, 3);
+		doc.addImage(dataURL8, 'PNG/JPEG', 4.5, 1.2, 3.5, 3);
 		@endif
 		*/
 		

@@ -232,13 +232,7 @@ class DashboardController extends Controller
 
                     AND fecha_fin <= DATE_ADD(CURDATE(), INTERVAL 30 DAY) LIMIT 10";
 
-                    $contratos=DB::select($query_contratos);
-
-
-
-
-
-            
+                    $contratos=DB::select($query_contratos); 
 
         }else{
 
@@ -258,9 +252,9 @@ class DashboardController extends Controller
 
                     WHERE fecha_fin >= CURDATE() 
 
-                    AND fecha_fin <= DATE_ADD(CURDATE(), INTERVAL 30 DAY) and id_usuario=? AND idcn=? LIMIT 10";
+                    AND fecha_fin <= DATE_ADD(CURDATE(), INTERVAL 30 DAY) AND idcn=? LIMIT 10";
 
-            $contratos=DB::select($query_contratos,[$request->user()->id,$request->user()->idcn]);
+            $contratos=DB::select($query_contratos,[$request->user()->idcn]);
 
 
 
@@ -277,9 +271,9 @@ class DashboardController extends Controller
         if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
             $cn = -1;
         }else{
-            if(Auth::user()->tipo == "s"){
+            
                 $cn = Auth::user()->idcn;
-            }
+            
         }
 
         $cli_pros =  MasterConsultas::exeSQL("clientes_cn", "READONLY",
@@ -315,9 +309,8 @@ class DashboardController extends Controller
         if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
             $cn = -1;
         }else{
-            if(Auth::user()->tipo == "s"){
                 $cn = Auth::user()->idcn;
-            }
+            
         }
 
         $clientes_tipo =  MasterConsultas::exeSQL("clientes_tipo", "READONLY",
@@ -548,9 +541,9 @@ class DashboardController extends Controller
         if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
             $cn = -1;
         }else{
-            if(Auth::user()->tipo == "s"){
+            
                 $cn = Auth::user()->idcn;
-            }
+            
         }
 
         $cli_pros =  DB::select ("SELECT * from clientes where id_cn = $cn " );
