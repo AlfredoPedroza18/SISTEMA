@@ -29,6 +29,12 @@ class CotizadorGenericoController extends Controller
         return view("crm.cotizador.crm-cotizador-general", compact('clientes','servicios','impuestos','servicosTipo'));
     }
 
+
+    public function productos($tipoServicio){
+
+        $servicosTipo = DB::select ("select * from crm_cotizador_general where id_servicio = $tipoServicio && status = 1");
+        return $servicosTipo;
+    }
     /**
      * Show the form for creating a new resource.
      *

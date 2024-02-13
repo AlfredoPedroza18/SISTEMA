@@ -1,13 +1,13 @@
-@extends('layouts.master')
+@extends('layouts.masterMenuView')
 @section('section')
 
 <div class="content">
 <ol class="breadcrumb ">
 		<li><a href="javascript:;">Administrador</a></li>	
 	    <li><a href="{{url('modulo/administrador/cuentas')}}">Cuentas</a></li>
-		<li>Configuración Cotizador Servicios Generales</li>
+		<li>Productos</li>
    </ol>
-<h1 class="page-header text-center">Configuración Cotizador Servicios</h1>
+<h1 class="page-header text-center">Productos</h1>
 
 <div class="row">
 		<div class="col-md-12 text-right">
@@ -19,7 +19,7 @@
               
 
        <button type="button" class="btn btn-inverse btn-icon btn-circle btn-lg" data-toggle="modal" data-target="#modal-alta"><i class="fa fa-th-large fa-1x" aria-hidden="true"></i></button>
-       <label>Añadir Servicio</label> 
+       <label>Añadir Producto</label> 
 		</div>
 </div>
 <br>
@@ -34,7 +34,7 @@
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                 
                             </div>
-                            <h4 class="panel-title">Configuración Cotizador Servicios Generales</h4>
+                            <h4 class="panel-title">Producto</h4>
                            
                         </div>
 
@@ -44,25 +44,16 @@
                                     <table id="data-table" class="table-responsive display table table-striped table-bordered ">
                                     <thead>
                                       <tr>
-                                        <th class="text-center">ID servicio</th>
+                                        <th class="text-center">ID producto</th>
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Descripción</th>         
                                         <th class="text-center">Costo Unitarios</th>
-                                        
-                                        <th class="text-center" "># Acción</th>
+                                        <th class="text-center">Servicio</th>
+                                        <th class="text-center" ># Acción</th>
                                         
                                       </tr>
                                     </thead>
-                                    <tfoot>
-
-                                        <tr>
-                                          <td class="text-center">ID servicio</td>
-                                          <td class="text-center">Nombre</td>
-                                          <td class="text-center">Descripción</td>         
-                                          <td class="text-center">Costo Unitarios</td>
-                                          <td class="text-center" ># Acción</td>
-                                        </tr>
-                                    </tfoot>
+                                    
                                     <tbody>
                                       @foreach( $servicios as $serv )
                                         <tr>
@@ -70,6 +61,7 @@
                                           <td class="text-justify">{{ $serv->nombre }}</td>
                                           <td class="text-justify">{{ $serv->descripcion }}</td>
                                           <td class="text-right">$ {{ number_format($serv->costo_unitario,2) }}</td>
+                                          <td class="text-center">{{$serv->tipo }}</td>
                                          
                                           
                                           <td class="text-left" style="width: 50px;">
@@ -119,7 +111,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <h4 class="modal-title"><center><i class='fa fa-clipboard fa-2x'></i> Alta de servicio </center></h4>
+                      <h4 class="modal-title"><center><i class='fa fa-clipboard fa-2x'></i> Alta de producto </center></h4>
                     </div>
                     <div class="modal-body">
                      
@@ -128,13 +120,30 @@
                       <form id="form-configuracion-servicios-alta">
                       <div class="msg"></div>
                       <div class="msg_existe"></div>
-                     <div class="col-md-6">
+                      
+                      
+                      <div class=" col-sm-6" style="margin-left: px;">
+
+                        <label for="">*Tipo de servicio</label>
+                        <select class="form-control" id="servicio_tipo" name="servicio_tipo">
+                          <option value="NA">Seleccione un tipo de servicio</option>
+                          @foreach ($tipo_servicio as $tipo)
+                          <option value="{{$tipo->id}}"> {{$tipo->servicio}}</option>
+                          @endforeach
+                        </select>
+
+                      </div>
+
+                     <div class="col-sm-6">
                         <label>*Nombre</label><br>
                             <input type="hidden" class="form-control " id="id_usuario" name="id_usuario" value="{{ Auth()->user()->id}}">
                             <input type="text" class="form-control " id="nombre" name="nombre" placeholder="Servicio/Producto" >
                       </div>
+
+                      <div class="col-md-12"></div>
+                      
                       <div class="col-md-6">
-                        <label>*Descripción del servicio</label><br>
+                        <label>*Descripción del producto</label><br>
                            
                             <textarea  class="form-control num_caracteres" rows="5" id="descripcion" name="descripcion" ></textarea>                             
                       </div>
@@ -152,8 +161,8 @@
                                             </div>                                           
                                         </div>
                     <div class="modal-footer">
-                      <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cancelar</a>
-                      <a href="javascript:;" class="btn btn-sm btn-success" id="guardar-cambios-alta">Guardar</a>
+                      <a href="javascript:;" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                      <a href="javascript:;" class="btn btn-success" id="guardar-cambios-alta">Guardar</a>
                     </div>
                   </div>
                 </div>
@@ -169,7 +178,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                      <h4 class="modal-title"><center><div id="titulo"> </div></center></h4>
+                      <h4 class="modal-title"><center><div id="titulo">Edición de producto</div></center></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -177,6 +186,16 @@
                       <form id="form-configuracion-servicios-edicion">
                       <div class="msg"></div>
                       <div class="msg_existe"></div>
+
+                    <div class=" col-sm-6" style="margin-left: px;">
+
+                        <label for="">Tipo de servicio</label>
+                        <select class="form-control" id="servicio_tipo2" name="servicio_tipo2">
+                          
+                        </select>
+
+                    </div>
+
                      <div class="col-md-6">
                         <label>*Nombre</label><br>
                         <input type="hidden" id="id_edicion" name="id_edicion">
@@ -184,7 +203,7 @@
                             <input type="text" class="form-control " id="nombre_editar" name="nombre_editar" placeholder="Servicio/Producto" >
                       </div>
                       <div class="col-md-6">
-                        <label>*Descripción del servicio</label><br>
+                        <label>*Descripción del producto</label><br>
                            
                             <textarea  class="form-control num_caracteres" rows="5" id="descripcion_editar" name="descripcion_editar" ></textarea>                             
                       </div>
@@ -203,8 +222,8 @@
                                                       
                                         </div>
                     <div class="modal-footer">
-                      <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cancelar</a>
-                      <a href="javascript:;" class="btn btn-sm btn-success" id="guardar-cambios-editar">Guardar</a>
+                      <a href="javascript:;" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                      <a href="javascript:;" class="btn btn-success" id="guardar-cambios-editar">Guardar</a>
                     </div>
                   </div>
                 </div>
@@ -225,7 +244,7 @@
                       <div class="row">
                      <div class="form-group">
 
-                      <center><i class="fa fa-3x fa-info-circle"></i> <h3 class="text-warning">Confirmación de eliminación del servicio:</h3>
+                      <center><i class="fa fa-3x fa-info-circle"></i> <h3 class="text-warning">Confirmación de eliminación del producto:</h3>
                       <br>
                      <strong><h4><div id="name_Ser"></div></center></h4></strong></center>
                       <input type="hidden" name="id_servicio_eliminar" id="id_servicio_eliminar">
@@ -234,8 +253,8 @@
                     </div>    
                     </div>
                     <div class="modal-footer">
-                      <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Cancelar</a>
-                      <a href="javascript:;" class="btn btn-sm btn-success" id="guardar-cambios-eliminar">Guardar</a>
+                      <a href="javascript:;" class="btn btn-danger" data-dismiss="modal">Cancelar</a>
+                      <a href="javascript:;" class="btn btn-success" id="guardar-cambios-eliminar">Guardar</a>
                     </div>
                   </div>
                 </div>
@@ -349,10 +368,10 @@ var iniciarTabla = function(){
 
 
 
-               $('#data-table tfoot td').each( function () {
+               /*$('#data-table tfoot td').each( function () {
                     var title = $(this).text();
                     $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
-                } );
+                } );*/
 
 
                 data_table.columns().every( function () {
@@ -377,8 +396,9 @@ var iniciarTabla = function(){
         var descripcion=$("#descripcior").val();
         var costo_unitario=$("#costo_unitario").val();
         var iva=$("#iva").val();
+        var servicio_tipo =$("#servicio_tipo").val();
         
-        if(nombre=='' || descripcion=='' || costo_unitario=='' || iva=='' ){
+        if(nombre=='' || descripcion=='' || costo_unitario=='' || iva=='' || servicio_tipo == 'NA'){
         
              $(".msg").html('<div class="alert alert-warning" role="alert"><center><strong>Alerta!</strong> Favor de llenar los campos maracados con *</center> </div>');
 
@@ -438,7 +458,6 @@ var iniciarTabla = function(){
             data: {"id":id_serv},
             success: function(response){ 
 
-
                     if(response.servicio){
                       console.log(response.servicio[0].nombre);
                         var id=$("#id_edicion").val(response.servicio[0].id);
@@ -448,9 +467,25 @@ var iniciarTabla = function(){
                         var iva=$("#iva_editar").val(response.servicio[0].iva);
                         $("#modal-editar").modal({show:true});
                       }
-                    },
+
+                     select_serv = "";
+                     $("#servicio_tipo2").html("");
+                     $("#servicio_tipo2").append( "<option value = 'NA'> Seleccione un tipo de servicio</option>");
+                     
+                     servicios =response.servicios;
+                   
+                     for(let i = 0; i<servicios.length; i++){
+                              select_serv = "<option value = '"+servicios[i].id +"'"
+                              
+                              if(servicios[i].id == response.servicio[0].id_servicio)
+                                  select_serv += " selected"
+
+                              select_serv += ">"+ servicios[i].servicio+"</option>";
+
+                               $("#servicio_tipo2").append(select_serv);
+                     }
                 
-            error : function(jqXHR, status, error) {
+            },error : function(jqXHR, status, error) {
 
                     swal('Disculpe, existió un problema comuniquese con el equipo de desarrollo1'+error);
             }

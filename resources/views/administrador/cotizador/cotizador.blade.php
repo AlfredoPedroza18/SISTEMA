@@ -28,7 +28,7 @@
                             <button style="height: 40px;" type="button" class="list-group-item list-group-item-action" data-toggle="modal"        data-target="#modal-alta" onclick="listaModal()"><label> Servicios <i class="fa fa-2x fa-gears pull-left"></i></label></button>
                             
                             
-                                <a href="{{ url('servicios_generales') }}"  class="list-group-item list-group-item-action list-group-item-info">General <i class="fa fa-2x fa-gears pull-left"></i></a>
+                                <a href="{{ url('servicios_generales') }}"  class="list-group-item list-group-item-action list-group-item-info">Productos <i class="fa fa-2x fa-gears pull-left"></i></a>
                             </div>
                         </div>
                     </div>

@@ -25,9 +25,12 @@ class CotizadorGeneralServiciosController extends Controller
     public function index()
     {
         //
-               $servicios=DB::table("crm_cotizador_general")->where('status','1')->get();
+               $servicios=DB::select(" select crm_cotizador_general.*, crm_cotizador_servicio.servicio as tipo from crm_cotizador_general left join crm_cotizador_servicio on crm_cotizador_general.id_servicio = crm_cotizador_servicio.id
+               where crm_cotizador_general.status = 1");
 
-               return view('administrador.servicios.ServiciosGeneral.index',['servicios'=>$servicios]);
+
+               $tipo_servicio = DB::table("crm_cotizador_servicio")->get();
+               return view('administrador.servicios.ServiciosGeneral.index',['servicios'=>$servicios,'tipo_servicio'=>$tipo_servicio]);
     }
 
     /**
@@ -108,8 +111,8 @@ class CotizadorGeneralServiciosController extends Controller
                  'nombre'=>$request->nombre,
                  'descripcion'=>$request->descripcion,
                  'costo_unitario'=>$request->costo_unitario,
-                 'iva'=>$request->iva
-                 
+                 'iva'=>$request->iva,
+                 'id_servicio' => $request->servicio_tipo
 
                 ]);
         
@@ -138,11 +141,13 @@ class CotizadorGeneralServiciosController extends Controller
     public function EdicionServicios(Request $request){
 
           $FindServicio=DB::table("crm_cotizador_general")->where('id',$request->id)->get();
+          $servicios = DB::select("select * from crm_cotizador_servicio");
 
            if($FindServicio){ 
-            return response()->json(["servicio"=>$FindServicio]);
-         }
+            return response()->json(["servicio"=>$FindServicio,"servicios"=>$servicios]);
+          }
     }
+
     public function UpdateServicios(Request $request)
     {
         $guardarCambios=DB::table('crm_cotizador_general')
@@ -151,8 +156,8 @@ class CotizadorGeneralServiciosController extends Controller
                      'nombre'=>$request->nombre_editar,
                      'descripcion'=>$request->descripcion_editar,
                      'costo_unitario'=>$request->costo_unitario_editar,
-                     'iva'=>$request->iva_editar
-
+                     'iva'=>$request->iva_editar,
+                     "id_servicio" => $request->servicio_tipo2
                 ]);
             if($guardarCambios){
 
@@ -186,12 +191,7 @@ class CotizadorGeneralServiciosController extends Controller
     public function DeleteServicio(Request $request)
     {
 
-        $guardarCambios=DB::table('crm_cotizador_general')
-            ->where("id",$request->id_eliminar)
-            ->update([           
-                     'status'=>'2'
-
-                ]);
+        $guardarCambios=DB::update("update crm_cotizador_general set crm_cotizador_general.status = '2' where id= $request->id_eliminar");
             if($guardarCambios){
 
                $id_modulo=Modulo::where('slug','cotizadores')->get();

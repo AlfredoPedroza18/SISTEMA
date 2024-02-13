@@ -176,7 +176,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title"> <i class="fa fa-money fa-2x"></i> Cotizador</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" id="op">
           <table class="table table-stripped" id="cotizacion-table-modal">
             <thead>
               <tr>
@@ -188,30 +188,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($servicios as $servicio)
-                <tr>
-                  <td>
-                    {{ $servicio->nombre }}
-                    <input type="hidden" class="id-service-cotizacion" value="{{ $servicio->id }}">
-                    <input type="hidden" class="service-name-cotizacion" value="{{ $servicio->nombre }}">
-                  </td>
-                  <td>{{ $servicio->descripcion }}</td>
-                  <td>
-                    $ {{ number_format( $servicio->costo_unitario,2 ) }}
-                    <input type="hidden" class="service-price-cotizacion" value="{{ $servicio->costo_unitario }}">
-
-                  </td>
-                  
-                  <td>
-                      <input type="text" class="form-control qty-service-cotizacion" value="0">
-                  </td>
-                  <td>
-                    <button class="btn btn-primary btn-circle btn-sm add-service-cotizacion">
-                      <i class="fa fa-check"></i>
-                    </button>
-                  </td>
-                </tr>
-              @endforeach              
+           
             </tbody>
           </table>
       </div>
@@ -452,17 +429,43 @@ $(document).ready(function(){
       $('#container-cotizacion').hide();
 
 
-      $('#id-cliente').change(function(){
-          var tipo_cliente         = $(this).val();
+      $('#id-servicosTipo').change(function(){
+          var tipo_cliente         = $('#id-cliente').val();
           console.log( tipo_cliente );
 
-          if( tipo_cliente != -1 ){
+          if( tipo_cliente != -1 && $('#id-servicosTipo').val() != -1){
+            $('#btn-add-service').fadeIn();
+            $('#container-cotizacion').fadeIn(2000);
+            
+            llenarTrabla()
+
+          }else{
+            $('#btn-add-service').fadeOut();
+            $('#container-cotizacion').fadeOut(2000);
+            swal("Desbes seleccionar un cliente y un tipo de servicio");
+
+
+          }
+
+          
+      });
+
+      $('#id-cliente').change(function(){
+          var tipo_cliente         = $('#id-cliente').val();
+          console.log( tipo_cliente );
+
+          if( tipo_cliente != -1 && $('#id-servicosTipo').val() != -1){
             $('#btn-add-service').fadeIn();
             $('#container-cotizacion').fadeIn(2000);
           }else{
             $('#btn-add-service').fadeOut();
             $('#container-cotizacion').fadeOut(2000);
+            swal("Desbes seleccionar un cliente y un tipo de servicio");
+
+
           }
+
+          
       });
 
     $('#btn-add-service').click(function(){
@@ -480,8 +483,74 @@ $(document).ready(function(){
     $('#iva-total-general-cotizado').change(function(){
       totalCotizado();
     });
+
+
+    
+    
   
-});
+    });
+    
+    function llenarTrabla (){
+
+      var servicio_tipos = $("#id-servicosTipo").val()
+
+      $.ajax({
+          url:"{{ url('productos') }}"+"/"+servicio_tipos,
+          type:"GET",
+          success: function(response){
+            console.log(response);
+
+            $("#op").html("");
+
+
+            var tablaLleno = "<table class='table table-stripped' id='cotizacion-table-modal'>"+
+            "<thead>"+
+             " <tr>"+
+                "<th>Producto</th>"+
+                "<th>Descripción</th>"+
+                "<th>Costo unitario</th>"+
+                "<th>Cantidad</th>"+
+                "<th>Acción</th>"+
+              "</tr>"+
+            "</thead> <tbody>;"
+
+            for(let i=0; i<response.length;i++){
+            
+              tablaLleno += "<tr><td>"+
+                    response[i].nombre +
+                    "<input type='hidden' class='id-service-cotizacion' value='"+response[i].id+"'>"+
+                    "<input type='hidden' class='service-name-cotizacion' value='"+ response[i].nombre +"'>"+
+                  "</td><td> </td><td>"+
+                    response[i].costo_unitario.toLocaleString("en")+
+                    "<input type='hidden' class='service-price-cotizacion' value='"+ response[i].costo_unitario+"'>"+
+
+                  "</td>"+
+                  
+                  "<td>"+
+                     " <input type='text' class='form-control qty-service-cotizacion' value='0'>"+
+                  "</td>"+
+                  "<td>"+
+                    "<button class='btn btn-primary btn-circle btn-sm add-service-cotizacion'>"+
+                     " <i class='fa fa-check'></i>"+
+                   " </button>"+
+                 " </td>"+
+                "</tr>";
+
+              
+            
+            }
+
+            tablaLleno += "</tbody> <table>"
+
+            $("#op").html(tablaLleno);
+
+            $('#cotizacion-table-modal').DataTable();
+          },
+          error:function(){
+            console.log(id_tipo);
+          }
+        });
+    }
 
 
 </script>

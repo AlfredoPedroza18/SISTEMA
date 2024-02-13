@@ -327,6 +327,8 @@ Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm
 
     Route::get('cotizador_general', 'CotizadorGenericoController@index');
 
+    Route::get('productos/{id}', 'CotizadorGenericoController@productos');
+
     Route::post('cotizador_general', 'CotizadorGenericoController@store');
 
 
