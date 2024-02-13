@@ -79,8 +79,8 @@
                                                 class="btn btn-danger btn-icon btn-circle btn-sm btn-eliminar-servicios" 
                                                 data-toggle="modal" data-target="#modal-eliminar"
                                                 data-placement="bottom" 
-                                                data-id-servicio-eliminar = "{{ $serv->id }}"
-                                                title="Eliminar servicio">
+                                                
+                                                title="Eliminar servicio" onclick="se({{ $serv->id }},'{{ $serv->nombre }}')">
                                                 <i class="fa fa-trash-o"></i>
 
                                               </a>
@@ -244,7 +244,7 @@
                       <div class="row">
                      <div class="form-group">
 
-                      <center><i class="fa fa-3x fa-info-circle"></i> <h3 class="text-warning">Confirmación de eliminación del producto:</h3>
+                      <center><i class="fa fa-3x fa-info-circle"></i> <h3 class="text-warning">Confirmación de eliminación del producto</h3>
                       <br>
                      <strong><h4><div id="name_Ser"></div></center></h4></strong></center>
                       <input type="hidden" name="id_servicio_eliminar" id="id_servicio_eliminar">
@@ -277,6 +277,12 @@
   {!! Html::script('assets/js/jquery.charcounter.js') !!}
 
     <script type="text/javascript">
+
+      function  se(id, nombre){
+
+        $("#nombre_eliminar").val(nombre);
+        $("#id_servicio_eliminar").val(id);
+      }
 $(document).ready(function(){
    $(".costo").numeric({ decimalPlaces: 2 });
    $(".num_caracteres").charCounter(4000, {
@@ -307,7 +313,7 @@ $(document).ready(function(){
        $(".btn-eliminar-servicios").click(function(){
    
             
-           id_servicio_el =$(this).attr("data-id-servicio-eliminar");
+           id_servicio_el = $("#id_servicio_eliminar").val();
            console.log(id_servicio_el);
            RegistosEliminar(id_servicio_el);
          
@@ -549,6 +555,7 @@ var iniciarTabla = function(){
     }
     var RegistosEliminar = function(id_serv_el){
       //alert(id_serv);
+
             $.ajax({
             url:'{{ url('EliminarServicios') }}',
             type:'GET',
@@ -560,7 +567,7 @@ var iniciarTabla = function(){
                     if(response.servicio_eliminar){
                      
                  
-                        $("#name_Ser").html(response.servicio_eliminar[0].nombre+" con ID:"+response.servicio_eliminar[0].id);
+                        //$("#name_Ser").html(response.servicio_eliminar[0].nombre+" con ID:"+response.servicio_eliminar[0].id);
                         $("#id_servicio_eliminar").val(response.servicio_eliminar[0].id);
                         $("#nombre_eliminar").val(response.servicio_eliminar[0].nombre);
                         $("#modal-eliminar").modal({show:true});
