@@ -301,8 +301,11 @@ Route::group(['as' => 'sig-erp-crm::', 'middleware' => ['auth', 'auth.module:crm
 
 
     Route::resource('cotizador', "CotizadorController");
+    
 
     Route::get('serviciosCotizador', 'CotizadorController@listaServicios');
+
+    Route::get('registro_edicion/{accion}/{id}', 'CotizadorController@registro_edicion');
 
     Route::get('listCN', 'CotizadorController@listaCN');
 

@@ -112,7 +112,7 @@ class CotizadorController extends Controller
         $query='SELECT '.
                 'id,'.
                 'servicio '.
-                'from crm_tc_servicioscotizador';
+                'from crm_cotizador_servicio';
 
         return $tc_servicios=DB::select($query);
        // dd($tc_servicios);
@@ -135,6 +135,24 @@ class CotizadorController extends Controller
         return $cn=DB::select($query);
        // dd($tc_servicios);
      
+    }
+
+    public function registro_edicion (Request $request,$accion , $id){
+        
+
+        $status = "Error";
+        
+        if ($accion == 1){
+
+            DB::insert("INSERT INTO crm_cotizador_servicio (Servicio,status) values ('{$request['nombre']}',1)");
+            
+        }elseif ($accion == 2){
+
+            DB::update ("UPDATE crm_cotizador_servicio SET servicio = '{$request['nombre']}' WHERE id = $id");
+            
+        }
+
+        return "Success";
     }
 
 

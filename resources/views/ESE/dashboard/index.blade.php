@@ -3856,7 +3856,7 @@
 			doc.addImage(dataURL2, 'PNG/JPEG', 140, espacio,80, 44);
 			doc.text("Prioridad",165,espacio)
 
-			espacio = espacio + 54;
+			espacio = espacio + 64;
 
 			doc.addImage(dataURL3, 'PNG/JPEG', 65, espacio, 80, 44);
 			doc.text("Modalidad del Servicio",80,espacio)
@@ -3864,12 +3864,12 @@
 			doc.addImage(dataURL1, 'PNG/JPEG', 140, espacio,80, 44);
 			doc.text("Estatus del Proceso",162,espacio);
 
-			espacio += 54;
+			espacio += 64;
 
 			doc.addImage(dataURL4, 'PNG/JPEG', 95, espacio, 80, 44);
 			doc.text("Dictamen",127,espacio);
 
-			espacio += 59;
+			espacio += 69;
 
 			doc.addImage(dataURL6, 'PNG/JPEG', 65, espacio, 80, 44);
 			doc.text("Tiempo de Respuesta Agenda",72,espacio);
