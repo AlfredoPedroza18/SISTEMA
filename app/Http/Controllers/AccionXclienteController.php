@@ -79,8 +79,8 @@ class AccionXclienteController extends Controller
         $fecha_hr_fin       = $date_fin->format('Y-m-d\TH:i:s');
 
         
-        $fech        = new \DateTime($request->fecha_seguimiento);
-        $fecha    = $fech->format('Y-m-d');
+        $fech        = new \DateTime($request->fecha_seguimiento." ".$request->hora_agenda.":00");
+        $fecha    = $fech->format('Y-m-d\TH:i:s');
 
          $accionXcliente                    = AccionXcliente::create($request->all());
          $accionXcliente->ruta              = $ruta."/".$nombre;
@@ -128,6 +128,12 @@ class AccionXclienteController extends Controller
                     VALUES
                     ("'.$acc.'","'.$request->hora_agenda.'","'.$request->hora_agenda.'","'.$fecha.'","'.$fecha.'","'.$fecha.'","'.$fecha.'",1,'.$request->user()->id.',"MONTH","'.$request->id_cliente.'");
                     ');
+
+                    $ultima = DB::select("select web.IdNotificacion as noti from master_ese_notificaciones_web web order by web.IdNotificacion desc limit 1");
+                    $ultimate = $ultima[0]->noti + 1;
+                    $notificacion=DB::insert(
+                      "INSERT INTO master_ese_notificaciones_web (fecha, IdAnio, IdNotificacion, Titulo, Mensaje, IdUsuario, Leido, Url, IdEse) VALUE ('$fecha',year(Now()), '$ultimate', 'SIG CRM Notificación: Accion por realizar', '$acc', ".$request->user()->id .", 0, ' ', ' ')"
+                    );
                 }
             }
            return redirect()->route('sig-erp-crm::accionClientes.show', ['id' => $request->id_cliente])->with('alta','success');
