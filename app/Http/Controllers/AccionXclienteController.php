@@ -88,6 +88,7 @@ class AccionXclienteController extends Controller
          $accionXcliente->carpeta_cliente   = $carpeta_cliente;
          $accionXcliente->hr_inicio         = $fecha_hr_inicio;
          $accionXcliente->hr_fin            = $fecha_hr_fin;
+         $accionXcliente->hora_agenda       = $request->hora_agenda;
         
          $accionXcliente->save();
 
@@ -126,7 +127,7 @@ class AccionXclienteController extends Controller
                 if($request->actividad != 4) {
                     $agenda = DB::insert('INSERT INTO agenda (evento,hora_inicio,hora_fin,fecha_inicio,fecha_fin,f_inicio,f_fin,STATUS,id_usuario,ocurrencia_evento,idcliente)
                     VALUES
-                    ("'.$acc.'","'.$request->hora_agenda.'","'.$request->hora_agenda.'","'.$fecha.'","'.$fecha.'","'.$fecha.'","'.$fecha.'",1,'.$request->user()->id.',"MONTH","'.$request->id_cliente.'");
+                    ("' .$acc.'","'.$request->hora_agenda.'","'.$request->hora_agenda.'","'.$fecha.'","'.$fecha.'","'.$fecha.'","'.$fecha.'",1,'.$request->user()->id.',"MONTH","'.$request->id_cliente.'");
                     ');
 
                     $ultima = DB::select("select web.IdNotificacion as noti from master_ese_notificaciones_web web order by web.IdNotificacion desc limit 1");
@@ -220,6 +221,7 @@ class AccionXclienteController extends Controller
                     "kardex.actividad as actividad,".
                     "kardex.descripcion as descripcion,".
                     "DATE_FORMAT(kardex.hr_fin,'%Y-%m-%d') as fecha_accion,".
+                    "DATE_FORMAT(kardex.hora_agenda,'%h:%i %p') as hora_agenda,".
                     "kardex.fecha_seguimiento as fecha_seguimiento,".
                     "TIMEDIFF(kardex.hr_fin,kardex.hr_inicio) as tiempo_accion,".
                     "kardex.id_cliente as id_cliente,".

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.masterMenuView')
 
 @section('estilos')
 {!! Html::style('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css') !!}

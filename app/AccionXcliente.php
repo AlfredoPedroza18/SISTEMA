@@ -19,7 +19,8 @@ class AccionXcliente extends Model
 							'descripcion',
 							'ruta',
 							'id_user',
-							'id_cliente'];
+							'id_cliente',
+							'hora_agenda'];
 
 
 }

@@ -306,10 +306,16 @@ var desactivarBtnCotizar = function()
 
 var addServiceCotizacion = function( id,service,price,quantity,iva )
 {
+
+
+
     let rows = $('.add-service-id').length; 
     let ivaReal = iva == 0 ? 1 : ( 1 + iva/100 );
+
+    
     if( quantity > 0 )
     {
+      console.log("si llegamos por el cuatiti");
         $('#cotizacion-table > tbody').append(`
                 <tr class="row-service">
                     <td>
@@ -404,6 +410,19 @@ var confirmSaveCotizacion = function()
     
 }
       
+    function datosTabl(i){
+
+        
+            let indice   = i;
+            let id       =$('#id-service-cotizacion'+i+"").val();
+            let service  =$('#service-name-cotizacion'+i+"").val();
+            let price    =$('#service-price-cotizacion'+i+"").val();
+            let iva      =$('#iva-service-cotizacion'+i+"").val();
+            let quantity =$('#qty-service-cotizacion'+i).val();
+
+            console.log(quantity);
+            addServiceCotizacion( id,service,price,quantity,iva );
+    }
 
 $(document).ready(function(){
 
@@ -414,16 +433,7 @@ $(document).ready(function(){
       });
       $('#detalle-cotizacion').hide();
 
-      $('.add-service-cotizacion').click(function(){
-            let indice   = $('.add-service-cotizacion').index(this);
-            let id       = $( $('.id-service-cotizacion').get( indice ) ).val();
-            let service  = $( $('.service-name-cotizacion').get( indice ) ).val();
-            let price    = $( $('.service-price-cotizacion').get( indice ) ).val();
-            let iva      = $( $('.iva-service-cotizacion').get( indice ) ).val();
-            let quantity = $( $('.qty-service-cotizacion').get( indice ) ).val();
-
-            addServiceCotizacion( id,service,price,quantity,iva );
-      });
+      
 
       $('#btn-add-service').hide();
       $('#container-cotizacion').hide();
@@ -431,7 +441,7 @@ $(document).ready(function(){
 
       $('#id-servicosTipo').change(function(){
           var tipo_cliente         = $('#id-cliente').val();
-          console.log( tipo_cliente );
+          
 
           if( tipo_cliente != -1 && $('#id-servicosTipo').val() != -1){
             $('#btn-add-service').fadeIn();
@@ -442,7 +452,7 @@ $(document).ready(function(){
           }else{
             $('#btn-add-service').fadeOut();
             $('#container-cotizacion').fadeOut(2000);
-            swal("Desbes seleccionar un cliente y un tipo de servicio");
+         
 
 
           }
@@ -452,7 +462,7 @@ $(document).ready(function(){
 
       $('#id-cliente').change(function(){
           var tipo_cliente         = $('#id-cliente').val();
-          console.log( tipo_cliente );
+          
 
           if( tipo_cliente != -1 && $('#id-servicosTipo').val() != -1){
             $('#btn-add-service').fadeIn();
@@ -460,8 +470,7 @@ $(document).ready(function(){
           }else{
             $('#btn-add-service').fadeOut();
             $('#container-cotizacion').fadeOut(2000);
-            swal("Desbes seleccionar un cliente y un tipo de servicio");
-
+           
 
           }
 
@@ -498,7 +507,7 @@ $(document).ready(function(){
           url:"{{ url('productos') }}"+"/"+servicio_tipos,
           type:"GET",
           success: function(response){
-            console.log(response);
+           
 
             $("#op").html("");
 
@@ -518,19 +527,19 @@ $(document).ready(function(){
             
               tablaLleno += "<tr><td>"+
                     response[i].nombre +
-                    "<input type='hidden' class='id-service-cotizacion' value='"+response[i].id+"'>"+
-                    "<input type='hidden' class='service-name-cotizacion' value='"+ response[i].nombre +"'>"+
-                  "</td><td> </td><td>"+
+                    "<input type='hidden' id='id-service-cotizacion"+i+"' value='"+response[i].id+"'>"+
+                    "<input type='hidden' id='service-name-cotizacion"+i+"' value='"+ response[i].nombre +"'>"+
+                  "</td><td>"+response[i].descripcion+ "</td><td>"+
                     response[i].costo_unitario.toLocaleString("en")+
-                    "<input type='hidden' class='service-price-cotizacion' value='"+ response[i].costo_unitario+"'>"+
+                    "<input type='hidden' id='service-price-cotizacion"+i+"' value='"+ response[i].costo_unitario+"'>"+
 
                   "</td>"+
                   
                   "<td>"+
-                     " <input type='text' class='form-control qty-service-cotizacion' value='0'>"+
+                     " <input type='text' class='form-control' id='qty-service-cotizacion"+i+"' value='0'>"+
                   "</td>"+
                   "<td>"+
-                    "<button class='btn btn-primary btn-circle btn-sm add-service-cotizacion'>"+
+                    "<button class='btn btn-primary btn-circle btn-sm add-service-cotizacion' onclick = datosTabl("+i+")>"+
                      " <i class='fa fa-check'></i>"+
                    " </button>"+
                  " </td>"+
@@ -547,7 +556,7 @@ $(document).ready(function(){
             $('#cotizacion-table-modal').DataTable();
           },
           error:function(){
-            console.log(id_tipo);
+            
           }
         });
     }

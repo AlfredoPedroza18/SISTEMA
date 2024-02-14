@@ -300,8 +300,8 @@
 									 <th>Fecha de acción</th>
                              	    	<th>Acción</th>
                              	    	<th>Descripción</th>
-                             	    	
                              	    	<th>Fecha de seguimiento</th>
+										<th>Hora de seguimiento</th>
                              	    	<th>Contácto</th>
                              	    	<th>Usuario</th>
                              	    	<th>Tiempo de acción</th>
@@ -335,6 +335,7 @@
 	                             	 	 </td>	 
 	                             	 	  
 	                             	 	 <td class="text-center">{{$clave->fecha_seguimiento}}</td>	 
+										 <td class="text-center">{{$clave->hora_agenda}}</td>
 	                             	 	 <td>{{$clave->nombre_contacto}}</td>	 
 	                             	 	 <td>{{$clave->nombre_user}}</td>	 
 	                             	 	 <td>{{$clave->tiempo_accion}}</td>
