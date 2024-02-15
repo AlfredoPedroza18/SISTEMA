@@ -723,6 +723,45 @@ var guardarCliente = function(){
     }
 
   
+      function searchCP(){
+      //$("#alerta-cp").html('<label style="color:#ff9100; font-size:18px;">	buscando Codigo Postal..</label>');
+      var token = $('meta[name="csrf-token"]').attr('content');
+      let cp = $("#searchcp").val();
+      var datos;
+      var colonias;
+      var items;
+      $.ajax({
+        headers: {'X-CSRF-TOKEN':token},
+        url:'{{ url('Empleados_search_cp') }}',
+        type:'POST',
+        dataType: 'json',
+        data: {cp:cp},
+        success: function(response){
+          datos = response.result.split("|");
+          
+                  
+                  $("#estado").val(datos[3]);
+          $("#IdEstado").val(datos[2]);
+          $("#IdPais").val(datos[1]);
+          $("#Localidad").val(datos[7]);
+          $("#municipio").val(datos[5]);
+
+          $("#colonia option").remove();
+          colonias = datos[8].split(";");
+          for (var i = 0; i < colonias.length; i++) {
+          items+='<option value="'+colonias[i]+'">'+colonias[i]+'</option>'
+          }
+          $("#colonia").prepend(items);
+          //$("#alerta-cp").html('');
+          // $.each(response.regiones, function(index, value){
+          //     llenar(response.regiones, index, value);
+          // });
+        },
+        error : function(jqXHR, status, error) {
+          //$("#alerta-cp").html('');
+        }
+      });
+    }
 
 //------------------------END Esté jquery  llena el select de colonias,estado municipio al darle clic SELECT DE CP   
 

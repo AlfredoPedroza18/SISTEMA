@@ -36,14 +36,14 @@
         <!-- begin col-1 -->
         <div class="col-md-3">
             <!-- ====================* FORMULARIO *===================> -->
-            <form action="{{utl('nuevodepartamento_create')}}">
+            <form>
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>{{ Form::label('Código Postal', 'Código Postal') }}</label>
                     <div class="input-group">
                         <input type="text" class="form-control" name="cp" value="{{ $cp or '' }}" id="searchcp" placeholder="Buscar CP" required data-live-search="true" data-parsley-group="wizard-step-1" data-style="btn-white" data-size="10" />
                         <div class="input-group-btn">
-                            <input value="&#xe003" class=" btn btn-primary btn-block glyphicon glyphicon-search" type="submit" name="Buscar">
+                            <input value="&#xe003" class=" btn btn-primary btn-block glyphicon glyphicon-search" type="button" name="Buscar" onclick="searchCP()">
                         </div>
                     </div>
                 </div>
@@ -53,16 +53,16 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label>{{ Form::label('Estado', 'Estado') }}</label>
-                <input type="text" class="form-control" name="estado" value="{{ $State or '' }}" placeholder="Estado" data-live-search="true" data-parsley-group="wizard-step-1" data-style="btn-white" data-size="10" />
-                <input type="hidden" name="IdEstado" value="{{ $IdState or '' }}">
-                <input type="hidden" name="IdPais" value="{{ $IdPais or '' }}">
-                <input type="hidden" name="Localidad" value="{{ $Localidad or '' }}">
+                <input type="text" class="form-control" id="estado" name="estado" value="{{ $State or '' }}" placeholder="Estado" data-live-search="true" data-parsley-group="wizard-step-1" data-style="btn-white" data-size="10" />
+                <input type="hidden" name="IdEstado" id="IdEstado" value="{{ $IdState or '' }}">
+                <input type="hidden" name="IdPais" id="IdPais" value="{{ $IdPais or '' }}">
+                <input type="hidden" name="Localidad" id="Localidad" value="{{ $Localidad or '' }}">
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label>{{ Form::label('Municipio', ' Municipio') }}</label>
-                <input type="text" class="form-control" name="municipio" value="{{ $Municipio or '' }}" placeholder="Municipio" data-live-search="true" data-parsley-group="wizard-step-1" data-style="btn-white" data-size="10" />
+                <input type="text" class="form-control" name="municipio" id="municipio" value="{{ $Municipio or '' }}" placeholder="Municipio" data-live-search="true" data-parsley-group="wizard-step-1" data-style="btn-white" data-size="10" />
             </div>
         </div>
         <!-- <div class="col-md-3">
@@ -164,5 +164,8 @@
                 swal('Disculpe, existió un problema comuniquese con el equipo de desarrollo1');
             }
         });
-}
+    }
+
+
+
 </script>
