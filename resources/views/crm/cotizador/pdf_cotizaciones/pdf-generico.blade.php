@@ -221,14 +221,14 @@ textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.
         <tr class="item-row">
           <td class="item-name">
             <div class="delete-wpr">
-              {{-- <textarea>{{ $item->servicio->nombre }}</textarea>--}}
-              {{ $item->servicio->nombre }}
+              {{-- <textarea>{{ $item->servicio['nombre'] }}</textarea>--}}
+              {{ $item->servicio['nombre'] }}
             </div>
           </td>
 
           <td class="description">
-            {{ $item->servicio->descripcion }}
-            {{--<textarea>{{ $item->servicio->descripcion }}</textarea>--}}
+            {{ $item->servicio['descripcion'] }}
+            {{--<textarea>{{ $item->servicio['descripcion'] }}</textarea>--}}
           </td>
           <td style="text-align: right;">${{ number_format($item->costo_unitario,2) }}</td>
           <td style="text-align: center;">{{ $item->cantidad }}</td>

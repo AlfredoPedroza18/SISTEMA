@@ -209,20 +209,20 @@ try{
        //$no_contrato = $this->getNoContrato($request->user()->idcn);         
        //return view('crm.contratos.pdf-contrato_maquila',['no_contrato' => $no_contrato[0]->no_contrato ]);
         $query_ese=DB::select("
-                    SELECT 
-                    crm_contratos.no_contrato,
-                    clientes.nombre_comercial,
-                    CONCAT(clientes.df_calle,'',clientes.df_colonia,'',clientes.df_cp) AS cliente_domicilio,
-                    facturadoras.nombre as nombre_facturadora,
-                    crm_tc_servicioscotizador.servicio,
-                    plantillas_contratos.contenido,
-                    CONCAT(facturadoras.df_calle,'',facturadoras.df_colonia,'',facturadoras.df_cp) AS facturadora_domicilio
-                    FROM crm_contratos
-                    LEFT JOIN plantillas_contratos ON crm_contratos.id_plantilla_generica=plantillas_contratos.id
-                    LEFT JOIN clientes ON crm_contratos.id_cliente=clientes.id
-                    LEFT JOIN facturadoras ON crm_contratos.id_facturadora=facturadoras.id
-                    LEFT JOIN crm_tc_servicioscotizador ON crm_contratos.id_servicio=crm_tc_servicioscotizador.id
-                    WHERE crm_contratos.id=?",[$id_contrato]);
+            SELECT 
+            crm_contratos.no_contrato,
+            clientes.nombre_comercial,
+            CONCAT(clientes.df_calle,'',clientes.df_colonia,'',clientes.df_cp) AS cliente_domicilio,
+            master_empresa.fk_titulo as nombre_facturadora,
+            crm_tc_servicioscotizador.servicio,
+            plantillas_contratos.contenido,
+            CONCAT(master_empresa.calle,'',master_empresa.colonia,'',master_empresa.cp) AS facturadora_domicilio
+            FROM crm_contratos
+            LEFT JOIN plantillas_contratos ON crm_contratos.id_plantilla_generica=plantillas_contratos.id
+            LEFT JOIN clientes ON crm_contratos.id_cliente=clientes.id
+            LEFT JOIN master_empresa ON crm_contratos.id_facturadora=master_empresa.idempresa
+            LEFT JOIN crm_tc_servicioscotizador ON crm_contratos.id_servicio=crm_tc_servicioscotizador.id
+            WHERE crm_contratos.id=?",[$id_contrato]);
 
         $str = $query_ese[0];
 

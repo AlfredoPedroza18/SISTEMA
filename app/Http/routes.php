@@ -880,14 +880,13 @@ Route::group(['as' => 'sig-erp-crm::'], function () {
 
     Route::resource('EmpresasFacturadoras', 'Administrador\EmpresasFacturadorasController');
 
-    Route::post('Empleados_search_cp','Administrador\EmpresasFacturadorasController@searchCP');
+    Route::get('Empleados_search_cp','Administrador\EmpresasFacturadorasController@searchCP');
 
     Route::get('EmpresasMaquiladoras','Administrador\EmpresasFacturadorasController@indexEmpresaMaquiladora');
 
     Route::resource('Menu-user', 'Administrador\UserMenuController');
 
-
-
+    
 
 
 

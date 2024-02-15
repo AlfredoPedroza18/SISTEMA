@@ -347,7 +347,7 @@
                                  	let link_servicio = ' javascript:; ';
                                  	let eventoLink 	  = ' onclick="downloadCotizacion('+ cotizaciones[indice].id_cotizacion +')"' ;
                                  	contrato_generado = (cotizaciones[indice].contrato != 0 ) ? '<spam class="label label-warning">Contrato generado</span>':'';
-									console.log (link_servicio+" "+eventoLink);
+								
                                  	 clase =  (contador%2) == 0 ? 'class="gradeA odd"': 'class="gradeA even"';
 									listadoCotizaciones+= 	'<tr>'+
 							                					'<td>'+ cotizaciones[indice].nombre_comercial 			+'</td>'+
@@ -397,7 +397,7 @@
 
 
 										var texHtml = "<h6><table class=\"text-center\">";
-										console.log(resultadoCampos.lista_campos);
+										
 										for(var i=0;i <resultadoCampos.lista_campos.length;i++){
 											
 											if(i == 0 || i%3 == 0){
@@ -408,7 +408,7 @@
 												texHtml += "<td>"+resultadoCampos.lista_campos[i]+"</td>"
 											}
 										}
-										console.log(texHtml);
+									
 
 										texHtml += "</table></h6>";
 						        		swal({
@@ -565,16 +565,11 @@
 		var generaContrato = function(ruta,id,servicio,id_cliente){	//pelonete		
 			var url = '';
 			
-			if(servicio == 0) url = '{{ url('contrato_ese_preview') }}';			        
-			if(servicio == 1) url = '{{ url('contrato_rys_preview') }}';
-			if(servicio == 2) url = '{{ url('contrato_maquila_preview') }}';			
-			if(servicio == 3) url = '{{ url('contrato_psiometricos_preview') }}';
-			if(servicio == 4) url = '{{ url('contrato_generico_preview') }}';
-			        
+			servicio = 4;
 			
 
 			$.ajax({
-				url: url+'/'+id,
+				url: '{{ url('contrato_generico_preview') }}'+'/'+id,
 				type: 'GET',
 				dataType: 'json',
 				success:function(response){
@@ -597,7 +592,7 @@
 					dataType: 'json',
 					
 					success:function(plantillas_contratos){
-						console.log(plantillas_contratos);
+						
 						 $("#selec_plantillas").html('<div class="form-group" id="show_plantilla"><label for="inputEmail3" class="col-md-3 col-sm-12 col-xs-12 control-label">Plantilla Contrato:</label><div class="col-md-9 col-sm-12 col-xs-12"><select class="form-control" id="id_plantilla_contrato" class="valor_Select" ><option value="0">Favor de seleccionar una plantilla</option></select></div></div></select>');
 
 						$.each(plantillas_contratos[0],function(i,v){
@@ -605,6 +600,8 @@
 							 $('#id_plantilla_contrato').append('<option value='+v.id+'>'+v.titulo+'</option>');
 						});
 
+					},error: function(){
+							console.log("xddd")
 					}
 					});
 					
@@ -787,7 +784,7 @@
 				processData: true,
 				success:function(response){				
 					resultado = response;
-					console.log(response);
+				
 					
 				},
 				error : function(jqXHR, status, error) {

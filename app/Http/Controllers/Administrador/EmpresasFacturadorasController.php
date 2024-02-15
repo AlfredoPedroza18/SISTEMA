@@ -144,9 +144,9 @@ class EmpresasFacturadorasController extends Controller
 
 }
 
-public function searchCP(){
+public function searchCP(Request $Request){
 
-    $cod = $_POST['cp'];
+    $cod = $Request->cp;
     $query= "Select
       cp.IdCodigoPostal,
       p.IdPais,
