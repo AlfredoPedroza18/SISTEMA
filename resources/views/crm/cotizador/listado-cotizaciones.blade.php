@@ -344,8 +344,8 @@
                                  var clase = '';
                                  var contrato_generado = '';
                                  $.each(cotizaciones,function(indice){
-                                 	let link_servicio = cotizaciones[indice].id_servicio == '4' ? ' javascript:; ' : cotizaciones[indice].ruta;
-                                 	let eventoLink 	  = cotizaciones[indice].id_servicio == '4' ? ' onclick="downloadCotizacion('+ cotizaciones[indice].id_cotizacion +')"' : '';
+                                 	let link_servicio = ' javascript:; ';
+                                 	let eventoLink 	  = ' onclick="downloadCotizacion('+ cotizaciones[indice].id_cotizacion +')"' ;
                                  	contrato_generado = (cotizaciones[indice].contrato != 0 ) ? '<spam class="label label-warning">Contrato generado</span>':'';
 									console.log (link_servicio+" "+eventoLink);
                                  	 clase =  (contador%2) == 0 ? 'class="gradeA odd"': 'class="gradeA even"';
@@ -887,8 +887,8 @@
         	//$('#frmCotizacionGenerica').submit();
 
 			$('#id_plantilla_download').val( id );
-			var coti = $('#id_plantilla_download').val();
-			var plan = $('#id_cotizacion_download').val();
+			var plan = $('#id_plantilla_download').val();
+			var coti = $('#id_cotizacion_download').val();
 			window.open ("{{url('catalogo')}}/"+coti +"/" +id);
         }
 		

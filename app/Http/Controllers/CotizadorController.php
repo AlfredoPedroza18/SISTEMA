@@ -160,7 +160,7 @@ class CotizadorController extends Controller
 
        $empresas_facturadoras = DB::select(' SELECT idempresa as id, fk_titulo as nombre FROM master_empresa WHERE master_empresa.TipoEmpresa = "facturadora";');
        $peticion = $request->path();
-       $plantillas = Plantilla::all();
+       $plantillas = DB::select("select * from plantillas_cotizaciones");
        
        
         return view('crm.cotizador.listado-cotizaciones',['lista_cotizaciones' => [],'facturadoras' => $empresas_facturadoras, 'peticion' => $peticion, 'plantillas' => $plantillas]);
