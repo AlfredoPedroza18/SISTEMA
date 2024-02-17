@@ -672,7 +672,7 @@ function searchCP(){
 
       url:'{{ url('Empleados_search_cp') }}',
 
-      type:'POST',
+      type:'GET',
 
       dataType: 'json',
 

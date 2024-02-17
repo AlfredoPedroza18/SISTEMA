@@ -807,7 +807,7 @@
 
             <div class="text-left  ">
 
-                <a class="btn btn-warning btn-icon btn-circle btn-lg" id="add-contact"><i class="fa fa-plus"></i></a>
+              
 
             </div>
 
@@ -818,6 +818,16 @@
                 <div id="principal-contacto">
 
                     <div class="row">
+
+
+
+                   
+                    {{ Form::label('contacto', 'Contácto principal') }}&nbsp;
+
+{{ Form::radio('contacto_first[]', true,"true",['class' => 'seleccion_contacto','id'=>'b{id}','onclick'=>'setContactoPrincipal(this.id)']) }}
+
+<input type="hidden" id="is{id}" name="contacto_principal[]" value="{principal}" class="set-contacto-principal">
+
 
                         <!-- begin col-4 -->
 
@@ -1228,7 +1238,7 @@
                         {{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','3'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','Otro'=>'Otro'],$mediocontacto,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
 
                         <input type="text" name="medio_contacto" class='form-control' id="medio_contacto_tabla">
-<h1>{{$mediocontacto}}</h1>
+
                     </div>
 
                 </div>
@@ -1314,7 +1324,8 @@
 
                         <label>{{ Form::label('Contrato a', 'Contrato a') }} </label>
 
-                        {{ Form::select('contrato_a',[''=>'Selecciona una opci&oacute;n','1'=>'PSCC','2'=>'Admon TH','3'=>'Capacitando','4'=>'Human DEV','5'=>'ARCADIA'],$contratoa,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'contrato_a']) }}
+                        
+                        {{ Form::select('contrato_a',[""=>$contratoAAAA],$contratoa,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'contrato_a']) }}
 
                     </div>
 

@@ -1328,7 +1328,7 @@
 
                                                         <label>{{ Form::label('Contrato a', 'Contrato a') }}</label>
 
-{{ Form::select('contrato_a',[''=>'Selecciona una opci&oacute;n','1'=>'PSCC','2'=>'Admon TH','3'=>'Capacitando','4'=>'Human DEV','5'=>'ARCADIA'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'contrato_a']) }}
+{{ Form::select('contrato_a',[""=>$contratoAAAA],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'contrato_a']) }}
 
                                                     </div>
 

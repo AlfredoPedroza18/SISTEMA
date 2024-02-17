@@ -4,8 +4,7 @@
 
         <div class="text-right list-contacto">
 
-            <a class="btn btn-danger btn-icon btn-circle btn-lg remover-contacto" onclick="removeContacto(this)"><i class="fa fa-minus"></i></a>
-
+           
         </div>
 
         <hr>

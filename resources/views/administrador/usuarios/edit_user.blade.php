@@ -197,7 +197,7 @@
 		$.ajax({
 			headers: {'X-CSRF-TOKEN':token},
 			url:'{{ url('Empleados_search_cp') }}',
-			type:'POST',
+			type:'GET',
 			dataType: 'json',
 			data: {cp:cp},
 			success: function(response){

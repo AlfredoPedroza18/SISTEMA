@@ -124,7 +124,7 @@ class DashboardController extends Controller
 
                                            inner join crm_cotizaciones on crm_cotizaciones.id_cliente = clientes.id 
 
-                                            LEFT JOIN contactos ON contactos.id_cliente=clientes.id
+                                            LEFT JOIN contactos ON contactos.id_cliente=clientes.id AND contactos.principal 
 
                                             LEFT JOIN crm_cotizador_servicio ON crm_cotizaciones.id_servicio=crm_cotizador_servicio.id
 
@@ -161,7 +161,7 @@ class DashboardController extends Controller
 
                inner join crm_cotizaciones on crm_cotizaciones.id_cliente = clientes.id 
 
-                LEFT JOIN contactos ON contactos.id_cliente=clientes.id
+                LEFT JOIN contactos ON contactos.id_cliente=clientes.id AND contactos.principal = 1
 
                 LEFT JOIN crm_cotizador_servicio ON crm_cotizaciones.id_servicio=crm_cotizador_servicio.id
 

@@ -1762,7 +1762,7 @@ function EtiquetaCP(value,NumEst){
 
            url:'{{ url('Empleados_search_cp') }}',
 
-           type:'POST',
+           type:'GET',
 
            dataType: 'json',
 
@@ -2556,7 +2556,7 @@ const searchCodigoPostal = (value,inputs) => {
 
             url:'{{ url('Empleados_search_cp') }}',
 
-            type:'POST',
+            type:'GET',
 
             dataType: 'json',
 

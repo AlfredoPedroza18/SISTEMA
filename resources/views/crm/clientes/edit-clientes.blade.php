@@ -1517,6 +1517,14 @@ var guardarCliente = function(){
   }
 
 
+  function setContactoPrincipal(id){
+
+      
+
+      console.log (id);
+
+      
+    }
 
   var deleteContacto = function(id_contacto){
 

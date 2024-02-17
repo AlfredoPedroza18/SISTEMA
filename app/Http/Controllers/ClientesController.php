@@ -56,6 +56,7 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Input;
 use Laminas\Validator\StringLength;
+use Mockery\Undefined;
 
 class ClientesController extends Controller
 
@@ -461,7 +462,7 @@ class ClientesController extends Controller
 
             }
 
-
+            
 
 
 
@@ -670,8 +671,17 @@ class ClientesController extends Controller
         $tipoCliente = [2 => 'Cliente',1 => 'Prospecto'];
 
 
+        $cont = DB::select ("Select * from master_empresa where tipoempresa = 'FACTURADORA' AND activo ='Si'");
 
-        return view('crm.clientes.crm-altaClientes',['tipoCliente' => $tipoCliente,'cn'=>$clientes_select,'eje'=>$ejecutivo_select,'cp'=>$cp_select,'bancos' => $bancos,'lugar_nacimiento' => $lugar_nacimiento,'actividad_economica' => $actividad_economica,'tipo_cliente_lista' => $tipo_cliente_lista]);
+        $contratoAAAA=[''=>'Seleccione una opcion...'];
+
+            foreach ($cont as  $conta) {
+
+                $contratoAAAA[$conta->IdEmpresa]=$conta->FK_Titulo;
+
+        }
+
+        return view('crm.clientes.crm-altaClientes',["contratoAAAA"=>$contratoAAAA,'tipoCliente' => $tipoCliente,'cn'=>$clientes_select,'eje'=>$ejecutivo_select,'cp'=>$cp_select,'bancos' => $bancos,'lugar_nacimiento' => $lugar_nacimiento,'actividad_economica' => $actividad_economica,'tipo_cliente_lista' => $tipo_cliente_lista]);
 
     }
 
@@ -1895,10 +1905,22 @@ class ClientesController extends Controller
 
         $tipoCliente = [2 => 'Cliente',1 => 'Prospecto'];
 
+        $cont = DB::select ("Select IdEmpresa,FK_Titulo from master_empresa where tipoempresa = 'FACTURADORA' AND activo ='Si'");
+
+        $contratoAAAA=[''=>'Seleccione una opcion...'];
+
+            foreach ($cont as  $conta) {
+
+                $contratoAAAA[$conta->IdEmpresa]=$conta->FK_Titulo;
+
+        }
+
         return view('crm.clientes.edit-clientes',
 
                     [
                     
+                    'contratoAAAA'=>$contratoAAAA,
+
                      'tipoCliente' => $tipoCliente,
 
                      'cn'=>$clientes_select,
@@ -2547,10 +2569,21 @@ class ClientesController extends Controller
         $id_ejecutivo = ($request->id_ejecutivo == "") ? $id_ejecutivo[0]->id_ejecutivo : $request->id_ejecutivo;
 
 
+        $cont = 20;
 
         for($i=0; $i<count($request->nombre_con); $i++){
+
+            
+
+            if(!isset($request->contacto_first[$i])){
+                $cont = 1;
+            }else{
+                $cont = 0;
+            }
+
             DB::table('contactos')
                 ->where('Id_Cliente', $id)
+                ->where('id',$request->id[$i])
                 ->update([
 
                     "nombre_con" => $request->nombre_con[$i],
@@ -2568,7 +2601,8 @@ class ClientesController extends Controller
                     "correo2" => $request->correo2[$i],
                     "pagina_web" => $request->pagina_web[$i],
                     "apellido_paterno_con" =>$request->ap_p[$i],
-                    "apellido_materno_con" =>$request->ap_m[$i]
+                    "apellido_materno_con" =>$request->ap_m[$i],
+                    "principal" => $cont
             ]);
         }
 

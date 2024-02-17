@@ -855,7 +855,7 @@ function EtiquetaCP(value, NumEst){
        $.ajax({
            headers: {'X-CSRF-TOKEN':token},
            url:'{{ url('Empleados_search_cp') }}',
-           type:'POST',
+           type:'GET',
            dataType: 'json',
            data: {cp:cp},
            success: function(response){
@@ -1298,7 +1298,7 @@ var UpdateCandidato = function(id,value,nombre){
         $.ajax({
             headers: {'X-CSRF-TOKEN':token},
             url:'{{ url('Empleados_search_cp') }}',
-            type:'POST',
+            type:'GET',
             dataType: 'json',
             data: {cp:cp},
             success: function(response){
