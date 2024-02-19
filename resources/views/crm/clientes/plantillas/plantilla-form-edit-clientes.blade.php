@@ -4,7 +4,8 @@
 
         <div class="text-right list-contacto">
 
-           
+            <a class="btn btn-danger btn-icon btn-circle btn-lg remover-contacto" onclick="removeContacto(this)"><i class="fa fa-minus"></i></a>
+
         </div>
 
         <hr>
@@ -19,9 +20,9 @@
 
                             {{ Form::label('contacto', 'Contácto principal') }}&nbsp;
 
-                            {{ Form::radio('contacto_first[]', null,true,['class' => 'seleccion_contacto','onclick'=>'setContactoPrincipal(this)']) }}
-
-                            <input type="hidden" name="contacto_principal[]" value="{principal}" class="set-contacto-principal">
+                            {{ Form::radio('contacto_first[]',null,true,['class' => 'seleccion_contacto','onclick'=>'setContactoPrincipal(this)']) }}
+                            
+                            <input hidden name="contacto_principal[]" value="{principal}" class="set-contacto-principal">
 
                         </label>
 
@@ -57,14 +58,14 @@
                 <div class="col-md-3">
                    <div class="form-group">
                          <label>{{ Form::label('Apellido Paterno', 'Apellido Paterno') }}</label>
-                        {{ Form::text('ap_p[]',$contacto->apellido_paterno_con,['class' => 'form-control','placeholder'=>'Perez','id'=>'ap_p','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+                        {{ Form::text('ap_p[]','{apellido_paterno_con}',['class' => 'form-control','placeholder'=>'Perez','id'=>'ap_p','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
                     </div>
                 </div>
 
                 <div class="col-md-3">
                       <div class="form-group">
                              <label>{{ Form::label('Apellido Materno', 'Apellido Materno') }}</label>
-                             {{ Form::text('ap_m[]',$contacto->apellido_materno_con,['class' => 'form-control','placeholder'=>'Lopez','id'=>'ap_m','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
+                             {{ Form::text('ap_m[]','{apellido_materno_con}',['class' => 'form-control','placeholder'=>'Lopez','id'=>'ap_m','data-parsley-group'=>'wizard-step-3','maxlength'=>''])}}
                        </div>
                 </div>
 
@@ -99,11 +100,9 @@
                 
                     <div class="form-group">
                            
-                        <label>{{ Form::label('Genero', 'Genéro') }}</label>
-
+                       
                         
-                        {{ Form::select('genero_con[]',[''=>'Selecciona una opci&oacute;n','1'=>'Masculino','2'=>'Femenino'],$contacto->genero_con,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'genero_con']) }}
-
+                        
                     </div>
 
                 </div>

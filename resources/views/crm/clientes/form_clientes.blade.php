@@ -807,7 +807,7 @@
 
             <div class="text-left  ">
 
-              
+                <a class="btn btn-warning btn-icon btn-circle btn-lg" id="add-contact"><i class="fa fa-plus"></i></a>
 
             </div>
 
@@ -826,7 +826,7 @@
 
 {{ Form::radio('contacto_first[]', true,"true",['class' => 'seleccion_contacto','id'=>'b{id}','onclick'=>'setContactoPrincipal(this.id)']) }}
 
-<input type="hidden" id="is{id}" name="contacto_principal[]" value="{principal}" class="set-contacto-principal">
+<input type="hidden"  name="contacto_principal[]" value="{principal}" class="set-contacto-principal">
 
 
                         <!-- begin col-4 -->

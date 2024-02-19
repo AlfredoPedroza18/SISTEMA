@@ -343,9 +343,63 @@ $(document).ready(function(){
 
       event.preventDefault();
 
+      var token 		= $('meta[name="csrf-token"]').attr('content');
+
+      var id_cliente 	= $('#cliente_update').val();
+
+      swal({   
+
+          title: "<h3>¿ Estas seguro de agregar el contácto ?</h3> ",
+
+          html: true,
+
+          type: "warning",   
+
+          showCancelButton: true,   
+
+          closeOnConfirm: false,   
+
+          showLoaderOnConfirm: true, 
+
+          cancelButtonText: 'Cancelar',
+
+          confirmButtonColor: 'ef9d1e',
+
+          cancelButtonColor: 'ef9d1e',
+
+          confirmButtonText: 'Confirmar'
+
+      }, function(){ 
 
 
-      addContacto();
+
+      $.ajax({
+
+            headers: {'X-CSRF-TOKEN':token},
+            url: '{{ url('addContacto') }}',
+            type:'POST',
+            ataType: 'json',
+            data: {id_cliente:id_cliente},
+            success: function(response){
+
+                addContacto(response);
+                swal({
+                  title: "<h3>Contacto agregado, favor de llenar los campos</h3> ",
+                  html: true,
+                  type: "success"
+                });
+            },
+            error: function(error){
+
+                console.log(error)
+                swal("No se pudo crear nuevo contacto, cominiquese con el desarrollador");
+            }
+
+            });
+            
+   
+      });    
+      
 
   });
 
@@ -1034,7 +1088,7 @@ function EnterCpDC(e) {
 
 
 
-
+  
 
 var guardarCliente = function(){
 
@@ -1335,23 +1389,17 @@ var guardarCliente = function(){
           var template_aux = '';
 
           var inicio = true;
-
-
-
+          
           $.each(contactos,function(key,value){
-
-              
-
+    
               inicio = true;
 
               $.each(value,function(k,v){
 
-                
-
                 if(inicio){
 
 
-
+                  
                   template_aux = template_contacto_inicio.replace('{'+k+'}',v);                  
 
                   template_real =  template_aux;
@@ -1360,13 +1408,20 @@ var guardarCliente = function(){
 
                 }else{
 
+                 
                   template_aux = template_real.replace('{'+k+'}',v);
 
-                  template_real = template_aux;                  
+                  
 
+                  template_real = template_aux;            
+                  
+                  
                 }                
 
               });  
+
+
+              
 
               $('#container-contacto').append(template_real);
 
@@ -1381,6 +1436,9 @@ var guardarCliente = function(){
                 $('.ext1').numeric();
 
                 $('.ext2').numeric();
+
+             
+               
 
           });
 
@@ -1399,10 +1457,52 @@ var guardarCliente = function(){
   }
 
 
+  var contactosReset = function(indice_contacto,longitud){
+
+    console.log (longitud);
+
+    for(i=0; i < longitud; i++){
+
+      contacto_principal    = $('.set-contacto-principal').get(i);
+
+      
+      if(i == indice_contacto){
+
+          contacto_principal.value  = 1;
+
+      }else{
+
+          contacto_principal.value  = 0;
+
+      }
+
+      
+    }
+
+  }
+
+  function setContactoPrincipal(id){
+
+      
+
+    var indice_contacto       = $('.seleccion_contacto').index(id);
+
+    
+    var longitud_contactos    = $('.set-contacto-principal').length;
+
+   
+
+    contactosReset(indice_contacto,longitud_contactos);
+
+      
+  }
+
+
 
   var removeContacto = function(objHtml){
 
 
+    
 
     var posicion     = $('.remover-contacto').index(objHtml);
 
@@ -1472,7 +1572,7 @@ var guardarCliente = function(){
 
 
 
-  var addContacto = function(){
+  var addContacto = function(id){
 
       contacto_str  = $('#plantilla-edit-contacto').html();
 
@@ -1500,6 +1600,17 @@ var guardarCliente = function(){
 
       contacto      = contacto.replace('{pagina_web}','');
 
+      contacto      = contacto.replace('{id}',id);
+
+      contacto      = contacto.replace('{apellido_paterno_con}',"");
+
+      contacto      = contacto.replace('{apellido_materno_con}',"");
+
+      contacto      = contacto.replace('{check1}',"");
+
+      contacto      = contacto.replace('{check2}',"");
+
+
       $('#container-contacto').append(contacto);
 
       $('.telefono1').numeric();
@@ -1516,15 +1627,8 @@ var guardarCliente = function(){
 
   }
 
+//x
 
-  function setContactoPrincipal(id){
-
-      
-
-      console.log (id);
-
-      
-    }
 
   var deleteContacto = function(id_contacto){
 
@@ -1568,6 +1672,7 @@ var guardarCliente = function(){
 
       });
 
+     
   }
 
 

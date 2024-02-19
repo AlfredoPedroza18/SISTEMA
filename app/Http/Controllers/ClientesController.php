@@ -417,6 +417,13 @@ class ClientesController extends Controller
     }
 
 
+    public function addContacto (Request $Request){
+
+        $contacto = Contacto::create([  'id_cliente' => $Request->id_cliente]);
+
+        $id_con = DB::select("select id from contactos where id_cliente = {$Request->id_cliente} order by id desc limit 1");
+        return response() -> json($id_con[0]->id);
+    }
 
     public function __construct()
 
@@ -2575,11 +2582,7 @@ class ClientesController extends Controller
 
             
 
-            if(!isset($request->contacto_first[$i])){
-                $cont = 1;
-            }else{
-                $cont = 0;
-            }
+            
 
             DB::table('contactos')
                 ->where('Id_Cliente', $id)
@@ -2589,7 +2592,7 @@ class ClientesController extends Controller
                     "nombre_con" => $request->nombre_con[$i],
                     "cargo"  => $request->cargo[$i],
                     "departamento" => $request->departamento[$i],
-                    "genero_con" => $request->genero_con[$i],
+                    "genero_con" => 0,
                     "fecha_nacimiento_con" => $request->fecha_nacimiento_con[$i],
                     "telefono1" => $request->telefono1[$i],
                     "ext1" => $request->ext1[$i],
@@ -2602,7 +2605,7 @@ class ClientesController extends Controller
                     "pagina_web" => $request->pagina_web[$i],
                     "apellido_paterno_con" =>$request->ap_p[$i],
                     "apellido_materno_con" =>$request->ap_m[$i],
-                    "principal" => $cont
+                    "principal" => $request->contacto_principal[$i]
             ]);
         }
 

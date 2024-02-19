@@ -40,6 +40,8 @@ Route::resource('das','DashboardController');
 
 Route::post('clientes/crear', 'ClientesController@crearCliente');
 
+Route::post('addContacto', 'ClientesController@addContacto');
+
 Route::post('clientes/editar/edit{id}', 'ClientesController@update');
 
 Route::post('clientes/editar/mostrarimagen', 'ClientesController@showPDF')->name('mostrar_img_src');

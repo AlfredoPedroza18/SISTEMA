@@ -99,7 +99,7 @@ class ContactosController extends Controller
 
     public function listaContactos(Request $request){
         $id_cliente = $request->id_cliente;
-        $contactos = DB::select('SELECT * FROM contactos WHERE id_cliente = ?',[$id_cliente]);
+        $contactos = DB::select('SELECT * FROM contactos WHERE id_cliente = ? order by principal asc',[$id_cliente]);
         
         return response()->json($contactos);
 
