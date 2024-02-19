@@ -59,9 +59,14 @@
 												<span class="badge">[DIRECCION_EMPRESA]</span>
 												<span class="badge">[NOMBRE_CLIENTE]</span>
 												<span class="badge">[DIRECCION_CLIENTE]</span>
+												<span class="badge">[REPRESENTANTE_LEGAL_CLIENTES]</span>
+												<span class="badge">[REPRESENTANTE_LEGAL_EMPRESA]</span>
+												<span class="badge">[RFC_EMPRESA]</span>
+												<span class="badge">[RFC_CLIENTE]</span>
+												<span class="badge">[SERVICIO]</span>
 											</div>
 										
-											<textarea id="elm1" rows="15" cols="80" style="width: 80%" "{!! $contrato->contenido !!}">
+											<textarea id="elm1" rows="15" cols="56"  "{!! $contrato->contenido !!}">
 												
 											</textarea>
 											<hr>
@@ -158,9 +163,10 @@
 		var iniciar_editor = function(){
 				tinymce.init({
 					selector: "textarea#elm1",
+					
 					convert_urls : false,
 					language: 'es_MX',
-					theme: "modern",
+					
 					plugins: [
 					"advlist autolink autosave link image lists charmap print preview hr anchor pagebreak spellchecker",
 					"searchreplace wordcount visualblocks visualchars code insertdatetime media nonbreaking",

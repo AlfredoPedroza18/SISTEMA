@@ -65,6 +65,11 @@
 							<span class="badge">[DIRECCION_EMPRESA]</span>
 							<span class="badge">[NOMBRE_CLIENTE]</span>
 							<span class="badge">[DIRECCION_CLIENTE]</span>
+							<span class="badge">[REPRESENTANTE_LEGAL_CLIENTES]</span>
+							<span class="badge">[REPRESENTANTE_LEGAL_EMPRESA]</span>
+							<span class="badge">[RFC_EMPRESA]</span>
+							<span class="badge">[RFC_CLIENTE]</span>
+							<span class="badge">[SERVICIO]</span>
 						</div>
 						
 					

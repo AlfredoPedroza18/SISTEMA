@@ -1093,32 +1093,6 @@ $(document).ready(function(){
 
     var datofj = $("#forma_juridica").val();
 
-    if(datofj==2){
-
-
-
-    $('.pm').show();
-
-    $('.pf').hide();
-
-    $('#nombre').val('');
-
-    $('#apellido_materno').val('');
-
-    $('#apellido_paterno').val('');
-
-    $('#genero').val('');
-
-    $('#fecha_nacimiento_pros').val('');
-
-    $('#lugar_nacimiento').val('');
-
-    $('#curp').val('');
-
-    }
-
-    else if(datofj==1){
-
 
 
     $('.pm').hide();
@@ -1128,39 +1102,6 @@ $(document).ready(function(){
     $('#razon_social').val('');
 
     $('#clase_pm').val('');
-
-
-
-
-
-    }
-
-    else if(datofj=="Selected"){
-
-    $('.pm').hide();
-
-    $('.pf').hide();
-
-    $('#nombre').val('');
-
-    $('#apellido_materno').val('');
-
-    $('#apellido_paterno').val('');
-
-    $('#genero').val('');
-
-    $('#fecha_nacimiento_pros').val('');
-
-    $('#lugar_nacimiento').val('');
-
-    $('#curp').val('');
-
-    $('#razon_social').val('');
-
-    $('#clase_pm').val('');
-
-
-
 
 
     }
@@ -1351,99 +1292,7 @@ $(document).ready(function(){
 
 //------------------------Esté jquery  OCULTA CAMPOS DE ACUERDO ALO SELECCIONADO EN EL SELECT DE FORMA JURIDICA (Personas fisicas y personas morales)
 
-  $('#forma_juridica').on('change',function(){
-
-
-
-
-
-
-
-
-
-  	   var valor=this.value;//valor del option value
-
-
-
-       //alert(valor);
-
-  	   if(valor==2){
-
-
-
-         $('.pm').show();
-
-         $('.pf').hide();
-
-         $('#nombre').val('');
-
-         $('#apellido_materno').val('');
-
-         $('#apellido_paterno').val('');
-
-         $('#genero').val('');
-
-         $('#fecha_nacimiento_pros').val('');
-
-         $('#lugar_nacimiento').val('');
-
-         $('#curp').val('');
-
-        }
-
-  	    else if(valor==1){
-
-
-
-  	     $('.pm').hide();
-
-  	     $('.pf').show();
-
-  	     $('#razon_social').val('');
-
-         $('#clase_pm').val('');
-
-
-
-
-
-  	    }
-
-          else{
-
-         $('.pm').hide();
-
-         $('.pf').hide();
-
-         $('#nombre').val('');
-
-         $('#apellido_materno').val('');
-
-         $('#apellido_paterno').val('');
-
-         $('#genero').val('');
-
-         $('#fecha_nacimiento_pros').val('');
-
-         $('#lugar_nacimiento').val('');
-
-         $('#curp').val('');
-
-         $('#razon_social').val('');
-
-         $('#clase_pm').val('');
-
-
-
-
-
-          }
-
-  	   //alert(valor);
-
-
-
-  });// end ohange
+  
 
 
 

@@ -212,22 +212,27 @@ try{
             SELECT 
             crm_contratos.no_contrato,
             clientes.nombre_comercial,
+            clientes.rfc as rfc_cliente,
+            CONCAT (IFNULL(clientes.nombre,''),' ',IFNULL(clientes.apellido_paterno,''),' ', IFNULL(clientes.apellido_materno,'')) AS representante_legal_clientes,
+            master_empresa.representantelegal as representante_legal_empresa,
+            master_empresa.rfc as rfc_empresa,
             CONCAT(clientes.df_calle,'',clientes.df_colonia,'',clientes.df_cp) AS cliente_domicilio,
             master_empresa.fk_titulo as nombre_facturadora,
-            crm_tc_servicioscotizador.servicio,
+            crm_cotizador_servicio.servicio,
             plantillas_contratos.contenido,
             CONCAT(master_empresa.calle,'',master_empresa.colonia,'',master_empresa.cp) AS facturadora_domicilio
             FROM crm_contratos
             LEFT JOIN plantillas_contratos ON crm_contratos.id_plantilla_generica=plantillas_contratos.id
             LEFT JOIN clientes ON crm_contratos.id_cliente=clientes.id
             LEFT JOIN master_empresa ON crm_contratos.id_facturadora=master_empresa.idempresa
-            LEFT JOIN crm_tc_servicioscotizador ON crm_contratos.id_servicio=crm_tc_servicioscotizador.id
+            LEFT JOIN crm_cotizador_servicio ON crm_contratos.id_servicio= crm_cotizador_servicio.id
             WHERE crm_contratos.id=?",[$id_contrato]);
 
         $str = $query_ese[0];
 
-        $label = ['[NUM_CONTRATO]','[NOMBRE_EMPRESA]','[DIRECCION_EMPRESA]','[NOMBRE_CLIENTE]','[DIRECCION_CLIENTE]'];
-        $replace= [$str->no_contrato,$str->nombre_facturadora,$str->facturadora_domicilio,$str->nombre_comercial,$str->cliente_domicilio];
+        $label = ['[NUM_CONTRATO]','[NOMBRE_EMPRESA]','[DIRECCION_EMPRESA]','[NOMBRE_CLIENTE]','[DIRECCION_CLIENTE]',
+        '[REPRESENTANTE_LEGAL_CLIENTES]', '[REPRESENTANTE_LEGAL_EMPRESA]', '[RFC_EMPRESA]', '[RFC_CLIENTE]', '[SERVICIO]'];
+        $replace= [$str->no_contrato,$str->nombre_facturadora,$str->facturadora_domicilio,$str->nombre_comercial,$str->cliente_domicilio,$str->representante_legal_clientes,$str->representante_legal_empresa,$str->rfc_empresa,$str->rfc_cliente,$str->servicio];
         
 
         $contrato_generico = str_replace($label, $replace, $str->contenido);
