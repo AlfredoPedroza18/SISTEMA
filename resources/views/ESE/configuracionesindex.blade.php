@@ -258,7 +258,7 @@
 
                 <div class="stats-link">
 
-                    <a href="{{ route('sig-erp-ese::configuracionServicios.index') }}">Ir a servicio<i class="fa fa-arrow-circle-o-right"></i></a>
+                    <a href="{{ url('CatalogoTiposServicio') }}">Ir a servicio<i class="fa fa-arrow-circle-o-right"></i></a>
 
                 </div>
             </div>
@@ -291,7 +291,7 @@
 
 
 
-
+@permission('ese.catalogo.avisoprivacidad')
         <div class="col-md-4 col-sm-6 ">
 
             <div class="widget widget-stats bg-black">
@@ -302,7 +302,7 @@
 
                 <br><br>
 
-                @permission('ese.catalogo.avisoprivacidad')
+                
 
                 <div class="stats-link">
 
@@ -310,16 +310,16 @@
 
                 </div>
 
-                @endpermission
+                
 
             </div>
 
         </div>
-
+@endpermission
 
 
         <!-- begin col-3 -->
-
+@permission('ese.editor.notificaciones')
         <div class="col-md-4 col-sm-6">
 
             <div class="widget widget-stats bg-blue">
@@ -330,7 +330,7 @@
 
                 <br><br>
 
-                @permission('ese.editor.notificaciones')
+                
 
                 <div class="stats-link">
 
@@ -338,13 +338,13 @@
 
                 </div>
 
-                @endpermission
+               
 
             </div>
 
         </div>
     </div>
-
+ @endpermission
 
 
 
