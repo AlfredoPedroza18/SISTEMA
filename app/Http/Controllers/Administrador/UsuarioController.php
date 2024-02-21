@@ -966,7 +966,7 @@ public function existecurp(){
 
       //  $empresas = Facturadora::all();
 
-        $cliente= MasterClientes::all();
+        $cliente= DB::select("select * from clientes");
 
         $contactos= DB::table('contactos')->get();
 

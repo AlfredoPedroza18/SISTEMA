@@ -261,7 +261,9 @@
 					
 						$("#mns_contrato").html('<div class="alert alert-info" role="alert"><strong>Info!</strong> Favor de seleccionar una plantilla de contrato.</div><span class="close" data-dismiss="alert">×</');
 					}else{
+						console.log("nooo");
 						guardarContrato();
+						console.log("siiii");
 					}
 
 		        				
@@ -510,6 +512,8 @@
 			//alert(fecha_inicio+'    '+fecha_fin);
 			var id_plantilla_con="";
 
+			servicio = 4;
+			
 			if(servicio == 0) url = '{{ route('sig-erp-crm::contrato_ese.store') }}';			        
 			if(servicio == 1) url = '{{ route('sig-erp-crm::contrato_rys.store') }}';
 			if(servicio == 2) url = '{{ route('sig-erp-crm::contrato_maquila.store') }}';	
@@ -557,7 +561,7 @@
 					},2000);
 				},
 				error : function(jqXHR, status, error) {
-		            swal('Disculpe, existió un problema comuniquese con el equipo de desarrollo');
+		            swal('Disculpe, existió un problema comuniquese con el equipo de desarrollos');
 		        }
 			});
 		}

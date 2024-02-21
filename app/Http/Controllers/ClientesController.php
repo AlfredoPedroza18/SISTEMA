@@ -152,7 +152,7 @@ class ClientesController extends Controller
 
             [$id_cn,$id_ejecutivo,$id_contacto_principal,$request->TipoDeCliente,$contrato_a,$id_user,$nombre_comercial,$forma_juridica,$razon_social,'0000-00-00',$nombre,$apellido_paterno,$apellido_materno,
 
-                $genero,$fecha_nacimiento_pros,$lugar_nacimiento,$clase_pm,$rfc,$curp,$registro_patronal,$registro_p,$actividad_economica,$status,$df_cp,$df_estado,$df_municipio,$df_ciudad,$df_colonia
+                0,$fecha_nacimiento_pros,$lugar_nacimiento,$clase_pm,$rfc,$curp,$registro_patronal,$registro_p,$actividad_economica,$status,$df_cp,$df_estado,$df_municipio,$df_ciudad,$df_colonia
 
                 ,$request->df_calle,$request->df_num_exterior,$request->df_num_interior,$request->dc_cp,$request->dc_estado,$request->dc_municipio,$request->dc_ciudad,$request->dc_colonia
 
@@ -206,7 +206,7 @@ class ClientesController extends Controller
 
                 'apellido_materno'=> $request->apellido_materno,
 
-                'genero'=> $request->genero,
+                'genero'=> 0,
 
                 'fecha_nacimiento_pros'=> $request->fecha_nacimiento_pros,
 

@@ -975,17 +975,7 @@
 
                                                     <!-- begin col-4 -->
 
-                                                    <div class="col-md-3">
-
-                                                    <div class="form-group">
-
-                                                        <label>{{ Form::label('Genero', 'Genéro') }}</label>
-
-                                                    {{ Form::select('genero_con[]',[''=>'Selecciona una opci&oacute;n','1'=>'Masculino','2'=>'Femenino'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'genero_con']) }}
-
-                                                    </div>
-
-                                                    </div>
+                                                    
 
 <!-- end col-6 -->
 

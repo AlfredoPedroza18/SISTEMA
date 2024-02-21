@@ -1104,7 +1104,7 @@ $(document).ready(function(){
     $('#clase_pm').val('');
 
 
-    }
+    
 
   // $("#frm-alta-cliente").on("submit",function(event){
 
@@ -2484,6 +2484,7 @@ var guardarCliente = function(){
 
 					 //alert(posicion+' '+$(contac.parentNode).html());
 
+           console.log(contac);
 					 $(contac).remove();
 
 					}

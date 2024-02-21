@@ -49,6 +49,7 @@ class EmpleadosController extends Controller
      * @return \Illuminate\Http\Response
 
      */
+    private $queryCatalogEstatusInvestigador = 'select mei.EstatusInvestigadorId as id, mei.Descripcion from master_estatus_investigadores mei';
 
     public function index() 
 
@@ -203,28 +204,17 @@ class EmpleadosController extends Controller
     public function indexInvestigadores()
 
     {
-
-        /*$Empleados = MasterConsultas::exeSQL("master_ese_empleado", "READONLY",
-            array(
-                "IdEmpleado" => '-1',
-                "IdRol" => 4
-          )
-        );*/
-
-        $Empleados = DB::select("select 
-                                me.*,
-                                concat( me.Nombre,' ',ifnull(me.SegundoNombre,''),' ',me.ApellidoPaterno,' ',ifnull( me.ApellidoMaterno,'') ) as NombreCompleto,
-                                telefonomovil as TelefonoMovil,
-                                es.FK_nombre_estado as nombre_estado
-                                from master_ese_empleado as me left join
-                                cfdi_codigopostal as cp
-                                on (cp.IdCodigoPostal = me.IdCodigoPostal)
-                                left join   
-                                estados as es 
-                                on(es.IdEstado = me.IdEstado)
-                                left join
-                                users as u on (u.IdEmpleado =me.IdEmpleado);
-        ");
+        //SE MODIFICO EL QUERY PARA QUE NOS MUESTRE EL CAMPO DE LA DESCRIPCION DEL ESTATUS
+        $Empleados = DB::select("select  me.*, meee.Descripcion, mei.Descripcion as DescripcionInvestigador,
+        concat( me.Nombre,' ',ifnull(me.SegundoNombre,''),' ',me.ApellidoPaterno,' ',ifnull( me.ApellidoMaterno,'') ) as NombreCompleto,
+        telefonomovil as TelefonoMovil,es.FK_nombre_estado as nombre_estado
+        from master_ese_empleado as me left join cfdi_codigopostal as cp
+        on (cp.IdCodigoPostal = me.IdCodigoPostal)
+        left join estados as es on(es.IdEstado = me.IdEstado)
+        left join users as u on (u.IdEmpleado =me.IdEmpleado)
+        left join master_ese_estatus_empleados meee on me.EstatusEmpleadosId = meee.IdEstatusE 
+        left join master_estatus_investigadores mei on mei.EstatusInvestigadorId = me.EstatusInvestigadorId
+        where u.idrol = 4");
         
         foreach($Empleados as $Empleado){
             $NombreCompleto=$Empleado->NombreCompleto;
@@ -262,43 +252,6 @@ class EmpleadosController extends Controller
 
                                 ");
 
-        // $cod = $request->input('CP');
-
-        // $query='Select cp.IdCodigoPostal, cp.CodigoPostal, cp.CodigoEstado,
-
-        // cp.CodigoMunicipio,
-
-        // e.FK_nombre_estado as estado,
-
-        // e.IdEstado,
-
-        // m.Descripcion as Municipio,
-
-        // m.IdMunicipio, l.Descripcion as localidad,
-
-        // l.IdLocalidad,
-
-        // col.Colonia,
-
-        // p.IdPais
-
-        // From cfdi_codigopostal as cp
-
-        // INNER JOIN estados e on e.Codigo = cp.CodigoEstado
-
-        // left join master_municipios m on m.CodigoEstado = cp.CodigoEstado and m.Codigo=cp.CodigoMunicipio
-
-        // left  join master_localidad l on l.CodigoEstado= cp.CodigoEstado and l.Codigo = cp.CodigoLocalidad
-
-        // left join master_colonias as col on(cp.CodigoPostal= col.FK_CodigoPostal)
-
-        // left join master_pais as p on (p.IdPais = e.IdPais)
-
-        // Where (CodigoPostal = -1 or (CodigoPostal <> -1 and cp.CodigoPostal = :CodigoPostal))
-
-        // ORDER BY CodigoPostal Asc ';
-
-
 
         $Bancos = DB::table('master_bancos')->get();
 
@@ -331,10 +284,6 @@ class EmpleadosController extends Controller
         }
 
 
-
-        // $cp=DB::select($query,[$cod]);
-
-
         $estados = DB::select($this->estadosQuery);
 
 
@@ -356,36 +305,11 @@ class EmpleadosController extends Controller
         $IdCodigoPostal="";
 
 
-
-        // foreach ($cp as  $cps) {
-
-        //     $codpost=$cps->CodigoPostal;
-
-        //     $State=$cps->estado;
-
-        //     $IdState=$cps->IdEstado;
-
-        //     $Municipio=$cps->Municipio;
-
-        //     $Colonia=$cps->Colonia;
-
-        //     $Localidad=$cps->localidad;
-
-        //     $IdPais=$cps->IdPais;
-
-        //     $IdCodigoPostal=$cps->IdCodigoPostal;
-
-
-
-        // }
-
-
-
-        // $col = explode(";", $Colonia);
-
         $active_tab = "Usuario";
 
         clearstatcache();
+
+        $CatalogoEstatusInves= DB::select($this->queryCatalogEstatusInvestigador);
 
 
 
@@ -435,6 +359,8 @@ class EmpleadosController extends Controller
 
         ->with('TelefonoLocal',null)
 
+        ->with('ComentarioInves',null)
+
         ->with('Extension',null)
 
         ->with('Calle',null)
@@ -464,12 +390,6 @@ class EmpleadosController extends Controller
         ->with('Password',null)
 
         ->with('IdEmpleado',null)
-
-        // ->with('Regiones',null)
-
-        //Documentos
-
-        //->with('IdDocumentoEmpleado')
 
         ->with('ArchivoFoto',null)
 
@@ -553,11 +473,13 @@ class EmpleadosController extends Controller
 
         ->with('mensaje', null)
 
+        ->with('CatalogoEstatusInves', $CatalogoEstatusInves)
+
+        ->with('CatalogoEstatusInvesSelected', null)
+        
+        ->with('ComentarioInves', null)
+
         ->with("action","create");
-
-
-
-
 
     }
 
@@ -584,14 +506,6 @@ class EmpleadosController extends Controller
         
 
         try {
-
-                // dd($request->IdEmpleado);
-
-                // dd($request->active_tab);
-
-                // $datos = $request->input('datos');
-
-                // parse_str(urldecode($_POST['datos']), $datos);
 
                 $mens='';
 
@@ -679,12 +593,6 @@ class EmpleadosController extends Controller
 
                     if($request->IdEmpleado==null){
 
-
-
-                        
-
-
-
                         $IdPuesto="0";
 
                         $IdUsuario = "0";
@@ -712,10 +620,6 @@ class EmpleadosController extends Controller
                             $usrIR=$datausuario[0]->IdRol;
 
                         }
-
-
-
-                            
 
                         $Empleados  = MasterEseEmpleado::Create([
 
@@ -745,11 +649,7 @@ class EmpleadosController extends Controller
 
                         ]);
 
-
-
                         $empl=$Empleados->IdEmpleado;
-
-
 
                         if($request->catalogoSeleccionado != "CatalogoAnalistas"){
 
@@ -801,21 +701,18 @@ class EmpleadosController extends Controller
 
                                 "IdEmpleado" => $empl,
 
-                                "password_ese_mobile" => $contras
+                                "password_ese_mobile" => $contras,
+
+                                "tipo"=>"f"
 
                             ]);
 
-            
-
-            
 
                             $usr=$UserGC->id;
 
                             $usrIR=$UserGC->IdRol;
 
                         }
-
-            
 
                         $guardarCambios=DB::table('role_user')->insert([
 
@@ -827,33 +724,7 @@ class EmpleadosController extends Controller
 
                         ]);
 
-
-
-
-
                     }else{
-
-                        // dd($request->IdEmpleado);
-
-                        // $TelefonoLocal         = $request->TelefonoLocal;
-
-                        // $Extension             = $request->Extension;
-
-                        // $Calle                 = $request->Calle;
-
-                        // $Colonia               = $request->Colonia;
-
-                        // $IdPais                = $request->IdPais;
-
-                        // $IdEstado              = $request->IdEstado;
-
-                        // $municipio             = $request->municipio;
-
-                        // $Localidad             = $request->Localidad;
-
-                        // $IdCodigoPostal        = $request->IdCodigoPostal;
-
-                        // $CP                    = $request->CP;
 
                         $IdPuesto="0";
 
@@ -923,11 +794,11 @@ class EmpleadosController extends Controller
 
                             "url_ubicacion" => $request->Localizacion,
 
-                            // "FechaAlta" => date('Y-m-d H:i:s'),
-
                             "IdPuesto" => $IdPuesto,
 
-                            "IdUsuario" => $IdUsuario
+                            "IdUsuario" => $IdUsuario,
+
+                            "EstatusInvestigadorId" => $request->EstatusInvesId
 
                         ]);
 
@@ -1031,11 +902,11 @@ class EmpleadosController extends Controller
 
                             "url_ubicacion" => $request->Localizacion,
 
-                            // "FechaAlta" => date('Y-m-d H:i:s'),
-
                             "IdPuesto" => $IdPuesto,
 
-                            "IdUsuario" => $IdUsuario
+                            "IdUsuario" => $IdUsuario,
+
+                            "EstatusInvestigadorId" => $request->EstatusInvesId
 
                         ]);
 
@@ -1045,10 +916,6 @@ class EmpleadosController extends Controller
 
                     }
 
-                    // dd($EmpDatos->CodigoPostal);
-
-
-
                     $active_tab='Documentos';
 
                 }
@@ -1057,7 +924,6 @@ class EmpleadosController extends Controller
 
                 if($request->active_tab=='Documentos'){
 
-                    // dd($request->IdEmpleado);
 
                     if($request->IdEmpleado==null){
 
@@ -1067,7 +933,6 @@ class EmpleadosController extends Controller
 
                     }else{
 
-                        // dd($request->IdEmpleado);
 
                         $EmpDoctosDatos = MasterEseEmpleadosDoc::where('IdEmpleado', $request->IdEmpleado)->first();
 
@@ -1615,7 +1480,7 @@ class EmpleadosController extends Controller
 
                     }else{
 
-                        $IdPuesto="1";
+                        $IdPuesto="0";
 
                         $IdUsuario = "0";
 
@@ -1965,18 +1830,6 @@ class EmpleadosController extends Controller
 
             $destinationPath = '/uploads/';
 
-            //$headers = [
-
-            //    'Content-Type' => 'application/pdf',
-
-            // ];
-
-
-
-            //return Response::download($file, 'foto.pdf', $headers);
-
-        
-
             $cod = $CodigoPostal;
 
             $query='Select cp.IdCodigoPostal, cp.CodigoPostal, cp.CodigoEstado,
@@ -2169,7 +2022,7 @@ class EmpleadosController extends Controller
 
 
 
-
+            $CatalogoEstatusInves= DB::select($this->queryCatalogEstatusInvestigador);
 
             if($active_tab=='Finalizar'){
 
@@ -2192,15 +2045,6 @@ class EmpleadosController extends Controller
                     'type'    => 'success']);
 
                 }
-
-                
-
-                
-
-                    
-
-                
-
             }else{
 
                 
@@ -2343,29 +2187,16 @@ class EmpleadosController extends Controller
 
                 ->with("active_tab",$active_tab)
 
+                ->with('CatalogoEstatusInves', $CatalogoEstatusInves)
+
+                ->with('CatalogoEstatusInvesSelected', 1)
+                ->with('ComentarioInves', null)
+
                 ->with("action","create");
-
-
-
-              
 
             }
 
-            
-
-            
-
- 
-
-            
-
-            // return view('ESE.catalogos.form-catalogoempleados', ->with('active_tab',$active_tab));
-
-            // return redirect('/CatalogoInvestigadores')->with(['success' =>  'El registro se creó con éxito',
-
-            // 'type'    => 'success']);
-
-            // return response()->json(['status_alta' => 'success']); 
+        
 
         } catch (\Exception $e) {
 
@@ -2373,11 +2204,6 @@ class EmpleadosController extends Controller
 
             'type'    => 'success']);
 
-            // return response()->json(['status_alta' => 'error',
-
-            //                             'message' =>"Se ha producido una excepción. Los detalles son los siguientes:".$e->getMessage() 
-
-            //                         ]);
 
         }
 
@@ -2394,21 +2220,6 @@ class EmpleadosController extends Controller
        
 
        try {
-
-            
-
-            // $datos = $request->input('datos');
-
-            // parse_str(urldecode($_POST['datos']), $datos);
-
-            
-
-            // $arr = $request->input('arr');
-
-            // $arr = array_diff($arr, array(" ",0,null));
-
-
-
 
 
             $Rfc                   = $request->Rfc;
@@ -2607,20 +2418,6 @@ class EmpleadosController extends Controller
 
         $usrIR=$UserGC->IdRol;
 
-
-
-//    clearstatcache();
-
-
-
-//    $latestidU = DB::table('users')->select('id','IdRol')->orderBy('id', 'DESC')->first();
-
-//    $usr=$latestidU->id;
-
-//    $usrIR=$latestidU->IdRol;
-
-
-
         $guardarCambios=DB::table('role_user')->insert([
 
             "role_id" => $usrIR,
@@ -2630,11 +2427,6 @@ class EmpleadosController extends Controller
 
 
         ]);
-
-
-
-//    clearstatcache();
-
 
 
         $destinationPath = 'uploads';
@@ -2899,13 +2691,7 @@ class EmpleadosController extends Controller
 
         'type'    => 'error']);
 
-            // echo "Se ha producion una excepción. Los detalles son los siguientes:";
-
-            // var_dump($e);
-
       } finally {
-
-            // return response()->json(['status_alta' => 'success']);
 
             return redirect('/CatalogoInvestigadores')->with(['success' =>  'El registro se creó con éxito',
 
@@ -2962,27 +2748,6 @@ class EmpleadosController extends Controller
 
 
         }
-
-
-
-        // $DocumentoEmpleado = DB::table('master_ese_empleadosdocumentos')
-
-        // ->join('master_ese_empleado','master_ese_empleado.IdEmpleado', '=', 'master_ese_empleadosdocumentos.IdEmpleado')
-
-        // ->select('master_ese_empleadosdocumentos.IdDocumentoEmpleado','master_ese_empleadosdocumentos.IdEmpleado'
-
-        // ,'master_ese_empleadosdocumentos.ArchivoFoto','master_ese_empleadosdocumentos.ArchivoReferencias','master_ese_empleadosdocumentos.ArchivoConvenio'
-
-        // ,'master_ese_empleadosdocumentos.ArchivoActaNacimiento','master_ese_empleadosdocumentos.ArchivoIdentificacion'
-
-        // ,'master_ese_empleadosdocumentos.ArchivoPasaporte','master_ese_empleadosdocumentos.ArchivoCurp','master_ese_empleadosdocumentos.ArchivoRfc'
-
-        // ,'master_ese_empleadosdocumentos.ArchivoCv','master_ese_empleadosdocumentos.ArchivoComprobante','master_ese_empleadosdocumentos.ArchivoNss'
-
-        // ,'master_ese_empleadosdocumentos.ArchivoCuentaBancaria','master_ese_empleadosdocumentos.ArchivoDocumentosExtras')
-
-        // ->get();
-
 
 
         $DocumentoEmpleado = MasterConsultas::exeSQL("documentos_empleados", "READONLY",
@@ -3073,7 +2838,10 @@ class EmpleadosController extends Controller
 
                 $IdUsuario = $c->IdUsuario;
 
+                $CatalogoEstatusInvesSelected = $c->EstatusInvestigadorId;
 
+                $ComentarioInves = $c->ComentarioEmpleado; 
+                
 
         }
 
@@ -3175,16 +2943,6 @@ class EmpleadosController extends Controller
 
         $destinationPath = '/uploads/';
 
-        //$headers = [
-
-        //    'Content-Type' => 'application/pdf',
-
-        // ];
-
-
-
-        //return Response::download($file, 'foto.pdf', $headers);
-
         $active_tab='Usuario';
 
         $cod = $CodigoPostal;
@@ -3245,8 +3003,6 @@ class EmpleadosController extends Controller
 
         $IdCodigoPostal="";
 
-
-
         foreach ($cp as  $cps) {
 
             $codpost=$cps->CodigoPostal;
@@ -3271,13 +3027,6 @@ class EmpleadosController extends Controller
 
         $col = explode(";", $Colonia);
 
-
-
-        // $regiones=DB::select("select DISTINCT mr.Nombre as Region,mr.IdRegion from master_regiones mr
-
-        // inner join master_region_edo mre on mre.IdRegion = mr.IdRegion
-
-        // where mre.IdEstado = $IdState");
 
        $IdBanco=(!empty($IdBanco))?$IdBanco:0;
 
@@ -3364,7 +3113,7 @@ class EmpleadosController extends Controller
                                 WHERE u.IdRol = 105 OR u.IdRol = 98; 
 
                                 ");
-
+            $CatalogoEstatusInves = DB::select($this->queryCatalogEstatusInvestigador);
               return view("ESE.catalogos.empleadosedit")
 
               ->with('IdEmpleado', $IdEmpleado)
@@ -3455,10 +3204,6 @@ class EmpleadosController extends Controller
 
               ->with('Password',$Password)
 
-            //   ->with('Regiones',$regiones)
-
-              // Documentos
-
               ->with('IdDocumentoEmpleado',$IdDocumentoEmpleado)
 
               ->with('RutaFoto',$RutaFoto)
@@ -3507,6 +3252,12 @@ class EmpleadosController extends Controller
 
               ->with("mensaje",$mens)
 
+              ->with('CatalogoEstatusInves', $CatalogoEstatusInves)
+              
+              ->with('CatalogoEstatusInvesSelected', $CatalogoEstatusInvesSelected)
+
+              ->with('ComentarioInves', $ComentarioInves)
+
               ->with("action","edit");
 
     }
@@ -3530,12 +3281,6 @@ class EmpleadosController extends Controller
     public function update(Request $request)
 
     {
-
-        // try {
-
-            // $datos = $request->input('datos');
-
-            // parse_str(urldecode($_POST['datos']), $datos);
 
             $IdEmpleado=$request->IdEmpleado;
 
@@ -3572,71 +3317,41 @@ class EmpleadosController extends Controller
             if($request->active_tab=='Usuario'){
 
                 $EmpDatos->update([
-
                     "Rfc" => $request->Rfc,
-
                     "Curp" => $request->Curp,
-
                     "Nombre" => $request->Nombre,
-
                     "SegundoNombre" => $request->SegundoNombre,
-
                     "ApellidoPaterno" => $request->ApellidoPaterno,
-
                     "ApellidoMaterno" => $request->ApellidoMaterno,
-
                     "Genero" => $request->genero,
-
                     "IdBanco" => $request->IdBanco,
-
                     "propietario_c" => $request->propietario_c,
-
                     "NumCuenta" => $request->NumCuenta,
-
                     "NumTarjeta" => $request->NumTarjeta,
-
                     "ClabeInt" => $request->ClabeInt,
-
                     "Email" => $request->Email,
-
                     "TelefonoMovil" => $request->TelefonoMovil,
-
                     "TelefonoLocal" => $request->TelefonoLocal,
-
                     "Extension" => $request->Extension,
-
                     "Calle" => $request->Calle,
-
                     "Colonia" => $request->Colonia,
-
                     "NoInt" => isset($request->NoInt)?$request->NoInt:'',
-
                     "NoExt" => isset($request->NoExt)?$request->NoExt:'',
-
                     "IdPais" => $request->IdPais,
-
                     "IdEstado" => $request->IdEstado,
-
                     "Municipio" => $request->municipio,
-
                     "Localidad" => $request->Localidad,
-
                     "IdCodigoPostal" => $request->IdCodigoPostal,
-
                     "CodigoPostal" => $request->CP,
-
                     "Referencias" => $request->Referencias,
-
                     "CoordenadasGmaps" => $request->Coordendas,
-
                     "url_ubicacion" => $request->Localizacion,
-
                     "FechaAlta" => date('Y-m-d H:i:s'),
-
                     "IdPuesto" => $IdPuesto,
-
-                    "IdUsuario" => $IdUsuario
-
+                    "IdUsuario" => $IdUsuario, 
+                    "EstatusInvestigadorId" => $request->EstatusInvesId,
+                    "ComentarioEmpleado" => $request->ComentarioInves
+                    
                 ]);
 
                 
@@ -3652,75 +3367,41 @@ class EmpleadosController extends Controller
 
 
             if($request->active_tab=='DatosGenerales'){
-
-              
-
                 $EmpDatos->update([
-
                     "Rfc" => $request->Rfc,
-
                     "Curp" => $request->Curp,
-
                     "Nombre" => $request->Nombre,
-
                     "SegundoNombre" => $request->SegundoNombre,
-
                     "ApellidoPaterno" => $request->ApellidoPaterno,
-
                     "ApellidoMaterno" => $request->ApellidoMaterno,
-
                     "Genero" => $request->genero,
-
                     "IdBanco" => $request->IdBanco,
-
                     "propietario_c" => $request->propietario_c,
-
                     "NumCuenta" => $request->NumCuenta,
-
                     "NumTarjeta" => $request->NumTarjeta,
-
                     "ClabeInt" => $request->ClabeInt,
-
                     "Email" => $request->Email,
-
                     "TelefonoMovil" => $request->TelefonoMovil,
-
                     "TelefonoLocal" => $request->TelefonoLocal,
-
                     "Extension" => $request->Extension,
-
                     "Calle" => $request->Calle,
-
                     "Colonia" => $request->Colonia,
-
                     "NoInt" => isset($request->NoInt)?$request->NoInt:'',
-
                     "NoExt" => isset($request->NoExt)?$request->NoExt:'',
-
                     "IdPais" => $request->IdPais,
-
                     "IdEstado" => $request->IdEstado,
-
                     "Municipio" => $request->municipio,
-
                     "Localidad" => $request->Localidad,
-
                     "IdCodigoPostal" => $request->IdCodigoPostal,
-
                     "CodigoPostal" => $request->CP,
-
                     "Referencias" => $request->Referencias,
-
                     "CoordenadasGmaps" => $request->Coordendas,
-
                     "url_ubicacion" => $request->Localizacion,
-
                     "FechaAlta" => date('Y-m-d H:i:s'),
-
                     "IdPuesto" => $IdPuesto,
-
-                    "IdUsuario" => $IdUsuario
-
+                    "IdUsuario" => $IdUsuario, 
+                    "EstatusInvestigadorId" => $request->EstatusInvesId,
+                    "ComentarioEmpleado" => $request->ComentarioInves
                 ]);
 
                 
@@ -4261,11 +3942,7 @@ class EmpleadosController extends Controller
 
                 }
 
-                
-
                 $active_tab='DatosBancarios';
-
-                
 
             }
 
@@ -4359,8 +4036,6 @@ class EmpleadosController extends Controller
 
                     $empl=$request->IdEmpleado;
 
-                    // dd($request->TableMunicipiosSelectV);
-
                     $arr = (!empty($request->TableMunicipiosSelectV))?$request->TableMunicipiosSelectV:array();
 
                     
@@ -4402,13 +4077,6 @@ class EmpleadosController extends Controller
             }
 
 
-
-           
-
-            
-
-            
-
             if($request->catalogoSeleccionado != "CatalogoAnalistas"){
 
                 $contr='SELECT AES_ENCRYPT(?, "DSAI2020") as pw';
@@ -4435,6 +4103,14 @@ class EmpleadosController extends Controller
 
                 $UsrDatos->update([
 
+                    "name" => $request->Nombre." ".$request->SegundoNombre,
+
+                    "Apellido_Paterno" => $request->ApellidoPaterno,
+
+                    "Apellido_Materno" => $request->ApellidoMaterno,
+
+                    "nick_name" => str_replace(' ', '', $request->Nombre).'.'.trim($request->ApellidoPaterno).'.'.trim($request->ApellidoMaterno),
+
                     "username" => $Usuario,
 
                     "idcn" => 24,
@@ -4449,7 +4125,9 @@ class EmpleadosController extends Controller
 
                     "IdRol" => $IdRol,
 
-                    "password_ese_mobile" => $contras
+                    "password_ese_mobile" => $contras,
+
+                    "tipo" => "f"
 
                 ]);
 
@@ -4458,7 +4136,6 @@ class EmpleadosController extends Controller
 
 
             $Empleado = MasterConsultas::exeSQL("master_ese_empleado", "READONLY",
-
                 array(
 
                     "IdEmpleado" => $request->IdEmpleado
@@ -4467,22 +4144,10 @@ class EmpleadosController extends Controller
 
             );
 
-
-
             $DocumentoEmpleado = MasterConsultas::exeSQL("documentos_empleados", "READONLY",
-
-        array(
-
-            "id" => $request->IdEmpleado
-
-        )
-
-        );
-
-
-
-       
-
+                array(
+                    "id" => $request->IdEmpleado
+                    ));
 
 
         foreach ($Empleado as  $c) {
@@ -4564,10 +4229,6 @@ class EmpleadosController extends Controller
 
 
         }
-
-        // dd($IdEmpleado);
-
-        
 
         $IdDocumentoEmpleado="";
 
@@ -4664,16 +4325,6 @@ class EmpleadosController extends Controller
 
 
         $destinationPath = '/uploads/';
-
-        //$headers = [
-
-        //    'Content-Type' => 'application/pdf',
-
-        // ];
-
-
-
-        //return Response::download($file, 'foto.pdf', $headers);
 
         $cod = $CodigoPostal;
 
@@ -4858,32 +4509,14 @@ class EmpleadosController extends Controller
         
 
 
-
+        $CatalogoEstatusInves = DB::select($this->queryCatalogEstatusInvestigador);
             if($active_tab=='Finalizar'){
 
-                // $ntf = new Notificaciones();
-
-                // $statusNot=$ntf->notificaUsuariosInv($IdEmpleado,'USUARIO-INVESTIGADOR','UsuarioInvestigador',null);
-
-                // if($statusNot==1){
-
-                //     return redirect('/CatalogoInvestigadores')->with(['success' =>  'El registro se actualizó con éxito y notificación enviada.',
-
-                //     'type'    => 'success']);
-
-                // }else{
 
                     return redirect('/CatalogoInvestigadores')->with(['success' =>  'El registro se actualizó con éxito.',
 
                     'type'    => 'success']);
 
-                // }
-
-                    
-
-                
-
-                
 
             }else{
 
@@ -5025,55 +4658,15 @@ class EmpleadosController extends Controller
 
               ->with("mensaje",null)
 
+              ->with('CatalogoEstatusInves', $CatalogoEstatusInves)
+              
+              ->with('CatalogoEstatusInvesSelected', $request->EstatusInvesId)
+
+              ->with('ComentarioInves',  $request->ComentarioInves)
+
               ->with("action","edit");
 
             }
-
-                // Documentos Update
-
-    
-
-
-
-                // clearstatcache();
-
-                // return response()->json(['status_alta' => 'success']); 
-
-                // return redirect('/CatalogoInvestigadores')->with(['success' =>  'El registro se actualizó con éxito ',
-
-                //         'type'    => 'success']);
-
-                // if($request->input('IdRol')==4){
-
-                //     v
-
-                //     ->with(['success' =>  'El registro se actualizó con éxito',
-
-                //         'type'    => 'success']);
-
-                // }else{
-
-                //     return redirect('/CatalogoAnalistas')
-
-                // ->with(['success' =>  'El registro se actualizó con éxito',
-
-                //     'type'    => 'success']);
-
-                // }
-
-        // } catch (\Exception $e) {
-
-        //     return redirect('/CatalogoInvestigadores')->with(['success' =>  "Se ha producido una excepción. Los detalles son los siguientes:".$e->getMessage()." ".$e->getLine(),
-
-        //                 'type'    => 'error']);
-
-           
-
-        // }
-
-
-
-
 
     }
 
@@ -5107,7 +4700,6 @@ class EmpleadosController extends Controller
 
         $ResMA=RegionesxInv::select('IdRegInv')->where('IdInvestigador', $inv)->get();
 
-        // return array($inv,$arr,$ResMA);
 
         //CREACION SI NO SE HA ASIGNADO NINGUNA REGION
 
@@ -5276,11 +4868,6 @@ class EmpleadosController extends Controller
             }
 
         }
-
-    
-
-        // return array($iqry,$ir,$ir);
-
         //FIN ASIGNACION DE REGIONES POR INVESTIGADOR
 
 
@@ -5290,19 +4877,6 @@ class EmpleadosController extends Controller
 
 
     //FIN UPDATE EMPLEADOS
-
-
-
-   /*public function actualizarDoc(Request $request, $id)
-
-    {
-
-
-
-    }*/
-
-
-
 
 
     public function destroy($id)
@@ -5315,12 +4889,18 @@ class EmpleadosController extends Controller
 
 
 
+        $AoI = DB::select("select EstatusEmpleadosId s from master_ese_empleado where IdEmpleado = $id");
+        
         foreach ($catp as $ctp) {
 
             $IdRol = $ctp->IdRol;
 
         }
 
+        if($AoI[0]->s == 1 ||$AoI[0]->s == "1")
+            $AoIN = 2;
+        else
+            $AoIN = 1;
 
 
         try {
@@ -5329,7 +4909,9 @@ class EmpleadosController extends Controller
 
           array(
 
+             'EstatusEmpleadosId'=>$AoIN,
               "IdEmpleado" => $id
+
 
           )
 
@@ -5351,7 +4933,7 @@ class EmpleadosController extends Controller
 
               return redirect('CatalogoInvestigadores')
 
-              ->with(['success' => ' El registro se eliminó con éxito',
+              ->with(['success' => ' El registro se actualizo con éxito',
 
                   'type'    => 'success']);
 
@@ -5576,34 +5158,6 @@ class EmpleadosController extends Controller
         $responseData = json_decode($geocodeResponseData, true);
 
         echo $googleMapUrl;
-
-      //   if($responseData['status']=='OK') {
-
-      //       $latitude = isset($responseData['results'][0]['geometry']['location']['lat']) ? $responseData['results'][0]['geometry']['location']['lat'] : "";
-
-      //       $longitude = isset($responseData['results'][0]['geometry']['location']['lng']) ? $responseData['results'][0]['geometry']['location']['lng'] : "";
-
-      //       $formattedAddress = isset($responseData['results'][0]['formatted_address']) ? $responseData['results'][0]['formatted_address'] : "";
-
-      //       if($latitude && $longitude && $formattedAddress) {
-
-      //           $geocodeData = array($latitude,$longitude,$formattedAddress);
-
-      //           return $geocodeData;
-
-      //       } else {
-
-      //           return false;
-
-      //       }
-
-      //   } else {
-
-      //       echo "ERROR: {$responseData['status']}";
-
-      //       return false;
-
-      //   }
 
     }
 

@@ -202,7 +202,7 @@ try{
                 '    LEFT JOIN centros_negocio   ON centros_negocio.id = crm_contratos.id_cn '.
                 '    WHERE  centros_negocio.id = ? ';
         
-        return  DB::select($query,[$id_cn]);
+        return  "DB::select($query,[$id_cn])";
     }
      public function downloadWord(Request $request,$id_contrato)
     {

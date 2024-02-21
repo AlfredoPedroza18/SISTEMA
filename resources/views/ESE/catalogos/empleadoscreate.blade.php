@@ -356,7 +356,7 @@
 
 								@foreach(explode(';',$Colonia) as $row)
 
-									<option @if ($ColUpdate == $row) selected	@endif value="{{ $row }}">{{ $row }}</option>
+									<option @if($ColUpdate == $row) selected	@endif value="{{ $row }}">{{ $row }}</option>
 
 								@endforeach
 
@@ -446,7 +446,7 @@
 
 					<select class="form-control" name="EstatusInvesId" id="EstatusInvesId">
 						@foreach($CatalogoEstatusInves as $row)
-							<option @if ($CatalogoEstatusInves Selected == $row->id) selected	@endif  value={{ $row->id }}>{{ $row->Descripcion }}</option>
+							<option @if ($CatalogoEstatusInves == $row->id) selected	@endif  value={{ $row->id }}>{{ $row->Descripcion }}</option>
 						@endforeach
 					</select>
 				</div>
