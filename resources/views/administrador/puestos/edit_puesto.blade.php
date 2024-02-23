@@ -395,33 +395,7 @@
                                                 },
                                             ]
                                         },
-                                        { 
-                                            id: '81', 
-                                            key: '81', 
-                                            title: 'Usuarios Clientes', 
-                                            folder:true,
-                                            @if( in_array(81, $permisos_asignados) ) selected:true, @endif
-                                            children: [
-                                                {   
-                                                    id: '82',
-                                                    key:'82',
-                                                    title: 'Crear Usuarios Clientes',
-                                                    @if( in_array(82, $permisos_asignados) ) selected:true @endif
-                                                },
-                                                {   
-                                                    id: '83',
-                                                    key:'83',
-                                                    title: 'Eliminar Usuarios Clientes',
-                                                    @if( in_array(83, $permisos_asignados) ) selected:true @endif
-                                                },
-                                                {   
-                                                    id: '84',
-                                                    key:'84',
-                                                    title: 'Editar Usuarios Clientes',
-                                                    @if( in_array(84, $permisos_asignados) ) selected:true @endif
-                                                },
-                                            ]
-                                        },
+                                        
                                         { 
                                             id: '85', 
                                             key: '85', 

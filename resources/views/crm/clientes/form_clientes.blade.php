@@ -76,6 +76,13 @@
             
 
             
+            
+
+
+
+            <br>
+
+     
 
             <legend class="pull-left width-full">Datos Prospectos </legend>
 
@@ -91,7 +98,7 @@
 
                     <div class="form-group block1">
 
-                        <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
+                        <input type="hidden" id="id_user" name="id_user" value="{{ Auth::user()->id }}">
 
                         <label>{{ Form::label('Nombre Comercial', '* Nombre Comercial') }}</label>
 
@@ -421,7 +428,60 @@
             
 
 
+            <div class="form-group block1 row col-md-12" id="usuarios_clientes_pros" @if($cliente->tipo ==1) hidden @endif>
 
+<legend class="pull-left width-full">Datos de usuario </legend>
+
+<div class="col-md-3">
+    <div class="form-group block1">
+
+        <label>{{ Form::label('nombre_de_usuario','* Nombre de usuario') }}</label>
+
+        {{ Form::text('nombre_de_usuario',$cliente_u->usuario,['class' => 'form-control','placeholder'=>'Ejemplo: usuarioDelCliente3','onblur' => 'users();','id'=>'nombre_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
+
+        <label id="alerta" nombre="alerta"></label>
+
+    </div>
+</div>
+
+<div class="col-md-3">
+    <div class="form-group block1">
+
+    <label>{{ Form::label('contrasena','* Contraseña') }}</label>
+
+    <input type="text" name="contrasena" id="contrasena" class="form-control" value="{{$cliente_u->contrasena}}">
+    <label id="alerta" nombre="alerta" value="{{$cliente_u->contrasena}}"></label>
+
+    </div>
+</div>
+
+    <div class="col-md-3">
+        <div class="form-group block1">
+
+            <label>{{ Form::label('telefono_de_usuario','* Telefono') }}</label>
+
+            {{ Form::text('telefono_de_usuario',$cliente_u->telefono,['class' => 'form-control ','placeholder'=>'Ejemplo: 921-302-0022','id'=>'telefono_de_usuario','data-parsley-group'=>'wizard-step-1','maxlength'=>'10','onblur'=>'sizeTelefonos(this)'])}}
+
+
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="form-group block1">
+
+            <label>{{ Form::label('correo_de_usuario','* Correo') }}</label>
+
+            {{ Form::text('correo_de_usuario',$cliente_u->correo,['class' => 'form-control','placeholder'=>'Ejemplo: default@gmail.com','id'=>'correo_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
+
+        </div>
+    </div>
+
+
+
+
+    <br>
+
+    </div>
 
         </fieldset>
 
@@ -1877,7 +1937,8 @@
 
             <div class="jumbotron m-b-0 text-center">
 
-                <button class="btn btn-success btn-lg" type="submit">Actualizar cliente</button></p>
+                {{ Form::button('Actualizar cliente', ['class' => 'btn btn-success btn-lg','id' => 'btn-alta-cliente']) }}</p>
+
 
             </div>
 

@@ -52,6 +52,10 @@ Route::post("setPermisoESE",'ClientesController@setRol')->name('setPermisoESE');
 
 Route::get("permisosESE{id}",'Administrador\PermisosNomController@editESE')->name('permisosESE');
 
+Route::get("correoUsuario",'ClientesController@validacion');
+
+Route::get("correoUsuarios",'ClientesController@validacions');
+
 Route::post('catalogo/clientes','ClientesController@index')->name('catalogo/clientes');
 
 Route::post('ConfiguracionCatalogoEncuesta','EncuestaClientesController@index')->name('ConfiguracionCatalogoEncuesta');

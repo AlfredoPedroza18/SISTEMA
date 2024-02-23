@@ -47,9 +47,11 @@
 		
 		<div style="width: 10px;"></div>
 
+		@if(Auth::user()->tipo!="f")
 		<div style="width: 15vw; text-align: center; display: flex; justify-content: end;" >
 		<a class="btn btn-success text-center" onclick="pdfs()"  style="height: 30px; width: 130px; text-align: center;" target="_blank">Generar Reporte</a> 
 		</div>
+		@endif
 		
 		<div style="height: 10px;"></div>
 	</div>

@@ -1139,7 +1139,11 @@ function activarLink( $url = '' )
 
                             @endpermission
 
-                            <!--li class="<{{activarLink('')}}"-->
+                            <!--
+                            22/02/2024
+                            Concepto: Funcion migrado a clientes    
+                            
+                            li class="<{{activarLink('')}}"
 
                             @permission('admin.usuarios.clientes')
 
@@ -1151,7 +1155,7 @@ function activarLink( $url = '' )
 
                             </li>
 
-                            @endpermission
+                            @endpermission-->
 
                             @permission('admin.usuariosinvestigadores')
 

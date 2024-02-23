@@ -289,18 +289,39 @@ class ClientesController extends Controller
 
             ]);
 
-
         $last_client = DB::select('SELECT id FROM clientes ORDER BY id DESC LIMIT 1');
 
         $last_user = DB::select('SELECT id FROM users ORDER BY id DESC LIMIT 1');
 
+        if($request->TipoDeCliente == 2 ){
+            $idcn_user = $request->id_cn;
+
+            $userPass =  bcrypt($request->contrasena);
+     
+             DB::insert('insert into users (name,idcn,username,email,password,password_aux,telefono_movil,tipo) values (?,?,?,?,?,?,?,?)', [$request->nombre_comercial,$idcn_user,$request->nombre_de_usuario,$request->correo_de_usuario,
+     
+             $userPass,$request->contrasena,$request->telefono_de_usuario,'c'
+     
+             ]);
+
+             DB::table('users')
+
+                ->where('id', $last_user[0]->id)
+
+                ->update(['IdCliente' => $last_client[0]->id]);
+
+            
+            DB::table('clientes')
+
+                ->where('id', $last_client[0]->id)
+
+                ->update(['id_user' => $last_user[0]->id]);
+        }
+
+        
 
 
-        DB::table('clientes')
-
-            ->where('id', $last_client[0]->id)
-
-            ->update(['id_user' => $last_user[0]->id]);
+        
 
         
 
@@ -412,10 +433,45 @@ class ClientesController extends Controller
 
 
 
-        return view('catalogo.clientes.crm-clientes',[ 'peticion' => $peticion,'cn'=>$clientes_select ]);
+        return response()->json("xd");
+
+       
 
     }
 
+    public function validacion(Request $request){
+
+        $mensaje = "Correo o nombre de usuario ya existen"; 
+        $status = "";
+
+        $users = DB::select("select count(id) as c from users where username ='{$request->usuario}' OR email = '{$request->correo} '");
+        
+        $val = $users[0]->c;
+        
+        if ($val<=0)
+            $status = "sucess";
+        else
+            $status = "error";
+
+        return response()->json(['mensaje'=>$mensaje,"status"=>$status]);
+    }
+
+    public function validacions(Request $request){
+
+        $mensaje = "Correo o nombre de usuario ya existen"; 
+        $status = "";
+
+        $users = DB::select("select count(id) as c from users where idcliente != '{$request->idCliente}' AND (username ='{$request->usuario}' OR email = '{$request->correo} ')");
+        
+        $val = $users[0]->c;
+        
+        if ($val<=0)
+            $status = "sucess";
+        else
+            $status = "error";
+
+        return response()->json(['mensaje'=>$mensaje,"status"=>$status]);
+    }
 
     public function addContacto (Request $Request){
 
@@ -1680,11 +1736,19 @@ class ClientesController extends Controller
 
         $cliente_editar = DB::select("select * from clientes where id = $id");
 
+        $clientesr = DB::select("select username AS usuario, PASSWORD_aux AS contrasena, telefono_movil AS telefono, email as correo from users where idcliente = $id");
+
         $cliente_edit = (array)$cliente_editar[0];
 
         $cliente_edit = (object) $cliente_edit;
 
-
+        if(isset($clientesr[0])){
+            $clientes_u = (array)$clientesr[0];
+ 
+             $clientes_u= (object) $clientes_u;
+         }else{
+             $clientes_u =(object) ["usuario"=>"","contrasena" => "",'telefono' => "",'correo' => ""];
+         }
 
         foreach ($cliente_editar as $editar) {
 
@@ -1926,6 +1990,8 @@ class ClientesController extends Controller
 
                     [
                     
+                    "cliente_u" =>$clientes_u,
+
                     'contratoAAAA'=>$contratoAAAA,
 
                      'tipoCliente' => $tipoCliente,
@@ -2628,6 +2694,55 @@ class ClientesController extends Controller
                     "actualizacion"=> date('y-m-d')
                 ]);
             }
+
+
+            $cliente_user = DB::select("select count(id) contar from users where idcliente = $id");
+            
+            if($request->TipoDeCliente == 2)
+            
+                {$idcn_user = $request->id_cn;
+
+                $userPass =  bcrypt($request->contrasena);
+            
+                if($cliente_user[0]->contar <= 0){
+                    
+                    
+            
+                    DB::insert('insert into users (name,idcn,username,email,password,password_aux,telefono_movil,tipo,idcliente) values (?,?,?,?,?,?,?,?,?)', [$request->nombre_comercial,$idcn_user,$request->nombre_de_usuario,$request->correo_de_usuario,
+            
+                    $userPass,$request->contrasena,$request->telefono_de_usuario,'c',$id
+            
+                    ]);
+
+                }else{
+                  
+                    DB::table('users')
+
+                    ->where('idcliente', $id)
+
+                    ->update([
+
+                        'idcn' =>$idcn_user,
+                        'username'=>$request->nombre_de_usuario,
+                        'email'=>$request->correo_de_usuario,
+                        'password'=>$userPass,
+                        'password_aux'=>$request->contrasena,
+                        'telefono_movil'=>$request->telefono_de_usuario
+                        
+                    ]);
+                    
+                }
+
+                $userio = DB::select("select id from users where idcliente = $id");
+                $response =   DB::table('clientes')
+
+                ->where('id', $id)
+
+                ->update([
+                    "id_user"=>$userio[0]->id
+                ]);
+            }
+
             $response =   DB::table('clientes')
 
             ->where('id', $id)
@@ -2749,15 +2864,7 @@ class ClientesController extends Controller
 
 
 
-        return redirect()
-
-                    ->route('sig-erp-crm::clientes.index')
-
-                    ->with(['success' =>  'el registro se actualizó con éxitoooo',
-
-                            'type'    => 'success'
-
-                        ]);
+        return response()->json("xd");
 
 
 

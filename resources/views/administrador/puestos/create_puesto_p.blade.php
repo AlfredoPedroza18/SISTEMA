@@ -708,33 +708,7 @@
                                                 },
                                             ]
                                         },
-                                        { 
-                                            id: '81', 
-                                            key: '81', 
-                                            title: 'Usuarios Clientes', 
-                                            folder:true,
-                               
-                                            children: [
-                                                {   
-                                                    id: '82',
-                                                    key:'82',
-                                                    title: 'Crear Usuarios Clientes',
-                                                   
-                                                },
-                                                {   
-                                                    id: '83',
-                                                    key:'83',
-                                                    title: 'Eliminar Usuarios Clientes',
-                                                 
-                                                },
-                                                {   
-                                                    id: '84',
-                                                    key:'84',
-                                                    title: 'Editar Usuarios Clientes',
-                                      
-                                                },
-                                            ]
-                                        },
+                                    
                                         { 
                                             id: '85', 
                                             key: '85', 

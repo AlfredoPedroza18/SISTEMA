@@ -276,7 +276,7 @@ class NuevaOSController extends Controller
         inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
         INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
         INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-        WHERE srve.IdServicioEse=? and c.Etiqueta = 'documentación' order by mee.orden asc;",[$IdServicioEse]);
+        WHERE srve.IdServicioEse=? and c.Etiqueta = 'documentación' order by srve.Indice,mee.orden;",[$IdServicioEse]);
 
         $o=0;
         foreach($resultActual as $ou){
@@ -385,7 +385,7 @@ class NuevaOSController extends Controller
         inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
         INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
         INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-        WHERE srve.IdServicioEse=? and c.Etiqueta = 'documentación' order by mee.orden asc;",[$IdServicioEse]);
+        WHERE srve.IdServicioEse=? and c.Etiqueta = 'documentación' order by srve.Indice,mee.orden;",[$IdServicioEse]);
 
         $AnioActaNacimineto = "";
         $AplicaActaNacimineto = "";
@@ -528,7 +528,7 @@ class NuevaOSController extends Controller
         inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
         INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
         INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-        WHERE srve.IdServicioEse=? and c.Etiqueta = 'escolaridad' order by mee.orden asc;",[$IdServicioEse]);
+        WHERE srve.IdServicioEse=? and c.Etiqueta = 'escolaridad' order by srve.Indice,mee.orden;",[$IdServicioEse]);
 
         $EscolaridadObservaciones=" ";
         $EscolaridadIdioma=[" "," "];
@@ -582,7 +582,7 @@ class NuevaOSController extends Controller
         inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
         INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
         INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-        WHERE srve.IdServicioEse=? and c.Etiqueta = 'SITUACIÓN SOCIAL Y ECONÓMICA' order by mee.orden asc;",[$IdServicioEse]);
+        WHERE srve.IdServicioEse=? and c.Etiqueta = 'SITUACIÓN SOCIAL Y ECONÓMICA' order by srve.Indice,mee.orden;",[$IdServicioEse]);
 
 
             $ComentarioAnalista='';
@@ -794,7 +794,7 @@ class NuevaOSController extends Controller
         inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
         INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
         INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-        WHERE srve.IdServicioEse=? and c.Etiqueta = 'REFERENCIAS PERSONALES' order by mee.orden asc;",[$IdServicioEse]);
+        WHERE srve.IdServicioEse=? and c.Etiqueta = 'REFERENCIAS PERSONALES' order by srve.Indice,mee.orden;",[$IdServicioEse]);
 
         $RefPerAplica=["","",""];
         $RefPerComentarios=["","",""];
@@ -838,7 +838,7 @@ class NuevaOSController extends Controller
         inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
         INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
         INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-        WHERE srve.IdServicioEse=? and c.Etiqueta = 'Antecedentes legales' order by mee.orden asc;",[$IdServicioEse]);
+        WHERE srve.IdServicioEse=? and c.Etiqueta = 'Antecedentes legales' order by srve.Indice,mee.orden;",[$IdServicioEse]);
 
         $AntLegDescripcion="";
         $AntLegAlgunaVezFueDetenido="";
@@ -876,7 +876,7 @@ class NuevaOSController extends Controller
          inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
          INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
          INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-         WHERE srve.IdServicioEse=? and c.Etiqueta = 'Trayectoria Laboral' order by mee.orden asc;",[$IdServicioEse]);
+         WHERE srve.IdServicioEse=? and c.Etiqueta = 'Trayectoria Laboral' order by srve.Indice,mee.orden;",[$IdServicioEse]);
 
             $TrayecLaboralAplica=["","","","","",""];
             $TrayecLaboralCausa=["","","","","",""];
@@ -1124,16 +1124,7 @@ class NuevaOSController extends Controller
                 $mes = $meses[$i-1];
             }
         }
-        if($telefonoA!=""){
-                $arr1 = str_split($telefonoA);
-                $telefonoA = "";
-                for($i=0;$i<count($arr1); $i++){
-                    if($i==3||$i==6){
-                        $telefonoA .= '-';
-                    }
-                    $telefonoA .= $arr1[$i];
-                }
-            }
+     
 
           $clientes= DB::select("select s.*, (SELECT c.nombre_comercial as Nombre from clientes as c where c.id = s.IdCliente) as Cliente,
           (select os.IdServicioOS from master_ese_srv_os as os where os.IdServicioSRV = s.IdServicioEse ) as enlace
@@ -5418,11 +5409,11 @@ public function GuardarEstudioInput2(Request $request)
         Inner Join master_ese_agrupador ON master_ese_agrupador.IdContenedor = master_ese_contenedor.IdContenedor
         Inner Join master_ese_entrada ON master_ese_entrada.IdAgrupador = master_ese_agrupador.IdAgrupador
         Inner Join master_ese_srv_entrada ON master_ese_srv_entrada.IdEntrada = master_ese_entrada.IdEntrada
-        Where master_ese_srv_entrada.IdServicioEse = :IdServicioEse and master_ese_srv_entrada.VisibleForms=1 
+        Where master_ese_srv_entrada.IdServicioEse = ? and master_ese_srv_entrada.VisibleForms=1 
         and master_ese_contenedor.Etiqueta != 'DOCUMENTACIÓN'
         and master_ese_contenedor.Etiqueta != 'FOTOS DEL DOMICILIO'
         and master_ese_contenedor.Etiqueta != 'CROQUIS DE UBICACIÓN DEL DOMICILIO'
-        order by master_ese_contenedor.Orden, master_ese_agrupador.Orden", [":IdServicioEse"=>$IdServicioEse]);
+        order by master_ese_contenedor.Orden, master_ese_agrupador.Orden", [$IdServicioEse]);
 
         $grupos=str_replace('|','"',$grupos[0]->Grupo);
         $grupos=explode(",",$grupos);
@@ -5437,7 +5428,7 @@ public function GuardarEstudioInput2(Request $request)
         $grupos=str_replace('"','',implode(",",$grupos));
         $grupos = $this->replaceAccents($grupos);
 
-        $result = DB::select("SELECT getjsonResumenEstudio(:id,:grupos) as resultJson", [":id"=>$IdServicioEse,":grupos"=>$grupos]);
+        $result = DB::select("SELECT getjsonResumenEstudio(?,?) as resultJson", [$IdServicioEse,$grupos]);
 
       $opt=json_decode($result[0]->resultJson,true);
       $indiceActual=$opt['indiceActualValor'];
@@ -5524,13 +5515,13 @@ public function GuardarEstudioInput2(Request $request)
             $resultAnterior= DB::select("SELECT CONCAT('{',  GROUP_CONCAT( CONCAT(
                      CONCAT('|',IF(srve.Indice > 0 ,
                      CONCAT(mee.CampoNombre, srve.Indice) ,mee.CampoNombre),'Valor','|', ':'),  
-                     CONCAT('|',CAST(IF(srve.ValorCargado IS NULL OR srve.ValorCargado = '', '', srve.ValorCargado) AS char),'|') ) ) order by srve.Indice,mee.orden),'}')as empleoE
+                     CONCAT('|',CAST(IF(srve.ValorCargado IS NULL OR srve.ValorCargado = '', '', srve.ValorCargado) AS char),'|')  ) order by srve.Indice,mee.orden),'}')as empleoE
             FROM master_ese_srv_entrada srve 
             inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
             INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
             INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-            where srve.IdServicioEse=:IdServicioEse and c.Etiqueta = 'TRAYECTORIA LABORAL' and FIND_IN_SET(srve.Indice, :indice)
-            order by srve.Indice,mee.orden",['IdServicioEse' => $IdServicioEse,'indice' => $indiceAnterior]);
+            where srve.IdServicioEse=? and c.Etiqueta = 'TRAYECTORIA LABORAL' and FIND_IN_SET(srve.Indice, ?)
+            order by srve.Indice,mee.orden",[$IdServicioEse, $indiceAnterior]);
 
             $resultAnterior=str_replace('|','"',$resultAnterior[0]->empleoE);
             $trAnterior=json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $resultAnterior), true);

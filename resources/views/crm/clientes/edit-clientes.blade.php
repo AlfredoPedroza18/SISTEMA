@@ -68,7 +68,7 @@
 
 
 
-                        <form id="formulario" method="POST" action="{{url('clientes/editar/edit'. $cliente->id)}}" enctype="multipart/form-data">
+                        <form id="formulario_up" method="POST" action="{{url('clientes/editar/edit'. $cliente->id)}}" enctype="multipart/form-data">
 
                          @include('crm.clientes.form_clientes')
 
@@ -279,6 +279,145 @@ $(document).ready(function(){
 
 
 
+   $('#btn-alta-cliente').click(function(){
+
+      var usuario = $('#nombre_de_usuario').val();
+      var correo = $('#correo_de_usuario').val();
+      var idCliente =  {{$cliente->id}};
+      $.ajax({
+
+      // headers: {'X-CSRF-TOKEN':token},
+
+        url: '{{ url('correoUsuarios') }}',
+
+        type:'GET',
+
+        data: {usuario:usuario,correo:correo,idCliente:idCliente},
+
+        success: function(response){
+
+          if(response.status == "error")
+            swal({
+
+              title: "<h4>¡"+ response.mensaje +"lll!</h4> ",
+              html: true,
+              type: "error"
+
+            });
+            
+          else if(response.status == "sucess"){
+
+              subir();
+          }
+
+
+          
+
+        }
+
+      });
+
+      });
+
+      function subir(){
+      var tipo = $('#TipoDeCliente').val();
+
+      if (tipo == 1 )
+      guardarCliente();
+      else if (tipo==2){
+
+      if(($('#nombre_de_usuario').val()&&$('#contrasena').val()&&$('#telefono_de_usuario').val()&&$('#correo_de_usuario').val())!="")
+      guardarCliente();
+      else { 
+        swal({
+
+            title: "<h4>¡ Llenar campos requeridos de usuario !</h4> ",
+            html: true,
+            type: "warning"
+
+            });
+      }
+      }
+      }
+
+      $('#TipoDeCliente').change(function(){
+
+      var tipo = $('#TipoDeCliente').val();
+
+      if (tipo == 1 )
+        $('#usuarios_clientes_pros').hide();
+      else if (tipo==2)
+        $('#usuarios_clientes_pros').show();
+
+      });
+
+
+      var guardarCliente = function(){
+
+      var datos = $("#formulario_up").serialize();
+
+      var token = $('meta[name="csrf-token"]').attr('content');
+      
+      
+      $.ajax({
+
+          headers: {'X-CSRF-TOKEN':token},
+
+          url:'{{url('clientes/editar/edit'.$cliente->id)}}',
+
+          type:'POST',
+
+          dataType: 'json',
+
+          data: datos,
+
+          success: function(){
+                  //setTimeout(function(){     location.reload();   }, 1000);
+                  swal({
+
+                      title: "<h3>¡ El registro se Actualizo con éxito !</h3> ",
+
+                      html: true,
+
+                      data: "",
+
+                      type: "success"
+
+
+
+                      });
+
+                      setTimeout(function(){
+
+                          location.href = '{{ route("sig-erp-crm::clientes.index") }}';
+
+                      });
+              },
+
+          error : function(jqXHR, status, error) {
+
+                  // swal('Disculpe, existió un problema comuniquese con el equipo de desarrollo1');
+                  swal({
+
+                  title: "<h3>¡  error " +error+ " "+status+" "+jqXHR+ "!</h3> ",
+
+                  html: true, 
+
+                  data: "",
+
+                  type: "error"
+
+
+
+                  });
+
+          }
+
+      });
+
+
+
+  }
    $('#medio_contacto').change(function(){
 
 

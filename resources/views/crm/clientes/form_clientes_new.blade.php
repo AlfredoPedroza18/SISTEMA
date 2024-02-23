@@ -74,7 +74,7 @@
 
 
 
-                                            
+                                        
                                            <hr>
 
 
@@ -435,8 +435,63 @@
 
                                               </div>
 
+                                              
                                               <!-- end row -->
 
+                                              <div class="form-group block1 row col-md-12" id="usuarios_clientes_pros" >
+
+                                                <legend class="pull-left width-full">Datos de usuario </legend>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group block1">
+
+                                                        <label>{{ Form::label('nombre_de_usuario','* Nombre de usuario') }}</label>
+
+                                                        {{ Form::text('nombre_de_usuario','',['class' => 'form-control','placeholder'=>'Ejemplo: usuarioDelCliente3','onblur' => 'users();','id'=>'nombre_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
+
+                                                        <label id="alerta" nombre="alerta"></label>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group block1">
+
+                                                    <label>{{ Form::label('contrasena','* Contraseña') }}</label>
+
+                                                    <input type="text" name="contrasena" id="contrasena" class="form-control">
+                                                    <label id="alerta" nombre="alerta"></label>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group block1">
+
+                                                        <label>{{ Form::label('telefono_de_usuario','* Telefono') }}</label>
+
+                                                        {{ Form::text('telefono_de_usuario','',['class' => 'form-control phone_with_ddd','placeholder'=>'Ejemplo: 921-302-0022','id'=>'telefono_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group block1">
+
+                                                        <label>{{ Form::label('correo_de_usuario','* Correo') }}</label>
+
+                                                        {{ Form::text('correo_de_usuario','',['class' => 'form-control','placeholder'=>'Ejemplo: default@gmail.com','id'=>'correo_de_usuario','data-parsley-group'=>'wizard-step-1'])}}
+
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <br>
+
+                                            </div>
                                             
 
 										</fieldset>
@@ -1870,7 +1925,7 @@
 
                                             
 
-                                             {{ Form::button('Guardar cliente', ['class' => 'btn btn-success btn-lg','id' => 'btn-alta-cliente','type'=>'submit']) }}</p>
+                                             {{ Form::button('Guardar cliente', ['class' => 'btn btn-success btn-lg','id' => 'btn-alta-cliente']) }}</p>
 
                                         </div>
 

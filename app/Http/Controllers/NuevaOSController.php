@@ -5396,16 +5396,16 @@ class NuevaOSController extends Controller
       }
       if($indiceAnterior!=null){
 
-            $resultAnterior= DB::select("SELECT CONCAT('{',  GROUP_CONCAT( CONCAT(
-                     CONCAT('|',IF(srve.Indice > 0 ,
-                     CONCAT(mee.CampoNombre, srve.Indice) ,mee.CampoNombre),'Valor','|', ':'),  
-                     CONCAT('|',CAST(IF(srve.ValorCargado IS NULL OR srve.ValorCargado = '', '', srve.ValorCargado) AS char),'|') ) ) order by srve.Indice,mee.orden),'}')as empleoE
-            FROM master_ese_srv_entrada srve 
-            inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
-            INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
-            INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-            where srve.IdServicioEse=:IdServicioEse and c.Etiqueta = 'TRAYECTORIA LABORAL' and FIND_IN_SET(srve.Indice, :indice)
-            order by srve.Indice,mee.orden",['IdServicioEse' => $IdServicioEse,'indice' => $indiceAnterior]);
+                $resultAnterior= DB::select("SELECT CONCAT('{',  GROUP_CONCAT( CONCAT(
+                    CONCAT('|',IF(srve.Indice > 0 ,
+                    CONCAT(mee.CampoNombre, srve.Indice) ,mee.CampoNombre),'Valor','|', ':'),  
+                    CONCAT('|',CAST(IF(srve.ValorCargado IS NULL OR srve.ValorCargado = '', '', srve.ValorCargado) AS char),'|') ) ) order by srve.Indice,mee.orden),'}')as empleoE
+        FROM master_ese_srv_entrada srve 
+        inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
+        INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
+        INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
+        where srve.IdServicioEse=:IdServicioEse and c.Etiqueta = 'TRAYECTORIA LABORAL' and FIND_IN_SET(srve.Indice, :indice)
+        order by srve.Indice,mee.orden",['IdServicioEse' => $IdServicioEse,'indice' => $indiceAnterior]);
 
             $resultAnterior=str_replace('|','"',$resultAnterior[0]->empleoE);
             $trAnterior=json_decode(preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $resultAnterior), true);

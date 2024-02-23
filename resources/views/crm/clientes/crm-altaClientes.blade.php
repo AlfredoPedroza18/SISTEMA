@@ -54,7 +54,7 @@
 
 
 
-                            <form method="POST" action="{{url('clientes/crear')}}">
+                            <form method="POST" id="alta-Cliente">
 
                           @include('crm.clientes.form_clientes_new')
 
@@ -1617,9 +1617,77 @@ $(document).ready(function(){
   },500);
 
 
+  $('#btn-alta-cliente').click(function(){
+
+      var usuario = $('#nombre_de_usuario').val();
+      var correo = $('#correo_de_usuario').val();
+      var idCliente = $('#id_user').val();
+      $.ajax({
+
+    // headers: {'X-CSRF-TOKEN':token},
+
+        url: '{{ url('correoUsuarios') }}',
+
+        type:'GET',
+
+        data: {usuario:usuario,correo:correo,idCliente:idCliente},
+
+        success: function(response){
+
+          if(response.status == "error")
+            swal({
+
+              title: "<h4>¡"+ response.mensaje +"lll!</h4> ",
+              html: true,
+              type: "error"
+
+            });
+            
+          else if(response.status == "sucess"){
+
+              subir();
+          }
 
 
+          
 
+        }
+
+      });
+     
+  });
+
+  function subir(){
+    var tipo = $('#TipoDeCliente').val();
+
+    if (tipo == 1 )
+      guardarCliente();
+    else if (tipo==2){
+
+      if(($('#nombre_de_usuario').val()&&$('#contrasena').val()&&$('#telefono_de_usuario').val()&&$('#correo_de_usuario').val())!="")
+      guardarCliente();
+      else { 
+        swal({
+
+            title: "<h4>¡ Llenar campos requeridos de usuario !</h4> ",
+            html: true,
+            type: "warning"
+
+            });
+      }
+    }
+  }
+
+  $('#TipoDeCliente').change(function(){
+
+      var tipo = $('#TipoDeCliente').val();
+
+      if (tipo == 1 )
+        $('#usuarios_clientes_pros').hide();
+      else if (tipo==2)
+        $('#usuarios_clientes_pros').show();
+
+  });
   /*$('#curp').focus(function(){
 
         var nombre       = omitirAcentos($('#nombre').val());
@@ -2182,7 +2250,7 @@ function EnterCpDC(e) {
 
 var guardarCliente = function(){
 
-  var datos = $("#frm-alsta-cliente").serialize();
+  var datos = $("#alta-Cliente").serialize();
 
         var token = $('meta[name="csrf-token"]').attr('content');
 
@@ -2190,7 +2258,7 @@ var guardarCliente = function(){
 
             headers: {'X-CSRF-TOKEN':token},
 
-            url:'{{ url('clientes') }}',
+            url:"{{url("clientes/crear")}}",
 
             type:'POST',
 
@@ -2198,59 +2266,30 @@ var guardarCliente = function(){
 
             data: datos,
 
-            success: function(response){
-
-
-
-                   swal(''+response.status_alta);
-
-                    if(response.status_alta == 'success'){
-
-                        swal({
-
-                                title: "<h3>¡ El registro se guardo con éxito !</h3> ",
-
-                                html: true,
-
-                                data: datos,
-
-                                type: "success"
-
-
-
-                            });
-
-                      setTimeout(function(){
-
-                                    location.href = '{{ route("sig-erp-crm::clientes.index") }}';
-
-                                });
-
-                    }else if(response.status_alta == 'wrong'){
-
-                        swal({
-
-                                title: "<h3>¡ El registro NO se guardo con éxito !</h3> ",
-
-                                html: true,
-
-                                type: "warning",
-
-                                confirmButtonText: "OK"
-
-                            });
-
-                    }
-
-
-
+            success: function(){
                     //setTimeout(function(){     location.reload();   }, 1000);
+                    swal({
 
+                        title: "<h3>¡ El registro se guardo con éxito !</h3> ",
+
+                        html: true,
+
+                        data: "",
+
+                        type: "success"
+
+
+
+                        });
+
+                        setTimeout(function(){
+
+                            location.href = '{{ route("sig-erp-crm::clientes.index") }}';
+
+                        });
                 },
 
             error : function(jqXHR, status, error) {
-
-
 
                     // swal('Disculpe, existió un problema comuniquese con el equipo de desarrollo1');
 
@@ -2953,8 +2992,7 @@ var guardarCliente = function(){
 
 								$("#alerta").html("<label style='color:#ffa100;'> <strong> Nombre de usuario ya existe </strong> </label>");
 
-								document.getElementById("nombre_de_usuario").focus();
-
+								
 						}else{
 
 							$("#alerta").html("");
