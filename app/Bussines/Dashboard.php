@@ -174,7 +174,7 @@ class Dashboard
         INNER JOIN master_ese_srv_dictamen_inv inv1 ON inv1.IdServicioEse = ms.IdServicioEse
 		  WHERE inv1.Estatus = inv.Estatus";
 
-        $dataRespuestaAgend = "SELECT (DATEDIFF(po.FechaEjecucion,ms.FechaCreacion)-1) as desface
+        $dataRespuestaAgend = "SELECT (DATEDIFF(po.FechaEjecucion,ms.FechaCreacion)) as desface
         FROM users u
      INNER JOIN clientes c ON c.id = u.IdCliente
      INNER JOIN master_ese_srv_servicio ms ON u.IdCliente = ms.IdCliente
@@ -1175,7 +1175,7 @@ INNER JOIN master_ese_srv_asignacion sa ON ms.IdServicioEse = sa.IdServicioEse
 
 
         $dataRespuestaAgend = "
-        SELECT (DATEDIFF(po.FechaEjecucion,ms.FechaCreacion)-1) as desface
+        SELECT (DATEDIFF(po.FechaEjecucion,ms.FechaCreacion)) as desface
         FROM users u
             INNER JOIN clientes c ON c.id = u.IdCliente
             INNER JOIN master_ese_srv_servicio ms ON u.IdCliente = ms.IdCliente

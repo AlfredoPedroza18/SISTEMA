@@ -44,8 +44,6 @@
 
                         <form id="form-alta-departamento">
 
-                       
-
                           @include('administrador.departamentos.alta-departamento')
 
                         </form>
@@ -113,15 +111,7 @@
 
 
 
-$("#form-alta-departamento").on("submit",function(event){
 
-	event.preventDefault();
-
-	guardarCliente();
-
-
-
-});
 
 
 

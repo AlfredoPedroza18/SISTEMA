@@ -12,7 +12,9 @@ use DB;
 
 class NotificaWeb extends Controller
 {
+
     public function notificacion(){
+
       
       $datos="";$val=0;$not="";$leido="";
       $user = \Auth::user();
@@ -21,20 +23,40 @@ class NotificaWeb extends Controller
             if(TIMESTAMPDIFF(HOUR, TIME(n.Fecha), TIME(NOW())) = 0,
                Concat(TIMESTAMPDIFF(MINUTE , TIME(n.Fecha), TIME(NOW())),' Minutos'), Concat(TIMESTAMPDIFF(HOUR, TIME(n.Fecha), TIME(NOW())),' Horas') ),
             Concat(TIMESTAMPDIFF(DAY, DATE(n.Fecha), DATE(NOW())),' Días')) as tiempo
-        from master_ese_notificaciones_web as n where n.Leido = 0 AND n.fecha <= NOW() AND n.IdUsuario = $user->id order by Fecha desc");
+        from master_ese_notificaciones_web as n where n.Leido = 0 and n.IdUsuario = $user->id order by Fecha desc");
 
         foreach ($query as $g) {
           $val++;
           $not.="<li class='media'>
                <div class='row'>
-               <button class='fondo' ";
-               
-          
-          if($g->IdEse != 0)  
-              $not .= "onclick='enlace($g->IdNotificacion,$g->IdEse);'";
-          
-          
-          $not .=" >
+               <button class='fondo' onclick='enlace($g->IdNotificacion,$g->IdEse);' >
+                 <div class='media-left col-sm-2'><i class='fa fa-bullhorn media-object bg-blue'></i></div>
+                 <div class='col-sm-10'>
+                     <h6 class='media-heading'> $g->Titulo </h6>
+                     <div  style='color:#000;' >
+                        $g->Mensaje
+                     </div>
+                     <div class='text-muted f-s-11'> hace $g->tiempo</div>
+                 </div>
+
+                 </button>
+               <div>
+
+         </li>";
+        }
+
+        $query2 = DB::select("select n.*,
+        if( TIMESTAMPDIFF(DAY, DATE(n.Fecha), DATE(NOW())) = 0,
+            if(TIMESTAMPDIFF(HOUR, TIME(n.Fecha), TIME(NOW())) = 0,
+               Concat(TIMESTAMPDIFF(MINUTE , TIME(n.Fecha), TIME(NOW())),' Minutos'), Concat(TIMESTAMPDIFF(HOUR, TIME(n.Fecha), TIME(NOW())),' Horas') ),
+            Concat(TIMESTAMPDIFF(DAY, DATE(n.Fecha), DATE(NOW())),' Días')) as tiempo
+        from master_ese_notificaciones_web as n where n.Leido = 0 AND n.fecha <= NOW() AND n.IdUsuario = $user->id AND idEse = 0 order by Fecha desc");
+
+        foreach ($query2 as $g) {
+          $val++;
+          $not.="<li class='media'>
+               <div class='row'>
+               <button class='fondo'  >
                  <div class='media-left col-sm-2'><i class='fa fa-bullhorn media-object bg-blue'></i></div>
                  <div class='col-sm-10'>
                      <h6 class='media-heading'> $g->Titulo </h6>

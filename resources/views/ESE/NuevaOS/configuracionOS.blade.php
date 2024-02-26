@@ -2839,7 +2839,7 @@
                       $("#Asignada").removeClass('normal');
                       $("#Asignada").addClass('verde');
                       $('#IdServicioEse').val(response.IdServicioEse);
-                    
+                      console.log(response);
                   }
                   else if(response.status_alta == 'error'){
                       swal({
@@ -2851,7 +2851,7 @@
                       $("#Asignada").removeClass('normal');
                       $("#Asignada").addClass('verde');
                       $('#IdServicioEse').val(response.IdServicioEse);
-                      console.log(response.message);
+                      console.log(response);
                  
                   }
                   else{
@@ -3193,6 +3193,7 @@
                         type: "warning",
                         confirmButtonText: "OK"
                     });
+                    console.log(response);
                 }else{
                     if(Estatus=="Cerrado"){
                       console.log("cerrado"+response.resultadoConteoColor);

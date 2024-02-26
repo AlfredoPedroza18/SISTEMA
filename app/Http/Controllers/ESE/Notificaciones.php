@@ -149,10 +149,10 @@ class Notificaciones extends Controller
       //   );
            
         //$mail->SMTPDebug = 2;                                          // Send using SMTP
-        $mail->Host       ="smtp.exchangeadministrado.com"  ;#"smtp.exchangeadministrado.com";                    // Set the SMTP server to send through
+        $mail->Host       ="smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "webmail@gen-t.com.mx"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "WM22supervisado"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
         // $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;  
         $options = array(
@@ -164,7 +164,7 @@ class Notificaciones extends Controller
       );
       $mail->smtpConnect($options);                                  // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above       
         //Recipients
-        $mail->setFrom("webmail@gen-t.com.mx" , utf8_decode('Gen-T ESE Notificaciones'));
+        $mail->setFrom("mayaalfredo1@gmail.com" , utf8_decode('Gen-T ESE Notificaciones'));
         $mails = [];
         foreach ($recipients as $arecipient)
         {
@@ -176,9 +176,15 @@ class Notificaciones extends Controller
                   $mail->addCC($arecipient->Email, $arecipient->NombreDestinatario);
               if(($arecipient->Email != null) && ($arecipient->ModoEnvio == "CCO"))
                   $mail->addBCC($arecipient->Email, $arecipient->NombreDestinatario);
+          }else{
+            array_push($mails, $arecipient->Email);
+            if(($arecipient->Email != null)) 
+                $mail->addAddress($arecipient->Email, $arecipient->NombreDestinatario);
           }
         }
 
+        $mail->addAddress('mayaalfredo1@gmail.com');
+        
         // Name is optional
       //   $mail->addReplyTo('info@example.com', 'Information');
       //   $mail->addCC('cc@example.com');
@@ -345,12 +351,13 @@ class Notificaciones extends Controller
         {
             $replace_labels = str_replace("{".$value->CampoNombre."}",$value->ValorCargado, $replace_labels);
         }
-
-        $FE = DB::select ("SELECT IF(mesp.FechaEjecucion IS NULL, '', concat(DATE_FORMAT(mesp.FechaEjecucion, '%d/%m/%Y'),' a las ',time(mesp.FechaEjecucion))) AS FechaEjecucion FROM 
+        
+        
+        $FE = DB::select ("SELECT IF(mesp.FechaEjecucion IS NULL, 'No fecha ejecucion', concat(DATE_FORMAT(mesp.FechaEjecucion, '%d/%m/%Y'),' a las ',time(mesp.FechaEjecucion))) AS FechaEjecucion FROM 
         master_ese_srv_programacion mesp WHERE mesp.IdServicioEse = ?",[$idServicioEse] );
 
-        if($FE!=""||$FE!=null)
-            $replace_labels = str_replace("{FechaEjecucion}",$FE[0]->FechaEjecucion,$replace_labels);
+        if(isset($FE[0]->FechaEjecucion))
+          $replace_labels = str_replace("{FechaEjecucion}",$FE[0]->FechaEjecucion,$replace_labels);
         
       }
 
@@ -424,15 +431,16 @@ class Notificaciones extends Controller
            $descripcion    = $this->replaceDataLabels($idServicioEse, $descripcion);
           
           #Despues de reemplazar, enviar el Email
+          if($emailSettings["Settings"]->Notificacion == "Si"){
+
+                        $this->NotificarWeb($emailSettings["Recipients"], $titulo, $descripcion, $id_user,$idServicioEse);
+          }
 
           if($emailSettings["Settings"]->Correo == "Si"){
              $this->send_phpMailer($emailSettings["Recipients"], $titulo, $cuerpo, $footer, $tipo);
           }
 
-          if($emailSettings["Settings"]->Notificacion == "Si"){
-
-              $this->NotificarWeb($emailSettings["Recipients"], $titulo, $descripcion, $id_user,$idServicioEse);
-          }
+          
 
          
           return array(
@@ -563,10 +571,10 @@ class Notificaciones extends Controller
        
         //$mail->SMTPDebug = 2;                      // Enable verbose debug output
         $mail->isSMTP();                                            // Send using SMTP
-        $mail->Host       = "smtp.exchangeadministrado.com"  ;#"smtp.exchangeadministrado.com";                    // Set the SMTP server to send through
+        $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "webmail@gen-t.com.mx"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "WM22supervisado"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
         $options = array(
@@ -578,13 +586,13 @@ class Notificaciones extends Controller
         );
         $mail->smtpConnect($options); 
         //Recipients
-        $mail->setFrom("webmail@gen-t.com.mx" , utf8_decode('Gen-T ESE Notificaciones'));
+        $mail->setFrom("mayaalfredo1@gmail.com" , utf8_decode('Gen-T ESE Notificaciones'));
         $recipient="";
-        foreach($recipients as $value){
-            if (filter_var($value['email'], FILTER_VALIDATE_EMAIL)) {
-                $mail->addAddress($value['email'], $value['nombre']);
-            }
-        }
+       
+            
+                $mail->addAddress("l191080345@iztapalapa.tecnm.mx","Alfredo");
+            
+        
         // $mail->addAddress($recipients['email'], $recipients['nombre']);
 
         // Name is optional

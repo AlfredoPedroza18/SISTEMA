@@ -2586,7 +2586,7 @@ class NuevoOSClienteController extends Controller
               $LastLider = MasterConsultas::exeSQL("getLastLider","READONLY",array("_type"=>"lider","_idc"=>"$idc"));
               $LastLider = (count($LastLider) > 0)?$LastLider[0]->IdLider:0;
               //se asigna el id del "No aplica Investigador" cuando el tipo de modalidad es telefonica
-              $investigator = ($g->modalidad == "Telefónica") ? 1 : 0;
+              $investigator =  0;
               DB::table('master_ese_srv_asignacion')
                       ->where('IdServicioEse', $IdServicioEse)
                       ->update([
@@ -2597,10 +2597,10 @@ class NuevoOSClienteController extends Controller
                       ]);       
                 $ntf = new Notificaciones();
             if($LastLider != null)
-              //$ntf->notificaUsuarios($g->IdServicioEse,'LIDER-SOLICITUD','Lider',$LastLider);
+              $ntf->notificaUsuarios($g->IdServicioEse,'LIDER-SOLICITUD','Lider',$LastLider);
             if($idc != null) {
                 $clt = DB::select("select u.id from users u inner join master_ese_srv_servicio ms on u.IdCliente=ms.IdCliente where IdServicioEse = $IdServicioEse");
-                //$ntf->notificaUsuarios($g->IdServicioEse,'CLTE-NOTIFICACION','Cliente',$clt[0]->id);
+                $ntf->notificaUsuarios($g->IdServicioEse,'CLTE-NOTIFICACION','Cliente',$clt[0]->id);
             }
             
         }   // query de insertar nueva solicitud, cierre y cancelacion en la tabla Listado Kardex DINAMICO

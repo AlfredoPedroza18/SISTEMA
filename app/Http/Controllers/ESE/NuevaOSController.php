@@ -2319,14 +2319,15 @@ class NuevaOSController extends Controller
                         $IdUSer = DB::select("select id from users where IdEmpleado = $IdInvestigador");
                         $ntf->notificaUsuarios($IdServicioEse,'INV-ASIGNACION','Investigador',$IdUSer[0]->id);
                     }*/
-                    
+                    $xf = "";
                     if($IdAnalistaSec!=2){
                         $ntf = new Notificaciones();
-                        $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-SEC-ASIG','AnalistaSec',$IdAnalistaSec);
+                        $xf = $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-SEC-ASIG','AnalistaSec',$IdAnalistaSec);
                     }
                     return response()->json(array(
                         'status_alta' => 'success',
                         'IdServicioEse' => $IdServicioEse,
+                        "xf"=>$xf
                     ));
             }
         } catch (\Exception $e) {
@@ -2334,6 +2335,7 @@ class NuevaOSController extends Controller
                 'status_alta' => 'error',
                 'message' => $e->getMessage(),
                 'IdServicioEse' => $IdServicioEse,
+                
             ));
         }
     }
@@ -5773,6 +5775,7 @@ public function GuardarEstudioInput2(Request $request)
                 $ntf = new Notificaciones();
                 //$ntf->notificaUsuarios($IdServicioEse,'LIDER-CONFIRMACIONAN','Lider',$IdLider);
                 $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-CONFIRMACIONAN','Analista',$IdAnalista);
+                
                 if($IdAnalistaSec != null && $IdAnalistaSec != 2)
                     $ntf->notificaUsuarios($IdServicioEse,'ANALISTA-SEC-CONFIRMACIONAN','AnalistaSec',$IdAnalistaSec);
                 //$ntf->notificaUsuarios($IdServicioEse,'CLIENTE-CONFIRMACIONAN','Cliente',$clt[0]->id);
