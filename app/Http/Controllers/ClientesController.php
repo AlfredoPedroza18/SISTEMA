@@ -57,6 +57,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
 use Laminas\Validator\StringLength;
 use Mockery\Undefined;
+use Twilio\Values;
 
 class ClientesController extends Controller
 
@@ -665,53 +666,13 @@ class ClientesController extends Controller
 
 
 
-        $actividad_economica= [ "0" => 'Seleccione una opción',
+        $actividad_economica= [ ""  => 'Seleccione una opción'];
 
-            "1" => 'Animales y mascotas',
+        $actividades = DB::select("select * from actividad_economica order by actividad_economica Asc");
 
-            "2" => 'Automovilismo y transporte',
-
-            "3" => 'Belleza y masajes',
-
-            "4" => 'Negocios y consultoría',
-
-            "5" => 'Educación y cuidado infantil',
-
-            "6" => 'Construcción y contratación',
-
-            "7" => 'Entretenimiento, arte y música',
-
-            "8" => 'Servicios y orientación familiar',
-
-            "9" => 'Finanzas y seguros',
-
-            "10" => 'Alimentos, bebidas y restaurantes',
-
-            "11" => 'Salud y seguridad pública',
-
-            "12" => 'Días festivos y ocasiones especiales',
-
-            "13" => 'Mejoras y limpieza del hogar',
-
-            "14" => 'Ciencias y tecnología',
-
-            "15" => 'IT/ Ingeniería',
-
-            "16" => 'Legal y política',
-
-            "17" => 'Mercadeo y comunicaciones',
-
-            "18" => 'Bienes raíces',
-
-            "19" => 'Religioso y espiritual',
-
-            "20" => 'Comercio y ventas',
-
-            "21" => 'Deportes y fitness',
-
-            "22" => 'Viajes y hospitalidad',
-
-            "23" => 'Otros'];
+        foreach ($actividades as $a){
+            $actividad_economica[$a->id] = $a->actividad_economica; 
+        }
 
 
 
@@ -1919,42 +1880,16 @@ class ClientesController extends Controller
 
 
 
+        $actividad_economica= [ ""  => 'Seleccione una opción'];
 
+        $actividades = DB::select("select * from actividad_economica order by actividad_economica Asc");
 
+        foreach ($actividades as $a){
+            $actividad_economica[$a->id] = $a->actividad_economica; 
+        }
+        
 
-        $actividad_economica= [ ""  => 'Seleccione una opción',
-
-            "0" => 'Servicios Profesionales',
-
-            "1" => 'Servicios Públicos',
-
-            "2" => 'Servicios Privados',
-
-            "3" => 'Transporte',
-
-            "4" => 'Turismo',
-
-            "5" => 'Financiera',
-
-            "6" => 'Bancaría',
-
-            "7" => 'Educación ',
-
-            "8" => 'Salubridad',
-
-            "9" => 'Comercial',
-
-            "10" => 'Industrial',
-
-            "11" => 'Producción',
-
-            "12" => 'Fabricación',
-
-            "13" => 'Farmaceutica',
-
-
-
-            "100" => 'Otros'];
+            
 
 
 
@@ -2351,19 +2286,15 @@ class ClientesController extends Controller
 
         // $actividad_economica = [];
 
-        $actividad=DB::table('actividad_economica')
+        $actividad_economica= [ ""  => 'Seleccione una opción'];
 
-        ->select('id','actividad_economica')
+        $actividades = DB::select("select * from actividad_economica order by actividad_economica Asc");
 
-        ->orderByRaw("FIELD(id, $IdActividadEconomica) DESC")
+        foreach ($actividades as $a){
+            $actividad_economica[$a->id] = $a->actividad_economica; 
+        }
 
-        ->get();
-
-        foreach ($actividad as $act) {
-
-                    $actividad_economica[$act->id] = $act->actividad_economica;
-
-                }
+        
 
 
 

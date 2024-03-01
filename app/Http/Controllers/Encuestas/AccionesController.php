@@ -227,11 +227,7 @@ class AccionesController extends Controller
         }
         $arrayvacio=empty($buscarregistro);
 
-        if($Archivo != ""){
-            return redirect()->route('accionesNom035',['id'=>$IdCliente,'id2'=>$IdPeriodo])->with(['success' => ' El archivo ya existe para el cliente',
-            'type'=> 'danger']);
-        }else{
-
+       
             $UpdatePC = DB::table('ev_servicio_detalle')->where('IdPersonal',$IdPersonal)->where('IdEncuesta',11)->update(
                 array(
                     'Archivo'=>$base64
@@ -240,7 +236,7 @@ class AccionesController extends Controller
                      
             return redirect()->route('accionesNom035',['id'=>$IdCliente,'id2'=>$IdPeriodo])->with(['success' => ' El archivo se guardó con éxito',
             'type'    => 'success']);
-        }
+        
     }
 
     public function showPDF(Request $request){

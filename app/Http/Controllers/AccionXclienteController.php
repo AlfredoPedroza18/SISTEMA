@@ -197,7 +197,7 @@ class AccionXclienteController extends Controller
                     " contactos.celular1,".
                     " contactos.pagina_web,".
                     " clientes.status,". 
-                    " facturadoras.nombre AS empresa_facturadora". 
+                    " master_empresa.fk_titulo AS empresa_facturadora". 
                     " FROM        clientes".
                     " LEFT JOIN   centros_negocio ".
                                     "ON clientes.id_cn      = centros_negocio.id  ".
@@ -208,8 +208,8 @@ class AccionXclienteController extends Controller
                                     " ON contactos.id_cliente = clientes.id ".
                     " LEFT JOIN   tipos_clientes ".
                                     " ON tipos_clientes.id  = clientes.tipo_cliente ".
-                    " LEFT JOIN   facturadoras ".
-                                    " ON facturadoras.id  = clientes.contrato_a ".
+                    " LEFT JOIN   master_empresa ".
+                                    " ON master_empresa.idEmpresa  = clientes.contrato_a ".
 
                    " WHERE clientes.id = ? ";
                    

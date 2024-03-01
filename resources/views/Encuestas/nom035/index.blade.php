@@ -505,7 +505,7 @@
             let token = '{{csrf_token()}}';
             $.ajax({
                 url: '{{ route('getCentros') }}',
-                type: "POST",
+                type: "GET",
                 data: {
                     IdPeriodo:IdPeriodo,
                     IdCliente:IdCliente,

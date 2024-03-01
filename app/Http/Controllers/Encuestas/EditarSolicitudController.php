@@ -202,7 +202,7 @@ class EditarSolicitudController extends Controller
 
 
                     foreach($encuestas as $encuesta){
-                        $Link="https://www.sistemagent.com:8000/erp-demo/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                        $Link="https://www.sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
 
                         $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                             'IdServicio_cliente' => $idServicioCliente,
@@ -272,7 +272,7 @@ class EditarSolicitudController extends Controller
 
 
                     foreach($encuestas as $encuesta){
-                        $Link="https://www.sistemagent.com:8000/erp-demo/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                        $Link="https://sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
                         $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                             'IdServicio_cliente' => $idServicioCliente,
                             'IdEncuesta' => $encuesta->IdEncuesta,

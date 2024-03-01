@@ -63,7 +63,7 @@ class Nom035Controller extends Controller
         $IdCliente =  $request->IdCliente;
         $IdPeriodo =  $request->IdPeriodo;
 
-        $servicioo = DB::select("select * from ev_servicio es where es.IdCliente =".$IdCliente." and es.IdPeriodo = ".$IdPeriodo);
+        $servicioo = DB::select("select * from ev_servicio es where es.IdCliente =".$IdCliente." and es.IdPeriodo = '".$IdPeriodo." '");
 
 
         $determinarRiesgo = DB::select("select  sd.IdEncuesta, sc.IdServicio, sc.IdCentro,

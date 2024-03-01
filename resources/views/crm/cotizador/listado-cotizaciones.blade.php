@@ -562,6 +562,7 @@
 				},
 				error : function(jqXHR, status, error) {
 		            swal('Disculpe, existió un problema comuniquese con el equipo de desarrollos');
+					console.log(error)
 		        }
 			});
 		}

@@ -220,16 +220,11 @@ class Notificaciones extends Controller
 
         //$mail->SMTPDebug = 2;                                          // Send using SMTP
 
-        $mail->Host       ="smtp.exchangeadministrado.com"  ;#"smtp.exchangeadministrado.com";                    // Set the SMTP server to send through
-
+        $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-
-        $mail->Username   = "webmail@gen-t.com.mx"  ;#"webmail@gen-t.com.mx";                     // SMTP username
-
-        $mail->Password   = "WM22supervisado";# "WM22supervisado";                               // SMTP password
-
-        $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-
+        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;  
 
         $options = array(
@@ -338,16 +333,11 @@ class Notificaciones extends Controller
 
         //$mail->SMTPDebug = 2;                                          // Send using SMTP
 
-        $mail->Host       ="smtp.exchangeadministrado.com"  ;#"smtp.exchangeadministrado.com";                    // Set the SMTP server to send through
-
+        $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-
-        $mail->Username   = "webmail@gen-t.com.mx"  ;#"webmail@gen-t.com.mx";                     // SMTP username
-
-        $mail->Password   = "WM22supervisado"  ;# "WM22supervisado";                               // SMTP password
-
-        $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-
+        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;  
 
         $options = array(
@@ -928,17 +918,12 @@ class Notificaciones extends Controller
 
         $mail->isSMTP();                                            // Send using SMTP
 
-        $mail->Host       = "smtp.exchangeadministrado.com"  ;#"smtp.exchangeadministrado.com";                    // Set the SMTP server to send through
-
+                $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-
-        $mail->Username   = "webmail@gen-t.com.mx"  ;#"webmail@gen-t.com.mx";                     // SMTP username
-
-        $mail->Password   = "WM22supervisado"  ;# "WM22supervisado";                               // SMTP password
-
+        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-
-        $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->Port       = 587;                                      // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
         $options = array(
 

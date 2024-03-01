@@ -23,7 +23,7 @@ class NotificaWeb extends Controller
             if(TIMESTAMPDIFF(HOUR, TIME(n.Fecha), TIME(NOW())) = 0,
                Concat(TIMESTAMPDIFF(MINUTE , TIME(n.Fecha), TIME(NOW())),' Minutos'), Concat(TIMESTAMPDIFF(HOUR, TIME(n.Fecha), TIME(NOW())),' Horas') ),
             Concat(TIMESTAMPDIFF(DAY, DATE(n.Fecha), DATE(NOW())),' Días')) as tiempo
-        from master_ese_notificaciones_web as n where n.Leido = 0 and n.IdUsuario = $user->id order by Fecha desc");
+        from master_ese_notificaciones_web as n where n.Leido = 0 and n.IdUsuario = $user->id AND idese != 0 order by Fecha desc");
 
         foreach ($query as $g) {
           $val++;

@@ -146,6 +146,7 @@ class NuevoServicioController extends Controller
         $FechadeServicio = $request->input('fecha');
         $data = null;
 
+
         $centroExistente = DB::select("select * from ev_centros_trabajo ect where ect.IdCliente =".$IdCliente);
         $departamentosExistente = DB::select("select * from ev_departamentos ed where ed.IdCliente =".$IdCliente);
         $puestosExistente = DB::select("SELECT * FROM ev_puestos ep where ep.IdCliente =".$IdCliente);
@@ -232,13 +233,14 @@ class NuevoServicioController extends Controller
                 'IdCliente' => $IdCliente,
                 'Fecha' => $FechadeServicio
             ]);
+            $varL =  "{{url('')}}";
             $fechaServ=date_create(date("d-m-Y", strtotime($FechadeServicio)));
             $fechalimit=date_add($fechaServ, date_interval_create_from_date_string("30 days"));
             $idServicio = DB::table('ev_servicio')->insertGetId([
                 'IdCliente' => $IdCliente,
                 'IdTipoServicio' => $IdTipoServicio,
                 'IdPeriodo' => $idPeriodo,
-                'LinkSugerencias'=>'https://www.sistemagent.com:8000/erp-demo/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
+                'LinkSugerencias'=>'https://sigerpserv1.net/gen-t_fp/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
                 'dFechaVigenciaLink'=>$fechalimit,
                 'Estatus' => 'Abierto'
             ]);
@@ -274,7 +276,7 @@ class NuevoServicioController extends Controller
                             $fechAct=Carbon::now();
                             $CodigoUnico="COD-P".$IdPersonal;
                             foreach($encuestas as $encuesta){
-                                $Link="https://www.sistemagent.com:8000/erp-demo/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                                $Link="https://sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
         
                                 $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                                     'IdServicio_cliente' => $idServicioCliente,
@@ -311,7 +313,7 @@ class NuevoServicioController extends Controller
                         $fechAct=Carbon::now();
                         $CodigoUnico="COD-P".$IdPersonal;
                         foreach($encuestas as $encuesta){
-                            $Link="https://www.sistemagent.com:8000/erp-demo/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                            $Link="https://sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
     
                             $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                                 'IdServicio_cliente' => $idServicioCliente,

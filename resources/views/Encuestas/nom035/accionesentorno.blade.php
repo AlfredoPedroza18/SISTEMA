@@ -2488,7 +2488,7 @@
                     onClose: function() {}
                 });
                 swal("Aviso!", "No hay información para esta vista, favor de llenar una encuesta primero.", "info");
-                window.location.href="/gen-t/public/nom035";
+                window.location.href="/gen-t_fp/public/nom035";
             }
         });
     }
