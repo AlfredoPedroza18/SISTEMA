@@ -2016,11 +2016,11 @@ function activarLink( $url = '' )
                             <b class="caret pull-right"></b>
                             <i class="fa fa-clipboard"></i>
                             <span @if( !Auth::user()->isForeing() )
-                                    id="modulo-ese"
+                            @if(Auth::user()->tipo != 'c')id="modulo-ese"  @endif
                                     @endif >Encuestas</span>
                         </a>
 
-                        <ul class="sub-menu" @if(Auth::useR()->tipo != 'c') id="menu-ese" @endif> 
+                        <ul class="sub-menu" @if(Auth::user()->tipo != 'c') id="menu-ese" @endif> 
                         <!--<li class="{{ activarLink('dashboardencuestas_cliente') }}"><a href="{{ route('dashboardencuestas_cliente') }}">Dashboard</a></li>
                         -->
 	                    <li class="{{ activarLink('nuevoservicio') }}"><a href="{{ route('nuevoservicio') }}">Nuevo Servicio</a></li>

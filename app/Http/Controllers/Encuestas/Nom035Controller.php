@@ -31,9 +31,9 @@ class Nom035Controller extends Controller
     public function index(Request $request)
     {   
         if(Auth::user()->tipo == 'c'){
-            $clientes = DB::select("SELECT c.id ,c.nombre_comercial FROM clientes c WHERE c.id=".Auth::user()->IdCliente);
+            $clientes = DB::select("SELECT c.id ,c.nombre_comercial FROM clientes c WHERE tipo=2 AND c.id=".Auth::user()->IdCliente);
         }else{
-            $clientes = DB::select("SELECT c.id ,c.nombre_comercial FROM clientes c ORDER by c.nombre_comercial ASC;");
+            $clientes = DB::select("SELECT c.id ,c.nombre_comercial FROM clientes c WHERE tipo=2 ORDER by c.nombre_comercial ASC;");
         }
 
         $data = null;

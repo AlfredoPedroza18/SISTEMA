@@ -3180,3 +3180,11 @@
 2024-02-27 14:26:44 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting
 2024-02-27 14:28:00 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting
 2024-02-27 14:33:45 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting
+2024-03-01 11:18:15 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting
+2024-03-01 11:18:29 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting
+2024-03-01 11:18:37 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting
+2024-03-01 11:19:56 [ip] ::1 [text] Se envio el correo a mayaalfredo1@heialf.commayaalfredo1@outlook.commayaalfredo1@outlook.commail2@gmail.coml191080345@iztapalapa.com.mx1@gmail.com
+2024-03-01 11:48:34 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-03-01 14:55:11 [ip] ::1 [text] Se envio el correo a mayaalfredo1@heialf.com
+2024-03-01 15:45:16 [ip] ::1 [text] Se envio el correo a mayaalfredo1@heialf.com
+2024-03-04 12:00:00 [ip] ::1 [text] Se envio el correo a mayaalfredo1@heialf.com

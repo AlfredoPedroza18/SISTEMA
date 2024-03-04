@@ -36,9 +36,9 @@ class NuevoServicioController extends Controller
     public function index()
     {        
         if(Auth::user()->tipo == 'c'){
-            $clientes=DB::select('SELECT id AS Cliente,nombre_comercial AS Nombre FROM clientes WHERE id='.Auth::user()->IdCliente);
+            $clientes=DB::select('SELECT id AS Cliente,nombre_comercial AS Nombre FROM clientes where tipo=2 AND id='.Auth::user()->IdCliente);
         }else{
-            $clientes=DB::select('SELECT id AS Cliente,nombre_comercial AS Nombre FROM clientes ORDER BY nombre_comercial ASC');
+            $clientes=DB::select('SELECT id AS Cliente,nombre_comercial AS Nombre FROM clientes where tipo=2 ORDER BY nombre_comercial ASC');
         }
         
 

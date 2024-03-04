@@ -62,7 +62,7 @@ class ImportarExcelController extends Controller{
                     'IdCliente' => $IdCliente,
                     'IdTipoServicio' => $IdTipoServicio,
                     'IdPeriodo' => $idPeriodo,
-                    'LinkSugerencias'=>'https://www.sistemagent.com:8000/erp-demo/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
+                    'LinkSugerencias'=>'https://www.sigerpserv1.net/gen-t_fp/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
                     'dFechaVigenciaLink'=>$fechalimit,
                     'Estatus' => 'Abierto'
                 ]);
@@ -82,7 +82,7 @@ class ImportarExcelController extends Controller{
                 'IdCliente' => $IdCliente,
                 'IdTipoServicio' => $IdTipoServicio,
                 'IdPeriodo' => $idPeriodo,
-                'LinkSugerencias'=>'https://www.sistemagent.com:8000/erp-demo/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
+                'LinkSugerencias'=>'https://www.sigerpserv1.net/gen-t_fp/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
                 'dFechaVigenciaLink'=>$fechalimit,
                 'Estatus' => 'Abierto'
             ]);
@@ -413,7 +413,7 @@ class ImportarExcelController extends Controller{
                                 $CodigoUnico="COD-P".$IdPersonal;
 
                                 foreach($encuestas as $encuesta){
-                                    $Link="https://www.sistemagent.com:8000/erp-demo/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                                    $Link="https://www.sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
                                     $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                                         'IdServicio_cliente' => $idServicioCliente,
                                         'IdEncuesta' => $encuesta->IdEncuesta,
@@ -443,7 +443,7 @@ class ImportarExcelController extends Controller{
                                         $CodigoUnico="COD-P".$IdPersonal;
         
                                         foreach($encuestas as $encuesta){
-                                            $Link="https://www.sistemagent.com:8000/erp-demo/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                                            $Link="https://www.sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
                                             $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                                                 'IdServicio_cliente' => $idServicioCliente,
                                                 'IdEncuesta' => $encuesta->IdEncuesta,
@@ -468,7 +468,7 @@ class ImportarExcelController extends Controller{
                                     $CodigoUnico="COD-P".$IdPersonal;
 
                                     foreach($encuestas as $encuesta){
-                                        $Link="https://www.sistemagent.com:8000/erp-demo/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                                        $Link="https://www.sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
                                         $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                                             'IdServicio_cliente' => $idServicioCliente,
                                             'IdEncuesta' => $encuesta->IdEncuesta,
