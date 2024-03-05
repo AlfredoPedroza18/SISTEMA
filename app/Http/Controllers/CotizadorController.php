@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Cotizacion;
 use DB;
 use tc_serviciosCotizador;
 use App\Facturadora;
@@ -13,6 +14,7 @@ use App\Cliente;
 use App\Asignacion\ClienteCN;
 use App\Utilerias\Plantilla;
 use App\Utilerias\PlantillasContratos;
+use PDF;
 
 class CotizadorController extends Controller
 {
@@ -256,6 +258,38 @@ class CotizadorController extends Controller
         
 
         return $query_cotizaciones;
+    }
+    
+    
+    public function pdf($id_plantilla,$id_cotizacion){
+
+       $view = "";
+       
+       $cotizacion = Cotizacion::find( $id_cotizacion );
+
+        switch ($id_plantilla){
+            case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
+                break;
+
+            case 2: $view = 'crm.cotizador.pdf_perzonalizado.pdf_compras_almacen';
+                break;
+
+            case 3: $view = 'crm.cotizador.pdf_perzonalizado.pdf_mantenimiento_integral';
+                break;
+
+            case 4: $view = 'crm.cotizador.pdf_perzonalizado.pdf_Control_obra';
+                break;
+
+            case 5: $view = 'crm.cotizador.pdf_perzonalizado.pdf_bascula_verytab';
+                break;
+                               
+            default: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
+            
+        }
+
+        $pdf = PDF::loadView($view,["cotizacion"=>$cotizacion]);
+       
+        return $pdf->stream();
     }
 
       public function listaPaquete(){

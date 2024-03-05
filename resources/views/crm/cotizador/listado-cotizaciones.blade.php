@@ -158,6 +158,82 @@
         <h4 class="modal-title text-center"> <i class="fa fa-file-pdf-o fa-2x"></i> Plantilla Cotizador</h4>
       </div>
       <div class="modal-body">
+
+	  <h4 align="center"><strong>Plantillas perzonalizadas</strong></h4>
+		<table class="table table-hover table-condensed" id="plantilla-cotizacion-table-modal2">
+					<thead>
+						<tr>
+							<th>Producto</th>
+							<th>Descripción</th>
+							<th>Acción</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+
+						<tr>
+							<td>PUNTO DE VENTA</td>
+							<td>NOVAG COMPRAS Y ALMACEN</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(1)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						<tr>
+							<td>NOVAG COMPRAS Y ALMACEN</td>
+							<td>NOVAG COMPRAS Y ALMACEN</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(2)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						<tr>
+							<td>MANTENIMIENTO INTEGRAL</td>
+							<td>MANTENIMIENTO INTEGRAL</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(3)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						<tr>
+							<td>CONTROL DE OBRA V1</td>
+							<td>CONTROL DE OBRA V1</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(4)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>BASCULA VERYTAB</td>
+							<td>BASCULA VERYTAB</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+									onclick="CotizacionPerzonalizada(5)"
+								>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+					</tbody>
+			</table>
+			
+			<h4 align="center"><strong>Plantillas genericas </strong></h4>
           <table class="table table-hover table-condensed" id="plantilla-cotizacion-table-modal">
             <thead>
               <tr>
@@ -230,6 +306,7 @@
 			listarCotizaciones();
 			$('#contrato-error-panel').hide();
 			$('#plantilla-cotizacion-table-modal').DataTable();
+		
 
 					
 		   //TableManageButtons.init();
@@ -892,6 +969,18 @@
 			var plan = $('#id_plantilla_download').val();
 			var coti = $('#id_cotizacion_download').val();
 			window.open ("{{url('catalogo')}}/"+coti +"/" +id);
+        }
+
+		var CotizacionPerzonalizada = function( id )
+        {
+        	
+        	$('#id_plantilla_download').val( id );
+        	//$('#frmCotizacionGenerica').submit();
+
+			$('#id_plantilla_download').val( id );
+			var plan = $('#id_plantilla_download').val();
+			var coti = $('#id_cotizacion_download').val();
+			window.open ("{{url('pdf_cotizacion')}}/"+id +"/" +coti);
         }
 		
 

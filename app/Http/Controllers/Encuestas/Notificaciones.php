@@ -220,10 +220,10 @@ class Notificaciones extends Controller
 
         //$mail->SMTPDebug = 2;                                          // Send using SMTP
 
-        $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
+        $mail->Host       = "mail.sigerpserv1.net"  ;#"mail.sigerpserv1.net";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "contacto@sigerpserv1.net"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "k#LutI.^HZS"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;  
 
@@ -241,11 +241,11 @@ class Notificaciones extends Controller
 
       );
 
-      $mail->smtpConnect($options);                                  // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above       
+      $mail->smtpConnect($options);                                  // TCP port to connect to, use 587 for `PHPMailer::ENCRYPTION_SMTPS` above       
 
         //Recipients
 
-        $mail->setFrom("webmail@gen-t.com.mx" , utf8_decode('NOM035 Notificaciones'));
+        $mail->setFrom("mail.sigerpserv1.net" , utf8_decode('NOM035 Notificaciones'));
 
         $mails = [];
 
@@ -333,10 +333,10 @@ class Notificaciones extends Controller
 
         //$mail->SMTPDebug = 2;                                          // Send using SMTP
 
-        $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
+        $mail->Host       = "mail.sigerpserv1.net"  ;#"mail.sigerpserv1.net";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "contacto@sigerpserv1.net"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "k#LutI.^HZS"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;  
 
@@ -354,11 +354,11 @@ class Notificaciones extends Controller
 
         );
 
-        $mail->smtpConnect($options);                                  // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above       
+        $mail->smtpConnect($options);                                  // TCP port to connect to, use 587 for `PHPMailer::ENCRYPTION_SMTPS` above       
 
         //Recipients
 
-        $mail->setFrom("webmail@gen-t.com.mx" , utf8_decode('NOM035 Notificaciones'));
+        $mail->setFrom("mail.sigerpserv1.net" , utf8_decode('NOM035 Notificaciones'));
 
         $mails = [];
 
@@ -918,12 +918,12 @@ class Notificaciones extends Controller
 
         $mail->isSMTP();                                            // Send using SMTP
 
-                $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
+                $mail->Host       = "mail.sigerpserv1.net"  ;#"mail.sigerpserv1.net";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "contacto@sigerpserv1.net"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "k#LutI.^HZS"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $mail->Port       = 587;                                      // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->Port       = 587;                                      // TCP port to connect to, use 587 for `PHPMailer::ENCRYPTION_SMTPS` above
 
         $options = array(
 
@@ -943,7 +943,7 @@ class Notificaciones extends Controller
 
         //Recipients
 
-        $mail->setFrom("webmail@gen-t.com.mx" , utf8_decode('Gen-T ESE Notificaciones'));
+        $mail->setFrom("mail.sigerpserv1.net" , utf8_decode('Gen-T ESE Notificaciones'));
 
         $recipient="";
 
