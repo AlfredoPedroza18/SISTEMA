@@ -165,21 +165,15 @@ class ClientesController extends Controller
 
         DB::insert('insert into cliente_cn_actual (id_cn,id_cliente) values (?,?)', [$id_cn,$id_cliente[0]->id]);
 
-        $file= $request->file("archivo");
+        $base64 = "";
 
         $archivopdf=$request->input('archivopdf');
 
 
 
-        if($file == null){
+        if($base64=="" || $base64 == null){
 
-            $base64 = null;
-
-        }else{
-
-            $imagedata = file_get_contents(Input::file('archivo'));
-
-            $base64 = base64_encode($imagedata);
+            $base64 = $archivopdf;
 
         }
 
@@ -2540,27 +2534,16 @@ class ClientesController extends Controller
 
     {
 
+        $base64 = "";
 
-
-        $file= $request->file("archivo");
+        
 
         $archivopdf=$request->input('archivopdf');
 
-
-
-        if($file == null){
-
-            $base64 = null;
-
-        }else{
-
-            $imagedata = file_get_contents(Input::file('archivo'));
-
-            $base64 = base64_encode($imagedata);
-
+        if($base64 == "" || $base64 ==null){
+            $base64 = $archivopdf;
         }
-
-
+        
 
         // $id_cliente = DB::select('SELECT * FROM clientes ORDER BY id DESC LIMIT 1');
 
@@ -2795,7 +2778,7 @@ class ClientesController extends Controller
 
 
 
-        return response()->json("xd");
+        return response()->json(["file"=>"bien","xd"=>"xd"]);
 
 
 

@@ -5,10 +5,10 @@
 <ol class="breadcrumb ">
     <li><a href="javascript:;">Administrador</a></li> 
 	    <!-- <li><a href="{{url('modulo/administrador/cuentas')}}">Cuentas</a></li> -->
-		<li><a href="{{($url_referer == "EmpresasFacturadoras")?route('sig-erp-crm::EmpresasFacturadoras.index'):url('EmpresasMaquiladoras') }}">Empresas {{($url_referer == "EmpresasFacturadoras")?'Facturadoras':'Maquiladoras'}}</a></li>
-		<li>Alta Empresa {{($url_referer == "EmpresasFacturadoras")?'Facturadoras':'Maquiladoras'}}</li>
+		<li><a href="{{($url_referer == "EmpresasFacturadoras")?route('sig-erp-crm::EmpresasFacturadoras.index'):url('EmpresasMaquiladoras') }}">Empresas {{($url_referer == "EmpresasFacturadoras")?'':'Maquiladoras'}}</a></li>
+		<li>Alta Empresa {{($url_referer == "EmpresasFacturadoras")?'':'Maquiladoras'}}</li>
    </ol>
-<h1 class="page-header text-center">Empresas {{($url_referer == "EmpresasFacturadoras")?'Facturadoras':'Maquiladoras'}} <small>Alta</small></h1>
+<h1 class="page-header text-center">Empresas {{($url_referer == "EmpresasFacturadoras")?'':'Maquiladoras'}} <small>Alta</small></h1>
 	<div class="panel panel-inverse" data-sortable-id="ui-widget-14">
                         <div class="panel-heading">
                             <div class="panel-heading-btn">
@@ -17,7 +17,7 @@
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
                             </div>
-                            <h4 class="panel-title">Empresas {{($url_referer == "EmpresasFacturadoras")?'Facturadoras':'Maquiladoras'}} <small>Alta</small></h4>
+                            <h4 class="panel-title">Empresas {{($url_referer == "EmpresasFacturadoras")?'':'Maquiladoras'}} <small>Alta</small></h4>
                         </div>
                         <div class="panel-body">
                         {!! Form::model($facturadora,

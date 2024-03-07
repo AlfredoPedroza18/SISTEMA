@@ -92,7 +92,7 @@ class DistribucionNom035Controller extends Controller
         $datos = DB::select("SELECT ep.IdPersonal, ep.IdCliente, ep.Nombre, ep.IdCentroTrabajo, ep.Telefono, ep.Correo,
         (select esd.lNotifica from ev_servicio_detalle esd where esd.IdPersonal = ep.IdPersonal LIMIT 1) as notificacion
         FROM ev_personal ep 
-        WHERE ep.IdCliente =".$idCliente." ORDER BY ep.IdCentroTrabajo;");
+        WHERE ep.IdCliente =".$idCliente." AND idPeriodo =".$idPeriodo." ORDER BY ep.IdCentroTrabajo;");
         
         $espacios = DB::select("SELECT ep.IdPersonal, ep.IdCliente, ep.Nombre, ep.IdCentroTrabajo, ep.Telefono, ep.Correo, count(ep.IdPersonal) as cantidadPersonal FROM ev_personal ep WHERE ep.IdCliente =".$idCliente." and ep.Correo <> '' and ep.Telefono <> '' GROUP BY ep.IdCentroTrabajo");
 

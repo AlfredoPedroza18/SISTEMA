@@ -5,9 +5,9 @@
 <ol class="breadcrumb ">
 		<li><a href="javascript:;">Administrador</a></li>	
 	    <li><a href="{{url('modulo/administrador/cuentas')}}">Cuentas</a></li>
-		<li>Empresas Facturadoras</li>
+		<li>Empresas</li>
    </ol>
-<h1 class="page-header text-center">Empresas Facturadoras</h1>
+<h1 class="page-header text-center">Empresas</h1>
 
 <div class="row">
 		<div class="col-md-12 text-right">
@@ -16,7 +16,7 @@
 					<i class="fa fa-building-o fa-1x" aria-hidden="true"></i>
 
 				</a>
-				<label>Añadir Empresa Facturadora</label>        
+				<label>Añadir Empresa </label>        
 		</div>
 </div>
 <br>
@@ -29,7 +29,7 @@
                                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                                 
                             </div>
-                            <h4 class="panel-title">Empresas Facturadoras</h4>
+                            <h4 class="panel-title">Empresas </h4>
                         </div>
                         <div class="panel-body">
                             <table id="data-table" class="display table table-striped table-bordered table-responsive">

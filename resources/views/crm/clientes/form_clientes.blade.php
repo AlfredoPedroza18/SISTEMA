@@ -422,6 +422,26 @@
                                     {{ Form::select('TipoDeCliente',$tipoCliente,$cliente->tipo,['class'=>'js-example-basic-multiple-limit default-select2 form-control input-lg form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'TipoDeCliente']) }}
                                 </div>
                             </div>
+
+                <div class="col-md-4">
+                    <label>{{ Form::label ('archivo', 'Archivo')}}</label>
+
+                    <input hidden name="archivopdf" id="archivopdf" value="{{$Archivo}}">
+
+                    <input class="form-control" type="file" name="archivo" id="archivo" accept="image/png">
+
+                    <div class="alert alert-warning" role="alert" style="margin-top: 2px">
+
+                        Imagenes Tipo: png.
+
+                        Tamaño: No mayor a 200.0 KB.
+
+                        Dimensiones: 250 x 150 px.
+
+                    </div>
+                </div>
+
+
             </div>
 
             <!-- end row -->

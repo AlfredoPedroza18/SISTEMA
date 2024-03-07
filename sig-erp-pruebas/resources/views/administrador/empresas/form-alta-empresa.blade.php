@@ -331,7 +331,7 @@
                                             <br>
                                             <div class="row">
                                             	<div class="col-md-3 col-md-offset-8 text-right">
-                                              {{ Form::button('Guardar Empresa Facturadora', ['class' => 'btn btn-success btn-block','id' => 'btn-alta-empresa','type'=>'submit'])}}
+                                              {{ Form::button('Guardar Empresa', ['class' => 'btn btn-success btn-block','id' => 'btn-alta-empresa','type'=>'submit'])}}
                                             	</div>
                                             </div>
 

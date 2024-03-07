@@ -427,7 +427,7 @@
                   <div class="col-md-3 col-md-offset-8 text-right">
                 
                     
-                    <button type="button" class="btn btn-success btn-block" id="btnSaveEmpresa" onclick="hacer_click(this.id)" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Guardando...">Guardar Empresa {{($url_referer == "EmpresasFacturadoras")?'Facturadoras':'Maquiladoras'}}</button>
+                    <button type="button" class="btn btn-success btn-block" id="btnSaveEmpresa" onclick="hacer_click(this.id)" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Guardando...">Guardar Empresa {{($url_referer == "EmpresasFacturadoras")?'':'Maquiladoras'}}</button>
 
                   </div>
               </div>

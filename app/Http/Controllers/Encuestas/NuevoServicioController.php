@@ -240,7 +240,7 @@ class NuevoServicioController extends Controller
                 'IdCliente' => $IdCliente,
                 'IdTipoServicio' => $IdTipoServicio,
                 'IdPeriodo' => $idPeriodo,
-                'LinkSugerencias'=>'https://sigerpserv1.net/gen-t_fp/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
+                'LinkSugerencias'=>'https://sigerpserv1.net/gent_coatza/public/quejaSugerencia/'.$IdCliente.'/'.$idPeriodo,
                 'dFechaVigenciaLink'=>$fechalimit,
                 'Estatus' => 'Abierto'
             ]);
@@ -276,7 +276,7 @@ class NuevoServicioController extends Controller
                             $fechAct=Carbon::now();
                             $CodigoUnico="COD-P".$IdPersonal;
                             foreach($encuestas as $encuesta){
-                                $Link="https://sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                                $Link="https://sigerpserv1.net/gent_coatza/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
         
                                 $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                                     'IdServicio_cliente' => $idServicioCliente,
@@ -313,7 +313,7 @@ class NuevoServicioController extends Controller
                         $fechAct=Carbon::now();
                         $CodigoUnico="COD-P".$IdPersonal;
                         foreach($encuestas as $encuesta){
-                            $Link="https://sigerpserv1.net/gen-t_fp/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
+                            $Link="https://sigerpserv1.net/gent_coatza/public/startEncuesta/".$encuesta->IdEncuesta."/".$idServicioCliente."/".$CodigoUnico;
     
                             $idServicioDetalle = DB::table('ev_servicio_detalle')->insertGetId([
                                 'IdServicio_cliente' => $idServicioCliente,

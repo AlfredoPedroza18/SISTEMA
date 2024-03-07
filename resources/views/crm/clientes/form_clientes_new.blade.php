@@ -433,6 +433,25 @@
 
                                                   </div>
 
+                                                  <div class="col-md-4">
+                                                    
+                                                  <label>{{ Form::label ('archivo', 'Archivo')}}</label>
+
+                                                        <input hidden name="archivopdf" id="archivopdf" >
+
+                                                        <input class="form-control" type="file" name="archivo" id="archivo" accept="image/png">
+
+                                                        <div class="alert alert-warning" role="alert" style="margin-top: 2px">
+
+                                                            Imagenes Tipo: png.
+
+                                                            Tamaño: No mayor a 200.0 KB.
+
+                                                            Dimensiones: 250 x 150 px.
+
+                                                        </div>
+                                                    </div>
+
                                               </div>
 
                                               

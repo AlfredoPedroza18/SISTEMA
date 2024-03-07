@@ -74,6 +74,8 @@
 
                          
 
+                         
+
                         </form> 
 
 
@@ -352,6 +354,16 @@ $(document).ready(function(){
       });
 
 
+      function getBase64Image(img) {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL();
+        return dataURL;
+      }
+
       var guardarCliente = function(){
 
       var datos = $("#formulario_up").serialize();
@@ -368,6 +380,8 @@ $(document).ready(function(){
           type:'POST',
 
           dataType: 'json',
+
+          
 
           data: datos,
 
@@ -636,7 +650,35 @@ $(document).ready(function(){
     }); 
 
 
+ // Variables
+ const inputFile = document.querySelector('#archivo');
+                            const image = document.querySelector('#archivopdf');
 
+                            /**
+                             * Returns a file in Base64URL format.
+                             * @param {File} file
+                             * @return {Promise<string>}
+                             */
+                            async function encodeFileAsBase64URL(file) {
+                                return new Promise((resolve) => {
+                                    const reader = new FileReader();
+                                    reader.addEventListener('loadend', () => {
+                                        resolve(reader.result);
+                                    });
+                                    reader.readAsDataURL(file);
+                                });
+                            };
+
+                            // Eventos
+                            inputFile.addEventListener('input', async (event) => {
+                                // Convierto la primera imagen del input en una ruta Base64
+                                const base64URL = await encodeFileAsBase64URL(inputFile.files[0]);
+                                // Anyado la ruta Base64 a la imagen
+                                let base = base64URL.replace("data:image/png;base64,","");
+                                base= base.replace("data:image/png;base64,","");
+                                $("#archivopdf").val(base.replace("data:image/png;base64,",""));
+                                console.log(base)
+                            });
 
 
    
