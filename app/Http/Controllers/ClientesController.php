@@ -3650,7 +3650,7 @@ IFNULL(clientes.id,'') AS id, IFNULL(clientes.nombre_comercial,'') AS nombre_cli
  LEFT JOIN   tipos_clientes ON tipos_clientes.id  = clientes.tipo_cliente
 
 
-where -1 = $id_cn OR (-1<>$id_cn AND $id_cn = clientes.id_cn)
+where (-1 = $id_cn OR (-1<>$id_cn AND $id_cn = clientes.id_cn))
             
 
             ";
@@ -3785,46 +3785,15 @@ where -1 = $id_cn OR (-1<>$id_cn AND $id_cn = clientes.id_cn)
 
 
 
-            if($request->status == "Si" ){
-                $query .= " AND status = '1' ";
+            $query .= "AND (-1 = $request->status OR (-1<>$request->status AND status = $request->status ))
+            
+            AND (-1 = $request->tipo OR (-1<>$request->tipo AND clientes.tipo = $request->tipo)) 
+            ";
+            
 
-                if($request->tipo == "cli"){
-                    $query .= "AND clientes.tipo = 2 ";
-                }else if($request->tipo == "pros"){
-                    $query .= "AND clientes.tipo = 1 ";
-                }else{
-                    $query .=" ";
-                }
-
-            }else if($request->status == "No"){
-                // $query .= " AND clientes.status = $request->status ";
-                $query .= " AND status = '2' ";
-                if($request->tipo == "cli"){
-                    $query .= "AND clientes.tipo = 2 ";
-                }else if($request->tipo == "pros"){
-                    $query .= "AND clientes.tipo = 1 ";
-                }else{
-                    $query .=" ";
-                }
-            }else if($request->status == "sus"){
-                $query .= " AND status = '3' ";
-                if($request->tipo == "cli"){
-                    $query .= "AND clientes.tipo = 2 ";
-                }else if($request->tipo == "pros"){
-                    $query .= "AND clientes.tipo = 1 ";
-                }else{
-                    $query .=" ";
-                }
-            }else if ($request->status == "todos"){
-                $query .=" ";
-                if($request->tipo == "cli"){
-                    $query .= "AND clientes.tipo = 2 ";
-                }else if($request->tipo == "pros"){
-                    $query .= "AND clientes.tipo = 1 ";
-                }else{
-                    $query .=" ";
-                }
-            }
+           
+          
+        
 
 
 

@@ -413,7 +413,7 @@
 
                                              </div>
 
-                                                  <div class="col-md-6">
+                                                  <div class="col-md-4">
 
                                                       <div class="form-group" >
 
@@ -450,6 +450,8 @@
                                                             Dimensiones: 250 x 150 px.
 
                                                         </div>
+
+                                                        <img id="verImg"  alt="" width="250px" height="150px">
                                                     </div>
 
                                               </div>
@@ -1320,7 +1322,7 @@
 
                                                     <label>{{ Form::label('Medio de Contácto', '* Medio de Contácto') }}</label>
 
-{{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','Página web'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','Otro'=>'Otro'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
+{{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','Página web'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','Visita presencial'=>'Visita presencial','Contacto en frio'=>'Contacto en frio','Otro'=>'Otro'],null,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
 
                                                     <input type="text" name="medio_contacto" class='form-control' id="medio_contacto_tabla" >
 

@@ -147,6 +147,9 @@
 
 
 
+    
+
+
 //FormWizardValidation.init();
 
 FormWizard.init();// WIZARD DEL FORMULARIO
@@ -677,6 +680,7 @@ $(document).ready(function(){
                                 let base = base64URL.replace("data:image/png;base64,","");
                                 base= base.replace("data:image/png;base64,","");
                                 $("#archivopdf").val(base.replace("data:image/png;base64,",""));
+                                $("#verImg").attr('src',"data:image/png;base64,"+$("#archivopdf").val());
                                 console.log(base)
                             });
 

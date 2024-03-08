@@ -37,10 +37,10 @@
 			 <div class="form-group">
 			    	<label for="exampleInputEmail1">Status</label>
 			    	<select  class="form-control" id="status-clientes">
-			    		<option value="todos">Todos</option>
-		           		<option value="Si">Activo</option>
-		           		<option value="No">Inactivo</option>
-		           		<option value="sus">Suspendido</option>
+			    		<option value="-1">Todos</option>
+		           		<option value="1">Activo</option>
+		           		<option value="2">Inactivo</option>
+		           		<option value="3">Suspendido</option>
 		            </select>
 			 </div>
 
@@ -50,9 +50,9 @@
 			 <div class="form-group">
 			    	<label for="exampleInputEmail1">Tipo</label>
 			    	<select  class="form-control" id="tipo">
-			    		<option value="todos">Todos</option>
-		           		<option value="cli">Clientes</option>
-						   <option value="pros">Prospectos</option>
+			    		<option value="-1">Todos</option>
+		           		<option value="2">Clientes</option>
+						   <option value="1">Prospectos</option>
 		            </select>
 			 </div>
         </div>
@@ -252,7 +252,7 @@
 
 			FormSliderSwitcher.init();
 
-			listarClientes(0,0);
+			listarClientes(-1,-1);
 
 
 		   //TableManageButtons.init();

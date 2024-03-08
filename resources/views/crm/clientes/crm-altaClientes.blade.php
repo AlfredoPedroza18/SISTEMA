@@ -151,7 +151,8 @@ const inputFile = document.querySelector('#archivo');
                                 let base = base64URL.replace("data:image/png;base64,","");
                                 base= base.replace("data:image/png;base64,","");
                                 $("#archivopdf").val(base.replace("data:image/png;base64,",""));
-                                console.log(base64URL)
+                                console.log(base64URL);
+                                $("#verImg").attr('src',"data:image/png;base64,"+$("#archivopdf").val());
 
                             });
 
