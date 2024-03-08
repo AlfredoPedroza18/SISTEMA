@@ -76,8 +76,23 @@ try{
         $cotizacion_contrato = Cotizacion::find($id_cotizacion);
         $cliente             = Cliente::find($id_cliente);
 
-        $no_contrato_aux = $this->getNoContrato($request->user()->idcn);        
-        $no_contrato     = $no_contrato_aux[0]->no_contrato;           
+        $query = "
+            SELECT   'GENERICA' AS servicio, 
+            CONCAT( 
+                    'GEN', 
+                    DATE_FORMAT(NOW(),'%d%m%y'),'CN', 
+                    
+                    IF( (COUNT(crm_contratos_genericos.id) + 1) > 10 , 
+                    COUNT(crm_contratos_genericos.id) + 1 , CONCAT('0',COUNT(crm_contratos_genericos.id) + 1))) AS no_contrato 
+            FROM crm_contratos_genericos 
+            LEFT JOIN crm_contratos     ON crm_contratos.id = crm_contratos_genericos.id_contrato 
+            LEFT JOIN centros_negocio   ON centros_negocio.id = crm_contratos.id_cn 
+            WHERE  centros_negocio.id = ?
+        ";
+      
+
+        $no_contrato_aux = DB::select($query,[$request->user()->idcn]);        
+        $no_contrato     = $no_contrato_aux[0]->no_contrato;      
 
 
         $contrato        = Contrato::create($request->all());
@@ -180,7 +195,22 @@ try{
 
     public function preview(Request $request){
         $id_cn = $request->user()->idcn;
-        $datos_ese = $this->getNoContrato($id_cn);
+        $query = "
+            SELECT   'GENERICA' AS servicio, 
+            CONCAT( 
+                    'GEN', 
+                    DATE_FORMAT(NOW(),'%d%m%y'),'CN', 
+                    
+                    IF( (COUNT(crm_contratos_genericos.id) + 1) > 10 , 
+                    COUNT(crm_contratos_genericos.id) + 1 , CONCAT('0',COUNT(crm_contratos_genericos.id) + 1))) AS no_contrato 
+            FROM crm_contratos_genericos 
+            LEFT JOIN crm_contratos     ON crm_contratos.id = crm_contratos_genericos.id_contrato 
+            LEFT JOIN centros_negocio   ON centros_negocio.id = crm_contratos.id_cn 
+            WHERE  centros_negocio.id = ?
+        ";
+      
+
+        $datos_ese = DB::select($query,[$id_cn]);
 
         return response()->json($datos_ese);
 

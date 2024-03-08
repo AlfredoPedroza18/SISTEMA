@@ -622,11 +622,9 @@
 						 },
 				success:function(response){
 					
-					if(response.servicio == 0) ruta_download = '{{ url('descarga_contrato_ese') }}';			        
-					if(response.servicio == 1) ruta_download = '{{ url('descarga_contrato_rys') }}';
-					if(response.servicio == 2) ruta_download = '{{ url('descarga_contrato_maquila') }}';	
-					if(response.servicio == 3) ruta_download = '{{ url('descarga_contrato_psicometricos') }}';
-				    if(response.servicio == 4) ruta_download = '{{ url('descarga_contrato_generico') }}';
+					
+					
+				    ruta_download = '{{ url('descarga_contrato_generico') }}';
 
 					swal('¡El Contrato se genero correctamente!','','success');
 					setTimeout(function(){ 						
