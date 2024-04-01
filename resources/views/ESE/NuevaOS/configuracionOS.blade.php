@@ -1182,6 +1182,8 @@
                       markers.addMarker(new OpenLayers.Marker(lonLat));
                       map.setCenter (lonLat, zoom);
                   }
+              },error: function(error){
+                    console.log(error);
               }
           });
           

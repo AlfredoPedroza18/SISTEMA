@@ -22,10 +22,10 @@ class CotizadorGenericoController extends Controller
      */
     public function index()
     {
-        $clientes  = DB::select("Select * from clientes");
+        $clientes  = DB::select("Select * from clientes order by nombre_comercial asc");
         $servicios = Servicio::where("status","1")->get();
         $impuestos = Impuesto::all();
-        $servicosTipo = DB::select ("select * from crm_cotizador_servicio");
+        $servicosTipo = DB::select ("select * from crm_cotizador_servicio order by servicio asc");
         return view("crm.cotizador.crm-cotizador-general", compact('clientes','servicios','impuestos','servicosTipo'));
     }
 

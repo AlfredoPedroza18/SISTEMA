@@ -183,7 +183,6 @@ textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.
     
     <div id="customer">
             @if( isset( $cotizacion ) )
-              {{ $cotizacion->cn->direccion_completa }}<br>
               {{ $cotizacion->cn->complemento_direccion }}<br>
               Teléfono {{ $cotizacion->cn->telefono }}<br>
               {{ $cotizacion->ejecutivo->nombre_ejecutivo }}<br> 

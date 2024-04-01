@@ -15,6 +15,7 @@ use App\Asignacion\ClienteCN;
 use App\Utilerias\Plantilla;
 use App\Utilerias\PlantillasContratos;
 use PDF;
+use Illuminate\Support\Facades\Auth;
 
 class CotizadorController extends Controller
 {
@@ -261,14 +262,32 @@ class CotizadorController extends Controller
     }
     
     
-    public function pdf($id_plantilla,$id_cotizacion){
+    public function pdf(Request $request,$id_plantilla,$id_cotizacion){
 
        $view = "";
        
        $cotizacion = Cotizacion::find( $id_cotizacion );
 
-        switch ($id_plantilla){
-            case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
+       
+       $id_C = $cotizacion->cliente->id;
+       $nombreContacto = DB::select("select concat(nombre_con,' ',ifnull(apellido_paterno_con,''),' ',ifnull(apellido_materno_con,'')) as name, celular1,correo1 from contactos where id_cliente = $id_C AND principal = 1");
+        
+       $usuario = DB::select("select concat(u.name,' ',ifnull(u.apellido_paterno,'')) as nombres, m.nombre as puesto 
+        from users u inner join master_puesto m on u.idpuesto = m.idpuesto where u.id =".Auth::user()->id);
+       switch ($id_plantilla){
+
+            case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_rys_gent';
+                break;
+
+            case 2: $view = 'crm.cotizador.pdf_perzonalizado.pdf_cl_gent';
+                break;
+                
+            case 3: $view = 'crm.cotizador.pdf_perzonalizado.pdf_estudios_socioeconomicos';
+                break;
+            
+            case 4: $view = 'crm.cotizador.pdf_perzonalizado.pdf_atraccion_talentos';
+            break;
+            /*case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
                 break;
 
             case 2: $view = 'crm.cotizador.pdf_perzonalizado.pdf_compras_almacen';
@@ -283,11 +302,11 @@ class CotizadorController extends Controller
             case 5: $view = 'crm.cotizador.pdf_perzonalizado.pdf_bascula_verytab';
                 break;
                                
-            default: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
+            default: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';*/
             
         }
 
-        $pdf = PDF::loadView($view,["cotizacion"=>$cotizacion]);
+        $pdf = PDF::loadView($view,["cotizacion"=>$cotizacion,"nombreContacto"=>$nombreContacto, "usuario"=>$usuario]);
        
         return $pdf->stream();
     }

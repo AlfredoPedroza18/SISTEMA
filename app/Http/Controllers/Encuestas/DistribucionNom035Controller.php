@@ -212,6 +212,38 @@ class DistribucionNom035Controller extends Controller
         return response()->json(['data'=>$buscarregistro]);
     }
 
+    public function updatePersonalCTauto(Request $request){
+
+        $query =  "";
+        switch ($request->indice){
+
+            case 1: $xd = $request->personal;
+
+                $query = " UPDATE ev_personal SET Nombre='".html_entity_decode($request->dato, ENT_QUOTES | ENT_HTML401, "UTF-8")."'";
+          
+                break;
+
+            case 2: $xd = $request->personal;
+
+                $query = " UPDATE ev_personal SET  Correo='".str_replace('"', '', json_encode($request->dato))."'";
+          
+                break;
+            
+            case 3: $xd = $request->personal;
+                
+                $query = " UPDATE ev_personal SET Telefono='".str_replace('"', '', json_encode($request->dato))."'";
+          
+                break;
+
+        }
+
+        if($query != ""){
+            $query .=" where idPersonal = ".$request->personal;
+            DB::update($query);
+        }
+        return response()->json(["mensaje"=>$xd."xd"]);
+    }
+
     public function updatePersonalCT(Request $request){
         // dd($request->updPersonal);
         $query = "";

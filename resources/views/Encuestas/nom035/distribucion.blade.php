@@ -324,7 +324,8 @@
                                                 <div class="col-md-12">
                                                     <div class="input-group">
                                                         <span class="input-group-addon" id="basic-addon1" style="background-color: white;">Nombre:</span>
-                                                        <input type="text" value="{{$row2->Nombre}}" class="form-control input-group-text" id="nombrein{{$row2->IdPersonal}}" name="updPersonal[{{$indice}}][Nombre]" style="height: 40px" >
+                                                        
+                                                        <input type="text" value="{{$row2->Nombre}}" class="form-control input-group-text" id="nombrein{{$row2->IdPersonal}}" name="updPersonal[{{$indice}}][Nombre]" style="height: 40px" onblur="auto({{$row2->IdPersonal}},1)">
                                                     </div>
                                                 </div>
                                             </div>
@@ -333,14 +334,14 @@
                                         <div class="col-md-3 mb-3">
                                             <div class="input-group">
                                                 <span class="input-group-addon" id="basic-addon1" style="background-color: white">eMail:</span>
-                                                <input type="text" value="{{$row2->Correo}}" class="form-control" id="correoin{{$row2->IdPersonal}}" name="updPersonal[{{$indice}}][Correo]" style="height: 40px" >
+                                                <input type="text" value="{{$row2->Correo}}" class="form-control" id="correoin{{$row2->IdPersonal}}" name="updPersonal[{{$indice}}][Correo]" style="height: 40px" onblur="auto({{$row2->IdPersonal}},2)">
                                             </div>
                                         </div>
 
                                         <div class="col-md-2 mb-2">
                                             <div class="input-group">
                                                 <span class="input-group-addon" id="basic-addon1" style="background-color: white">Tel:</span>
-                                                <input type="text" value="{{$row2->Telefono}}" class="form-control" id="telefonoin{{$row2->IdPersonal}}" name="updPersonal[{{$indice}}][Telefono]" style="height: 40px" >
+                                                <input type="text" value="{{$row2->Telefono}}" class="form-control" id="telefonoin{{$row2->IdPersonal}}" name="updPersonal[{{$indice}}][Telefono]" style="height: 40px" onblur="auto({{$row2->IdPersonal}},3)">
                                             </div>
                                         </div>
 
@@ -391,8 +392,7 @@
         </div>
         
         <div class="row" style="text-align: end; margin: 10px 5px">
-                <button class="btn btn-lg" style="background-color: rgb(70, 168, 70); color:white" type="submit">Guardar</button>
-        </div>
+                 </div>
     </form>
 
     <div style="margin-top:15px;">
@@ -579,6 +579,8 @@
 @section('js-base')
 @include('librerias.base.base-begin')
 @include('librerias.base.base-begin-page')
+{!! Html::script('assets/js/Bootstrap_notify/bootstrap-notify.js') !!}
+{!! Html::script('assets/js/Bootstrap_notify/notify.js') !!}
 <!-- AQUI IRA TODO EL CONTENIDO/VALIDACIONES/APIS/ETC DE ESTA VISTA - QUE REQUIERE GEN T -->
 <script src="{{ asset('vendors/ckeditor/adapters/jquery.js') }}"></script>
 <script src="{{ asset('vendors/ckeditor/ckeditor.js') }}"></script>
@@ -1172,6 +1174,52 @@ descWhats=correo[0].Descripcion+descWhats+`\\n\\n*Buzón de quejas y Sugerencias
         });
     }
 }
+
+    function auto (personal, indice){
+        
+        var dato = "";
+       
+
+        switch (indice){
+            case 1: dato =  $("#nombrein"+personal).val();
+            break;
+            case 2: dato =  $("#correoin"+personal).val();
+            break;
+            case 3: dato =  $("#telefonoin"+personal).val();
+            break;
+
+        }
+        
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+      
+       // console.log(datos);
+
+        $.ajax({
+
+            headers: {'X-CSRF-TOKEN':token},
+            url: '{{route('updatePersonalCTauto')}}',
+            type:"POST",
+            data:{
+                personal:personal,
+                dato:dato,
+                indice:indice
+            },
+            success:function(response){
+                
+                
+            },
+
+            error:function(){
+                showNotify("Error","No se pudo guardar el dato","danger");
+            }
+        });
+
+
+    }
+
+   
+
 
 </script>
 

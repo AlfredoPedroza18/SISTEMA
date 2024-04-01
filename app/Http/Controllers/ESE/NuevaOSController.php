@@ -179,12 +179,10 @@ class NuevaOSController extends Controller
           $Investigadores=DB::select("SELECT *,master_ese_empleado.EstatusInvestigadorId s,master_ese_empleado.telefonomovil tel,master_ese_empleadosdocumentos.ArchivoFoto AS Foto_e , concat(master_ese_empleado.Nombre,' ',ifnull(master_ese_empleado.SegundoNombre,''),' ',master_ese_empleado.ApellidoPaterno,' ',ifnull( master_ese_empleado.ApellidoMaterno,'') ) as NombreCompleto,
                                     (SELECT COUNT(IdInvestigador) FROM master_ese_srv_asignacion WHERE IdInvestigador = master_ese_empleado.IdEmpleado) numServicioAsignado
                                     from master_ese_empleado
-                                    Inner Join users ON users.IdEmpleado = master_ese_empleado.IdEmpleado
-                                    Inner Join master_ese_mobile_settings ON master_ese_mobile_settings.IdRolInvestigador = users.IdRol
                                     left Join master_region_inv ON master_region_inv.IdInvestigador = master_ese_empleado.IdEmpleado
                                     INNER JOIN master_ese_cobertura_inv meci ON master_ese_empleado.IdEmpleado = meci.IdEmpleado
                                     INNER JOIN master_municipios mm ON meci.IdMunicipio = mm.IdMunicipio
-                                    INNER JOIN master_ese_empleadosdocumentos ON master_ese_empleadosdocumentos.IdEmpleado = master_ese_empleado.IdEmpleado
+                                    left JOIN master_ese_empleadosdocumentos ON master_ese_empleadosdocumentos.IdEmpleado = master_ese_empleado.IdEmpleado
                                     where mm.Descripcion LIKE '%{$_POST['municipio']}%'
                                     ORDER BY numServicioAsignado ASC");
 
@@ -5573,6 +5571,12 @@ public function GuardarEstudioInput2(Request $request)
                 $UltimoPuestoValor=$trAnterior[$ultPuesto];
                 $NombreInformoValor=$trAnterior[$nomInform];
                 $PuestoInformoValor=$trAnterior[$puestInform];
+
+                
+                $FechaIngresoValor = date("d/m/Y", strtotime($FechaIngresoValor));
+                $FechaEgresoValor = date("d/m/Y", strtotime($FechaEgresoValor));
+
+
                 if($desempQueryS[0]->Desemp!=null){
                     if($cantEmp[$i]==0){
                         $resAnt=$resAnt."refiere haber laborado en $NombreEmpresaValor/$RazonSocialValor, de $FechaIngresoValor a $FechaEgresoValor, ocupando el puesto de $UltimoPuestoValor. La referencia se corrobora con $NombreInformoValor, quien es $PuestoInformoValor, indica que el candidato ha tenido un desempeño $desemp .";

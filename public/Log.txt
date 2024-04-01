@@ -3190,3 +3190,6 @@
 2024-03-04 12:00:00 [ip] ::1 [text] Se envio el correo a mayaalfredo1@heialf.com
 2024-03-05 10:54:53 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: Invalid address:  (From): mail.sigerpserv1.net
 2024-03-05 10:55:10 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: Invalid address:  (From): mail.sigerpserv1.net
+2024-03-26 14:50:35 [ip] ::1 [text] Se envio el correo a 
+2024-03-28 15:08:44 [ip] ::1 [text] Se envio el correo a 
+2024-03-28 15:09:07 [ip] ::1 [text] Se envio el correo a 

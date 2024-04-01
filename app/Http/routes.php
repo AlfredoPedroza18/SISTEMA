@@ -1258,6 +1258,8 @@ Route::post('filtrarDist','Encuestas\DistribucionNom035Controller@filtrar')->nam
 
 Route::post('distribucionNom035_update','Encuestas\DistribucionNom035Controller@updatePersonalCT')->name('distUpdatePers');
 
+Route::post('updatePersonalCTauto','Encuestas\DistribucionNom035Controller@updatePersonalCTauto')->name("updatePersonalCTauto");
+
 Route::get('accionesNom035/{id}/{id2}','Encuestas\AccionesController@index')->name('accionesNom035');
 
 Route::post('graficaracciones','Encuestas\AccionesController@getPersonal')->name('getGraficarAcciones');

@@ -1932,7 +1932,7 @@ function activarLink( $url = '' )
 
                          <i class="fas fa-hourglass-start"></i>
 
-                        <span id="">Inicio</span>
+                        <span id="">Dashboard</span>
 
                     </a>
 
@@ -2023,8 +2023,7 @@ function activarLink( $url = '' )
                         <ul class="sub-menu" @if(Auth::user()->tipo != 'c') id="menu-ese" @endif> 
                         <!--<li class="{{ activarLink('dashboardencuestas_cliente') }}"><a href="{{ route('dashboardencuestas_cliente') }}">Dashboard</a></li>
                         -->
-	                    <li class="{{ activarLink('nuevoservicio') }}"><a href="{{ route('nuevoservicio') }}">Nuevo Servicio</a></li>
-                        <li class="{{ activarLink('nom035') }}"> <a href="{{route('nom035')}}">Nom 035</a></li>
+	                     <li class="{{ activarLink('nom035') }}"> <a href="{{route('nom035')}}">Nom 035</a></li>
                         </ul>
 
                     </li>

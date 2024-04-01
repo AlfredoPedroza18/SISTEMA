@@ -41,7 +41,7 @@
 	<!-- end breadcrumb -->
 
 	<!-- begin page-header -->
-	@if(Auth::user()->tipo!="c")
+	@if(Auth::user()->tipo!="c" && Auth::user()->tipo!="f")
 	<div style="display: flex; justify-content:end;">
 		<h1 style="width: 50vw;  font-size: 30px;" class="page-header text-center">DASHBOARD</h1>
 		
@@ -120,6 +120,9 @@
 	</div><!-- end colspan 6-->
 
 	</div>
+	@elseif(Auth::user()->tipo=="f")
+		<h1 class="page-header text-center">Dashboard<small></small></h1>
+
 	@else
 	<h1 class="page-header text-center">Inicio<small></small></h1>
 	@endif

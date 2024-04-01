@@ -81,7 +81,7 @@ class EmpresasFacturadorasController extends Controller
             $lugar_nacimiento[$estado->FK_nombre_estado] = $estado->FK_nombre_estado;
         }
         $actividad_economica = [];
-        $actividad = DB::table('actividad_economica')->get();
+        $actividad = DB::select('select * from actividad_economica order by actividad_economica asc');
         foreach ($actividad as $act) {
             $actividad_economica[$act->id] = $act->actividad_economica;
         }
@@ -279,7 +279,7 @@ public function searchCP(Request $Request){
             $lugar_nacimiento[$estado->FK_nombre_estado] = $estado->FK_nombre_estado;
         }
         $actividad_economica = [];
-        $actividad = DB::table('actividad_economica')->get();
+        $actividad =  DB::select('select * from actividad_economica order by actividad_economica asc');
         foreach ($actividad as $act) {
             $actividad_economica[$act->id] = $act->actividad_economica;
         }

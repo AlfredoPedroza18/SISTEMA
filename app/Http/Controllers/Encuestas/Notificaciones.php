@@ -55,7 +55,6 @@ class Notificaciones extends Controller
   // }
 
 
-
   public function getEmailSettings($modulo, $idServicioEse){
 
       $emailSetting["Settings"] = [];
@@ -218,12 +217,12 @@ class Notificaciones extends Controller
 
         // $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output           
 
-        //$mail->SMTPDebug = 2;                                          // Send using SMTP
+            //$mail->SMTPDebug = 2;                                          // Send using SMTP
 
         $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "valkyriefirewind@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "vwgq yvqb mrqk kpxw"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;  
 
@@ -335,8 +334,8 @@ class Notificaciones extends Controller
 
         $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "valkyriefirewind@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "vwgq yvqb mrqk kpxw"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;  
 
@@ -920,8 +919,8 @@ class Notificaciones extends Controller
 
                 $mail->Host       = "smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = "mayaalfredo1@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
-        $mail->Password   = "rwxm igyq vdku sxgj"  ;# "Gtvalkyrie&14";                               // SMTP password
+        $mail->Username   = "valkyriefirewind@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "vwgq yvqb mrqk kpxw"  ;# "Gtvalkyrie&14";                               // SMTP password
         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = 587;                                      // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 

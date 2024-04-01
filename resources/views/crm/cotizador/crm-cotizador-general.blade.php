@@ -530,8 +530,8 @@ $(document).ready(function(){
                     "<input type='hidden' id='id-service-cotizacion"+i+"' value='"+response[i].id+"'>"+
                     "<input type='hidden' id='service-name-cotizacion"+i+"' value='"+ response[i].nombre +"'>"+
                   "</td><td>"+response[i].descripcion+ "</td><td>"+
-                    response[i].costo_unitario.toLocaleString("en")+
-                    "<input type='hidden' id='service-price-cotizacion"+i+"' value='"+ response[i].costo_unitario+"'>"+
+                   
+                    "<input  id='service-price-cotizacion"+i+"' value='"+ response[i].costo_unitario+"'>"+
 
                   "</td>"+
                   

@@ -172,6 +172,55 @@
 					<tbody>
 
 						<tr>
+							<td>Atraccion de talento</td>
+							<td>Atraccion de talento</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(4)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>Clima Laboral</td>
+							<td>Clima Laboral</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(2)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Estudios Socioeconómicos</td>
+							<td>Estudios Socioeconómicos</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(3)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>HeadHunter</td>
+							<td>HeadHunter</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(1)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						
+
+						<!--<tr>
 							<td>PUNTO DE VENTA</td>
 							<td>NOVAG COMPRAS Y ALMACEN</td>
 							<td>
@@ -229,7 +278,7 @@
 									<i class="fa fa-check"></i>
 								</a>
 							</td>
-						</tr>
+						</tr>-->
 					</tbody>
 			</table>
 			
