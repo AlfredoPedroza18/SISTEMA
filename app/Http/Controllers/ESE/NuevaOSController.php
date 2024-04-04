@@ -292,6 +292,14 @@ class NuevaOSController extends Controller
     }
     
     public function pdf($id,$idc){
+
+        $plantilla = DB::select("SELECT pc.idPlantilla AS plan FROM master_ese_plantilla_cliente pc
+        INNER JOIN master_ese_srv_servicio mc ON pc.IdPlantillaCliente = mc.IdPlantillaCliente
+        WHERE mc.IdServicioEse = $id");
+
+        $idP = (int) $plantilla[0]->plan;
+
+
         $IdServicioEse = $id;
         $IdRegion=0;
         $IdEstado=0;
@@ -1164,7 +1172,17 @@ class NuevaOSController extends Controller
             $Estatus = $value->Estatus;           
         }
 
-        $pdf = PDF::loadView('ESE.pdf.pdf-gent',[
+        if($idP == 4){
+            $ruta = "ESE.pdf.pdf-leon";
+        }elseif($idP == 5){
+            $ruta = "ESE.pdf.pdf-gsh";
+        }else{
+            $ruta = "ESE.pdf.pdf-gent";
+        }
+
+        
+
+        $pdf = PDF::loadView($ruta,[
             "horaE"=>$horaE,
             "dia"=>$dia,
             "mes"=>$mes,

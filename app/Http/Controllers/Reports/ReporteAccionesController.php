@@ -62,7 +62,7 @@ class ReporteAccionesController extends Controller
         }
 
         $centrostrabajo = DB::select("SELECT 
-        es.IdCliente, es.IdServicio, es.IdPeriodo, esc.CantidadCentro, esc.IdCentro, ect.Descripcion, ep.Fecha
+        es.IdCliente, es.IdServicio, es.IdPeriodo, esc.CantidadCentro, esc.IdCentro as cen,esc.IdCentro, ect.Descripcion, ep.Fecha
         FROM ev_servicio es
         INNER JOIN ev_servicio_cliente esc
         ON es.IdServicio = esc.IdServicio
@@ -70,7 +70,7 @@ class ReporteAccionesController extends Controller
         ON ect.IdCentro = esc.IdCentro
 		INNER JOIN ev_periodos ep
 	    ON ep.IdPeriodo = es.IdPeriodo
-        WHERE es.IdCliente = ".$id." and es.IdPeriodo = ".$id2);
+        WHERE es.IdCliente = ".$id." and es.IdPeriodo = ".$id2." order by esc.IdCentro asc");
 
         $calificacionDimension = DB::select('select epe.IdCliente,epe.IdEncuesta,epe.IdPeriodo,epe.IdPregunta, epe.IdCentro, epe.iValor, epe.IdPersonal,edp.IdDimension, ed.IdDominio, ec.IdCategoria, sum(epe.iValor)as calificacionDimension, count(DISTINCT epe.IdPersonal) as personal, (sum(epe.iValor)/count(DISTINCT epe.IdPersonal)) as promedio
         from ev_personal_encuesta epe
@@ -89,21 +89,23 @@ class ReporteAccionesController extends Controller
         $indextotal =0;
         $calificacionTotal = [];
 
-        foreach($calificacionDimension as $row){
-            $indextotal++;
-            if($row->IdCentro != $varianteCentro){
-                array_push($calificacionTotal,$califTotal);
-                $califTotal = 0;
-                $varianteCentro = $row->IdCentro;
-                $califTotal = $califTotal + $row->promedio;
-                if($indextotal == (count($calificacionDimension))){
-                    array_push($calificacionTotal,$califTotal);
+        foreach($centrostrabajo as $cn){
+            $califTotal = 0;
+            $indextotal =0;
+            foreach($calificacionDimension as $row){
+                $indextotal++;
+                if($row->IdCentro == $cn->cen){
+                    $califTotal = $califTotal + $row->promedio;
+                    if($indextotal == (count($calificacionDimension))){
+                        array_push($calificacionTotal,$califTotal);
+                    }
+                }else{
+                    $califTotal = 0;
+                    if($indextotal == (count($calificacionDimension))){
+                        array_push($calificacionTotal,$califTotal);
+                    }
                 }
-            }else{
-                $califTotal = $califTotal + $row->promedio;
-                if($indextotal == (count($calificacionDimension))){
-                    array_push($calificacionTotal,$califTotal);
-                }
+                
             }
         }
 

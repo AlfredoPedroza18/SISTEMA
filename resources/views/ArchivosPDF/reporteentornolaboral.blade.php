@@ -76,7 +76,7 @@
                         <tbody>
                             <tr>
                                 <td style="color: rgb(0, 0, 0); padding:5px; text-align:center;">
-                                    <p style="">{{$rowCentro->CantidadCentro}}</p>
+                                    <p style="">{{$rowCentro->totCon}}</p>
                                 </td>
                                 <td style="color: rgb(0, 0, 0); padding:5px; text-align:center;">
                                     <p style="">{{number_format($calificacion[$contador], 2)}}</p>
@@ -141,6 +141,7 @@
 
                     <div class="contenido-central">
 
+                
                         <table style="width:100%; border-collapse: collapse;">
                             <thead>
                                 <tr style="border-top:2px solid black; border-bottom:2px solid black;">
@@ -170,9 +171,14 @@
                                         @endforeach
                                     </td>
                                     <td style="text-align:center; color: rgb(0, 0, 0); padding:5px; width:5%">
+
+                                       
                                         @php
+                                        
                                             $contadorCategoria = 0;
+                                            
                                         @endphp
+                                        
                                         @foreach ($totalCategoria as $row)
                                             @if ($row->IdCentro == $rowCentro->IdCentro)
                                                 @if ($row->IdCategoria == 13)
@@ -1820,7 +1826,7 @@
                     <tbody>
                         <tr>
                             <td style="color: rgb(0, 0, 0); padding:5px; text-align:center;">
-                                <p style="">{{$rowCentro->CantidadCentro}}</p>
+                                <p style="">{{$rowCentro->totCon}}</p>
                             </td>
                             <td style="color: rgb(0, 0, 0); padding:5px; text-align:center;">
                                 <p style="">{{number_format($calificacion[$contador], 2)}}</p>

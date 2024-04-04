@@ -107,7 +107,7 @@ class AsignacionPlantillaClienteController extends Controller
     );
     $v="0";
     $c=DB::select('SELECT IdContenedor,Etiqueta FROM master_ese_contenedor');
-    $clientes=DB::select('SELECT c.id as IdCliente, c.nombre_comercial AS Nombre FROM clientes c');
+    $clientes=DB::select('SELECT c.id as IdCliente, c.nombre_comercial AS Nombre FROM clientes c where tipo=2');
     $servicios=DB::select('SELECT IdTipoServicio,Descripcion as Servicio FROM master_ese_tiposervicio');
 
     $tipos=DB::select('SELECT * FROM master_ese_tipos');

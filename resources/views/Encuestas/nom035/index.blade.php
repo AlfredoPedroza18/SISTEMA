@@ -197,8 +197,8 @@
                     <div class="col-md-3 col-md-12 col-sm-12 btn3" style="margin-bottom: 3px">
                         <a id="iddistribucion" type="button" class="btn btn-lg btn-block" style="background-color:rgb(6, 140, 202); color:white; padding: 20px 0">Distribución</a>
                     </div>
-                    <div class="col-md-3 col-md-12 col-sm-12 btn3" style="margin-bottom: 3px">
-                        <a type="button" id="btnReporteFinal" class="btn btn-lg btn-block" style="background-color:rgb(6, 140, 202); color:white; padding: 20px 0">Reporte Final PDF</a>
+                    <div hidden class="col-md-3 col-md-12 col-sm-12 btn3" style="margin-bottom: 3px">
+                        <a hidden type="hidden" id="btnReporteFinal" >Reporte Final PDF</a>
                     </div>
                     <div class="col-md-3 col-md-12 col-sm-12 btn3">
                         <a type="button" href="{{route('ayudaNom035')}}" class="btn btn-lg btn-block" style="background-color:rgb(6, 140, 202); color:white; padding: 20px 0">Información y ayuda</a>

@@ -29,7 +29,8 @@ class ReportEntornoController extends Controller
         $tamdimen = count($dimension);
 
         $centrostrabajo = DB::select("SELECT 
-        es.IdCliente, es.IdServicio, es.IdPeriodo, esc.CantidadCentro, esc.IdCentro, ect.Descripcion
+        es.IdCliente, es.IdServicio, es.IdPeriodo, esc.CantidadCentro,  esc.IdCentro as cen, esc.IdCentro, ect.Descripcion,
+        (SELECT COUNT(ssd.IdServicio_detalle) FROM ev_servicio_detalle ssd WHERE ssd.IdServicio_cliente = esc.IdServicio_cliente AND ssd.Estatus = 'Finalizado' AND ssd.IdEncuesta = 12) as totCon
         FROM ev_servicio es
         INNER JOIN ev_servicio_cliente esc
         ON es.IdServicio = esc.IdServicio
@@ -106,6 +107,21 @@ class ReportEntornoController extends Controller
             where epe.IdCliente = '.$IdCliente.' and epe.IdPeriodo = '.$IdPeriodo.' and epe.IdEncuesta = 12 and epe.IdCentro ='.$row->IdCentro.' GROUP BY epe.IdCentro,edp.IdDimension');
             
             $dd = 0;
+
+            if(count($calificacionDimension2) == 0){
+                $objetos = new \stdClass();
+                $objetos->IdCliente = "9"; 
+                $objetos->IdEncuesta = "12";
+                $objetos->IdPeriodo = "36";
+                $objetos->IdPregunta = "24"; 
+                $objetos->iValor = "-2";
+                $objetos->IdDimension = "25";
+                $objetos->promedio = "0";
+                $objetos->IdCentro = $row->IdCentro;
+
+                $calificacionDimension3[0]=$objetos;
+                $dd++;
+            }
             for($i=0;$i<(count($calificacionDimension2));$i++){
 
 
@@ -176,21 +192,24 @@ class ReportEntornoController extends Controller
         $indextotal =0;
         $calificacionTotal = [];
 
-        foreach($calificacionDimension as $row){
-            $indextotal++;
-            if($row->IdCentro != $varianteCentro){
-                array_push($calificacionTotal,$califTotal);
-                $califTotal = 0;
-                $varianteCentro = $row->IdCentro;
-                $califTotal = $califTotal + $row->promedio;
-                if($indextotal == (count($calificacionDimension))){
-                    array_push($calificacionTotal,$califTotal);
-                }
-            }else{
+        foreach($centrostrabajo as $cn){
+            $califTotal = 0;
+            $indextotal =0;
+            foreach($calificacionDimension as $row){
+                $indextotal++;
+
                 
-                $califTotal = $califTotal + $row->promedio;
-                if($indextotal == (count($calificacionDimension))){
-                    array_push($calificacionTotal,$califTotal);
+                if($row->IdCentro == $cn->cen){   
+                    $califTotal = $califTotal + $row->promedio;
+                    if($indextotal == (count($calificacionDimension))){
+                        array_push($calificacionTotal,$califTotal);
+                    }
+
+                }else{
+                    $califTotal = 0;
+                    if($indextotal == (count($calificacionDimension))){
+                        array_push($calificacionTotal,$califTotal);
+                    }
                 }
             }
         }
@@ -201,22 +220,30 @@ class ReportEntornoController extends Controller
         $riesgoxdominio = [];
         $indexriesgo = 0;
 
-        foreach($calificacionDimension as $row){
-           $indexriesgo++;
-           if($row->IdDominio != $ddominio){
-               array_push($riesgoxdominio, $sumariesgoentorno);
-               $sumariesgoentorno = 0;
-               $ddominio = $row->IdDominio;
-               $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
-               if($indexriesgo == (count($calificacionDimension))){
-                   array_push($riesgoxdominio, $sumariesgoentorno);
-               }
-           }else{
-               $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
-               if($indexriesgo == (count($calificacionDimension))){
-                   array_push($riesgoxdominio, $sumariesgoentorno);
-               }
-           }
+
+
+        foreach($centrostrabajo as $cn){
+            $sumariesgoentorno = 0;
+            $indexriesgo = 0;
+            foreach($calificacionDimension as $row){
+                
+                    $indexriesgo++;
+                    if($row->IdDominio != $ddominio){
+                        array_push($riesgoxdominio, $sumariesgoentorno);
+                        $sumariesgoentorno = 0;
+                        $ddominio = $row->IdDominio;
+                        $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
+                        if($indexriesgo == (count($calificacionDimension))){
+                            array_push($riesgoxdominio, $sumariesgoentorno);
+                        }
+                    }else{
+                        $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
+                        if($indexriesgo == (count($calificacionDimension))){
+                            array_push($riesgoxdominio, $sumariesgoentorno);
+                        }
+                    }
+                
+            }
         }
 
         $ddcategoria = $calificacionDimension[0]->IdCategoria;
@@ -224,23 +251,32 @@ class ReportEntornoController extends Controller
         $riesgoxcategoria = [];
         $indexriesgo = 0;
 
-        foreach($calificacionDimension as $row){
-           $indexriesgo++;
-           if($row->IdCategoria != $ddcategoria){
-               array_push($riesgoxcategoria, $sumariesgoentorno);
-               $sumariesgoentorno = 0;
-               $ddcategoria = $row->IdCategoria;
-               $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
-               if($indexriesgo == (count($calificacionDimension))){
-                   array_push($riesgoxcategoria, $sumariesgoentorno);
-               }
-           }else{
-               $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
-               if($indexriesgo == (count($calificacionDimension))){
-                   array_push($riesgoxcategoria, $sumariesgoentorno);
-               }
-           }
-        }
+        foreach($centrostrabajo as $cn){
+            $sumariesgoentorno = 0;
+            $indexriesgo = 0;
+
+            foreach($calificacionDimension as $row){
+                $indexriesgo++;
+                
+                    
+                    if($row->IdCategoria != $ddcategoria){
+                        array_push($riesgoxcategoria, $sumariesgoentorno);
+                        $sumariesgoentorno = 0;
+                        $ddcategoria = $row->IdCategoria;
+                        $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
+                        if($indexriesgo == (count($calificacionDimension))){
+                            array_push($riesgoxcategoria, $sumariesgoentorno);
+                        }
+                    }else{
+                        $sumariesgoentorno = $sumariesgoentorno + $row->promedio;
+                        if($indexriesgo == (count($calificacionDimension))){
+                            array_push($riesgoxcategoria, $sumariesgoentorno);
+                        }
+                    }
+                
+                
+            }
+        }  
     
         $contabor = 0;
 
