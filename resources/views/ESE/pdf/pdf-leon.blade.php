@@ -432,20 +432,6 @@
 
   <table class="tabla" style="margin-top: 0;">
   <tr>
-      <td class="gris_blanca" rowspan="2" style="width: 190px; border-top: none;">Créditos</td>
-      <td class="gris_blanca"  style="font-weight:bold; text-align: center; width: 65px; border-top: none;">INFONAVIT:</td>
-      <td class="gris_blanca"  style="text-align: center; padding: 1px 0 1px 0px; width: 360px; border-top: none;">@if($CreditoInfonavitMonto=='NA') No aplica @else @if($CreditoInfonavitMonto=='') &nbsp; @endif {{$CreditoInfonavitMonto}} @endif</td>
-      <td class="gris_blanca" style="text-align: center; width: 134px; border-top: none;">@if($CreditoInfonavitValidacion=='') &nbsp; @endif {{$CreditoInfonavitValidacion}}</td>
-    </tr>
-    <tr>
-      <td class="gris_blanca" style="font-weight:bold; text-align: center;">FONACOT:</td>
-      <td class="gris_blanca" style="text-align:center">@if($CreditoFonacotNum=='NA') No aplica @else @if($CreditoFonacotNum=='') &nbsp; @endif {{$CreditoFonacotNum}} @endif</td>
-      <td class="gris_blanca" style="text-align: center;">@if($CreditofonacotValidacion=='') &nbsp; @endif {{$CreditofonacotValidacion}}</td>
-    </tr>
-  </table>
-
-  <table class="tabla" style="margin-top: 0;">
-  <tr>
       <td class="gris_blanca" style="width: 190px; border-top: none;">Acta de matrimonio</td>
       <td class="gris_blanca" style="font-weight:bold; width:36px; border-top: none; text-align: center">Acta:</td>
       <td class="gris_blanca" style="width:65px; text-align: center; border-top: none; ">@if($NoActaMatrimonio=='' ) &nbsp; @endif @if($AplicaActaMatrimonio=='Si') {{$NoActaMatrimonio}} @else No aplica @endif</td>

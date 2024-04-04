@@ -274,9 +274,10 @@ class CotizadorController extends Controller
         
        $usuario = DB::select("select concat(u.name,' ',ifnull(u.apellido_paterno,'')) as nombres, m.nombre as puesto 
         from users u inner join master_puesto m on u.idpuesto = m.idpuesto where u.id =".Auth::user()->id);
-       switch ($id_plantilla){
+       
+        switch ($id_plantilla){
 
-            case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_rys_gent';
+            /*case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_rys_gent';
                 break;
 
             case 2: $view = 'crm.cotizador.pdf_perzonalizado.pdf_cl_gent';
@@ -286,8 +287,8 @@ class CotizadorController extends Controller
                 break;
             
             case 4: $view = 'crm.cotizador.pdf_perzonalizado.pdf_atraccion_talentos';
-            break;
-            /*case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
+            break;*/
+            case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
                 break;
 
             case 2: $view = 'crm.cotizador.pdf_perzonalizado.pdf_compras_almacen';
@@ -302,7 +303,7 @@ class CotizadorController extends Controller
             case 5: $view = 'crm.cotizador.pdf_perzonalizado.pdf_bascula_verytab';
                 break;
                                
-            default: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';*/
+            default: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
             
         }
 

@@ -3743,13 +3743,18 @@
               summarys.economica= summarys.economica.replace(":textCandidato", 'se entrevistó al candidato');
               summarys.economica= summarys.economica.replace(":textLOrden", '. ');
             }
+            
             else{
-              summarys.economica= summarys.economica.replace(":textCandidato", 'se visitó al candidato');
-              summarys.economica= summarys.economica.replace(":textLOrden", ', el mobiliario se encuentra en :ViviendaTipoCalidadGeneralValor estado de conservación. Al momento de la entrevista se observó todo :ViviendaTipoCalidadOrdenValor y :ViviendaTipoCalidadLimpiezaValor. ');
-              summarys.economica=summarys.economica.replace(":ViviendaTipoCalidadGeneralValor", calgeneral.replace(/"/g, ''));
-              summarys.economica=summarys.economica.replace(":ViviendaTipoCalidadLimpiezaValor", limpiezaValor.replace(/"/g, ''));
-              summarys.economica=summarys.economica.replace(":ViviendaTipoCalidadOrdenValor", ordenValor.replace(/"/g, ''));
+              if(response.idP !=4 ){
+                summarys.economica= summarys.economica.replace(":textCandidato", 'se visitó al candidato');
+                summarys.economica= summarys.economica.replace(":textLOrden", ', el mobiliario se encuentra en :ViviendaTipoCalidadGeneralValor estado de conservación. Al momento de la entrevista se observó todo :ViviendaTipoCalidadOrdenValor y :ViviendaTipoCalidadLimpiezaValor. ');
+                summarys.economica=summarys.economica.replace(":ViviendaTipoCalidadGeneralValor", calgeneral.replace(/"/g, ''));
+                summarys.economica=summarys.economica.replace(":ViviendaTipoCalidadLimpiezaValor", limpiezaValor.replace(/"/g, ''));
+                summarys.economica=summarys.economica.replace(":ViviendaTipoCalidadOrdenValor", ordenValor.replace(/"/g, ''));
+              }
             }
+
+
             summarys.economica= summarys.economica.replace(":TiempoVivirDomicilioValor", tiempovivir.replace(/"/g, ''));
             summarys.economica= summarys.economica.replace(":TotalIngresoValor", response.TotalIngresos);
             summarys.trayectoriaLaboral= summarys.trayectoriaLaboral.replace(":EmpleoActual", response.EmpleoActual);

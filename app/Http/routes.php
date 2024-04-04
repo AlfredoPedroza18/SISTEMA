@@ -1314,7 +1314,7 @@ Route::post('getAyuda','Encuestas\AyudaNom035Controller@getAyuda')->name('getAyu
 
 Route::post('getPeriodo','Encuestas\Nom035Controller@getPeriodo')->name('getPeriodo');
 
-Route::get('getCentros','Encuestas\Nom035Controller@getCentros')->name('getCentros');
+Route::post('getCentros','Encuestas\Nom035Controller@getCentros')->name('getCentros');
 
 Route::post('getRiesgosss','Encuestas\Nom035Controller@getRiesgos')->name('getRiesgoss');
 

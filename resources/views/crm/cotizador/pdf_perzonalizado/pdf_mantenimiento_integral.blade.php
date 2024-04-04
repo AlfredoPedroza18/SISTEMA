@@ -11,4 +11,6 @@
         <p>SERVICIO MENSUAL</p>
  
        <p>DETALLE DE COTIZACIÓN SOFTWARE NOIL </p>
-</div>
+
+       @include("crm.cotizador.pdf_perzonalizado.plantillas.tabla_productos");
+       

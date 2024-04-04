@@ -251,4 +251,5 @@
 
     <p style="text-align: center;">Nota: Para aceptar esta cotización, favor de firmar aquí y regresar</p>
 
+    @include("crm.cotizador.pdf_perzonalizado.plantillas.tabla_productos");
 </div>

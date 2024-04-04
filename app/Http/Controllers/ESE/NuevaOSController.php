@@ -5422,6 +5422,13 @@ public function GuardarEstudioInput2(Request $request)
 
     public function getJsonSummary($IdServicioEse){
 
+
+        $plantilla = DB::select("SELECT pc.idPlantilla AS plan FROM master_ese_plantilla_cliente pc
+        INNER JOIN master_ese_srv_servicio mc ON pc.IdPlantillaCliente = mc.IdPlantillaCliente
+        WHERE mc.IdServicioEse = $IdServicioEse");
+
+        $idP = (int) $plantilla[0]->plan;
+        
         $grupos = DB::select("Select concat('|',GROUP_CONCAT(DISTINCT(master_ese_contenedor.Etiqueta) SEPARATOR ','),'|') as Grupo
         from master_ese_contenedor
         Inner Join master_ese_agrupador ON master_ese_agrupador.IdContenedor = master_ese_contenedor.IdContenedor
@@ -5637,7 +5644,7 @@ public function GuardarEstudioInput2(Request $request)
         foreach ($sqlMod as $mpt) {
             $ValMod=$mpt->IdModalidad;
         }
-      return array("data" => (count($result) > 0)?$result[0]->resultJson:$result,"EmpleoActual"=>$res,"EmpleoAnterior"=>$resAnt,"Dictamen"=>$dict,"TotalIngresos"=>$totalIngresos,"grupos"=>$grupos,"IdMod"=>$ValMod);
+      return array("data" => (count($result) > 0)?$result[0]->resultJson:$result,"EmpleoActual"=>$res,"EmpleoAnterior"=>$resAnt,"Dictamen"=>$dict,"TotalIngresos"=>$totalIngresos,"grupos"=>$grupos,"IdMod"=>$ValMod, "idP"=>$idP);
     }
 
 //---------------------------------------------

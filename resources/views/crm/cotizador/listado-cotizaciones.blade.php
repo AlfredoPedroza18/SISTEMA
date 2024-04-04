@@ -171,7 +171,7 @@
 					
 					<tbody>
 
-						<tr>
+						<!--<tr>
 							<td>Atraccion de talento</td>
 							<td>Atraccion de talento</td>
 							<td>
@@ -217,10 +217,10 @@
 								</a>
 							</td>
 						</tr>
-
+						-->
 						
 
-						<!--<tr>
+						<tr>
 							<td>PUNTO DE VENTA</td>
 							<td>NOVAG COMPRAS Y ALMACEN</td>
 							<td>
@@ -278,7 +278,7 @@
 									<i class="fa fa-check"></i>
 								</a>
 							</td>
-						</tr>-->
+						</tr>
 					</tbody>
 			</table>
 			
