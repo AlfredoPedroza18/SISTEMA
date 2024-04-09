@@ -270,7 +270,7 @@
       <td style="border-left: none; height: 15px; border-top: none;">&nbsp;</td>
     </tr>
     <tr>
-      <td class="gris_blaca" colspan="3" style="height: 20px; padding: 5px;">Gen-T, Ohio No. 15, Col. Nápoles, Ciudad de México. C.P. 03810, Tel.: @if($telefonoA=='') &nbsp; @else {{$telefonoA}} @endif, @if($email=='') &nbsp; @else {{$email}} @endif Declaración: El entrevistado declara que la información manifestada en este estudio es verdadera, por lo cual tendrá vigencia y entrará en vigor el Art. 47 Fracc. I de la L.F.T.
+      <td class="gris_blaca" colspan="3" style="height: 20px; padding: 5px;">Gen-T, Fray Nicolás #3171, Col. Jardines de la paz, Guadalajara, Jalisco. C.P. 44860, Tel.: @if($telefonoA=='') &nbsp; @else {{$telefonoA}} @endif, @if($email=='') &nbsp; @else {{$email}} @endif Declaración: El entrevistado declara que la información manifestada en este estudio es verdadera, por lo cual tendrá vigencia y entrará en vigor el Art. 47 Fracc. I de la L.F.T.
       </td>
     </tr>
   </table>

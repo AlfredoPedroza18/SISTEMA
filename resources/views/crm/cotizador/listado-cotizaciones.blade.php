@@ -219,10 +219,10 @@
 						</tr>
 						-->
 						
-
+					
 						<tr>
 							<td>PUNTO DE VENTA</td>
-							<td>NOVAG COMPRAS Y ALMACEN</td>
+							<td>PUNTO DE VENTA</td>
 							<td>
 								<a 	class="btn btn-primary btn-circle btn-sm" 
 								onclick="CotizacionPerzonalizada(1)"
@@ -233,8 +233,20 @@
 						</tr>
 
 						<tr>
-							<td>NOVAG COMPRAS Y ALMACEN</td>
-							<td>NOVAG COMPRAS Y ALMACEN</td>
+							<td>PUNTO DE VENTA CON ACCESORIOS</td>
+							<td>PUNTO DE VENTA CON ACCESORIOS</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(6)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						<tr>
+							<td>COMPRAS Y ALMACEN</td>
+							<td>COMPRAS Y ALMACEN</td>
 							<td>
 								<a 	class="btn btn-primary btn-circle btn-sm" 
 								onclick="CotizacionPerzonalizada(2)"
@@ -269,8 +281,8 @@
 						</tr>
 						
 						<tr>
-							<td>BASCULA VERYTAB</td>
-							<td>BASCULA VERYTAB</td>
+							<td>GENERAL</td>
+							<td>GENERAL</td>
 							<td>
 								<a 	class="btn btn-primary btn-circle btn-sm" 
 									onclick="CotizacionPerzonalizada(5)"

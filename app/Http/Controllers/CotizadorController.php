@@ -302,8 +302,12 @@ class CotizadorController extends Controller
 
             case 5: $view = 'crm.cotizador.pdf_perzonalizado.pdf_bascula_verytab';
                 break;
-                               
+                            
+            case 6: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta2';
+                break;
+                
             default: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
+                
             
         }
 

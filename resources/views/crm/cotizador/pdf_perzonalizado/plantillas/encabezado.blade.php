@@ -1,5 +1,12 @@
 <style>
 
+    html{
+
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+    
+    }
+
     @page {
         margin: 0cm 0cm;
         font-family: Arial;
@@ -24,7 +31,7 @@
 
     p{
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 11px;
+        font-size: 13px;
         text-align: justify;
     }
     
@@ -34,7 +41,7 @@
 
     #logo{
         width: 22cm;
-        height: 3cm;
+        height: 2.8cm;
     }
 
     #logoG{

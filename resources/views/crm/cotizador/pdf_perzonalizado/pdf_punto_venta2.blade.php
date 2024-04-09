@@ -29,6 +29,7 @@
         <p>POR MEDIO DEL PRESENTE TENGO EL AGRADO DE ENVIARLE LA SIGUIENTE COTIZACIÓN: </p>
         <ul class="listaNo">
             <li class="negritas">PUNTO DE VENTA SOFTWARE ERP NOIL</li>
+            <li class="negritas">ACCESORIOS</li>
         </ul>
         <p>&nbsp;</p>
 
