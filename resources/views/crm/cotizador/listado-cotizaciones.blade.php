@@ -171,12 +171,34 @@
 					
 					<tbody>
 
-						<!--<tr>
+						<tr>
 							<td>Atraccion de talento</td>
-							<td>Atraccion de talento</td>
+							<td>1 mes</td>
 							<td>
 								<a 	class="btn btn-primary btn-circle btn-sm" 
 								onclick="CotizacionPerzonalizada(4)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>Atraccion de talento</td>
+							<td>2 meses</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(5)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td>Atraccion de talento</td>
+							<td>3 meses</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(6)"
 									>
 									<i class="fa fa-check"></i>
 								</a>
@@ -217,9 +239,9 @@
 								</a>
 							</td>
 						</tr>
-						-->
 						
-					
+						
+					<!--
 						<tr>
 							<td>PUNTO DE VENTA</td>
 							<td>PUNTO DE VENTA</td>
@@ -290,7 +312,7 @@
 									<i class="fa fa-check"></i>
 								</a>
 							</td>
-						</tr>
+						</tr>-->
 					</tbody>
 			</table>
 			

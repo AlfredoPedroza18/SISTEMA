@@ -277,7 +277,7 @@ class CotizadorController extends Controller
        
         switch ($id_plantilla){
 
-            /*case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_rys_gent';
+            case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_rys_gent';
                 break;
 
             case 2: $view = 'crm.cotizador.pdf_perzonalizado.pdf_cl_gent';
@@ -287,8 +287,16 @@ class CotizadorController extends Controller
                 break;
             
             case 4: $view = 'crm.cotizador.pdf_perzonalizado.pdf_atraccion_talentos';
-            break;*/
-            case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
+            break;
+
+            case 5: $view = 'crm.cotizador.pdf_perzonalizado.pdf_atraccion_talentos2';
+            break;
+
+            case 6: $view = 'crm.cotizador.pdf_perzonalizado.pdf_atraccion_talentos3';
+            break;
+
+            
+            /*case 1: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
                 break;
 
             case 2: $view = 'crm.cotizador.pdf_perzonalizado.pdf_compras_almacen';
@@ -304,7 +312,7 @@ class CotizadorController extends Controller
                 break;
                             
             case 6: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta2';
-                break;
+                break;*/
                 
             default: $view = 'crm.cotizador.pdf_perzonalizado.pdf_punto_venta';
                 

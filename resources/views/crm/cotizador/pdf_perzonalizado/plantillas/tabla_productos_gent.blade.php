@@ -49,7 +49,7 @@
       @endif
 
       <tr>
-          <td colspan="2" class="blank"> &nbsp;  </td>
+          <td colspan="2" class="blank"  style="border: none;"> &nbsp;  </td>
           <td class="total-line" style="text-align: right;">Subtotal</td>
           <td>&nbsp;</td>
           <td class="total-value" >
@@ -60,7 +60,7 @@
       @if( $cotizacion->descuento !== 0.00 )
       <tr>
 
-          <td colspan="2" class="blank"> &nbsp;  </td>
+          <td colspan="2" class="blank" style="border: none;"> &nbsp;  </td>
           <td class="total-line" style="text-align: right;">Descuento</td>
           <td class="total-line" style="text-align: right;">&nbsp;</td>
           <td class="total-value" >
@@ -70,7 +70,7 @@
       @endif
       @endif
       <tr>
-          <td colspan="2" class="blank">  &nbsp; </td>
+          <td colspan="2" class="blank"  style="border: none;">  &nbsp; </td>
           <td class="total-line" style="text-align: right;">IVA</td>
           <td class="total-line" style="text-align: right;">&nbsp;</td>
           <td class="total-value" >
