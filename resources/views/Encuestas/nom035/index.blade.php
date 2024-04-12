@@ -496,7 +496,7 @@
         function obtenerCentrosTrabajo(IdPeriodo, IdCliente){
             $('body').waitMe({
                 effect : 'roundBounce',
-                waitTime: 100000,
+                waitTime: 300000,
                 text : 'Espere un momento por favor...',
                 onClose: function() {}
             });
