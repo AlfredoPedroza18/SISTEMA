@@ -201,7 +201,7 @@
                         <a hidden type="hidden" id="btnReporteFinal" >Reporte Final PDF</a>
                     </div>
                     <div class="col-md-3 col-md-12 col-sm-12 btn3">
-                        <a type="button" href="{{route('ayudaNom035')}}" class="btn btn-lg btn-block" style="background-color:rgb(6, 140, 202); color:white; padding: 20px 0">Información y ayuda</a>
+                        <a hidden type="button" href="{{route('ayudaNom035')}}"  style="background-color:rgb(6, 140, 202); color:white; padding: 20px 0">Información y ayuda</a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 7px">
                         <a type="button" class="btn btn-primary btn-lg" id="btn-quejas">

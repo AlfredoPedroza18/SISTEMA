@@ -78,7 +78,8 @@ class SugerenciasController extends Controller
                         "Queja" => $request->tipoqueja,
                         "Anonimo" => $request->anonimo,
                         "Nombre" => $request->nombrequeja,
-                        "Correo" => $request->correoqueja
+                        "Correo" => $request->correoqueja,
+                        "IdPeriodo" =>$request->idPeriodo
                     )
         );
 

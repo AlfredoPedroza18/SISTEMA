@@ -90,11 +90,15 @@ class DistribucionNom035Controller extends Controller
 
         // $datos = DB::select("SELECT ep.IdPersonal, ep.IdCliente, ep.Nombre, ep.IdCentroTrabajo, ep.Telefono, ep.Correo FROM ev_personal ep WHERE ep.IdCliente =".$idCliente." ORDER BY ep.IdCentroTrabajo;");
         $datos = DB::select("SELECT ep.IdPersonal, ep.IdCliente, ep.Nombre, ep.IdCentroTrabajo, ep.Telefono, ep.Correo,
-        (select esd.lNotifica from ev_servicio_detalle esd where esd.IdPersonal = ep.IdPersonal LIMIT 1) as notificacion
+        (select esd.lNotifica from ev_servicio_detalle esd where esd.IdPersonal = ep.IdPersonal LIMIT 1) as notificacion,
+        (select esd.Link from ev_servicio_detalle esd where esd.IdPersonal = ep.IdPersonal AND esd.IdEncuesta = 11 LIMIT 1) as link,
+        (select en.Detalle from ev_encuesta en where en.IdEncuesta = 11 LIMIT 1) as detalle,
+        (select esd.Link from ev_servicio_detalle esd where esd.IdPersonal = ep.IdPersonal AND esd.IdEncuesta = 12 LIMIT 1) as link2,
+        (select en.Detalle from ev_encuesta en where en.IdEncuesta = 12 LIMIT 1) as detalle2
         FROM ev_personal ep 
         WHERE ep.IdCliente =".$idCliente." AND idPeriodo =".$idPeriodo." ORDER BY ep.IdCentroTrabajo;");
         
-        $espacios = DB::select("SELECT ep.IdPersonal, ep.IdCliente, ep.Nombre, ep.IdCentroTrabajo, ep.Telefono, ep.Correo, count(ep.IdPersonal) as cantidadPersonal FROM ev_personal ep WHERE ep.IdCliente =".$idCliente." and ep.Correo <> '' and ep.Telefono <> '' GROUP BY ep.IdCentroTrabajo");
+        $espacios = DB::select("SELECT ep.IdPersonal, ep.IdCliente, ep.Nombre, ep.IdCentroTrabajo, ep.Telefono, ep.Correo, count(ep.IdPersonal) as cantidadPersonal FROM ev_personal ep WHERE ep.IdCliente =".$idCliente." AND IdPeriodo =".$idPeriodo." and (ep.Correo <> '' OR ep.Telefono <> '') GROUP BY ep.IdCentroTrabajo");
 
         for ($k=0; $k<sizeof($centros); $k++){
             for ($l=0; $l<sizeof($datos); $l++){
@@ -391,7 +395,7 @@ class DistribucionNom035Controller extends Controller
         $IdCentroTrabajo = $request->input('IdCentroTrabajo');
         $footer = $cc[0]->FooterEmail;
 
-        $datos = DB::select("SELECT IdPersonal, Nombre, Correo FROM ev_personal WHERE IdCentroTrabajo = '".$IdCentroTrabajo."';");
+        $datos = DB::select("SELECT IdPersonal, Nombre, Correo FROM ev_personal WHERE IdCentroTrabajo = '".$IdCentroTrabajo."'  AND IdPeriodo = '".$idPeriodo."';");
 
         $correo = MasterConsultas::exeSQL("ev_conf_mail", "READONLY",
         array(

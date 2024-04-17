@@ -96,17 +96,12 @@ class ReporteAccionesController extends Controller
                 $indextotal++;
                 if($row->IdCentro == $cn->cen){
                     $califTotal = $califTotal + $row->promedio;
-                    if($indextotal == (count($calificacionDimension))){
-                        array_push($calificacionTotal,$califTotal);
-                    }
-                }else{
-                    $califTotal = 0;
-                    if($indextotal == (count($calificacionDimension))){
-                        array_push($calificacionTotal,$califTotal);
-                    }
-                }
+                    
+                    
+                } 
                 
             }
+            array_push($calificacionTotal,$califTotal);
         }
 
         $contador = 0;

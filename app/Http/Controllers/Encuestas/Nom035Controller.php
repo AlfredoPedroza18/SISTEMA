@@ -168,7 +168,7 @@ class Nom035Controller extends Controller
         
         $quejas = DB::select("select es.Comentario
         from ev_sugerencias es 
-        where es.IdCliente = ".$IdCliente);
+        where es.IdCliente = ".$IdCliente. " AND es.IdPeriodo =".$IdPeriodo);
 
         $numQuejas = count($quejas);
                 

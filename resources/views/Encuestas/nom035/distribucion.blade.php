@@ -278,27 +278,13 @@
                         @if ($row->IdCentro == $row2->IdCentroTrabajo)
                         @php
                             $contReg++;
-                            $descLink='';
+                            $descLink='<br>'.$row2->detalle.' <br><a href="'.$row2->link.'">'.$row2->link.'</a> <br><br>'.$row2->detalle2.'<br><a href="'.$row2->link2.'">'.$row2->link2.'</a>';
+
                             $descWhats='';
-                            $linkRi = [];
+                            
                             $linkEn = '';
 
-                            foreach ($servCliente as $sc){
-                                foreach ($servDetalle as $sd){
-                                    if ($sd->IdServicio_cliente==$sc->IdServicio_cliente){
-                                        if ($sd->IdPersonal==$row2->IdPersonal){
-                                            foreach ($encuestas as $enc){
-                                                if ($sd->IdEncuesta==$enc->IdEncuesta){
-                                                    $descLink=$descLink.'<br><b>'.$enc->Descripcion.': </b>'.$enc->Detalle.'<br><a href="'.$sd->Link.'">'.$sd->Link.'</a><br>';
-
-                                                    $descWhats=$descWhats.'\n\n*'.$enc->Descripcion.'*: '.$enc->Detalle.'\n'.$sd->Link;
-                                                    array_push($linkRi, $sd->Link);
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            
                             $descLink=$correo.'<br>'.$descLink.'<br><br><b>Si llegas a tener un problema o sugerencia en cualquier momento puedes dirigirte al siguiente enlace Buzón de quejas y Sugerencias: </b><br><a href="'.$servicio[0]->LinkSugerencias.'">'.$servicio[0]->LinkSugerencias.'</a>';
 
                             $descWhats=$correo.$descWhats.'\n\n*Buzón de quejas y Sugerencias*: '.$servicio[0]->LinkSugerencias;
@@ -359,11 +345,8 @@
                                                     @endif
                                                     <a href="javascript:modalMail('{{$descLink}}')" class="btn btn-primary btn-icon btn-circle btn-sm" style=""><i class="fa fa-pencil"></i></a>
                                                     {{-- <a href="https://api.whatsapp.com/send?phone=529212342683&text=Podrias+ayudarnos+con+el+llenado+de+las+siguientes+encuestas.+El+objetivo+es+identificar+a+los+trabajadores+que+se+han+visto+afectados+por+este+tipo+de+situaciones%2C+con+el+objetivo+de+apoyarlos+de+la+mejor+manera+posible.+Favor+de+Ingresar+por+medio+del+siguiente+enlace%0D%0A%0D%0AIdentificaci%C3%B3n+de+riesgo+psicosocial%3A+El+objetivo+es+identificar+a+los+trabajadores+que+se+han+visto+afectados+por+este+tipo+de+situaciones%2C+con+el+objetivo+de+apoyarlos+de+la+mejor+manera+posible.Favor+de+Ingresar+por+medio+del+siguiente+enlace%0D%0Ahttps%3A%2F%2Fwww.sistemagent.com%3A8000%2Ferp-demo%2Fpublic%2FstartEncuesta%2F11%2F307%2FCOD-P1398%0D%0A">Mensaje</a> --}}
-                                                    @php
-                                                            $linkRiesgo = urlencode($linkRi[0]);
-                                                            $linkEntorno = urlencode($linkRi[1]);
-                                                    @endphp
-                                                    <a target="_blank" href="https://api.whatsapp.com/send?phone=52{{$row2->Telefono}}&text=Hola+{{$row2->Nombre}}.%0D%0A%0D%0APodrias+ayudarnos+con+el+llenado+de+las+siguientes+encuestas.+El+objetivo+es+identificar+a+los+trabajadores+que+se+han+visto+afectados+por+este+tipo+de+situaciones%2C+con+el+objetivo+de+apoyarlos+de+la+mejor+manera+posible.+Favor+de+Ingresar+por+medio+del+siguiente+enlace%0D%0A%0D%0AIdentificaci%C3%B3n+de+riesgo+psicosocial%3A+El+objetivo+es+identificar+a+los+trabajadores+que+se+han+visto+afectados+por+este+tipo+de+situaciones%2C+con+el+objetivo+de+apoyarlos+de+la+mejor+manera+posible.Favor+de+Ingresar+por+medio+del+siguiente+enlace%0D%0A{{$linkRiesgo}}%0D%0A%0D%0AEntorno+laboral%3A+Es+de+car%C3%A1cter+an%C3%B3nimo+y+establece+los+elementos+para+identificar%2C+analizar+y+prevenir+los+factores+de+riesgo+psicosocial%2C+as%C3%AD+como+para+promover+un+entorno+organizacional+favorable+en+los+centros+de+trabajo.+Favor+de+Ingresar+por+medio+del+siguiente+enlace%3A%0D%0A{{$linkEntorno}}%0D%0A%0D%0ASi+llegas+a+tener+un+problema+o+sugerencia+en+cualquier+momento+puedes+dirigirte+al+siguiente+enlace+Buz%C3%B3n+de+quejas+y+Sugerencias%3A%0D%0Ahttps%3A%2F%2Fwww.sistemagent.com%3A8000%2Ferp-demo%2Fpublic%2FquejaSugerencia%2F205%2F187%0D%0A" class="btn btn-success btn-icon btn-circle" style="background-color:rgb(82, 197, 82);font-size:20px;"><i class="fa fa-whatsapp"></i></a>
+                                                   
+                                                    <a target="_blank" href="https://api.whatsapp.com/send?phone=52{{$row2->Telefono}}&text=Hola+{{$row2->Nombre}}.%0D%0A%0D%0APodrias+ayudarnos+con+el+llenado+de+las+siguientes+encuestas.+El+objetivo+es+identificar+a+los+trabajadores+que+se+han+visto+afectados+por+este+tipo+de+situaciones%2C+con+el+objetivo+de+apoyarlos+de+la+mejor+manera+posible.+Favor+de+Ingresar+por+medio+del+siguiente+enlace%0D%0A%0D%0AIdentificaci%C3%B3n+de+riesgo+psicosocial%3A+El+objetivo+es+identificar+a+los+trabajadores+que+se+han+visto+afectados+por+este+tipo+de+situaciones%2C+con+el+objetivo+de+apoyarlos+de+la+mejor+manera+posible.Favor+de+Ingresar+por+medio+del+siguiente+enlace%0D%0A{{$row2->link}}%0D%0A%0D%0AEntorno+laboral%3A+Es+de+car%C3%A1cter+an%C3%B3nimo+y+establece+los+elementos+para+identificar%2C+analizar+y+prevenir+los+factores+de+riesgo+psicosocial%2C+as%C3%AD+como+para+promover+un+entorno+organizacional+favorable+en+los+centros+de+trabajo.+Favor+de+Ingresar+por+medio+del+siguiente+enlace%3A%0D%0A{{$row2->link2}}%0D%0A%0D%0ASi+llegas+a+tener+un+problema+o+sugerencia+en+cualquier+momento+puedes+dirigirte+al+siguiente+enlace+Buz%C3%B3n+de+quejas+y+Sugerencias%3A%0D%0Ahttps%3A%2F%2Fwww.sistemagent.com%3A8000%2Ferp-demo%2Fpublic%2FquejaSugerencia%2F205%2F187%0D%0A" class="btn btn-success btn-icon btn-circle" style="background-color:rgb(82, 197, 82);font-size:20px;"><i class="fa fa-whatsapp"></i></a>
                                                 </div>
                                             </div>
                                         </div>

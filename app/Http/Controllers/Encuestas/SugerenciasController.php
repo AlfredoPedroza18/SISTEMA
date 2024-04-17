@@ -42,7 +42,7 @@ class SugerenciasController extends Controller
         ON ect.IdCentro = esc.IdCentro
         WHERE es.IdCliente = ".$idCliente." and es.IdPeriodo = ".$idPeriodo);
 
-        $comentario=DB::select('select * from ev_sugerencias es where es.IdCliente ="'.$idCliente.'"');
+        $comentario=DB::select('select * from ev_sugerencias es where es.IdCliente ="'.$idCliente.'" AND es.IdPeriodo = '.$idPeriodo);
 
         $quejas = MasterConsultas::exeSQL("ev_tipo_quejas", "READONLY",
             array(
@@ -56,7 +56,7 @@ class SugerenciasController extends Controller
         //     )
         // );
 
-        $sugerencias = DB::select("SELECT es.IdSugerencia,es.Comentario,es.Anonimo,es.Nombre,es.Correo, es.Estatus,(SELECT c.nombre_comercial FROM clientes c WHERE c.id = es.IdCliente)AS cliente,(SELECT ect.Descripcion FROM ev_centros_trabajo ect WHERE ect.IdCentro = es.IdCentro) AS centro,(SELECT etq.Descripcion FROM ev_tipo_queja etq WHERE etq.IdTipoQueja = es.IdTipoQueja)AS TipoQueja FROM ev_sugerencias es WHERE es.IdCliente =".$idCliente." ORDER BY es.IdSugerencia DESC;");
+        $sugerencias = DB::select("SELECT es.IdSugerencia,es.Comentario,es.Anonimo,es.Nombre,es.Correo, es.Estatus,(SELECT c.nombre_comercial FROM clientes c WHERE c.id = es.IdCliente)AS cliente,(SELECT ect.Descripcion FROM ev_centros_trabajo ect WHERE ect.IdCentro = es.IdCentro) AS centro,(SELECT etq.Descripcion FROM ev_tipo_queja etq WHERE etq.IdTipoQueja = es.IdTipoQueja)AS TipoQueja FROM ev_sugerencias es WHERE es.IdCliente =".$idCliente." AND es.IdPeriodo = ".$idPeriodo." ORDER BY es.IdSugerencia DESC;");
 
         return view("Encuestas.encuestas.sugerencias",['listaEncuestas'=>$listaEncuestas,'comentario'=>$comentario,'centros'=>$centros,'quejas'=>$quejas,'sugerencias'=>$sugerencias,'IdServicio'=> $idServicio]);
     }
