@@ -305,7 +305,7 @@
                 <td>
                 	<div class="input-group input-group-sm col-md-8 col-sm-12 col-xs-12">
                         <span class="input-group-addon"><i class="fa fa-mobile fa-lg m-r-5"></i></span>
-                        {{ Form::text('ext', $telefono_movil,['class' => 'form-control telefono','placeholder' => 'Ext','required' => 'required']) }}
+                        {{ Form::text('ext', $telefono_movil,['class' => 'form-control','placeholder' => 'Ext','required' => 'required']) }}
                     </div>
                 </td>
             </tr>

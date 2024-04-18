@@ -2489,7 +2489,10 @@
                     onClose: function() {}
                 });
                 swal("Aviso!", "No hay información para esta vista, favor de llenar una encuesta primero.", "info");
-                window.location.href="/gent_coatza/public/nom035";
+                setTimeout(function(){
+                    window.location.href="/gent_coatza/public/nom035";
+                }, 4000);
+                
             }
         });
     }

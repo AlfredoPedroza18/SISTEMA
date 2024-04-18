@@ -293,17 +293,15 @@ class ClientesController extends Controller
 
             $userPass =  bcrypt($request->contrasena);
      
-             DB::insert('insert into users (name,idcn,username,email,password,password_aux,telefono_movil,tipo) values (?,?,?,?,?,?,?,?)', [$request->nombre_comercial,$idcn_user,$request->nombre_de_usuario,$request->correo_de_usuario,
+             DB::insert('insert into users (name,idcn,username,email,password,password_aux,telefono_movil,tipo,IdCliente) values (?,?,?,?,?,?,?,?,?)', [$request->nombre_comercial,$idcn_user,$request->nombre_de_usuario,$request->correo_de_usuario,
      
-             $userPass,$request->contrasena,$request->telefono_de_usuario,'c'
+             $userPass,$request->contrasena,$request->telefono_de_usuario,'c',$last_client[0]->id
      
              ]);
 
-             DB::table('users')
+             $last_user = DB::select('SELECT id FROM users where IdCliente = '.$last_client[0]->id);
 
-                ->where('id', $last_user[0]->id)
-
-                ->update(['IdCliente' => $last_client[0]->id]);
+             
 
             
             DB::table('clientes')

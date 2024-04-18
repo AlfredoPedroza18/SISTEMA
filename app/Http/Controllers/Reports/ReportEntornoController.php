@@ -121,7 +121,7 @@ class ReportEntornoController extends Controller
 
                 $calificacionDimension3[0]=$objetos;
                 $dd++;
-            }
+            }else{
             for($i=0;$i<(count($calificacionDimension2));$i++){
 
 
@@ -180,7 +180,9 @@ class ReportEntornoController extends Controller
                 }
 
               
-            }    
+            }
+                
+            }
             
             array_push($dimenCentros, $calificacionDimension3);
             $ff++;
