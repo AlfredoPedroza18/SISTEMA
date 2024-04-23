@@ -198,6 +198,15 @@ class StartEncuestaController extends Controller
         $IdCliente = $request->IdCliente;
         $response = $request->response;
         $i = $request->i;
+        $idPer = $request->IdPersonal;
+
+        $idCen = DB::select("SELECT IdCentroTrabajo as id from ev_personal where IdPersonal = '".$idPer."'");
+
+        $idCentro = "";
+        foreach ($idCen as $cen){
+            $idCentro = $cen->id;
+        }
+        
 
         if ($consulta === "ev_centro_encuesta" || $consulta === "ev_departamento_encuesta" || $consulta === "ev_puesto_encuesta"){
             $respuestas = MasterConsultas::exeSQL($consulta, "READONLY",
@@ -212,7 +221,7 @@ class StartEncuestaController extends Controller
                 )
             );
         }
-        return response()->json(['data'=>$respuestas,'data2'=>$response,'i'=>$i]);
+        return response()->json(['data'=>$respuestas,'data2'=>$response,'i'=>$i,"idCen"=>$idCentro]);
     }
 
     public function getResponses(Request $request){

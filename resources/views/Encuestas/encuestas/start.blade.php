@@ -1787,6 +1787,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                                             document.getElementById("btnSiguiente").disabled = false;
             
                                         }else{
+                                            let IdPersonal = document.getElementById('id_personal').value;
                                             let Consulta = response[i].GrupoRespuesta;
                                             let token = '{{csrf_token()}}';
                                             let IdCliente = document.getElementById('cliente_id').value;
@@ -1797,6 +1798,7 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                                                     Consulta:Consulta,
                                                     response:response,
                                                     IdCliente:IdCliente,
+                                                    IdPersonal:IdPersonal,
                                                     i:i,
                                                     _token: token
                                                 },
@@ -1805,9 +1807,21 @@ $meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
                                                     document.getElementById('respuestaa').style = "width:80%";
                                                     let select = document.createElement("select");
                                                         response.data.forEach( function(element,index) {
+                                                            
                                                             let opcion = document.createElement("option");
                                                             opcion.value = `${element.IdGeneral}`;
                                                             opcion.innerHTML = `${element.Descripcion}`;
+
+                                                            if(response.data2[i].Pregunta=="Centro de Trabajo"){
+
+                                                                console.log(response.idCen);
+                                                                console.log(element.IdGeneral);
+                                                                if(response.idCen == `${element.IdGeneral}`){
+                                                                    opcion.selected = `${element.IdGeneral}`;
+                                                                }
+                                                                select.disabled = true;
+                                                            }
+
                                                             select.setAttribute("class", "form-control");
                                                             select.setAttribute("id", "selecc");
                                                             select.appendChild(opcion);

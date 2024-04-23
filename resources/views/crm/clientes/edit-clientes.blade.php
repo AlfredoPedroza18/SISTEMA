@@ -264,7 +264,59 @@ var showPDF = function(id){
 
 $(document).ready(function(){
 
+    var datofj = $("#forma_juridica").val();
 
+
+    console.log(datofj);
+  
+    if(datofj ==1 || datofj == "1"){
+          
+      $('.pm').hide();
+
+      $('.pf').show();
+
+    }else if(datofj == 2 || datofj == "2"){
+
+      $('.pm').show();
+
+      $('.pf').show();
+
+    }else{
+          
+      $('.pm').hide();
+
+      $('.pf').hide();
+
+    }
+
+    $('#razon_social').val('');
+
+    $('#clase_pm').val('');
+
+    $('#forma_juridica').on('change', function(){
+
+        var datofj1 = $("#forma_juridica").val();
+        
+        if(datofj1 ==1){
+          
+          $('.pm').hide();
+
+          $('.pf').show();
+
+        }else if(datofj1 == 2){
+
+          $('.pm').show();
+
+          $('.pf').show();
+
+        }else{
+          
+          $('.pm').hide();
+
+          $('.pf').hide();
+
+        }
+    });
 
    var id_cp 		= $('#df_cp').val();
 
@@ -286,6 +338,11 @@ $(document).ready(function(){
 
    $('#btn-alta-cliente').click(function(){
 
+      subir();
+    });
+
+    
+    function validar(){
       var usuario = $('#nombre_de_usuario').val();
       var correo = $('#correo_de_usuario').val();
       var idCliente =  {{$cliente->id}};
@@ -309,20 +366,13 @@ $(document).ready(function(){
               type: "error"
 
             });
-            
+
           else if(response.status == "sucess"){
-
-              subir();
+              guardarCliente();
           }
-
-
-          
-
         }
-
       });
-
-      });
+    }
 
       function subir(){
       var tipo = $('#TipoDeCliente').val();
@@ -332,7 +382,7 @@ $(document).ready(function(){
       else if (tipo==2){
 
       if(($('#nombre_de_usuario').val()&&$('#contrasena').val()&&$('#telefono_de_usuario').val()&&$('#correo_de_usuario').val())!="")
-      guardarCliente();
+        validar();
       else { 
         swal({
 
@@ -388,27 +438,31 @@ $(document).ready(function(){
 
           data: datos,
 
-          success: function(){
+          success: function(response){
                   //setTimeout(function(){     location.reload();   }, 1000);
-                  swal({
+                  console.log(response.campos)
+                  if(response.status == "success"){
+                      swal({
 
-                      title: "<h3>¡ El registro se Actualizo con éxito !</h3> ",
+                        title: "<h3>¡ El registro se guardo con éxito !</h3> ",
+                        html: true,
+                        data: "",
+                        type: "success"
+                        });
 
-                      html: true,
+                        setTimeout(function(){
+                            location.href = '{{ route("sig-erp-crm::clientes.index") }}';
+                        });
 
-                      data: "",
+                    }else{
+                        swal({
 
-                      type: "success"
-
-
-
-                      });
-
-                      setTimeout(function(){
-
-                          location.href = '{{ route("sig-erp-crm::clientes.index") }}';
-
-                      });
+                          title: "<h3>¡ Favor de llenar los campos requeridos !</h3> ",
+                          html: true,
+                          data: "",
+                          type: "error"
+                        });
+                    }
               },
 
           error : function(jqXHR, status, error) {
@@ -1288,14 +1342,30 @@ var guardarCliente = function(){
 
     	
 
-    		$('.pm').hide();
+      var datofj = $("#forma_juridica").val();
 
-  	    	$('.pf').show();
 
-    
+          console.log(datofj);
 
-    	
+          if(datofj ==1 || datofj == "1"){
+                
+            $('.pm').hide();
 
+            $('.pf').show();
+
+          }else if(datofj == 2 || datofj == "2"){
+
+            $('.pm').show();
+
+            $('.pf').show();
+
+          }else{
+                
+            $('.pm').hide();
+
+            $('.pf').hide();
+
+          }
   	    
 
     }

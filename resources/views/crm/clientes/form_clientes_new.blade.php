@@ -1504,9 +1504,9 @@
 
                                                     <div class="form-group">
 
-                                                       <label>{{ Form::label('Cuenta', 'Cuenta') }}</label>
+                                                        <label>{{ Form::label('Cuenta', 'Cuenta') }}</label>
 
-                                                        {{ Form::number('db_cuenta','',['class' => 'form-control input-sm','placeholder'=>'5596317446','id'=>'db_cuenta','data-parsley-group'=>'wizard-step-2','maxlength'=>'10',' oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'])}}
+                                                        {{ Form::text('db_cta_clientes',null,['class' => 'form-control input-sm','placeholder'=>'99974','id'=>'db_cta_clientes','step'=>'any','data-parsley-group'=>'wizard-step-2','maxlength'=>'10',' oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'])}}
 
                                                     </div>
 
@@ -1572,17 +1572,7 @@
 
                                                 <!-- begin col-3-->
 
-                                                 <div class="col-md-3">
-
-                                                    <div class="form-group">
-
-                                                       <label>{{ Form::label('Cuenta Clientes', 'Cuenta Clientes') }}</label>
-
-                                                       {{ Form::text('db_cta_clientes',null,['class' => 'form-control input-sm','placeholder'=>'99974','id'=>'db_cta_clientes','step'=>'any','data-parsley-group'=>'wizard-step-2','maxlength'=>'10',' oninput'=>'javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'])}}
-
-                                                    </div>
-
-                                                </div>
+                                                
 
                                                 <!-- end col-3 -->
 

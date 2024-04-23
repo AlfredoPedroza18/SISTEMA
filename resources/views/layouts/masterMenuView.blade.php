@@ -1432,7 +1432,7 @@ function activarLink( $url = '' )
 
 
 
-            @permission('nomina')                
+            @permission('nominassssssssssssssssss')                
 
                 <li class="has-sub {{	activarLink('modulo/administrador/usuarios').' '.
 

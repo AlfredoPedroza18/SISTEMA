@@ -1125,15 +1125,39 @@ $(document).ready(function(){
 
 
 
+  
     $('.pm').hide();
 
-    $('.pf').show();
+    $('.pf').hide();
 
     $('#razon_social').val('');
 
     $('#clase_pm').val('');
 
+    $('#forma_juridica').on('change', function(){
 
+        var datofj1 = $("#forma_juridica").val();
+        
+        if(datofj1 ==1){
+          
+          $('.pm').hide();
+
+          $('.pf').show();
+
+        }else if(datofj1 == 2){
+
+          $('.pm').show();
+
+          $('.pf').show();
+
+        }else{
+          
+          $('.pm').hide();
+
+          $('.pf').hide();
+
+        }
+    });
     
 
   // $("#frm-alta-cliente").on("submit",function(event){
@@ -1649,7 +1673,12 @@ $(document).ready(function(){
 
   $('#btn-alta-cliente').click(function(){
 
-      var usuario = $('#nombre_de_usuario').val();
+      subir();
+     
+  });
+
+  function validar (){
+    var usuario = $('#nombre_de_usuario').val();
       var correo = $('#correo_de_usuario').val();
       var idCliente = $('#id_user').val();
       $.ajax({
@@ -1674,8 +1703,7 @@ $(document).ready(function(){
             });
             
           else if(response.status == "sucess"){
-
-              subir();
+              guardarCliente();
           }
 
 
@@ -1684,8 +1712,7 @@ $(document).ready(function(){
         }
 
       });
-     
-  });
+  }
 
   function subir(){
     var tipo = $('#TipoDeCliente').val();
@@ -1695,7 +1722,7 @@ $(document).ready(function(){
     else if (tipo==2){
 
       if(($('#nombre_de_usuario').val()&&$('#contrasena').val()&&$('#telefono_de_usuario').val()&&$('#correo_de_usuario').val())!="")
-      guardarCliente();
+        validar();
       else { 
         swal({
 
@@ -2296,27 +2323,31 @@ var guardarCliente = function(){
 
             data: datos,
 
-            success: function(){
+            success: function(response){
                     //setTimeout(function(){     location.reload();   }, 1000);
-                    swal({
+
+                    if(response.status == "success"){
+                      swal({
 
                         title: "<h3>¡ El registro se guardo con éxito !</h3> ",
-
                         html: true,
-
                         data: "",
-
                         type: "success"
-
-
-
                         });
 
                         setTimeout(function(){
-
                             location.href = '{{ route("sig-erp-crm::clientes.index") }}';
-
                         });
+
+                    }else{
+                        swal({
+
+                          title: "<h3>¡ Favor de llenar los campos requeridos !</h3> ",
+                          html: true,
+                          data: "",
+                          type: "error"
+                        });
+                    }
                 },
 
             error : function(jqXHR, status, error) {

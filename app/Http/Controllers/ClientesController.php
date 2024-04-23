@@ -64,6 +64,39 @@ class ClientesController extends Controller
 {
 
     public function crearCliente(Request $request){
+        
+        $status1 = "";
+        $validar = DB::select("select * from crm_clientes_campo_requeridos where activo = 1");
+        $campos = "";
+
+        foreach($validar as $valido){
+
+            if(($request->TipoDeCliente==2) && ($valido->cliente_aplica == "si" )){
+
+                if($valido->campo_nombre == "forma_juridica" && $request->input($valido->campo_nombre) == 2){
+                    if(empty($request->input("razon_social")) || empty($request->input("clase_pm"))){
+                        $status1 = "error";
+                        $campos .= "error rz y clasePM";
+                    }
+
+                }elseif(empty($request->input($valido->campo_nombre))){
+                        $status1 = "error";
+                        $campos .= $valido->campo_nombre;
+                }
+                
+            }elseif(($request->TipoDeCliente==1) && ($valido->prospecto_aplica == "si" )){
+                
+                if(empty($request->input($valido->campo_nombre))){
+                    $status1 = "error";
+                    $campos .= $valido->campo_nombre;
+                }
+            }
+        }
+
+
+        if($status1 == "error"){
+            return response()->json(['status' => $status1]);
+        }
 
         $id_cn = $request->id_cn;//ob
 
@@ -426,7 +459,7 @@ class ClientesController extends Controller
 
 
 
-        return response()->json("xd");
+        return response()->json(['status' => "success"]);
 
        
 
@@ -2532,6 +2565,40 @@ class ClientesController extends Controller
 
     {
 
+        $status1 = "";
+        $validar = DB::select("select * from crm_clientes_campo_requeridos where activo = 1");
+        $campos = "";
+
+        foreach($validar as $valido){
+
+            if(($request->TipoDeCliente==2) && ($valido->cliente_aplica == "si" )){
+
+                
+                    if($valido->campo_nombre == "forma_juridica" && $request->input($valido->campo_nombre) == 2){
+                        if(empty($request->input("razon_social")) || empty($request->input("clase_pm"))){
+                            $status1 = "error";
+                            $campos .= "error rz y clasePM";
+                        }
+
+                    }elseif(empty($request->input($valido->campo_nombre))){
+                            $status1 = "error";
+                            $campos .= $valido->campo_nombre;
+                    }
+                
+            }elseif(($request->TipoDeCliente==1) && ($valido->prospecto_aplica == "si" )){
+                
+                if(empty($request->input($valido->campo_nombre))){
+                    $status1 = "error";
+                    $campos .= $valido->campo_nombre;
+                }
+            }
+        }
+
+
+        if($status1 == "error"){
+            return response()->json(['status' => $status1,"campos"=>$campos]);
+        }
+        
         $base64 = "";
 
         
@@ -2775,8 +2842,8 @@ class ClientesController extends Controller
         }
 
 
-
-        return response()->json(["file"=>"bien","xd"=>"xd"]);
+        
+        return response()->json(["file"=>"bien","xd"=>"xd",'status' => "success"]);
 
 
 
