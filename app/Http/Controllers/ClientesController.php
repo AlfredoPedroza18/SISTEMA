@@ -1721,6 +1721,7 @@ class ClientesController extends Controller
         $IdCliente = $id;
 
         $cliente_editar = DB::select("select * from clientes where id = $id");
+        $df_col = $cliente_editar[0]->df_colonia;
 
         $clientesr = DB::select("select username AS usuario, PASSWORD_aux AS contrasena, telefono_movil AS telefono, email as correo from users where idcliente = $id");
 
@@ -1949,6 +1950,8 @@ class ClientesController extends Controller
         return view('crm.clientes.edit-clientes',
 
                     [
+
+                    "df_col" => $df_col,
                     
                     "cliente_u" =>$clientes_u,
 

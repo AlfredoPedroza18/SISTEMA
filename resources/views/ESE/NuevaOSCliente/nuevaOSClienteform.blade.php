@@ -44,6 +44,23 @@
                                   </div>
 
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-goup block1">
+                                        
+                                        <label>{{ Form::label('Solicita', 'Solicitante') }}</label>
+
+                                        <select name="solicitantev" id="solicitantev" class="form-control" required>
+
+                                                @foreach($solicitante as $sol)
+                                                    <option value="{{$sol->solicitante}}">{{$sol->solicitante}}</option>
+                                                @endforeach
+
+                                        </select>
+
+                                    </div>
+                                </div>
+
                                 <div id="bServ" class="col-sm-3 col-sm-offset-0">
                                     <div class="form-group block1">
                                     
@@ -78,6 +95,21 @@
                                   </div>
 
                                 </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-goup block1">
+                                        
+                                        <label>{{ Form::label('Solicita', 'Solicitante') }}</label>
+
+                                        <select name="solicitantev" id="solicitantev" class="form-control">
+                                                @foreach($solicitante as $sol)
+                                                    <option value="{{$sol->solicitante}}">{{$sol->solicitante}}</option>
+                                                @endforeach
+                                        </select>
+
+                                    </div>
+                                </div>
+
                                 <div id="bServ" class="col-md-3 col-sm-offset-3">
                                     <div class="form-group block1">
                                         
@@ -87,6 +119,8 @@
                                     </div>
                                 </div>
                                 @endif
+
+                                
                         
                             </div>
                             <span id="container-estudios">

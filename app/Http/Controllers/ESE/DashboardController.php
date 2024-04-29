@@ -614,9 +614,9 @@ class DashboardController extends Controller
 
     }
 
-    public function Filtros($IdCliente,$IdAnalista,$IdInvestigador,$IdModalidad,$Datein,$Dateend){
+    public function Filtros(Request $request,$IdCliente,$IdAnalista,$IdInvestigador,$IdModalidad,$Datein,$Dateend){
         $objDashboard = new Dashboard();
-        $chart = $objDashboard->Filtros($IdCliente,$IdAnalista,$IdInvestigador,$IdModalidad,$Datein,$Dateend);
+        $chart = $objDashboard->Filtros($IdCliente,$IdAnalista,$IdInvestigador,$IdModalidad,$Datein,$Dateend,$request->solicitante);
         unset($objDashboard);
         return response()->json($chart);
     }

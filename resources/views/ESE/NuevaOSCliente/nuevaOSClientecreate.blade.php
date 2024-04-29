@@ -270,6 +270,8 @@ function collapse(){
 var IdSE='';
 cntpl=1;
 var AddEstudio = function(){
+
+    
     if($('#plG').is(":visible")){
                 var formatoPlantilla = $('#plG').val();
                 formatoPlantilla = formatoPlantilla.split('-');
@@ -287,11 +289,15 @@ var AddEstudio = function(){
                 }else{
                     hrefO='EstudioO';
                     $('[href="#'+hrefO+'"]').closest('li').hide();
-                }               
+                }             
+                
+                var solicitante = $("#solicitantev").val();
+                
                 $.ajax({
-                    url: "{{ url('ConfiguracionOSPC') }}/"+formp+"/"+IdCliente+"/"+IdServicio+"/"+hrefO+"/"+idPlantillaCliente,
+                    url: "{{ url('ConfiguracionOSPC') }}/"+formp+"/"+IdCliente+"/"+IdServicio+"/"+hrefO+"/"+idPlantillaCliente+"/"+solicitante,
                     type: "GET",
                     dataType: "json",
+
                     success: function( response )
                     {
                         estudio_strCE  = $('#plantilla-estudios').html();

@@ -49,7 +49,7 @@
         <i class="fa fa-arrow-left fa-1x" aria-hidden="true"></i>
     </a> -->
 
-    <h1 class="page-header text-center">Entorno Laborallll</h1>
+    <h1 class="page-header text-center">Entorno Laboral</h1>
     <br>
 
     @if (session('success'))

@@ -92,7 +92,7 @@ class AccionesController extends Controller
             (select sum(iValor) from ev_personal_encuesta where IdEncuesta = sd.IdEncuesta and IdCliente = s.IdCliente and IdPeriodo = s.IdPeriodo and IdCentro = sc.IdCentro and IdPersonal = sd.IdPersonal and IdAgrupador = 9) as SR2,
             (select sum(iValor) from ev_personal_encuesta where IdEncuesta = sd.IdEncuesta and IdCliente = s.IdCliente and IdPeriodo = s.IdPeriodo and IdCentro = sc.IdCentro and IdPersonal = sd.IdPersonal and IdAgrupador = 10) as SR3,
             (select sum(iValor) from ev_personal_encuesta where IdEncuesta = sd.IdEncuesta and IdCliente = s.IdCliente and IdPeriodo = s.IdPeriodo and IdCentro = sc.IdCentro and IdPersonal = sd.IdPersonal and IdAgrupador = 11) as SR4,
-            if((select SR2) >= 1, 'REQUIERE VALORACIÓN',if ((select SR3) >=3,'REQUIERE VALORACIÓN', if((select SR4 >=2),'REQUIERE VALORACIÓN','NO REQUIERE VALORACIÓN'))) as Valoracion
+            if((select SR2) >= 1, '*REQUIERE VALORACIÓN',if ((select SR3) >=3,'*REQUIERE VALORACIÓN', if((select SR4 >=2),'*REQUIERE VALORACIÓN','NO REQUIERE VALORACIÓN'))) as Valoracion
             from ev_servicio_detalle sd
             inner join ev_servicio_cliente sc on (sc.IdServicio_cliente = sd.IdServicio_cliente)
             inner join ev_servicio s on (s.IdServicio = sc.IdServicio)
@@ -143,7 +143,7 @@ class AccionesController extends Controller
             (select sum(iValor) from ev_personal_encuesta where IdEncuesta = sd.IdEncuesta and IdCliente = s.IdCliente and IdPeriodo = s.IdPeriodo and IdCentro = sc.IdCentro and IdPersonal = sd.IdPersonal and IdAgrupador = 9) as SR2,
             (select sum(iValor) from ev_personal_encuesta where IdEncuesta = sd.IdEncuesta and IdCliente = s.IdCliente and IdPeriodo = s.IdPeriodo and IdCentro = sc.IdCentro and IdPersonal = sd.IdPersonal and IdAgrupador = 10) as SR3,
             (select sum(iValor) from ev_personal_encuesta where IdEncuesta = sd.IdEncuesta and IdCliente = s.IdCliente and IdPeriodo = s.IdPeriodo and IdCentro = sc.IdCentro and IdPersonal = sd.IdPersonal and IdAgrupador = 11) as SR4,
-            if((select SR2) >= 1, 'REQUIERE VALORACIÓN',if ((select SR3) >=3,'REQUIERE VALORACIÓN', if((select SR4 >=2),'REQUIERE VALORACIÓN','NO REQUIERE VALORACIÓN'))) as Valoracion
+            if((select SR2) >= 1, '*REQUIERE VALORACIÓN',if ((select SR3) >=3,'*REQUIERE VALORACIÓN', if((select SR4 >=2),'*REQUIERE VALORACIÓN','NO REQUIERE VALORACIÓN'))) as Valoracion
             from ev_servicio_detalle sd
             inner join ev_servicio_cliente sc on (sc.IdServicio_cliente = sd.IdServicio_cliente)
             inner join ev_servicio s on (s.IdServicio = sc.IdServicio)

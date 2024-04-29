@@ -1180,9 +1180,21 @@ class NuevaOSController extends Controller
             $ruta = "ESE.pdf.pdf-gent";
         }
 
-        
+
+
+        $analistaCn = DB::select("select u.idcn as cn from master_ese_srv_asignacion asif inner join users u on asif.IdAnalista= u.id where asif.IdServicioESE = $IdServicioEse");
+        $direccionL = DB::select("SELECT 
+
+        CONCAT ('Gen-t, ', cn.calle , ' ', cn.no_exterior ,' interior ', cn.no_interior,', ',cn.municipio, ', ', cn.estado,'. C.P. ', cn.cp,', ')
+    
+        as dir FROM centros_negocio cn  
+        where  cn.id = ".(empty($analistaCn[0]->cn)?"-100":$analistaCn[0]->cn));
+
+
+        $direccionL2 = (empty($direccionL[0]->dir)?"":$direccionL[0]->dir);
 
         $pdf = PDF::loadView($ruta,[
+            "direccionL"=>$direccionL2,
             "horaE"=>$horaE,
             "dia"=>$dia,
             "mes"=>$mes,

@@ -108,21 +108,25 @@
 	<!-- row  bloque 1-->
 
 	<div class="row">
-		<div class="col-md-12" style="height:100%">
-			<div class="form-group col-md-3">
-				<label>Filtro de Cliente</label>
-				<div class="row">
-					<div class="input-group col-sm-12">
-						<select class="form-control" id="IdF1" name="IdAnalista" @if(Auth::user()->tipo=="c") disabled @endif>
-							<option value="NA"> Sin Filtro</option>
-							@foreach ($clientesFiltro as $clF)
-							<option value="{{$clF->id}}" @if(Auth::user()->tipo=="c" && $clF->id == Auth::user()->IdCliente) selected @endif> {{$clF->nombre_comercial}}</option>
-							@endforeach
-						</select>
+		<div class="col-md-12">
+			<div class="form-group col-md-6">
+					<label>Filtro de Cliente</label>
+					<div class="row">
+						<div class="input-group col-sm-12">
+							<select class="form-control" id="IdF1" name="IdAnalista" @if(Auth::user()->tipo=="c") disabled @endif>
+								<option value="NA"> Sin Filtro</option>
+								@foreach ($clientesFiltro as $clF)
+									<option value="{{$clF->id}}" @if(Auth::user()->tipo=="c" && $clF->id == Auth::user()->IdCliente) selected @endif> {{$clF->nombre_comercial}}</option>
+								@endforeach
+							</select>
 
+						</div>
 					</div>
 				</div>
-			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" style="height:100%">
 
 			<div class="form-group col-md-3">
 				<label>Filtro de Analista</label>
@@ -131,7 +135,9 @@
 						<select class="form-control" id="IdF2" name="IdAnalistaSec">
 							<option value="NA"> Sin Filtro</option>
 							@foreach ($analistaFiltro as $clF)
-							<option value="{{$clF->id}}"> {{$clF->nombre}}</option>
+								@if($clF->nombre != "")
+									<option value="{{$clF->id}}"> {{$clF->nombre}}</option>
+								@endif
 							@endforeach
 						</select>
 
@@ -163,7 +169,24 @@
 						<select class="form-control" id="IdF4" name="IdLider">
 							<option value="NA"> Sin filtro</option>
 							@foreach ($modalidadFiltro as $clF)
-							<option value="{{$clF->IdModalidad}}"> {{$clF->Descripcion}}</option>
+								<option value="{{$clF->IdModalidad}}"> {{$clF->Descripcion}}</option>
+							@endforeach
+						</select>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group col-md-3">
+				<label>Filtro de Solicitante</label>
+				<div class="row">
+					<div class="input-group col-sm-12">
+						<select class="form-control" id="IdF5" name="IdSolicitante">
+							<option value="NA"> Sin filtro</option>
+							@foreach ($solicitantes as $clF)
+								@if($clF->nombre != "")
+									<option value="{{$clF->nombre}}"> {{$clF->nombre}}</option>
+								@endif
 							@endforeach
 						</select>
 
@@ -534,67 +557,7 @@
 
 				<div class="row">
 
-					<div class="col-md-4 col-sm-6">
-
-						<div class="panel panel-inverse">
-
-							<div class="panel-heading">
-
-								<div class="panel-heading-btn">
-
-
-								</div>
-
-								<h4 class="panel-title">Clientes</h4>
-
-							</div>
-
-
-
-							<div class="panel-body table-responsive" style="height: 150px;">
-
-								<center class="chartloader">
-
-									<svg class="svgloader" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-
-										<path fill="#00BFFF" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
-
-											<animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite" />
-
-										</path>
-
-									</svg>
-
-								</center>
-
-								<table style=" height: 50px; " id="TableClientes" class="container-data">
-
-									<tbody id="bodyTableClientes">
-
-										@foreach ($clientes as $cliente)
-
-										<tr>
-
-											<td style="display:none">{{ $cliente->IdCliente }}</td>
-
-											<td><span>{{ $cliente->Nombre }}</span></td>
-
-										</tr>
-
-										@endforeach
-
-
-
-									</tbody>
-
-								</table>
-
-							</div>
-
-						</div>
-
-
-					</div><!-- end colspan 6-->
+					
 
 					<div class="col-md-4 col-sm-6">
 
@@ -635,14 +598,16 @@
 
 										@foreach($analistas as $analista)
 
-										<tr>
+											@if($analista->NombreCompleto != "")
+												<tr>
 
-											<td style="display:none">{{ $analista->IdEmpleado }}</td>
+													<td style="display:none">{{ $analista->IdEmpleado }}</td>
 
-											<td><span>{{ $analista->NombreCompleto }}</span></td>
+													<td><span>{{ $analista->NombreCompleto }}</span></td>
 
-										</tr>
-
+												</tr>
+											@endif
+											
 										@endforeach
 
 									</tbody>
@@ -710,8 +675,10 @@
 
 							</div>
 
+						
 						</div>
 
+						
 						<!--<div style="display: none;" class="panel panel-inverse">
 
 							<div class="panel-heading">
@@ -776,8 +743,69 @@
 
 					</div>
 
+					<div class="col-md-4 col-sm-6">
+
+						<div class="panel panel-inverse">
+
+							<div class="panel-heading">
+
+								<div class="panel-heading-btn">
+
+
+								</div>
+
+								<h4 class="panel-title">Solicitante</h4>
+
+							</div>
+
+
+
+							<div class="panel-body table-responsive" style="height: 150px;">
+
+								<center class="chartloader">
+
+									<svg class="svgloader" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+
+										<path fill="#00BFFF" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+
+											<animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+
+										</path>
+
+									</svg>
+
+								</center>
+
+								<table style=" height: 50px; " id="TableSolicitante" class="container-data">
+
+									<tbody id="bodyTableSolicitante">
+
+										@foreach ($solicitantes as $soli)
+
+										<tr>
+
+											<td><span>{{ $soli->nombre }}</span></td>
+
+										</tr>
+
+										@endforeach
+
+
+
+									</tbody>
+
+								</table>
+
+							</div>
+
+						</div>
+
+
+					</div><!-- end colspan 6-->
+
 				</div>
 
+				
 				<!-- row  Sub-bloque 2-->
 
 				<!--<div class="row">
@@ -851,6 +879,68 @@
 	<!-- fin row bloque 2-->
 
 	<div class="row ">
+		
+	<div class="col-md-4 col-sm-6">
+
+		<div class="panel panel-inverse">
+
+			<div class="panel-heading">
+
+				<div class="panel-heading-btn">
+
+
+				</div>
+
+				<h4 class="panel-title">Clientes</h4>
+
+			</div>
+
+
+
+			<div class="panel-body table-responsive" style="height: 230px;">
+
+				<center class="chartloader">
+
+					<svg class="svgloader" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+
+						<path fill="#00BFFF" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+
+							<animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+
+						</path>
+
+					</svg>
+
+				</center>
+
+				<table style=" height: 50px; " id="TableClientes" class="container-data">
+
+					<tbody id="bodyTableClientes">
+
+						@foreach ($clientes as $cliente)
+
+						<tr>
+
+							<td style="display:none">{{ $cliente->IdCliente }}</td>
+
+							<td><span>{{ $cliente->Nombre }}</span></td>
+
+						</tr>
+
+						@endforeach
+
+
+
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</div>
+
+
+	</div><!-- end colspan 6-->
 
 		<!-- begin col-4 potlet #1 -->
 
@@ -945,41 +1035,8 @@
 
 
 
-		<div class="col-md-4 col-sm-6">
-			<div class="panel panel-inverse">
-
-				<div class="panel-heading">
-
-					<div class="panel-heading-btn"></div>
-
-					<h4 class="panel-title">Modalidad del servicio</h4>
-
-				</div>
-
-				<div class="panel-body table-responsive">
-
-					<center class="chartloader">
-
-						<svg class="svgloader" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
-
-							<path fill="#00BFFF" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
-
-								<animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite" />
-
-							</path>
-
-						</svg>
-
-					</center>
-
-					<div id="container-modalidadServicioChart" class="container-data" style="display:none;"><div id="modalidadServicioChart"></div></div>
-
-					<input id= "modalidadServicioChart_input" type="text" hidden>
-				</div>
-
-
-
-			</div>
+		<div hidden class="col-md-4 col-sm-6">
+			
 
 
 			<div style="display: none;" class="panel panel-inverse">
@@ -1028,8 +1085,44 @@
 	<div class="row">
 	<div class="row justify-content-md-center">
 
+		<div class="col-md-4 col-sm-6">
+			<div class="panel panel-inverse">
+
+				<div class="panel-heading">
+
+					<div class="panel-heading-btn"></div>
+
+					<h4 class="panel-title">Modalidad del servicio</h4>
+
+				</div>
+
+				<div class="panel-body table-responsive">
+
+					<center class="chartloader">
+
+						<svg class="svgloader" version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+
+							<path fill="#00BFFF" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+
+								<animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="360 50 50" repeatCount="indefinite" />
+
+							</path>
+
+						</svg>
+
+					</center>
+
+					<div id="container-modalidadServicioChart" class="container-data" style="display:none;"><div id="modalidadServicioChart"></div></div>
+
+					<input id= "modalidadServicioChart_input" type="text" hidden>
+				</div>
+
+
+
+			</div>
+		</div>
 		<!-- begin col-4 potlet #1 -->
-		<div class="col-md-2"></div>
+
 		<div class="col-md-4  col-sm-6">
 
 			<div class="panel panel-inverse">
@@ -2303,7 +2396,6 @@
 		var colors = ["#990099","#ff9900","#109618","#3366cc","#F9E600","#dc3912",'#28B463', '#F4D03F', '#E74C3C', '#3498DB', 'FFA500', 'Purple', 'Turquiose ', 'Brown', 'Gray', 'Fuchsia'];
 
 
-		console.log(Desfasada+ "raka "+EnTiempo);
 		google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
@@ -2722,6 +2814,33 @@
 
 
 			$('#bodyTableClientes').append(clients);
+
+
+		}
+
+	}
+
+	function DrawSolicitante(ResponseSolicitante) {
+
+		var solicitante = "";
+
+		$('#bodyTableSolicitante').html('');
+
+		if (ResponseSolicitante.length == 0) {
+
+			$('#bodyTableSolicitante').html('');
+
+		} else {
+
+			ResponseSolicitante.forEach(function(element) {
+
+				solicitante += '<tr><td><span class="hoveroption">' + element.nombre + '</span></td></tr>';
+
+			});
+
+
+
+			$('#bodyTableSolicitante').append(solicitante);
 
 
 		}
@@ -3427,26 +3546,26 @@
 
 		var dateEnd = $("#fechafin").val();
 
-		for (var i = 1; i <= 4; i++) {
+		for (var i = 1; i <= 5; i++) {
 			filtro[i] = $('#IdF' + i).val();
 		}
 
 		$.ajax({
 			url: "{{ url('Filtros') }}/" + filtro[1] + "/" + filtro[2] + "/" + filtro[3] + "/" + filtro[4] +"/"+ dateIni + "/" + dateEnd,
-
 			type: "GET",
+			data: {solicitante:filtro[5]},
 
 			success: function(response) {
 				showNotify("Aplicando Filtro:", "Esperar");
 				DrawPictureHigher(response.Totalservicio, response.totalporservicio,
 					response.prioridadservicios, response.tipos, response.modalidadservicios);
-				console.log(response.modalidadservicios);
+				
 				DrawClients(response.clientes);
 				DrawInvestigator(response.investigadores);
 				DrawAnalist(response.analistas);
 				clearcharts();
 				DrawGraph(response);
-				console.log(dateIni);
+				
 				//ChangeColorBtnClearfilter("filter", "clearfilterclient");
 
 			},
@@ -3532,27 +3651,29 @@
 	// Events for clears filters 
 	var filtro = [];
 	filtro[0] = 0
-	for (var j = 1; j <= 4; j++) {
+	for (var j = 1; j <= 5; j++) {
 		$('#IdF' + j).on("change", function() {
-			for (var i = 1; i <= 4; i++) {
+			for (var i = 1; i <= 5; i++) {
 				filtro[i] = $('#IdF' + i).val();
 			}
+			
 			$.ajax({
 				url: "{{ url('Filtros') }}/" + filtro[1] + "/" + filtro[2] + "/" + filtro[3] + "/" + filtro[4] + "/0/0",
-
+				data: {solicitante:filtro[5]},
 				type: "GET",
 
 				success: function(response) {
 					showNotify("Aplicando Filtro:", "Esperar");
 					DrawPictureHigher(response.Totalservicio, response.totalporservicio,
 						response.prioridadservicios, response.tipos, response.modalidadservicios);
-					console.log(response.TiempoRespuesta);
+					
 					DrawClients(response.clientes);
 					DrawInvestigator(response.investigadores);
 					DrawAnalist(response.analistas);
 					clearcharts();
 					DrawGraph(response);
-					
+					console.log(response.solicitanteF);
+					DrawSolicitante(response.solicitantesT);
 					//ChangeColorBtnClearfilter("filter", "clearfilterclient");
 
 				},
@@ -3563,7 +3684,7 @@
 
 				}
 			});
-			console.log(filtro);
+			
 		});
 	}
 

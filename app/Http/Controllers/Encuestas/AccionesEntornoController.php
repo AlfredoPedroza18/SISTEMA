@@ -188,7 +188,7 @@ class AccionesEntornoController extends Controller
         //     $suma = $suma + $row->CantidadCentro;
         // }
 
-        $acciones = DB::select("select * from ev_acciones ea where ea.IdEncuestaCliente = 12 and ea.IdDimension = 15 and ea.IdCliente = 317");
+        $acciones = DB::select("select * from ev_acciones ea where ea.IdEncuestaCliente = 12 and ea.IdDimension = 15 and ea.IdCliente = $IdCliente");
 
         return view("Encuestas.nom035.accionesentorno",
         ['datos'=>$datosCliente,

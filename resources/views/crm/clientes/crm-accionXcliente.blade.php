@@ -164,7 +164,7 @@
 									                           <address class="m-t-5 m-b-5">
 									                            <strong>Asesor comercial:</strong><br />
 									                          
-									                           {{ $eje[0]->nombre }}<br />
+									                           {{ (empty($eje[0]->nombre))?"":$eje[0]->nombre }}<br />
 									                           </address>
 									                    </div>
 							                     </div><!-- end col2 -->

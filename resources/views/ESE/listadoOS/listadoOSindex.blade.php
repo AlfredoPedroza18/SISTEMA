@@ -242,6 +242,8 @@
 
                         <th>Estatus</th>
 
+                        <th>Solicitante</th>
+
                         <th>Formato</th>
 
                         @if (Auth::user()->tipo != "f")
@@ -273,6 +275,7 @@
                             <td>{{ $LOS->Modalidad }}</td>
                             <td>{{ $LOS->Prioridad }}</td>
                             <td class="text-center"><span class="badge {{($LOS->Estatus=="Asignada")?"badge-success":"badge-primary"}}">{{ $LOS->Estatus}}</span></td>
+                            <td>{{$LOS->solicitante}}</td>
                             <td>{{ $LOS->Formato }}</td>
                             @if (Auth::user()->tipo != "f")
                             <td>{{ $LOS->EstatusE }}</td>

@@ -270,7 +270,8 @@ class NuevoServicioController extends Controller
                         while($cantidad>0){
                             $IdPersonal = DB::table('ev_personal')->insertGetId([
                                 'IdCliente' => $IdCliente,
-                                'IdCentroTrabajo' => $idCentro
+                                'IdCentroTrabajo' => $idCentro,
+                                'IdPeriodo' => $idPeriodo
                             ]);
         
                             $fechAct=Carbon::now();
@@ -307,7 +308,8 @@ class NuevoServicioController extends Controller
                     while($cantidad>0){
                         $IdPersonal = DB::table('ev_personal')->insertGetId([
                             'IdCliente' => $IdCliente,
-                            'IdCentroTrabajo' => $idCentro
+                            'IdCentroTrabajo' => $idCentro,
+                            'IdPeriodo' => $idPeriodo
                         ]);
     
                         $fechAct=Carbon::now();
@@ -395,6 +397,18 @@ class NuevoServicioController extends Controller
             INNER JOIN master_ese_email_templates meet
             ON meet.IdPlantillaEmail = mees.IdPlantillaEmail
             WHERE mees.Modulo = 'SOLICITUD-SERVICIO-LIDER'");
+
+            $acciones = DB::select("select * from ev_acciones_default where idEncuesta = 12");
+
+            foreach($acciones as $acc){
+                DB::table('ev_acciones')->insert([
+                    'IdDimension' => $acc->idDimension,
+                    'IdCliente' => $IdCliente,
+                    'IdEncuestaCliente' => 12,
+                    'Descripcion' => $acc->Descripcion,
+                    
+                ]);
+            }
 
             $tituloFSL = $lidere[0]->TituloEmail;
             $cuerpoFSL = $lidere[0]->CuerpoEmail;

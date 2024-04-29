@@ -155,8 +155,8 @@
                     <div class="form-group pm" style="display:none">
 
                         <label>{{ Form::label('Razon Social', ' Razon Social') }}</label>
-
-                        {{ Form::text('razon_social',$cliente->razon_social,['class' => 'form-control','placeholder'=>'S.A de C.V','id'=>'razon_social','data-parsley-group'=>'wizard-step-1'])}}
+              
+                        {{ Form::text('razon_social',$cliente->razon_social,['class' => 'form-control','placeholder'=>'S.A de C.V','data-parsley-group'=>'wizard-step-1'])}}
 
                     </div>
 
@@ -324,7 +324,7 @@
 
                         <label>{{ Form::label('CLASE DE PM', 'Clase de PM') }}</label>
 
-                        {{ Form::select('clase_pm',[''=>'Selecciona una opci&oacute;n','1'=>'SA','2'=>'S.A de C.V','3'=>' S. de RL de CV','4'=>'SC','5'=>'AC'],$cliente->clase_pm,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'clase_pm']) }}
+                        {{ Form::select('clase_pm',[''=>'Selecciona una opci&oacute;n','1'=>'SA','2'=>'S.A de C.V','3'=>' S. de RL de CV','4'=>'SC','5'=>'AC'],$cliente->clase_pm,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10']) }}
 
                     </div>
 
@@ -594,7 +594,7 @@
                         <select name="df_colonia" class="form-control input-lg" data-live-search='true' data-parsley-group='wizard-step-1' data-style='btn-white' data-size='10' id='df_colonia' style='width: 100%'>
 
 
-
+                                
 
 
                         </select>
@@ -1321,7 +1321,7 @@
 
                         {{ Form::select('medio_contacto',[''=>'Selecciona una opci&oacute;n','Directorio'=>'Directorio','Evento'=>'Evento','Página web'=>'Página web','Mail'=>'Mail','Recomendación'=>'Recomendación','Sección Amarilla'=>'Sección amarilla','Teléfono'=>'Teléfono','Visita presencial'=>'Visita presencial','Contacto en frio'=>'Contacto en frio','Otro'=>'Otro'],$mediocontacto,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'medio_contacto']) }}
 
-                        <input type="text" name="medio_contacto" class='form-control' id="medio_contacto_tabla">
+                        <input type="text" name="medio_contacto" class='form-control' id="medio_contacto_tabla" value="{{$mediocontacto}}">
 
                         
                     </div>

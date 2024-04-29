@@ -136,9 +136,16 @@ class NuevoOSClienteController extends Controller
     $plantillasPorClientes = MasterConsultas::exeSQL("PlantillaPorCliente","READONLY",array("IdCliente" =>"$idc","IdTipos" =>"0","IdTipoServicio"=>"$ids"));
     $prioridades=DB::select("SELECT * FROM master_ese_prioridades order by IdPrioridad desc");
     $plantillaG=DB::select("Select IdPlantilla,DescripcionPlantilla FROM master_ese_plantilla WHERE IdTipoServicio= $ids");
+
+
+    $solicitante = DB::select('SELECT CONCAT(IFNULL(con.nombre_con,""), " ", IFNULL(con.apellido_paterno_con,""), " ", IFNULL(con.apellido_materno_con,""), " ") AS solicitante FROM contactos con WHERE con.id_cliente = '.$idc);
     return view("ESE.NuevaOSCliente.nuevaOSClientecreate",
 
-                [ "tservicios"=>$tservicios,
+                [ 
+                
+                "solicitante" =>$solicitante,
+
+                "tservicios"=>$tservicios,
 
                 "servi"=>$ids, 
 
@@ -168,7 +175,7 @@ class NuevoOSClienteController extends Controller
             ]);
     }
 
-    public function ConfiguracionOSPC($id,$idc,$ids,$hrefO,$idPlantillaCliente)
+    public function ConfiguracionOSPC($id,$idc,$ids,$hrefO,$idPlantillaCliente,$solicitante)
     {
         $queryEXST = DB::select("SELECT EXISTS(SELECT 1 FROM master_ese_plantilla_entrada WHERE IdPlantilla =$id) as Exst ");
         foreach ($queryEXST as $p) {
@@ -269,6 +276,8 @@ class NuevoOSClienteController extends Controller
                     ]);
 
                     $IdServicioEse=$Servicio->IdServicioEse;
+
+                    DB::update("UPDATE master_ese_srv_servicio SET solicitante = '$solicitante' WHERE idservicioese = $IdServicioEse");
 
                     $IdPC=$Servicio->IdPlantillaCliente;
 

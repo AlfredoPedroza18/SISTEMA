@@ -110,7 +110,7 @@ class ListadoOSController extends Controller
             }
 
         }elseif(Auth::user()->tipo == "c"){
-        $ListadoOS = DB :: select('SELECT pc.IdPlantillaCliente AS IdPlantillaCliente,p.DescripcionPlantilla AS Formato,ms.IdServicioEse AS IdServicioEse, ms.Estatus AS Estatus, mo.IdServicioOS AS os,concat(mts.Descripcion,"-",mt.Tipos) AS servicio,u.idcn, u.idcliente AS IdCliente, u.username, c.nombre_comercial AS Cliente, mm.Descripcion AS Modalidad,CONCAT ( IFNULL (cn.nombre,"")," (",ifnull(cn.nomenclatura,""),")") AS centro_negocio,mp.Descripcion AS Prioridad,
+        $ListadoOS = DB :: select('SELECT ms.*,pc.IdPlantillaCliente AS IdPlantillaCliente,p.DescripcionPlantilla AS Formato,ms.IdServicioEse AS IdServicioEse, ms.Estatus AS Estatus, mo.IdServicioOS AS os,concat(mts.Descripcion,"-",mt.Tipos) AS servicio,u.idcn, u.idcliente AS IdCliente, u.username, c.nombre_comercial AS Cliente, mm.Descripcion AS Modalidad,CONCAT ( IFNULL (cn.nombre,"")," (",ifnull(cn.nomenclatura,""),")") AS centro_negocio,mp.Descripcion AS Prioridad,
         ifnull(
             (select concat(IFNULL(e.Nombre,""), " ", IFNULL(e.SegundoNombre,"")," ",IFNULL(e.ApellidoPaterno,"")," ", IFNULL(e.ApellidoMaterno,""))
             FROM master_ese_empleado e INNER JOIN master_ese_srv_asignacion a ON e.IdEmpleado = a.IdInvestigador WHERE a.IdServicioEse = ms.IdServicioEse),"" 

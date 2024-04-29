@@ -13,8 +13,9 @@ class Dashboard
 {
 
 
-    public function Filtros($IdCliente, $IdAnalista, $IdInvestigador, $IdModalidad, $Datein, $Dateend)
+    public function Filtros($IdCliente, $IdAnalista, $IdInvestigador, $IdModalidad, $Datein, $Dateend, $solicitanteF)
     {
+        
 
         $totalestatus_proces = "SELECT DISTINCT ms1.Estatus, (SELECT COUNT(ms.IdServicioEse)
         FROM users u
@@ -220,6 +221,27 @@ class Dashboard
  INNER JOIN master_ese_srv_asignacion sa ON ms.IdServicioEse = sa.IdServicioEse
  INNER JOIN master_ese_srv_programacion po ON po.IdServicioEse = ms.IdServicioEse";
 
+
+
+        $idCn = -1;
+        if(auth()->user()->is('admin')||auth()->user()->is('adminvalkyrie')||auth()->user()->is('admingent')||auth()->user()->is('admindesarrollo')){
+        
+        }else{
+            if(Auth::user()->tipo =="s")
+                $idCn = Auth::user()->idcn;
+        }
+
+        $solicitanteT = DB::select("SELECT DISTINCT IFNULL(solicitante,'') as nombre 
+        from master_ese_srv_servicio ms 
+        Inner Join clientes c on c.id = ms.idCliente
+        INNER JOIN master_ese_srv_asignacion ma ON ma.IdServicioEse = ms.IdServicioEse
+        where ('$IdCliente' = 'NA' OR ('$IdCliente' <> 'NA' AND ms.idcliente = '$IdCliente'))
+        AND ('$IdAnalista' = 'NA' OR ('$IdAnalista' <> 'NA' AND ma.IdAnalista = '$IdAnalista'))
+        AND ('$IdInvestigador' = 'NA' OR ('$IdInvestigador' <> 'NA' AND ma.IdInvestigador = '$IdInvestigador'))
+        AND ('$IdModalidad' = 'NA' OR ('$IdModalidad' <> 'NA' AND ms.IdModalidad = '$IdModalidad'))
+        AND ('$solicitanteF' = 'NA' OR ('$solicitanteF' <> 'NA' AND ms.solicitante = '$solicitanteF'))
+        AND ('$idCn' = '-1' OR ('$idCn' <> '-1' AND c.id_cn = '$idCn'))");
+    
         if ($IdCliente != 'NA') {
             $totalservicioss .= " where ms.idcliente = $IdCliente";
             $tiposs .= " AND ms.idcliente = $IdCliente";
@@ -328,7 +350,39 @@ class Dashboard
             $TiempoRes .= " where ms.idmodalidad = $IdModalidad";
         }
 
-        if (($IdCliente != 'NA' || $IdAnalista != 'NA' || $IdInvestigador != 'NA' || $IdModalidad != 'NA') && $Datein != 0) {
+        if (($IdCliente != 'NA' || $IdAnalista != 'NA' || $IdInvestigador != 'NA' || $IdModalidad != 'NA') && $solicitanteF != 'NA') {
+            $totalservicioss .= " AND ms.solicitante = '$solicitanteF'";
+            $tiposs .= " AND ms.solicitante = '$solicitanteF'";
+            $totalporserviciosss .= " AND ms.solicitante = '$solicitanteF'";
+            $prioridad .= " AND ms.solicitante = '$solicitanteF'";
+            $cliente .= " AND ms.solicitante = '$solicitanteF'";
+            $investigador .= " AND ms.solicitante = '$solicitanteF'";
+            $analis .= " AND ms.solicitante = '$solicitanteF'";
+            $modalidad .= " AND ms.solicitante = '$solicitanteF'";
+            $totalestatus_proces .= " AND ms.solicitante = '$solicitanteF'";
+            $dicta .= " AND ms.solicitante = '$solicitanteF'";
+            $dataRespuestaAgend .= " AND ms.solicitante = '$solicitanteF'";
+            $dataRespuestaIS .= " AND ms.solicitante = '$solicitanteF'";
+            $TiempoRes .= " AND ms.solicitante = '$solicitanteF'";
+
+            
+        } elseif ($IdCliente == 'NA' && $IdAnalista == 'NA' && $IdInvestigador == 'NA' && $IdModalidad == 'NA' && $solicitanteF != 'NA') {
+            $totalservicioss .= " where ms.solicitante = '$solicitanteF'";
+            $tiposs .= " AND ms.solicitante = '$solicitanteF'";
+            $totalporserviciosss .= " AND ms.solicitante = '$solicitanteF'";
+            $prioridad .= " AND ms.solicitante = '$solicitanteF'";
+            $cliente .= " where ms.solicitante = '$solicitanteF'";
+            $investigador .= " where ms.solicitante = '$solicitanteF'";
+            $analis .= " where ms.solicitante = '$solicitanteF'";
+            $modalidad .= " AND ms.solicitante = '$solicitanteF'";
+            $totalestatus_proces .= " AND ms.solicitante = '$solicitanteF'";
+            $dicta .= " AND ms.solicitante = '$solicitanteF'";
+            $dataRespuestaAgend .= " where ms.solicitante = '$solicitanteF'";
+            $dataRespuestaIS .= " where ms.solicitante = '$solicitanteF'";
+            $TiempoRes .= " where ms.solicitante = '$solicitanteF'";
+        }
+
+        if (($IdCliente != 'NA' || $IdAnalista != 'NA' || $IdInvestigador != 'NA' || $IdModalidad != 'NA' || $solicitanteF != 'NA') && $Datein != 0) {
             $totalservicioss .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
             $tiposs .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
             $totalporserviciosss .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
@@ -342,7 +396,7 @@ class Dashboard
             $dataRespuestaAgend .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
             $dataRespuestaIS .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
             $TiempoRes .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
-        } elseif ($IdCliente == 'NA' && $IdAnalista == 'NA' && $IdInvestigador == 'NA' && $IdModalidad == 'NA' && $Datein != 0) {
+        } elseif ($IdCliente == 'NA' && $IdAnalista == 'NA' && $IdInvestigador == 'NA' && $IdModalidad == 'NA' && $solicitanteF == 'NA' && $Datein != 0) {
             $totalservicioss .= " where CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
             $tiposs .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
             $totalporserviciosss .= " AND CAST(ms.FechaCreacion AS DATE)>= '$Datein' AND CAST(ms.FechaCreacion AS DATE)<= '$Dateend'";
@@ -463,6 +517,7 @@ class Dashboard
         $TiempoRespuesta = $this->ResponseTime3($dataTR);
 
         return [
+            "solicitantesT" => $solicitanteT,
             "TiempoRespuesta" => $TiempoRespuesta,
             "respuestaISL" => $respuestaISL,
             "respuestaAgenda" => $respuestaAgenda,
@@ -710,8 +765,12 @@ class Dashboard
         INNER JOIN master_ese_srv_dictamen_inv inv1 ON inv1.IdServicioEse = ms.IdServicioEse
 		  WHERE inv1.Estatus = inv.Estatus";
 
+        $solicitante = 'SELECT DISTINCT IFNULL(solicitante,"") as nombre from master_ese_srv_servicio ms Inner Join clientes c on c.id = ms.idCliente';
+    
+        
 
         if (Auth::user()->tipo == "c") {
+            $solicitante .=" where ms.IdCliente = ".Auth::user()->IdCliente;
             $modalidad .= " AND c.id = " . Auth::user()->IdCliente;
             $prioridad .= " AND c.id = " . Auth::user()->IdCliente;
             $tiposs .= " AND c.id = " . Auth::user()->IdCliente;
@@ -728,6 +787,7 @@ class Dashboard
         
         }else{
             if(Auth::user()->tipo == "s"){
+                $solicitante .=" where c.id_cn = ".Auth::user()->idcn;
                 $clientesFiltr .=" where c.id_cn = ".Auth::user()->idcn;
                 $analistaFiltr .=" where c.id_cn = ".Auth::user()->idcn;
                 $investigadorFiltr .=" where c.id_cn = ".Auth::user()->idcn;
@@ -785,6 +845,7 @@ class Dashboard
         $clientes = DB::select($cliente);
         $investigadores = DB::select($investigador);
         $analistas = DB::select($analis);
+        $solicitantes = DB::select($solicitante);
         foreach ($totalservicios as $tsrv) {
 
             $Totalservicio = $tsrv->TotalServicios;
@@ -793,6 +854,8 @@ class Dashboard
         $tiposClientes = MasterConsultas::exeSQL("filter_tipoclient", "READONLY", array("IdCliente" => -1));
 
         return [
+            
+            "solicitantes"=>$solicitantes,
             "logo"=>$logo,
             "clientesFiltro" => $clientesFiltro,
             "analistaFiltro" => $analistaFiltro,

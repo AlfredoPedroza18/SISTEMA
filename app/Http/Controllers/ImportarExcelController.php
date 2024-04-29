@@ -489,8 +489,17 @@ class ImportarExcelController extends Controller{
                     }
                 }
             
-                     
-         
+                $acciones = DB::select("select * from ev_acciones_default where idEncuesta = 12");
+
+                foreach($acciones as $acc){
+                    DB::table('ev_acciones')->insert([
+                        'IdDimension' => $acc->idDimension,
+                        'IdCliente' => $Cliente,
+                        'IdEncuestaCliente' => 12,
+                        'Descripcion' => $acc->Descripcion,
+                        
+                    ]);
+                }
          
                 } catch (Exception $e) {
                     return "Ocurrió el siguiente error ".$e->getMessage().", contacte al equipo de desarrollo";

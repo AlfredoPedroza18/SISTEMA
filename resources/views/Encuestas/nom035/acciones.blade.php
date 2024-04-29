@@ -140,13 +140,10 @@
     <div class="row" style="margin-bottom: 5px">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="col-lg-7 col-md-6 col-sm-12"></div>
+            <div class="col-lg-7 col-md-6 col-sm-12"></div>
             <div class="col-lg-5 col-md-6 col-sm-12">
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <button style="font-size: 16px" type="button" class="btn btn-primary btn-block" id="btn-show-pdf" data-toggle="button" aria-pressed="false">
-                            Reporte Seleccionados
-                        </button>
-                    </div>
+                <div class="col-lg-6 col-md-6 col-sm-12"></div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <button style="font-size: 16px" type="button" class="btn btn-primary btn-block" id="btn-show-general-pdf" data-toggle="button" aria-pressed="false">
                             Reporte General PDF
@@ -248,8 +245,25 @@
             
         </div>
     </div>
-    <br><br>
-
+    
+   
+    <div class="row" >
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="col-lg-7 col-md-6 col-sm-12"></div>
+            <div class="col-lg-7 col-md-6 col-sm-12"></div>
+            <div class="col-lg-5 col-md-6 col-sm-12">
+                <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12"></div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                        <button style="font-size: 16px" type="button" class="btn btn-primary btn-block" id="btn-show-pdf" data-toggle="button" aria-pressed="false">
+                            Reporte Seleccionados
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <br>
     <div class="panel panel-inverse" data-sortable-id="ui-widget-14">
         <div class="panel-heading">
             <div class="panel-heading-btn">
@@ -598,6 +612,7 @@
                                 "paging": true,
                                 "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
                                 dom:'Blfrtip' ,
+                                "ordering": true,
                                 order: [[0, 'desc']],
                                 "drawCallback": function( settings ) {
 							        $('[data-toggle="popover"]').popover({

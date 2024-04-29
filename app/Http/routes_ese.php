@@ -454,7 +454,7 @@ Route::group(['as' => 'sig-erp-ese::','middleware' => ['auth','auth.module:ese']
 
     Route::get('FPlantillasCOS/{ids}/{IdCliente}/{IdTipoServicio}', 'ESE\NuevoOSClienteController@FPlantillasCOS');
 
-    Route::get('ConfiguracionOSPC/{id}/{idc}/{ids}/{hrefO}/{idPlantillaCliente}', 'ESE\NuevoOSClienteController@ConfiguracionOSPC');
+    Route::get('ConfiguracionOSPC/{id}/{idc}/{ids}/{hrefO}/{idPlantillaCliente}/{solicitante}', 'ESE\NuevoOSClienteController@ConfiguracionOSPC');
 
     Route::post('ServiciosxCliente', 'ESE\NuevoOSClienteController@FiltroPC');
 
