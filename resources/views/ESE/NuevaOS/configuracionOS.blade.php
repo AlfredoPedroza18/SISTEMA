@@ -327,7 +327,7 @@
                 <label><strong>Candidato:</strong> {{$candidato}} </label>
             </div>
             <div style="background-color: white; margin-left: 0px; margin-right: 24%;" class="form-group col-md-3">
-                <label id="label_Investigador"><strong>Investigador:</strong> {{$asignacion[5]}}</label>
+                <label @if (Auth::user()->tipo == "c") hidden @endif id="label_Investigador"><strong>Investigador:</strong> {{$asignacion[5]}}</label>
             </div>
             <div style="background-color: white; margin-left: 0px; margin-right: 0px;" class="form-group col-md-3">
                 

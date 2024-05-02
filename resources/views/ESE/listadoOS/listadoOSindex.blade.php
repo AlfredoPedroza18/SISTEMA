@@ -226,15 +226,21 @@
 
                         <th>Servicio</th>
 
+                        @if (Auth::user()->tipo != "c")
                         <th>Cliente</th>
+                        @endif
 
+                        @if (Auth::user()->tipo != "c")
                         <th>Depto</th>
+                        @endif
 
                         <th>Candidato</th>
 
                         <th>Analista</th>
 
+                        @if (Auth::user()->tipo != "c")
                         <th>Investigador</th>
+                        @endif
 
                         <th>Modalidad</th>
 
@@ -242,14 +248,17 @@
 
                         <th>Estatus</th>
 
+                        @if (Auth::user()->tipo != "f")
                         <th>Solicitante</th>
+                        @endif
 
+                        @if (Auth::user()->tipo != "c")
                         <th>Formato</th>
-
+                        @endif
                         @if (Auth::user()->tipo != "f")
                         <th>Dictamen</th>
-
                         @endif
+
                         <th>Acción</th>
 
                         </tr>
@@ -267,16 +276,16 @@
                             <td>{{ $LOS->IdServicioEse }}</td>
                             <td>ESE#{{ $LOS->IdServicioEse }}</td>
                             <td>{{ $LOS->servicio }}</td>
-                            <td>{{ $LOS->Cliente }}</td>
-                            <td>{{ $LOS->centro_negocio}}</td>
+                            @if (Auth::user()->tipo != "c")<td>{{ $LOS->Cliente }}</td>@endif
+                            @if (Auth::user()->tipo != "c")<td>{{ $LOS->centro_negocio}}</td>@endif
                             <td>{{ $LOS->Candidato }}</td>
                             <td>{{ $LOS->Analista }}</td>
-                            <td>{{ $LOS->Investigador }}</td>
+                            @if (Auth::user()->tipo != "c")<td>{{ $LOS->Investigador }}</td>@endif
                             <td>{{ $LOS->Modalidad }}</td>
                             <td>{{ $LOS->Prioridad }}</td>
                             <td class="text-center"><span class="badge {{($LOS->Estatus=="Asignada")?"badge-success":"badge-primary"}}">{{ $LOS->Estatus}}</span></td>
-                            <td>{{$LOS->solicitante}}</td>
-                            <td>{{ $LOS->Formato }}</td>
+                            @if (Auth::user()->tipo != "f")<td>{{$LOS->solicitante}}</td>@endif
+                            @if (Auth::user()->tipo != "c")<td>{{ $LOS->Formato }}</td>@endif
                             @if (Auth::user()->tipo != "f")
                             <td>{{ $LOS->EstatusE }}</td>
                             @endif
