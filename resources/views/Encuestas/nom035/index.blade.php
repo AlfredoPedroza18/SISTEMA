@@ -496,7 +496,7 @@
         function obtenerCentrosTrabajo(IdPeriodo, IdCliente){
             $('body').waitMe({
                 effect : 'roundBounce',
-                waitTime: 300000,
+                waitTime: 7500,
                 text : 'Espere un momento por favor...',
                 onClose: function() {}
             });
@@ -512,18 +512,22 @@
                     _token: token
                 },
                 success: function(response){
+
+                    console.log(response.pendientes);
                     eliminar();
-                    if(response.data.length == 0){
+                    if(response.centros_trabajo.length == 0){
                         $('body').waitMe({
                             effect : 'roundBounce',
                             waitTime: 800,
                             text : 'Espere un momento por favor...',
                             onClose: function() {}
                         });
-                        habilitarDistribucion(response.data);
+                        habilitarDistribucion();
                     }else{
-                        crearCentros(response.data,response.data2,response.data3,response.quejas,response.sinInformacion,response.asignados,response.servicioo);
-                        habilitarDistribucion(response.data);
+
+                        print_centros(response.centros_trabajo,response.data3,response.servicioo,response.quejas,response.pendientes, response.solicitados,response.sinInformacion,response.asignados);
+                        habilitarDistribucion();
+                    
                     }
                 },
                 error: function( e ) {
@@ -531,6 +535,147 @@
                 }
             });
 
+        }
+
+        function print_centros(centros,data3,servicioo,quejas, pendientes,solicitados,sinInformacion,asignados){
+
+            console.log(solicitados);
+
+            let encuesta11 = centros.E11;
+            let encuesta12 = centros.E12;
+            let html = "";
+            let html2 = "";
+            let html3 = "";
+            for(var i = 0; i<encuesta11.length; i++){
+
+                html += `
+                
+                <div class="riesgo" style="display: flex; justify-content:space-between; margin-bottom: 15px; gap: 5px;">
+                    <div class="Centros Cajitas" style="width:33%; height: 80px; border-radius: 2px; text-align:center;">
+                        <p class="p-4" style="color: white; font-size: 17px; height: 32%; background-color:gray; margin:0; border-radius: 5px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Centro de trabajo</p>
+                        <p class="p-4" style="color: black; font-size: 17px; height: 75%; background-color: white; margin:0; border-radius: 5px; border-top-left-radius: 0; border-top-right-radius: 0; display:flex; justify-content:center; align-items:center;">${encuesta11[i].Descripcion}</p>
+                    </div>
+                    <div class="Poblacion Cajitas" style="width:33%; height: 80px; border-radius: 2px; text-align:center; line-height:1;">
+                        <p class="p-4" style="color: white; font-size: 17px; height: 32%; background-color:gray; margin:0; border-radius: 5px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Población</p>
+                        <p class="p-4" style="padding: 10px; color: black; font-size: 17px; height: 75%; background-color: white; margin:0; border-radius: 5px; border-top-left-radius: 0; border-top-right-radius: 0; display:flex; justify-content:center; align-items:center;"><b>${encuesta11[i].terminado}/${encuesta11[i].CantidadCentro}</b>&nbsp[${parseFloat(encuesta11[i].Porciento).toFixed(2)}%]</p>
+                    </div>
+                    <div class="Riesgo Cajitas" style="width: 33%; height: 80px; border-radius: 2px; text-align:center; line-height:1;">
+                        <p class="p-4 " style="color: white; font-size: 17px; height: 32%; background-color:gray; margin:0; border-radius: 5px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Riesgo</p>
+                        <p class="p-4" style="padding: 10px; color: black; font-size: 17px; height: 75%; background-color: white; margin:0; border-radius: 5px; border-top-left-radius: 0; border-top-right-radius: 0;display:flex; justify-content:center; align-items:center;"><b>${parseFloat(encuesta11[i].PorcientoRiesgo).toFixed(2)}%</b></p>
+                    </div>
+                </div>
+                
+                `;
+            }
+            
+
+
+            let textriesgo = [];
+            let colorriesgo = [];
+            let sumariesgoentorno = [];
+
+            console.log(data3)
+            data3.forEach(function(resp){
+                if(resp < 50){
+                    colorriesgo.push("#58AADF");
+                    textriesgo.push("Nulo");
+                }
+                if(resp >= 50 && resp< 75){
+                    colorriesgo.push("#9ABE13");
+                    textriesgo.push("Bajo");
+                }
+                if(resp >= 75 && resp < 99){
+                    colorriesgo.push("#FAEB29");
+                    textriesgo.push("Medio");
+                }
+                if(resp>= 99 && resp< 140){
+                    colorriesgo.push("#F19602");
+                    textriesgo.push("Alto");
+                }
+                if(resp> 140){
+                    colorriesgo.push("#F60000");
+                    textriesgo.push("Muy alto");
+                }
+                sumariesgoentorno.push(resp);
+            });
+
+            console.log(sumariesgoentorno);
+
+            let IdCliente = document.getElementById("cliente").value;
+            let IdPeriodo = document.getElementById("periodo").value;
+
+
+            var cant = 0;
+
+            for(var i = 0; i<encuesta12.length; i++){
+
+                if(textriesgo[i] == undefined) textriesgo[i] = "Nulo";
+                if(colorriesgo[i] == undefined) colorriesgo[i] = "#58AADF"; 
+
+                html2 += `
+
+                <div class="riesgo" style="display: flex; justify-content:space-between; margin-bottom: 15px; gap: 5px;">
+                    <div class="Centros Cajitas" style="width:33%; height: 80px; border-radius: 2px; text-align:center;">
+                        <p class="p-4" style="color: white; font-size: 17px; height: 32%; background-color:gray; margin:0; border-radius: 5px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Centro de trabajo</p>
+                        <p class="p-4" style="color: black; font-size: 17px; height: 75%; background-color: white; margin:0; border-radius: 5px; border-top-left-radius: 0; border-top-right-radius: 0; display:flex; justify-content:center; align-items:center;">${encuesta12[i].Descripcion}</p>
+                    </div>
+                    <div class="Poblacion Cajitas" style="width:33%; height: 80px; border-radius: 2px; text-align:center; line-height:1;">
+                        <p class="p-4" style="color: white; font-size: 17px; height: 32%; background-color:gray; margin:0; border-radius: 5px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Población</p>
+                        <p class="p-4" style="padding: 10px; color: black; font-size: 17px; height: 75%; background-color: white; margin:0; border-radius: 5px; border-top-left-radius: 0; border-top-right-radius: 0; display:flex; justify-content:center; align-items:center;"><b>${encuesta12[i].terminado}/${encuesta12[i].CantidadCentro}</b>&nbsp[${parseFloat(encuesta12[i].Porciento).toFixed(2)}%]</p>
+                    </div>
+                    <div class="Cajitas" style="background-color: white; color:white; width: 33%; height: 80px; border-radius: 2px; text-align:center">
+                    <p class="p-4 " style="color: white; font-size: 17px; height: 32%; background-color:gray; margin:0; border-radius: 5px; border-bottom-left-radius: 0; border-bottom-right-radius: 0;">Riesgo</p>
+                       <div class="p-4" style="background-color: white; color:white; width: 100%; height: 75%; border-radius: 5px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center">
+                       <p style="color:black; font-size: 17px; margin:0; line-height:1;"><span style="background-color:${colorriesgo[i]};padding: 2px 12px;">${textriesgo[i]}</span></p></div>
+                    </div>
+                </div>
+
+                `;
+
+                cant = cant + parseInt(encuesta12[i].terminado); 
+
+                html3 +=`<div class="reportess" style="display: flex; justify-content:center; align-items:center; margin-bottom:15px; height:80px">
+                    <div class="Btns" style="text-align:end; width: 50%;">
+                        <a id="${encuesta12[i].idcn}" onClick="abrirPdf(${encuesta12[i].idcn},${IdCliente},${IdPeriodo})" class="btn" style="color:white; border-radius: 5px; width: 100%; height: 50px; font-size: 17px; display:flex; justify-content:center; align-items:center;"><p class="p_botones" style="width:90%; margin:0"><i class="fa fa-file-pdf-o fa-2x iconss" style=" color:rgb(255, 123, 0);" aria-hidden="true"></i></p></a>
+                    </div>
+                    <div class="Btns" style="text-align:end; width: 50%">
+                        <a id="btnDocumentos${i}" type="button" class="btn" style="color:white; border-radius: 5px; width: 100%; height: 50px; font-size: 17px; display:flex; justify-content:center; align-items:center;"><p class="p_botones" style="width:90%; margin:0"><i class="fa fa-file-text fa-2x iconss" style=" color:rgb(255, 123, 0);" aria-hidden="true"></i></p></a>
+                    </div>
+                </div>
+
+                `;
+            }
+            console.log(encuesta11)
+            $("#centroTrabajo").html(html);
+            $(".entornoLaboral").html(html2);
+            $('.reportes').html(html3);
+
+
+            let IdServicio = servicioo[0].IdServicio;
+
+            if(quejas > 0){
+                document.getElementById('c-quejas').textContent = quejas;
+                var rutaQuejas = "{{ route('sugerencias',['idCliente'=>'cliente']) }}";
+                rutaQuejas = rutaQuejas.replace('cliente',IdServicio);
+                document.getElementById('btn-quejas').href = rutaQuejas;
+            }else{
+                document.getElementById('c-quejas').textContent = 0;
+                document.getElementById('btn-quejas').href = '#';
+            }
+            
+            for(var i = 0; i<encuesta12.length; i++){
+                var ruta = "{{ route('documentosNom035', ['id' => 'temp', 'id2' => 'periodo', 'id3' => 'cliente']) }}";
+                ruta = ruta.replace('temp',encuesta12[i].idcn);
+                ruta = ruta.replace('periodo',IdPeriodo);
+                ruta = ruta.replace('cliente',IdCliente);
+                document.getElementById(`btnDocumentos${i}`).href= ruta;
+            }
+
+            graficar(cant);
+
+            let finalizadass = parseInt(pendientes);
+            let solicitadoss = parseInt(solicitados);
+            graficarDistribucion(finalizadass,solicitadoss,sinInformacion,asignados);
         }
 
         function devolver(){
@@ -805,7 +950,7 @@
     }
 
 
-    function habilitarDistribucion(response){
+    function habilitarDistribucion(){
    
             var ids = document.getElementById("cliente").value;
             var idPeriodo = document.getElementById("periodo").value;

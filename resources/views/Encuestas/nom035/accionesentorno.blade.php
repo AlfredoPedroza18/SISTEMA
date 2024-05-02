@@ -2490,7 +2490,7 @@
                 });
                 swal("Aviso!", "No hay información para esta vista, favor de llenar una encuesta primero.", "info");
                 setTimeout(function(){
-                    window.location.href="/gent_coatza/public/nom035";
+                    window.location.href="/gen-t/public/nom035";
                 }, 4000);
                 
             }

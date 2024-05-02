@@ -58,7 +58,127 @@ class Nom035Controller extends Controller
         return response()->json(['data'=>$periodo]);  
     }
 
-    public function getCentros(Request $request)
+    public function getCentros(Request $request){
+
+        $IdCliente =  $request->IdCliente;
+        $IdPeriodo =  $request->IdPeriodo;
+
+
+        $dataCent = [];
+
+        $servicioo = DB::select("select * from ev_servicio es where es.IdCliente =".$IdCliente." and es.IdPeriodo = '".$IdPeriodo." '");
+
+        $tipoEncuesta = DB::select("select * from ev_encuesta");
+
+
+        foreach($tipoEncuesta as $tipo){
+            $ev_centros_trabajo = DB::select("SELECT esc.IdCentro as idcn,esc.CantidadCentro,evt.Descripcion,
+                    (select count(esd.IdPersonal) from ev_servicio_detalle esd where esd.IdServicio_cliente = esc.IdServicio_cliente and esd.IdEncuesta =". $tipo->IdEncuesta." AND esd.Estatus = 'Finalizado') AS terminado,
+                    (if(esc.CantidadCentro =0, 0,(100/esc.CantidadCentro)) * (select terminado)) as Porciento,
+                    (select count(distinct IdPersonal)  from ev_personal_encuesta where IdEncuesta =". $tipo->IdEncuesta." and IdCliente = ".$IdCliente." and IdPeriodo = ".$IdPeriodo." and IdCentro = evt.IdCentro and IdAgrupador = 8 and iValor > 0) as TR1,
+                    (select sum(iValor) from ev_personal_encuesta where IdEncuesta = ". $tipo->IdEncuesta." and IdCliente = ".$IdCliente." and IdPeriodo = ".$IdPeriodo." and IdCentro = evt.IdCentro and IdAgrupador = 8) as SR1,
+                    (if((select SR1) = 0, 0,(100/esc.CantidadCentro) * (select TR1))) as PorcientoRiesgo
+                    FROM ev_servicio_cliente esc 
+                    INNER JOIN ev_centros_trabajo evt ON esc.IdCentro = evt.IdCentro WHERE esc.IdServicio = ".$servicioo[0]->IdServicio);
+
+            $dataCent["E".$tipo->IdEncuesta] = $ev_centros_trabajo;
+        }
+
+
+        $pendientes = DB::select("select count(IdPersonal)/2 as pen from ev_servicio_cliente sc1
+        inner join ev_servicio_detalle sd1 on (sd1.IdServicio_cliente = sc1.IdServicio_cliente and sd1.Estatus = 'Pendiente' )
+        where sc1.IdServicio = ".$servicioo[0]->IdServicio);
+
+        $solicitados = DB::select("select sum(CantidadCentro) total from ev_servicio_cliente where IdServicio = ".$servicioo[0]->IdServicio);
+        $riesgoxcentro = [];
+        $sumariesg = 0;
+        $indexriesgo = 0;
+
+        foreach ($ev_centros_trabajo as $cn){
+            $riesgoentorno = DB::select('select epe.IdCliente,epe.IdEncuesta, epe.IdCentro, epe.IdPeriodo,epe.IdPregunta,epe.iValor, epe.IdPersonal,edp.IdDimension, ed.IdDominio, ec.IdCategoria, sum(epe.iValor)as calificacion, count(DISTINCT epe.IdPersonal) as personal, (sum(epe.iValor)/count(DISTINCT epe.IdPersonal)) as promedio
+                from ev_personal_encuesta epe
+                inner join ev_dimension_pregunta edp
+                on edp.IdPregunta = epe.IdPregunta
+                inner join ev_dimension evd
+                on evd.IdDimension = edp.IdDimension
+                inner join ev_dominio ed
+                on ed.IdDominio = evd.IdDominio
+                inner join ev_categorias ec
+                on ec.IdCategoria = ed.IdCategoria
+                where epe.IdCliente = '.$IdCliente.' and epe.IdPeriodo = '.$IdPeriodo.' and epe.IdEncuesta = 12 and epe.IdCentro ='.$cn->idcn.' GROUP BY epe.IdCentro,edp.IdDimension');
+        
+            if(count($riesgoentorno)>0){
+                $total = 0;
+                foreach ($riesgoentorno as $ries){
+                    $total += $ries->promedio;
+                }
+                array_push($riesgoxcentro, $total);
+            }else{
+                array_push($riesgoxcentro, 0);
+            }
+        }
+        
+        $riesgoentorno2 = DB::select('select epe.IdCliente,epe.IdEncuesta, epe.IdCentro, epe.IdPeriodo,epe.IdPregunta,epe.iValor, epe.IdPersonal,edp.IdDimension, ed.IdDominio, ec.IdCategoria, sum(epe.iValor)as calificacion, count(DISTINCT epe.IdPersonal) as personal, (sum(epe.iValor)/count(DISTINCT epe.IdPersonal)) as promedio
+        from ev_personal_encuesta epe
+        inner join ev_dimension_pregunta edp
+        on edp.IdPregunta = epe.IdPregunta
+        inner join ev_dimension evd
+        on evd.IdDimension = edp.IdDimension
+        inner join ev_dominio ed
+        on ed.IdDominio = evd.IdDominio
+        inner join ev_categorias ec
+        on ec.IdCategoria = ed.IdCategoria
+        where epe.IdCliente = '.$IdCliente.' and epe.IdPeriodo = '.$IdPeriodo.' and epe.IdEncuesta = 12 GROUP BY epe.IdCentro');
+        
+        
+
+        $dataGrafica = DB::select("select es.IdCliente, es.IdPeriodo, esd.IdPersonal, ep.Correo,ep.Nombre
+        from ev_servicio es
+        inner join ev_servicio_cliente esc
+        on esc.IdServicio = es.IdServicio
+        inner join ev_servicio_detalle esd
+        on esd.IdServicio_cliente = esc.IdServicio_cliente
+        inner join ev_personal ep
+        on ep.IdPersonal = esd.IdPersonal
+        where es.IdCliente = ".$IdCliente." and es.IdPeriodo = ".$IdPeriodo." group by esd.IdPersonal");
+
+        $sinInformacion = 0;
+        $asignados = 0;
+
+        if(count($dataGrafica) > 0){
+            foreach($dataGrafica as $row) {
+                if($row->Correo != "" || $row->Correo != null){
+                    $asignados++;
+                }else{
+                    $sinInformacion++;
+                }
+            }
+        }
+
+        
+        $quejas = DB::select("select es.Comentario
+        from ev_sugerencias es 
+        where es.IdCliente = ".$IdCliente. " AND es.IdPeriodo =".$IdPeriodo);
+
+        $numQuejas = count($quejas);
+
+        
+        return response()->json([
+                                "solicitados"=>$solicitados[0]->total,
+                                "pendientes" => $pendientes[0]->pen,
+                                "servicio"=>$servicioo,
+                                "centros_trabajo"=>$dataCent,
+                                'data2'=>$riesgoentorno2,
+                                'data3'=>$riesgoxcentro,
+                                'quejas'=>$numQuejas,
+                                'sinInformacion'=>$sinInformacion,
+                                'asignados'=>$asignados,
+                                'servicioo'=>$servicioo
+                            ]);
+
+
+    }
+    public function getCentros2(Request $request)
     {
         $IdCliente =  $request->IdCliente;
         $IdPeriodo =  $request->IdPeriodo;

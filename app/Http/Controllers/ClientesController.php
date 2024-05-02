@@ -1847,7 +1847,7 @@ class ClientesController extends Controller
 
         
 
-        $seguimientoVenta = DB::select('SELECT c.id_ejecutivo, c.id_cn, cn.nombre AS clienteAsignado, c.medio_contacto, c.tipo, tc.id AS tipoCliente, c.id,c.contrato_a,c.nombre_comercial,c.comentario,CONCAT(u.`name`," ",u.apellido_paterno," ",u.apellido_materno) AS nombreEjecutivo FROM clientes c 
+        $seguimientoVenta = DB::select('SELECT c.id_ejecutivo, c.id_cn, cn.nombre AS clienteAsignado, c.medio_contacto as con, c.tipo, tc.id AS tipoCliente, c.id,c.contrato_a,c.nombre_comercial,c.comentario,CONCAT(u.`name`," ",u.apellido_paterno," ",u.apellido_materno) AS nombreEjecutivo FROM clientes c 
 
         INNER JOIN users u
 
@@ -1892,7 +1892,7 @@ class ClientesController extends Controller
 
             $clienteAsignado = $row->clienteAsignado;
 
-            $mediocontacto = $row->medio_contacto;
+            $mediocontacto = $row->con;
 
             $tipoclientee = $row->tipoCliente;
 
