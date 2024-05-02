@@ -45,7 +45,7 @@ class PdfReporteGeneralController extends Controller {
         $centros = DB::SELECT("SELECT ect.Descripcion FROM ev_servicio es
             INNER JOIN ev_servicio_cliente esc ON es.IdServicio = esc.IdServicio
             INNER JOIN ev_centros_trabajo ect ON ect.IdCentro = esc.IdCentro
-            WHERE es.IdCliente =".$IdCliente." AND es.IdPeriodo = ".$IdPeriodo.($IdPeriodo. ($request->idCentro == -1)?"":" AND esc.IdCentro =".$request->idCentro).";");
+            WHERE es.IdCliente =".$IdCliente." AND esc.IdCentro ".$IdCentro."  AND es.IdPeriodo = ".$IdPeriodo.($IdPeriodo. ($request->idCentro == -1)?"":" AND esc.IdCentro =".$request->idCentro).";");
         foreach($datos as $row){
             if($row->Valoracion == "REQUIERE VALORACIÓN")
                 $requiere++;

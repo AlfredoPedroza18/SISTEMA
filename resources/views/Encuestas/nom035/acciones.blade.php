@@ -286,7 +286,7 @@
                 <thead>
                     <tr>
                         <th>Encuestado</th>
-                        <th>Encuesta</th>
+                        <th>Centro Trabajo</th>
                         <th>Fecha Encuesta</th>
                         <th>Riesgo</th>
                         <th>Evidencia individual</th>
@@ -503,7 +503,7 @@
                 
                 // let porcentajeRiesgo = parseFloat(response.PorcientoRiesgo).toFixed(2);
                 col1.innerHTML = `${response.Nombre}`;
-                col2.innerHTML = `${response.Encuesta}`;
+                col2.innerHTML = `${response.CentroTrabajo}`;
                 col3.innerHTML = `${response.FechaEnvío}`;
                 col4.innerHTML = `${response.Valoracion}`;
                 col5.innerHTML = `<form id="${response.IdPersonal}" action="{{route('subir_archivoo_evidencias')}}" method="POST" enctype="multipart/form-data">

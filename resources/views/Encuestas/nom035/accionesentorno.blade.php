@@ -856,8 +856,8 @@
             <!-- Modal --> 
             <div class="modal text-center" id="modalPoliticas" tabindex="-1" role="dialog" aria-labelledby="modalPoliticasTitle" aria-hidden="true">
                 <div class="modal-fullscreen d-flex justify-content-center" role="document" style="height: 100%; width: 100%; display:flex; justify-content:center; align-items:center">
-                    <div class="modal-content" style="height: 62%; width:75%; background-color:rgb(255, 255, 255)">
-                        <div class="modal-body" style="height: 100%">
+                    <div class="modal-content" style=" width:75%; background-color:rgb(255, 255, 255)">
+                        <div class="modal-body" >
 
                             <div class="widget widget-stats" style="background-color:rgb(255, 255, 255)">
                                 <div class="row">

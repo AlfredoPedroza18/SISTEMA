@@ -83,7 +83,7 @@ class AccionesController extends Controller
         if($IdCentro != -1){
             $requiere = 0;
             $norequiere = 0;
-            $datos = DB::select("select sd.IdEncuesta, sd.IdPersonal, sd.CodigoUnico, sd.Fecha, 
+            $datos = DB::select("select sd.IdEncuesta, sd.IdPersonal, sd.CodigoUnico, sd.`FechaEnvío`, 
             if(sd.Archivo <=> null,0,1) as Archivo, 
             (select epe.Nombre from ev_personal epe where epe.IdPersonal = sd.IdPersonal) AS Nombre,
             (select Descripcion from ev_centros_trabajo where IdCentro = sc.IdCentro) as CentroTrabajo,
@@ -119,7 +119,7 @@ class AccionesController extends Controller
             where es.IdCliente = ".$IdCliente." and es.IdPeriodo = ".$IdPeriodo." and esd.IdEncuesta = 11 and esd.Estatus = 'Finalizado' and esc.IdCentro = ".$IdCentro);
 
             foreach($datos as $row){
-                if($row->Valoracion == "REQUIERE VALORACIÓN"){
+                if($row->Valoracion == "*REQUIERE VALORACIÓN"){
                     $requiere++;
                 }else{
                     $norequiere++;
@@ -170,7 +170,7 @@ class AccionesController extends Controller
             where es.IdCliente = ".$IdCliente." and es.IdPeriodo = ".$IdPeriodo." and esd.IdEncuesta = 11 and esd.Estatus = 'Finalizado' group by esc.IdCentro");
 
             foreach($datos as $row){
-                if($row->Valoracion == "REQUIERE VALORACIÓN"){
+                if($row->Valoracion == "*REQUIERE VALORACIÓN"){
                     $requiere++;
                 }else{
                     $norequiere++;
