@@ -1571,7 +1571,7 @@
 
                         <label>{{ Form::label('Dias Credito', 'Dias Crédito') }}</label>
 
-                        {{ Form::select('db_dias_credito',[''=>'Selecciona una opci&oacute;n','1'=>'15','2'=>'30','3'=>'45','4'=>'90'],$cliente->db_dias_credito,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'db_dias_credito']) }}
+                        {{ Form::select('db_dias_credito',[''=>'Selecciona una opci&oacute;n','0'=>'0','1'=>'15','2'=>'30','3'=>'45','4'=>'90'],$cliente->db_dias_credito,['class'=>'form-control','data-live-search'=>'true','data-parsley-group'=>'wizard-step-1','data-style'=>'btn-white','data-size'=>'10','id'=>'db_dias_credito']) }}
 
                     </div>
 

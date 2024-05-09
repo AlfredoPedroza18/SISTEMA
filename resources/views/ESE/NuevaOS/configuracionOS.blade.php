@@ -670,7 +670,7 @@
             <div class="row"><!-- begin row -->
               <div class="col-md-6">
                 <label for="recipient-name" class="form-control-label">Fecha:</label>
-                <div class="input-group date date " id="datepicker-disabled-past" data-date-format="dd-mm-yyyy" data-date-start-date="Date.default" enableOnReadonly="true">
+                <div class="input-group date date " id="datepicker-disabled-past" data-date-format="dd-mm-yyyy" enableOnReadonly="true">
                   <input type="text" class="form-control date form-control-lg" placeholder="Fecha" id="fechaPE" name="fechaPE" value="{{$ProgramacionEjecucionFecha}}"/>
                   <span class="input-group-addon add-on "><i class="fa fa-calendar"></i></span>
                 </div>

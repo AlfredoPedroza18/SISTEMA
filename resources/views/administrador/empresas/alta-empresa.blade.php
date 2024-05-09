@@ -837,7 +837,7 @@ function hacer_click(idBtn){
               });
           }else if(response.status_alta == 'error'){
               swal({
-                  title: `<h3>Ocurrió un error: ${response.message}</h3>`,
+                  title: `<h3>Registro Realizado, Revisar la configuracion de nominas</h3>`,
                   html: true,
                   type: "warning",
                   confirmButtonText: "OK"
