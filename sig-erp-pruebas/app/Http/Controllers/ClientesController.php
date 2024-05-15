@@ -563,7 +563,7 @@ class ClientesController extends Controller
                     //"                      AND users.id     = clientes.id_user".
                     " LEFT JOIN   centros_negocio ".
                                     "ON cliente_cn_actual.id_cn      = centros_negocio.id  ".                    
-                    " LEFT JOIN contactos ON contactos.id = clientes.id_contacto_principal ".
+                    " LEFT JOIN contactos ON (contactos.id_clientes = clientes.id AND contactos.principal = 1) ".
                     " LEFT JOIN   tipos_clientes ".
                                     " ON tipos_clientes.id  = clientes.tipo_cliente ";
                     

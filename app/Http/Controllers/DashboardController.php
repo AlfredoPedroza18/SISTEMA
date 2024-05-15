@@ -292,6 +292,10 @@ class DashboardController extends Controller
         $logo = DB::select("select logo from master_ese_logo");
 
 
+        $cred = DB::select("SELECT cc.Restantes as Restantes  FROM cred_count cc INNER JOIN users u on u.idcliente = cc.IdCliente WHERE cc.IdModulo = 6 AND u.id= ".$request->user()->id);
+
+        $creditos = (count($cred)==0)?0:$cred[0]->Restantes;
+
         return view('crm.dashboard.crm-dashboard',['prospectos'=>$prospectos,
         'ESEinvT'=>$ESEinvT,
         'ESEinvA'=>$ESEinvA,
@@ -299,7 +303,8 @@ class DashboardController extends Controller
         "cli_pros"=>$cli_pros,
         "departamentos"=> $departamentos,
         "servicios"=>$servicios,
-        "logo" => $logo[0]->logo
+        "logo" => $logo[0]->logo,
+        "creditos"=>$creditos
         ]);
 
     }

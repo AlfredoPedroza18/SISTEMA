@@ -520,7 +520,7 @@
       <td class="gris_blanca" style="height: 40px; padding: 2 3 2 3; text-align: center;">@if($EscolaridadUltimoGrado[$j]=='') &nbsp; @endif {{$EscolaridadUltimoGrado[$j]}}</td>
       <td class="gris_blanca" style="height: 40px; padding: 2 3 2 3; text-align: center;">@if($EscolaridadInstitucion[$j]=='') &nbsp; @endif {{$EscolaridadInstitucion[$j]}}</td>
       <td class="gris_blanca" style="height: 40px; padding: 2 3 2 3; text-align: center;">@if($EscolaridadDomicilio[$j]=='') &nbsp; @endif {{$EscolaridadDomicilio[$j]}}</td>
-      <td class="gris_blanca" style="height: 40px; padding: 2 3 2 3; text-align: center;">@if($EscolaridadPeriodo[$j]=='') &nbsp; @endif {{$EscolaridadComprobante[$j]}}</td>
+      <td class="gris_blanca" style="height: 40px; padding: 2 3 2 3; text-align: center;">@if($EscolaridadPeriodo[$j]=='') &nbsp; @endif {{$EscolaridadPeriodo[$j]}}</td>
       <td class="gris_blanca" style="height: 40px; padding: 2 3 2 3; text-align: center;">@if($EscolaridadAnios[$j]=='') &nbsp; @endif {{$EscolaridadAnios[$j]}}</td>
       <td class="gris_blanca" style="height: 40px; padding: 2 3 2 3; text-align: center;">@if($EscolaridadComprobante[$j]=='') &nbsp; @endif {{$EscolaridadComprobante[$j]}}</td>
       </tr>
@@ -1018,9 +1018,9 @@
     @for($z=0;$z<=1;$z++) @if($TrayecLaboralAplica[$lo]=='Si' || $TrayecLaboralAplica[$lo]=='SI' || $TrayecLaboralAplica[$lo]=='si' ) <!--<p style="font-family: century-gothic, sans-serif; font-size: 9; text-align: center; margin-bottom: 0;">Trayectoria laboral</p>
       -->
       @php $lo2++; @endphp
-      <p style="font-family: century-gothic, sans-serif;  text-align: center;"> TRAYECTORIA LABORAL</p>
+      <p style="font-family: century-gothic, sans-serif;  text-align: center; margin-bottom: 0;"> TRAYECTORIA LABORAL</p>
 
-      <table class="tabla" style="margin-top: 10px;">
+      <table class="tabla" style="margin-top: 0px;">
         <tr>
           <td class="gris" style="width: 100px;">Empresa:</td>
           <td class="gris_blanca" style="width: 640px; @if($TrayecLaboralNombreEmpresa[$lo]=='NA') text-align:center; @endif">@if($TrayecLaboralNombreEmpresa[$lo]=='') &nbsp; @else

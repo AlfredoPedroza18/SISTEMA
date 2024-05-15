@@ -3713,7 +3713,7 @@ IFNULL(clientes.id,'') AS id, IFNULL(clientes.nombre_comercial,'') AS nombre_cli
 
  LEFT JOIN   centros_negocio ON cliente_cn_actual.id_cn = centros_negocio.id 
 
- LEFT JOIN contactos ON contactos.id_cliente = clientes.id
+ LEFT JOIN contactos ON (contactos.id_cliente = clientes.id AND contactos.principal = 1) 
 
  LEFT JOIN   tipos_clientes ON tipos_clientes.id  = clientes.tipo_cliente
 

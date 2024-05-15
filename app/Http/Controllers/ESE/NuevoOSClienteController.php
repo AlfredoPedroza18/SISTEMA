@@ -105,6 +105,11 @@ class NuevoOSClienteController extends Controller
 
     public function PlantOS($ids,$idc)
     {
+
+        $cred = DB::select("SELECT cc.Restantes as Restantes  FROM cred_count cc WHERE cc.IdModulo =6 AND cc.IdCliente = $idc");
+
+        $creditos = (count($cred)==0)?0:$cred[0]->Restantes;
+
         $Plantilla = MasterConsultas::exeSQL("master_ese_plantilla_cliente_entrada", "READONLY",
         array(
             "IdPlantillaClienteEntrada" => '0',
@@ -143,6 +148,8 @@ class NuevoOSClienteController extends Controller
 
                 [ 
                 
+                "creditos"=>$creditos,
+
                 "solicitante" =>$solicitante,
 
                 "tservicios"=>$tservicios,
@@ -177,6 +184,24 @@ class NuevoOSClienteController extends Controller
 
     public function ConfiguracionOSPC($id,$idc,$ids,$hrefO,$idPlantillaCliente,$solicitante)
     {
+        $cred = DB::select("SELECT cc.Restantes as Restantes, cc.Usados as Usados  FROM cred_count cc WHERE cc.IdModulo =6 AND cc.IdCliente = $idc");
+
+        $creditos = (count($cred)==0)?0:$cred[0]->Restantes;
+
+        $creditos -= 1;
+
+        $usados = $cred[0]->Usados +1;
+
+        if(count($cred)>0){
+            DB::table("cred_count")
+                        ->where("IdCliente",$idc)
+                        ->where("IdModulo",6)
+                        ->update([
+                            "Usados" => $usados,
+                            "Restantes" => $creditos
+                        ]);
+        }
+
         $queryEXST = DB::select("SELECT EXISTS(SELECT 1 FROM master_ese_plantilla_entrada WHERE IdPlantilla =$id) as Exst ");
         foreach ($queryEXST as $p) {
             $Exst=$p->Exst;
@@ -2773,6 +2798,29 @@ class NuevoOSClienteController extends Controller
         Inner join master_ese_plantilla_cliente mpc on mpc.IdPlantillaCliente = ms.IdPlantillaCliente
         Inner Join master_ese_plantilla mp ON mp.IdPlantilla = mpc.IdPlantilla
         where ms.IdCliente = $idc and ms.Estatus='Creada' and  mp.IdTipoServicio=$idS");
+    
+      $servicios = count($sql);
+      
+      if($servicios > 0){
+        $cred = DB::select("SELECT cc.Restantes as Restantes, cc.Usados as Usados  FROM cred_count cc WHERE cc.IdModulo =6 AND cc.IdCliente = $idc");
+
+        $creditos = (count($cred)==0)?0:$cred[0]->Restantes;
+
+        $creditos += $servicios;
+
+        $usados = $cred[0]->Usados - $servicios;
+
+        if(count($cred)>0){
+            DB::table("cred_count")
+                        ->where("IdCliente",$idc)
+                        ->where("IdModulo",6)
+                        ->update([
+                            "Usados" => $usados,
+                            "Restantes" => $creditos
+                        ]);
+        }
+      }
+        
         foreach ($sql as $g) {
           DB::delete("delete from master_ese_srv_kardex where IdServicioEse = $g->IdServicioEse");
           DB::delete("delete from master_ese_srv_entrada where IdServicioEse = $g->IdServicioEse");

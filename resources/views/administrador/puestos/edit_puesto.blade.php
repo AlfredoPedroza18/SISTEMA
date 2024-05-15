@@ -204,26 +204,26 @@
                                 { 
                                     id: '52', 
                                     key: '52', 
-                                    title: 'Empresas Facturadoras', 
+                                    title: 'Empresa', 
                                     folder:true,
                                     @if( in_array(52, $permisos_asignados) ) selected:true,  @endif 
 						            children: [
                                         {   
                                             id: '53',
                                             key:'53',
-                                            title: 'Crear Empresas Facturadoras',
+                                            title: 'Crear Empresa',
 						            		@if( in_array(53, $permisos_asignados) ) selected:true @endif
                                         },
                                         {   
                                             id: '54',
                                             key:'54',
-                                            title: 'Eliminar Empresas Facturadoras',
+                                            title: 'Eliminar Empresa',
 						            		@if( in_array(54, $permisos_asignados) ) selected:true @endif
                                         },
                                         {   
                                             id: '55',
                                             key:'55',
-                                            title: 'Editar Empresas Facturadoras',
+                                            title: 'Editar Empresa',
 						            		@if( in_array(55, $permisos_asignados) ) selected:true @endif
                                         },
                                     ]
@@ -231,26 +231,26 @@
                                 { 
                                     id: '56', 
                                     key: '56', 
-                                    title: 'Empresas Maquiladoras', 
+                                    title: 'Gestión de Nómina', 
                                     folder:true, 
                                     @if( in_array(56, $permisos_asignados) ) selected:true,  @endif
 						            children: [
                                         {   
                                             id: '57',
                                             key:'57',
-                                            title: 'Crear Empresas Maquiladoras',
+                                            title: 'Crear Gestión de Nómina',
 							            	@if( in_array(57, $permisos_asignados) ) selected:true @endif
                                         },
                                         {   
                                             id: '58',
                                             key:'58',
-                                            title: 'Eliminar Empresas Maquiladoras',
+                                            title: 'Eliminar Gestión de Nómina',
 							            	@if( in_array(58, $permisos_asignados) ) selected:true @endif
                                         },
                                         {   
                                             id: '59',
                                             key:'59',
-                                            title: 'Editar Empresas Maquiladoras',
+                                            title: 'Editar Gestión de Nómina',
 							            	@if( in_array(59, $permisos_asignados) ) selected:true @endif
                                         },
                                     ]
@@ -789,6 +789,13 @@
                                     title: 'Catálogos contratos',
                                     @if( in_array(46, $permisos_asignados) ) selected:true @endif
                                 },
+                                {   
+                                    id: '132',
+                                    key:'132',
+                                    title: 'Catálogos contratos',
+                                    @if( in_array(132, $permisos_asignados) ) selected:true @endif
+                                },
+
                                 { 
                                     id: '37', 
                                     key: '37', 

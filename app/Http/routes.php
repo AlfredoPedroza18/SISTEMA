@@ -161,11 +161,21 @@ Route::group(['prefix' => 'utilerias',
 
         Route::resource('codigospostales','Utilerias\codigospostalesController');
 
+        
 
         Route::resource('plantillas', 'Utilerias\PlantillasController');
 
         Route::resource('impuestos', 'Utilerias\ImpuestosController');
 
+
+         
+        /*----- Creditos ---------*/
+        Route::resource('listacreditos','Utilerias\creditosController');
+        Route::resource('creditos','Utilerias\creditosController@crear');
+        Route::get('Utileria_contacto/{idCliente}', 'Utilerias\creditosController@Utileria_contacto');
+        Route::post('registrarCreditos/{idCliente}', 'Utilerias\creditosController@registrarCreditos');
+        Route::post('obtenerCantidadCre/{idCliente}/{idModulo}', 'Utilerias\creditosController@obtenerCantidadCre');
+        Route::post('eliminarCreditos/{idKardex}', 'Utilerias\creditosController@eliminarCreditos');
         /*----- PLANTILLAS CONTRATOS ---------*/
 
         Route::resource('plantilla_contratos', 'Utilerias\PlantillasContratosController');

@@ -635,7 +635,7 @@
 
             setTimeout(function(){
 
-                location.href ="PlantillaClienteOS/"+id+"/"+idC;
+                location.href ="{{url('PlantillaClienteOS')}}/"+id+"/"+idC;
 
             },500);
 

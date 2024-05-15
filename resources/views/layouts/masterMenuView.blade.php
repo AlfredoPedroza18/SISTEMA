@@ -631,10 +631,21 @@ function activarLink( $url = '' )
                                         </a>
 
                                     </li>
-                                    <li class="divider"></li>
+                                    
                                     @endpermission
 
-                                   
+                                    @permission('catalogos.creditos')
+                                   <li class="divider"></li>
+                                    <li >
+
+                                        <a href="{{ url('utilerias/listacreditos') }}">
+                                            <i class="fa fa-cubes fa-fw"></i>
+                                            <span class="fa fa-question-circle pull-right" data-toggle="tooltip" data-placement="bottom" title="Creditos solicitados por clientes"></span>
+                                            Creditos
+                                        </a>
+
+                                    </li>
+                                    @endpermission
 
                                 </ul>
 

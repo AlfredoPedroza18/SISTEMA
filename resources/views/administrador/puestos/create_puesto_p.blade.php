@@ -1094,6 +1094,13 @@
                                     title: 'Catálogos contratos',
                                 
                                 },
+                                {   
+                                    id: '132',
+                                    key:'132',
+                                    title: 'Catálogos creditos',
+                                
+                                },
+
                                 { 
                                     id: '37', 
                                     key: '37', 

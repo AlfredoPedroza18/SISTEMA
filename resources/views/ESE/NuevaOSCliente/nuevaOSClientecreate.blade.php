@@ -507,48 +507,61 @@ var removeEstudio = function(obj,nombre){
     });
 
     var serv= function(){
-        if($('#plG').is(":visible")){
-            if(formp!=''){
-                $('#AplicarEstudios').hide();
-                $('#plG').attr('disabled',true);
-                var IdCliente=$('#IdCliente').val();
-                var IdServicio=0;
-                var hrefO=$("#idOrg").attr('href');
-                if(hrefO!='#EstudioO'){
-                    hrefO='SN';
+
+        if( "{{$creditos}}" <= 0){
+            swal({
+                title: "<h3>¡ No cuenta con creditos suficiente favor de solicitar mas creditos !</h3>",
+                html: true,
+                data: "",
+                type: "error"
+            });
+        }
+        else{
+        
+            
+            if($('#plG').is(":visible")){
+                if(formp!=''){
+                    $('#AplicarEstudios').hide();
+                    $('#plG').attr('disabled',true);
+                    var IdCliente=$('#IdCliente').val();
+                    var IdServicio=0;
+                    var hrefO=$("#idOrg").attr('href');
+                    if(hrefO!='#EstudioO'){
+                        hrefO='SN';
+                    }else{
+                        hrefO='EstudioO';
+                    }
+                    AddEstudio();
                 }else{
-                    hrefO='EstudioO';
-                }
-                AddEstudio();
+                    $('#AplicarEstudios').show();
+                    $('#plG').attr('disabled',false);
+                    $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar dato requerido.<span class='close' data-dismiss='alert'>×</span></div>");
+                } 
             }else{
-                $('#AplicarEstudios').show();
-                $('#plG').attr('disabled',false);
-                $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar dato requerido.<span class='close' data-dismiss='alert'>×</span></div>");
-            } 
-        }else{
-            var sv=$('#serv').val();
-            var pl=$('#pl').val();
-            if((sv!='') && (pl!='')){
-                $('#AplicarEstudios').hide();
-                $('#pl').attr('disabled',true);
-                $('#serv').attr('disabled',true);
-                var IdCliente=$('#IdCliente').val();
-                var IdTipServicio=$('#serv').val();
-                IdSE=0;
-                idplc=0;
-                var hrefO=$("#idOrg").attr('href');
-                if(hrefO!='#EstudioO'){
-                    hrefO='SN';
+                var sv=$('#serv').val();
+                var pl=$('#pl').val();
+                if((sv!='') && (pl!='')){
+                    $('#AplicarEstudios').hide();
+                    $('#pl').attr('disabled',true);
+                    $('#serv').attr('disabled',true);
+                    var IdCliente=$('#IdCliente').val();
+                    var IdTipServicio=$('#serv').val();
+                    IdSE=0;
+                    idplc=0;
+                    var hrefO=$("#idOrg").attr('href');
+                    if(hrefO!='#EstudioO'){
+                        hrefO='SN';
+                    }else{
+                        hrefO='EstudioO';
+                    }
+                    AddEstudio();
                 }else{
-                    hrefO='EstudioO';
-                }
-                AddEstudio();
-            }else{
-                $('#AplicarEstudios').show();
-                $('#pl').attr('disabled',false);
-                $('#serv').attr('disabled',false);
-                $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar dato(s) requerido(s).<span class='close' data-dismiss='alert'>×</span></div>");
-            } 
+                    $('#AplicarEstudios').show();
+                    $('#pl').attr('disabled',false);
+                    $('#serv').attr('disabled',false);
+                    $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar dato(s) requerido(s).<span class='close' data-dismiss='alert'>×</span></div>");
+                } 
+            }
         }
     }
 

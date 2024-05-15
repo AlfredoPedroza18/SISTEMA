@@ -105,6 +105,11 @@ class NuevoOSClienteController extends Controller
 
     public function PlantOS($ids,$idc)
     {
+
+        $cred = DB::select("SELECT cc.Restantes as Restantes  FROM cred_count cc WHERE cc.IdModulo =6 AND cc.IdCliente = $idc");
+
+        $creditos = (count($cred)==0)?0:$cred[0]->Restantes;
+
         $Plantilla = MasterConsultas::exeSQL("master_ese_plantilla_cliente_entrada", "READONLY",
         array(
             "IdPlantillaClienteEntrada" => '0',
@@ -138,7 +143,11 @@ class NuevoOSClienteController extends Controller
     $plantillaG=DB::select("Select IdPlantilla,DescripcionPlantilla FROM master_ese_plantilla WHERE IdTipoServicio= $ids");
     return view("ESE.NuevaOSCliente.nuevaOSClientecreate",
 
-                [ "tservicios"=>$tservicios,
+                [ 
+                
+                "creditos"=>$creditos,
+
+                "tservicios"=>$tservicios,
 
                 "servi"=>$ids, 
 

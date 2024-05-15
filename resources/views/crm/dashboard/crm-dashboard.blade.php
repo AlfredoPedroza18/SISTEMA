@@ -136,7 +136,6 @@
 	<div class="row">
 
 		<!-- begin col-3 -->
-
 		<div class="col-md-3 col-md-offset-3 col-sm-6">
 
 			<div class="widget widget-stats bg-purple">
@@ -164,7 +163,7 @@
 		</div>
 
 		<!-- end col-3 -->
-
+		
 		<!-- begin col-3 -->
 
 		<div class="col-md-3 col-sm-6">
@@ -176,6 +175,32 @@
 				<div class="stats-title">Encuestas</div>
 
 				<div class="stats-number" >0</div>
+
+				<div class="stats-progress progress">
+
+					<div class="progress-bar" style="width: 76.9%;"></div>
+
+				</div>
+
+				<div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+
+			</div>
+
+		</div>
+
+		
+	</div>
+
+	<div class="row" style="align-items: center;">
+		<div class="col-md-3 col-md-offset-4 col-sm-6">
+
+			<div class="widget widget-stats " style="background-color: #5499C7  ;">
+
+				<div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+
+				<div class="stats-title">Creditos</div>
+
+				<div class="stats-number" >{{$creditos}}</div>
 
 				<div class="stats-progress progress">
 
