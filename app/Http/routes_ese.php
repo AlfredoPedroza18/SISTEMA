@@ -391,7 +391,18 @@ Route::group(['as' => 'sig-erp-ese::','middleware' => ['auth','auth.module:ese']
     //filtrado de anallista secundario 
     Route::get('filterOsAnalistaSec/{paramFilter1}/{paramFilter2}', 'ESE\ListadoOSController@filterOsAnalistaSec');
     
-
+    //Incidencias Legales
+    Route::resource('ListadoIncidencias','ESE\IncidenciasController');
+    Route::get('crearServicio/{IdClientes}','ESE\IncidenciasController@CrearServicio');
+    Route::get('editarServicio/{IdClientes}/{IdServicio}','ESE\IncidenciasController@EditarServicio');
+    Route::post('guardarServicio/{IdCliente}', 'ESE\IncidenciasController@guardarServicio');
+    Route::post('guardarInputs/{IdCliente}/{IdServicios}', 'ESE\IncidenciasController@guardarInputs');
+    Route::post('guardarDocumentos/{IdCliente}/{IdServicios}/{Indice}', 'ESE\IncidenciasController@guardarDocumentos');
+    Route::post('guardarInputsUpdate/{IdCliente}/{IdServicios}', 'ESE\IncidenciasController@guardarInputsUpdate');
+    Route::post('cancelarServicio/{IdCliente}/{IdServicios}', 'ESE\IncidenciasController@cancelarServicio');
+    Route::post('finalizarServicio/{IdCliente}/{IdServicios}', 'ESE\IncidenciasController@finalizarServicio');
+    
+    
     Route::resource('ListadoOS', 'ESE\ListadoOSController');
 
     Route::get('updateC', 'ESE\ListadoOSController@updateC');

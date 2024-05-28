@@ -13,6 +13,17 @@ use App\Administrador\SubModulo;
 use App\Administrador\Modulo;
 use App\Administrador\Accion;
 use Illuminate\Support\Facades\Auth;
+use App\Bussines\MasterConsultas;
+use App\ESE\EstudioEse;
+use Carbon\Carbon;
+use App\CentroNegocio;
+use Illuminate\Support\Collection;
+use App\MasterClientes;
+use App\Bussines\Dashboard;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Crypt;
+use App\Http\Controllers\ESE\Notificaciones;
 
 class AccionXclienteController extends Controller
 {
@@ -47,6 +58,11 @@ class AccionXclienteController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
+      
+
       $ruta='';
       $nombre='';
       $carpeta_cliente=$request->id_cliente."_".str_replace(" ","",$request->nombre_comercial);
@@ -72,6 +88,24 @@ class AccionXclienteController extends Controller
 
 
     }//end anexo
+
+    $op = ""; 
+
+    if($request->actividad == 2) {
+        $cuerpo = $request->cuerpo;
+        $pie = $request->pie;
+        $asunto = $request->asunto;
+        $file2 = $_FILES["carchivo"];
+
+
+        if($cuerpo != "" && $pie != "" && $asunto != "" ){
+            $ntf = new Notificaciones();
+            $ntf->sendNotificationAccion($cuerpo, $pie, $asunto, $request->id_cliente, $file2["tmp_name"], $file2["name"],$request->correo);
+            $op .= "(correo enviado)"; 
+
+        }
+    }
+    
     
         $date_inicio        = new \DateTime($request->hr_inicio);
         $fecha_hr_inicio    = $date_inicio->format('Y-m-d\TH:i:s');
@@ -89,6 +123,7 @@ class AccionXclienteController extends Controller
          $accionXcliente->hr_inicio         = $fecha_hr_inicio;
          $accionXcliente->hr_fin            = $fecha_hr_fin;
          $accionXcliente->hora_agenda       = $request->hora_agenda;
+         $accionXcliente->descripcion       = $request->descripcion." $op";
         
          $accionXcliente->save();
 
@@ -112,17 +147,27 @@ class AccionXclienteController extends Controller
             $submodulo      = SubModulo::where('slug','crm.agenda')->get();
             $accion_kardex  = Accion::where('slug','alta')->get();
 
+            $acc = "";
+
+
+      
+
+
             $kardex = Kardex::create([  "id_cn"         => $request->user()->idcn,
                                         "id_usuario"    => $request->user()->id,
                                         "id_modulo"     => $modulo[0]->id,
                                         "id_submodulo"  => $submodulo[0]->id,
                                         "id_accion"     => $accion_kardex[0]->id,
                                         "id_objeto"     => $accionXcliente->id,
-                                        "descripcion"   => "Alta Accion X Cliente: " . $this->getActividad($request->actividad) . ", " . $request->descripcion ]);
-            $acc = "";
+                                        "descripcion"   => "Alta Accion X Cliente: " . $this->getActividad($request->actividad) . ", " . $request->descripcion." $op" ]);
+            
+
             if($request->agenda_valor == 'yes'){
                 if($request->actividad == 1) $acc = "Llamada a $request->nombre_comercial";
-                if($request->actividad == 2) $acc = "Correo a $request->nombre_comercial";
+                if($request->actividad == 2) {
+                    $acc = "Correo a $request->nombre_comercial ";
+                    
+                }
                 if($request->actividad == 3) $acc = "Cita con $request->nombre_comercial";
                 if($request->actividad != 4) {
                     $agenda = DB::insert('INSERT INTO agenda (evento,hora_inicio,hora_fin,fecha_inicio,fecha_fin,f_inicio,f_fin,STATUS,id_usuario,ocurrencia_evento,idcliente)
@@ -136,6 +181,11 @@ class AccionXclienteController extends Controller
                       "INSERT INTO master_ese_notificaciones_web (fecha, IdAnio, IdNotificacion, Titulo, Mensaje, IdUsuario, Leido, Url, IdEse) VALUE ('$fecha',year(Now()), '$ultimate', 'SIG CRM Notificación: Accion por realizar', '$acc', ".$request->user()->id .", 0, ' ', ' ')"
                     );
                 }
+            }
+
+
+            if($request->actividad == 2){
+                
             }
            return redirect()->route('sig-erp-crm::accionClientes.show', ['id' => $request->id_cliente])->with('alta','success');
          //  return response()->json(['status_alta' => 'success']);

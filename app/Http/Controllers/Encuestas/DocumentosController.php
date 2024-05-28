@@ -52,7 +52,7 @@ class DocumentosController extends Controller
         $IdCliente = $id3;
         $IdPeriodo = $id2;
 
-        $documentos = DB::select('SELECT * FROM ev_documentos WHERE IdCliente ='.$IdCliente);
+        $documentos = DB::select('SELECT * FROM ev_documentos ');
 
         $nombreCentro = DB::select('SELECT ect.Descripcion FROM ev_centros_trabajo ect WHERE ect.IdCentro ='.$IdCentro);
         $periodo = DB::select('SELECT ep.Fecha FROM ev_periodos ep WHERE ep.IdPeriodo ='.$IdPeriodo);

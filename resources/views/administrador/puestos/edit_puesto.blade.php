@@ -725,6 +725,13 @@
                                         
                                     ]
                                 },
+                                {   
+                                    id: '133',
+                                    key:'133',
+                                    title: 'Inicidencias',
+                                    @if( in_array(133, $permisos_asignados) ) selected:true, @endif  
+                                },
+
                                 { 
                                     id: '100', 
                                     key: '100', 
@@ -792,7 +799,7 @@
                                 {   
                                     id: '132',
                                     key:'132',
-                                    title: 'Catálogos contratos',
+                                    title: 'Catálogos creditos',
                                     @if( in_array(132, $permisos_asignados) ) selected:true @endif
                                 },
 

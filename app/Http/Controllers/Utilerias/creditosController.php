@@ -28,10 +28,10 @@ class creditosController extends Controller
             
 
         $listadoCreditos = DB::select("
-            SELECT DATE_FORMAT(ck.Fecha,'%d-%M-%Y') AS fecha, ck.Estatus AS estatus, ck.id as id, ck.Solicitante , c.nombre_comercial AS nombreC, m.nombre AS modulo, ck.Creditos FROM cred_kardex AS ck
+            SELECT  ck.Restantes as res,DATE_FORMAT(ck.Fecha,'%d-%M-%Y') AS fecha, ck.Estatus AS estatus, ck.id as id, ck.Solicitante , c.nombre_comercial AS nombreC, m.nombre AS modulo, ck.Creditos FROM cred_kardex AS ck
             INNER JOIN clientes c ON c.id = ck.IdCliente
             INNER JOIN modulos m ON m.id = ck.IdModulo
-            where (-1 = $idcn OR ( -1<>$idcn AND c.id_cn = $idcn))
+            where (-1 = $idcn OR ( -1<>$idcn AND c.id_cn = $idcn)) ORDER BY ck.id desc 
         ");
 
         return view("utilerias.creditos.creditosindex",[
@@ -124,7 +124,8 @@ class creditosController extends Controller
                     "Creditos" => $creditos,
                     "Solicitante"=> $contacto,
                     "fecha"=> $fecha,
-                    "Estatus" => "Activo"
+                    "Estatus" => "Activo",
+                    "Restantes"=> $creditos
 
                 ]);
 

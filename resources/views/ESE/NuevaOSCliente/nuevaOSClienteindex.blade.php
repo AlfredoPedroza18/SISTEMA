@@ -479,7 +479,23 @@
 
     var serv= function(id){
 
-        clie=$('#cntC').val();
+        if(id == 2){
+
+            clie=$('#cntC').val();
+
+            if(clie!=''){
+
+                $(".seleccionar").attr('href', '{{ url("crearServicio") }}/'+clie);
+
+            }else{
+
+                $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar un <strong>Cliente</strong> ya que es campo obligatorio.<span class='close' data-dismiss='alert'>×</span></div>");
+
+            }
+
+        }else{
+            
+            clie=$('#cntC').val();
 
             if(clie!=''){
 
@@ -496,7 +512,7 @@
             }
 
 
-
+        }
 
 
 

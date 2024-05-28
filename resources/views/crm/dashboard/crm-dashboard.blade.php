@@ -208,7 +208,11 @@
 
 				</div>
 
-				<div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+				<div class="stats-desc"> <label class="mes_actual stats-desc">
+					<strong style="color: white; font-size: 15px;"> @if($creditos <= 5) Tu paquete esta por terminar @endif</strong>
+				</div>
+
+				
 
 			</div>
 

@@ -533,6 +533,40 @@ function activarLink( $url = '' )
                     </h5>
 
                 </span>
+
+
+                <div class="collapse navbar-collapse pull-left" id="top-navbar" style="margin-top: 6px;">
+
+                    <ul class="nav navbar-nav">
+
+                            <li class="dropdown">
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+
+                                    <i class="fa fa-th-large fa-fw"></i> Catálogos <b class="caret"></b>
+
+                                </a>
+
+                               
+                                <ul class="dropdown-menu" role="menu" style="width: 180px;">
+                                   <li class="divider"></li>
+                                    <li >
+
+                                        <a href="{{ url('utilerias/listacreditos') }}">
+                                            <i class="fa fa-cubes fa-fw"></i>
+                                            <span class="fa fa-question-circle pull-right" data-toggle="tooltip" data-placement="bottom" title="Creditos solicitados por clientes"></span>
+                                            Creditos
+                                        </a>
+
+                                    </li>
+                                 
+                                </ul>
+
+                            </li>
+
+                    </ul>
+
+                </div>
             @else
 
                 <div class="collapse navbar-collapse pull-left" id="top-navbar" >
@@ -2013,7 +2047,10 @@ function activarLink( $url = '' )
                             <a href="{{ url('ListadoOS') }}">Estudios Socioeconómicos</a>
                         </li>
 
-                          
+                        <li class="{{ activarLink('estudio-ese') }} {{ activarLink('ListadoOS') }} {{ activarLink('ListadoOS') }}">
+                            <a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Incidencias Legales</a>
+                        </li>
+
 
                         </ul>
                 </li>

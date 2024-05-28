@@ -591,11 +591,11 @@
     </tr>
   </table>
 
-  <p style="font-family: century-gothic, sans-serif;  text-align: center;">SITUACIÓN SOCIAL Y ECONÓMICA</p>
+  <p style="font-family: century-gothic, sans-serif; margin-bottom: 0px; text-align: center;">SITUACIÓN SOCIAL Y ECONÓMICA</p>
 
-  <p class="gris" style="margin-left:-20px; margin-top: 10px; width: 760px; font-family: century-gothic, sans-serif; font-size: 12px; text-align: center; color:black">Datos familiares </p>
+  <p class="gris" style="margin-left:-20px; margin-top: 0px;  margin-bottom: 0px; width: 760px; font-family: century-gothic, sans-serif; font-size: 12px; text-align: center; color:black">Datos familiares </p>
 
-  <table class="tabla">
+  <table class="tabla" style="margin-top: 0;">
     <tr>
       <td class="gris" style="text-align: center; font-weight: bold; width: 170px; height:18px;">Nombre</td>
       <td class="gris" style="text-align: center; font-weight: bold; width: 60px;">Parentesco</td>

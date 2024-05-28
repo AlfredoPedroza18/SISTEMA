@@ -529,35 +529,52 @@
 
     var serv= function(id){
 
-        clie=$('#cntC').val();
+        if(id == 2){
 
-        pendientes=$('#pendientes'+id).val();
+            clie=$('#cntC').val();
+            
+            if(clie!=''){
 
-        $("#IdTipo").val(id);
+                $(".seleccionar").attr('href', '{{ url("crearServicio") }}/'+clie);
 
-        if(pendientes){
+            }else{
 
-           $(".modal-body").html("<h4> Se tienen "+pendientes+" servicio(s) pendiente(s).  ¿Que desea realizar? </h4>");
+                $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar un <strong>Cliente</strong> ya que es campo obligatorio.<span class='close' data-dismiss='alert'>×</span></div>");
 
-           $("#staticBackdrop").modal("show");
+            }
 
         }else{
 
-          if(clie!=''){
+        
+            clie=$('#cntC').val();
 
-              $(".seleccionar").attr('href', '{{ url("PlantillaClienteOS") }}/'+id+'/'+clie);
+            pendientes=$('#pendientes'+id).val();
 
-          }else{
+            $("#IdTipo").val(id);
 
-              $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar un <strong>Cliente</strong> ya que es campo obligatorio.<span class='close' data-dismiss='alert'>×</span></div>");
+            if(pendientes){
 
-          }
+            $(".modal-body").html("<h4> Se tienen "+pendientes+" servicio(s) pendiente(s).  ¿Que desea realizar? </h4>");
+
+            $("#staticBackdrop").modal("show");
+
+            }else{
+
+            if(clie!=''){
+
+                $(".seleccionar").attr('href', '{{ url("PlantillaClienteOS") }}/'+id+'/'+clie);
+
+            }else{
+
+                $('#mensC').html("<div class='alert alert-danger fade in m-b-15'></strong>  Favor de seleccionar un <strong>Cliente</strong> ya que es campo obligatorio.<span class='close' data-dismiss='alert'>×</span></div>");
+
+            }
+
+            }
 
         }
 
-
-
-        }
+    }
 
 
         var serv2= function(id){

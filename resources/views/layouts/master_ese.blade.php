@@ -1,5 +1,5 @@
 
-@permission('ese.main|ese.solicitar.servicios')
+@permission('ese.main|ese.solicitar.servicios| ese.incidencias')
 
 <li class="has-sub {{ 	activarLink('OrdenServicio').' '.
 
@@ -68,6 +68,10 @@
 	@endpermission
 
 	
+	@permission('ese.incidencias')
+	<li class="{{ activarLink('estudio-ese') }} {{ activarLink('ListadoOS') }} {{ activarLink('ListadoOS') }}"><a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Incidencias Legales</a></li>
+	@endpermission
+
 
 	<!-- <li class="{{ activarLink('estudio-ese-investigadores') }}"><a href="#">Investigadores</a></li> -->
 

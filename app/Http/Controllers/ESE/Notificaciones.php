@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Undefined;
 
 class Notificaciones extends Controller
 {
@@ -648,5 +649,220 @@ class Notificaciones extends Controller
     }
 
   }
+
+  public function notificaUsuariosCred($modulo,$tipo,$id_user){
+
+    $emailSettings = $this->getEmailSettingsCred($modulo,$id_user, $tipo);
+
+    if($emailSettings["Settings"] != []) {
+        
+      
+        $titulo      = $emailSettings["Settings"]->TituloEmail;
+        $cuerpo      = $emailSettings["Settings"]->CuerpoEmail;
+        $descripcion = $emailSettings["Settings"]->DescripcionPlantilla;
+        $footer = $emailSettings["Settings"]->FooterEmail;
+
+        #Poner aquí la logica para reemplazar las variables del email y el titulo
+        
+        $titulo         = $this->replaceDataLabelsCred($id_user, $titulo);
+        $cuerpo         = $this->replaceDataLabelsCred($id_user, $cuerpo);
+        $descripcion    = $this->replaceDataLabelsCred($id_user, $descripcion);
+        
+        #Despues de reemplazar, enviar el Email
+
+        if($emailSettings["Settings"]->Correo == "Si"){
+           $this->send_phpMailer($emailSettings["Recipients"], $titulo, $cuerpo, $footer, $tipo);
+        }
+
+        return array(
+            "valido" => true
+        );
+
+    }else{
+        return array(
+            "valido" => false
+        );
+    }
+} 
+
+public function getEmailSettingsCred($modulo, $id_user, $tipo){
+  $emailSetting["Settings"] = [];
+  $emailSetting["Recipients"] = [];
+  $setting  = MasterConsultas::exeSQL("mob_ese_email_conf", "READONLY",
+      array(
+          "Modulo" => $modulo
+      ));
+
+  if(isset($setting) && count($setting) > 0)
+  {
+
+          $emailSetting["Settings"] = $setting[0];
+          
+          $clt = DB::select("SELECT u.email as Email, 'Cliente' as Tipo, 'Normal' AS ModoEnvio, CONCAT(u.name, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS NombreDestinatario  FROM users u where u.IdCliente  = $id_user");
+          
+          
+
+          if($tipo == "Cliente"){
+            array_push($emailSetting["Recipients"], $clt[0]);
+          }elseif ($tipo == "Ejecutivo"){
+            $cliente = DB::select("select * from clientes where id = $id_user");
+            $ejecutivo = DB::select("SELECT u.email as Email, 'Ejecutivo' as Tipo, 'Normal' AS ModoEnvio, CONCAT(u.name, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS NombreDestinatario  FROM users u where  u.id = ".$cliente[0]->id_ejecutivo);
+            array_push($emailSetting["Recipients"], $ejecutivo[0]);
+          }
+  }
+
+  return $emailSetting;
+
+
+}
+
+public function replaceDataLabelsInci($ids, $data){
+  
+  $replace_labels = $data;
+
+    $servicio = DB::select("select * from eis_servicios where id= $ids");
+    
+    $value1 = DB::select("select * from clientes where id = ".$servicio[0]->IdClientes );
+    $value2 = DB::select("SELECT u.email as Email, 'Ejecutivo' as Tipo, 'Normal' AS ModoEnvio, CONCAT(u.name, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS NombreDestinatario  FROM users u where  u.id = ".$servicio[0]->Id_analista);
+    $value3 = DB::select("SELECT * from eis_servicio_detalle where IdServicio = $ids" );
+
  
+    $replace_labels = str_replace("{Analista}",$value2[0]->NombreDestinatario, $replace_labels);
+    $replace_labels = str_replace("{cliente}",$value1[0]->nombre_comercial, $replace_labels);
+    $replace_labels = str_replace("{solicitante}",$value3[0]->Candidato, $replace_labels);
+    
+    return $replace_labels;
+}
+
+
+public function notificaUsuariosInci($modulo,$tipo,$ids){
+
+  $emailSettings = $this->getEmailSettingsInci($modulo,$ids, $tipo);
+
+  if($emailSettings["Settings"] != []) {
+      
+    
+      $titulo      = $emailSettings["Settings"]->TituloEmail;
+      $cuerpo      = $emailSettings["Settings"]->CuerpoEmail;
+      $descripcion = $emailSettings["Settings"]->DescripcionPlantilla;
+      $footer = $emailSettings["Settings"]->FooterEmail;
+
+      #Poner aquí la logica para reemplazar las variables del email y el titulo
+      
+      $titulo         = $this->replaceDataLabelsInci($ids, $titulo);
+      $cuerpo         = $this->replaceDataLabelsInci($ids, $cuerpo);
+      $descripcion    = $this->replaceDataLabelsInci($ids, $descripcion);
+
+      #Despues de reemplazar, enviar el Email
+
+      if($emailSettings["Settings"]->Correo == "Si"){
+        $this->send_phpMailer($emailSettings["Recipients"], $titulo, $cuerpo, $footer, $tipo);
+      }
+
+      return array(
+          "valido" => $emailSettings
+      );
+
+  }else{
+      return array(
+          "valido" => false
+      );
+  }
+} 
+
+public function getEmailSettingsInci($modulo, $ids, $tipo){
+$emailSetting["Settings"] = [];
+$emailSetting["Recipients"] = [];
+$setting  = MasterConsultas::exeSQL("mob_ese_email_conf", "READONLY",
+    array(
+        "Modulo" => $modulo
+    ));
+
+if(isset($setting) && count($setting) > 0)
+{
+
+        $emailSetting["Settings"] = $setting[0];
+        
+        $servicio = DB::select("select * from eis_servicios where id= $ids");
+         
+        
+
+        if($tipo == "Cliente"){
+          $cliente = DB::select("SELECT u.email as Email, 'Cliente' as Tipo, 'Normal' AS ModoEnvio, CONCAT(u.name, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS NombreDestinatario  FROM users u where u.IdCliente  = ".$servicio[0]->IdClientes);
+          array_push($emailSetting["Recipients"], $cliente[0]);
+        }elseif ($tipo == "Ejecutivo"){
+          $ejecutivo = DB::select("SELECT u.email as Email, 'Ejecutivo' as Tipo, 'Normal' AS ModoEnvio, CONCAT(u.name, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS NombreDestinatario  FROM users u where u.Id  = ".$servicio[0]->Id_analista);
+          array_push($emailSetting["Recipients"], $ejecutivo[0]);
+        }
+}
+
+return $emailSetting;
+
+
+}
+
+public function replaceDataLabelsCred($idc, $data){
+
+$replace_labels = $data;
+
+  
+  $value1 = DB::select("select * from clientes where id = $idc" );
+  $value2 = DB::select("SELECT u.email as Email, 'Ejecutivo' as Tipo, 'Normal' AS ModoEnvio, CONCAT(u.name, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS NombreDestinatario  FROM users u where  u.id = ".$value1[0]->id_ejecutivo);
+          
+  $replace_labels = str_replace("{Analista}",$value2[0]->NombreDestinatario, $replace_labels);
+  $replace_labels = str_replace("{cliente}",$value1[0]->nombre_comercial, $replace_labels);
+
+  return $replace_labels;
+}
+
+public function sendNotificationAccion($cuerpo, $pie, $asunto, $id, $path='', $name ='', $correo){
+      $mail = new PHPMailer(true);
+
+      try {
+        $mail->isSMTP();
+                                             // Send using SMTP
+        $mail->Host       ="smtp.gmail.com"  ;#"smtp.gmail.com";                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = "valkyriefirewind@gmail.com"  ;#"soporte@gen-t.com.mx";                     // SMTP username
+        $mail->Password   = "vwgq yvqb mrqk kpxw"  ;# "Gtvalkyrie&14";                               // SMTP password
+        // $mail->SMTPSecure = 'tls';         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = 587;  
+        $options = array(
+          'ssl' => array(
+              'verify_peer' => false,
+              'verify_peer_name' => false,
+              'allow_self_signed' => true
+          )
+      );
+      $mail->smtpConnect($options);                                  // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above       
+        //Recipients
+        $mail->setFrom("valkyriefirewind@gmail.com" , utf8_decode('DSAIX Notificaciones'));
+        $mails = [];
+        
+        $cliente = DB::select("select u.email as Mail, c.nombre_comercial as name from users u inner join clientes c on u.idCliente = c.id where c.id = $id");
+
+        $mail->addAddress($correo, $cliente[0]->name);
+
+        if( ($path != '' && $name != '') && ($path !=NULL && $name != NULL))  
+          $mail->AddAttachment( $path, $name);
+        //Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject =  utf8_decode($asunto);
+        $mail->Body    =  utf8_decode($cuerpo.'<footer class="page-footer font-small orange pt-4" style="margin-top:1.5rem!important;bottom:0;color: #fff;background-color:#ff9800;font-family:Roboto,sans-serif;font-size:15px;"><div class="container-fluid text-center text-md-left" style="text-align:center!important;padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;text-align: center!important;"><div class="row" style="display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right: -15px;margin-left: -15px;"><div class="col-md-6 mt-md-0 mt-3" style="margin-top: 1rem!important;position: relative;width: 100%;padding-right: 15px;padding-left: 15px;"><h5 class="text-uppercase">INFORMACIÓN CONFIDENCIAL</h5><p>'.$pie.'</p></div></div></div></footer>');
+        $mail->AltBody =  utf8_decode($cuerpo);
+
+      //   $mail->send();
+      if(!$mail->send()){
+          Log::insert("No se pudo enviar el mensaje. Mailer Error: {$mail->ErrorInfo}");
+          $status="No se pudo enviar el mensaje. ";
+      }else{
+          Log::insert("Se envio el correo a ".implode($mails));    
+          $status=true; 
+      }
+       return $status;   
+    } catch (Exception $e) {
+        Log::insert("No se pudo enviar el mensaje. Mailer Error: {$mail->ErrorInfo}");
+        throw new APIException( "No se pudo enviar el mensaje. Mailer Error: {$mail->ErrorInfo}");
+    }
+  }
 }

@@ -192,6 +192,24 @@ class NuevoOSClienteController extends Controller
 
         $usados = $cred[0]->Usados +1;
 
+
+        $credxserv = DB::select("SELECT * FROM cred_kardex cc WHERE cc.IdModulo =6 AND cc.IdCliente = $idc AND Estatus = 'Activo' ORDER BY cc.fecha ASC LIMIT 1");
+
+        if(count($credxserv)>0){
+            $contadora = (int) $credxserv[0]->Restantes -1;
+            $idP = $credxserv[0]->id;
+            $estatuso = ($contadora == 0)?"Finalizado":"Activo";
+            
+            DB::table("cred_kardex")
+                        ->where("id",$idP)
+                        ->where("IdCliente",$idc)
+                        ->where("IdModulo",6)
+                        ->update([
+                            "Restantes" => $contadora,
+                            "Estatus" => $estatuso
+                        ]);
+        }
+
         if(count($cred)>0){
             DB::table("cred_count")
                         ->where("IdCliente",$idc)
@@ -200,6 +218,13 @@ class NuevoOSClienteController extends Controller
                             "Usados" => $usados,
                             "Restantes" => $creditos
                         ]);
+        }
+
+        if($creditos == 5){
+            $ntf = new Notificaciones();
+            $clt = DB::select("select u.id from users u where u.IdCliente = $idc");
+            $ntf->notificaUsuariosCred('EJE-CREDITOS','Cliente',$idc);
+            $ntf->notificaUsuariosCred('CLTE-CREDITOS','Ejecutivo',$idc);
         }
 
         $queryEXST = DB::select("SELECT EXISTS(SELECT 1 FROM master_ese_plantilla_entrada WHERE IdPlantilla =$id) as Exst ");

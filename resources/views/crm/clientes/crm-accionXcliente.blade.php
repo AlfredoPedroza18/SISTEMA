@@ -282,10 +282,49 @@
 
 							                      
 							                </div>
-							                <div class="col-md-6 text-right">
+
+											
+							                
+							          </div><!-- end row-->
+
+									  <br>
+
+									  <div class="row" id="ModalCorreo" hidden>
+												
+														
+														<div class="col-md-3 " >
+															
+															<label for="">Correo electronico</label>
+															<input type="mail" class="form-control" id="correo" name="correo">						  	
+															<br>
+															<label for="">Asunto del correo</label>
+															<input type="text" class="form-control" id="asunto" name="asunto">
+															<br>
+															<label for="">Selecciona un archivo</label>
+															<input type="file" class="form-control" name="carchivo" id="carchivo">
+														</div>
+
+														<div class="col-md-5 ">
+															<label for="">Cuerpo del correo</label>
+															<textarea name="cuerpo" id="cuerpo" class="form-control" style="height: 200px;"></textarea>
+														</div>
+
+														<div class="col-md-4">
+															<label for="">Pie de pagina del correo</label>
+															<textarea name="pie" id="pie" class="form-control" style="height: 200px;"></textarea>
+														</div>
+
+												
+											</div>
+
+											<br>
+
+										<div class="row">
+											<div class="col-md-12 text-right">
 							                      {{ Form::button('Crear acción', ['class' => 'btn btn-success btn-lg','id' => 'btn-alta-accion','type'=>'submit']) }}</p>
 							                </div>
-							          </div><!-- end row-->
+										</div>
+
 					          {!! Form::close() !!}
 					          <hr>
                                 <div class="row">
@@ -433,7 +472,7 @@
         $("#anexo_archivo").val(0);
         $('#anexo_fade').fadeOut(1000);
         $("#ruta").val('');
-     
+		$("#ModalCorreo").hide();
       
 
       
@@ -446,6 +485,8 @@
         $("#anexo_archivo").val(0);
         $('#anexo_fade').fadeOut(1000);
         $("#ruta").val('');
+		$("#ModalCorreo").show();
+		
 
     });
      $("#cita").click(function(){
@@ -456,6 +497,7 @@
         $("#anexo_archivo").val(0);
         $('#anexo_fade').fadeOut(1000);
          $("#ruta").val('');
+		 $("#ModalCorreo").hide();
     });
      $("#anexo").click(function(){
      var anexo=$("#anexo").val();
@@ -464,6 +506,7 @@
         $("#hr_inicio").val(hrInicio);
         $('#anexo_fade').fadeIn("slow");
         $("#anexo_archivo").val(1);
+		$("#ModalCorreo").hide();
 
     });
 
@@ -482,6 +525,10 @@
 	   var descripcion=$.trim($("#descripcion").val());
 	   var anexo_archivo=$.trim($("#anexo_archivo").val());
 	   var ruta=$.trim($("#ruta").val());
+	   var asunto =$.trim($("#asunto").val());
+	   var cuerpo =$.trim($("#cuerpo").val());
+	   var pie =$.trim($("#pie").val());
+	   var carchivo=$.trim($("#carchivo").val());
 	   //validacion de campos del formulario
 
 	   var hora_agenda = $.trim($("#hora_agenda").val());

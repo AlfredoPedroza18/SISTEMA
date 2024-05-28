@@ -1,20 +1,15 @@
 @extends('layouts.masterMenuView')
-
 @section('section')
 
-
-<!DOCTYPE html>
-
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <style type="text/css">
+
         ul.social-network {
             list-style: none;
             display: inline;
@@ -109,38 +104,37 @@
         }
 
     </style>
-
 </head>
 
-<body>
+
 
     <div class="content">
         <ol class="breadcrumb ">
-            <li><a href="javascript:;">Utilerias</a></li>
-            <li><a>creditos</a></li>
+            <li><a href="javascript:;">ESE</a></li>
+            <li><a>Incidencias Legales</a></li>
         </ol>
 
         <div class="row">
 
-            <h1 class="page-header text-center">CREDITOS</h1>
+            <h1 class="page-header text-center">Incidencias Legales</h1>
             
             <div style="width: 100%;" align = "right" >
-                <button onclick=" window.location.href = '{{ url('utilerias/creditos')}}' " class="btn btn-inverse btn-icon btn-circle btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Agregar Creditos">
+                <button onclick=" window.location.href = ' {{ route('sig-erp-ese::NuevaOSCliente.index') }} ' " class="btn btn-inverse btn-icon btn-circle btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Agregar Creditos">
                 <i class="fa fa-plus fa-1x" aria-hidden="true"></i>
                 </button>
-                <label style="margin-right: 10px;">Agregar Creditos</label>
+                <label style="margin-right: 10px;">Solicitar Incidencia Legal </label>
             </div>
             
 
             <br>
 
-            <div class="panel panel-inverse" data-sortable-id="ui-widget-14" data-init="true">
-
+            <div class="panel panel-inverse" data-sortable-id="ui-widget-14">
+            
                 
 
                 <div class="panel-heading">
                     <div class="panel-heading-btn"></div>
-                    <h4 class="panel-title">Listado de creditos</h4>
+                    <h4 class="panel-title">Listado de Incidencias Legales</h4>
                 </div>
 
                 
@@ -151,43 +145,44 @@
 
                         <thead>
                             <tr>
-                                <th>Fecha</th>
-                                <th>Modulo</th>
+                                <th>#EIL</th>
                                 <th>Cliente</th>
-                                <th>Solicitante</th>
-                                <th>N° Creditos</th>
-                                <th>N° Restantes</th>
+                                <th>Departamento</th>
+                                <th>Candidato</th>
+                                <th>Analista</th>
                                 <th>Estatus</th>
-                                @if(Auth::user()->tipo != "c")
-                                <th>accion</th>
-                                @endif
+                                <th>Solicitante</th>
+                                <th>Accion</th>
+                                
+                                
                             </tr>
                         </thead>
 
                         <tbody id="tbodyOS">
                         
-                            @foreach ($listadoCreditos as $creditos)
-                                <tr>
-                                    <td>{{$creditos->fecha}}</td>
-                                    <td>{{$creditos->modulo}}</td>
-                                    <td>{{$creditos->nombreC}}</td>
-                                    <td>{{$creditos->Solicitante}}</td>
-                                    <td>{{$creditos->Creditos}}</td>
-                                    <td>{{$creditos->res}}</td>
-                                    <td>{{$creditos->estatus}}</td>
-                                    
-                                    @if(Auth::user()->tipo != "c")
-                                    <th align="center">
-                                        
-                                        @if($creditos->estatus != "Finalizado" && $creditos->estatus != "Cancelado")
-                                
-                                            <button onclick="CancelarCreditos({{$creditos->id}})" class="btn btn-primary btn-icon btn-circle btn-sm btn-danger " data-toggle="tooltip" data-placement="top" title="Cancelar creditos"><i class="fa fa-pencil"></i></button>
-                                
-                                        @endif
+                            @foreach($lista as $row)
 
-                                        &nbsp&nbsp</th>
-                                    @endif
-                                </tr>
+                            <tr>
+                                <td>{{$row->EIL}}</td>
+                                <td>{{$row->cliente}}</td>
+                                <td>{{$row->centro}}</td>
+                                <td>{{$row->Candidato}}</td>
+                                <td>{{$row->analista}}</td>
+                                <td>{{$row->estatus}}</td>
+                                <td>{{$row->solicitante}}</td>
+                                
+                                <td align="center">
+                              
+                                @if($row->estatus != "Cancelado")
+                                    <button onclick=" downloadFileBase64('{{$row->incidencia}}') " class="btn btn-primary btn-icon btn-circle btn-sm btn-success " data-toggle="tooltip" data-placement="top" title="Descargar Incidencia"><i class="fa fa-download"></i></button>&nbsp&nbsp</th>
+                                    
+                                    <button onclick=" location.href = '{{url('editarServicio')}}/{{$row->id_c}}/{{$row->EIL}}' " class="btn btn-primary btn-icon btn-circle btn-sm btn-info " data-toggle="tooltip" data-placement="top" title="Editar Servicio"><i class="fa fa-pencil"></i></button>&nbsp&nbsp</th>
+                                @endif
+                          
+                                
+                                </td>
+                            </tr>
+
                             @endforeach
 
                         </tbody>
@@ -199,10 +194,6 @@
         
         </div>
     </div>
-
-</body>
-
-</html>
 
 
 @endsection
@@ -273,64 +264,16 @@ var iniciarTabla = function(){
                             } );
         }
 
-    function CancelarCreditos(idKardex){
-        swal({
-        title: "¿Estás seguro?",
-        text: "Estás por cancelar los creditos.",
-        type: "warning",
-        showCancelButton: true,
-        cancelButtonText: "Cancelar",
-        confirmButtonColor: "#DD6B55",
-        confirmButtonText: "Confirmar",
-        closeOnConfirm: false
-        },
-        function (isConfirm) {
-            confirmarCancelar(idKardex)
-        });
-    }
-
-    function confirmarCancelar (idK){
+    
+    const downloadFileBase64 = (base64) => {
         
-        var token = $('meta[name="csrf-token"]').attr('content');
+        if(base64 != ""){
+            var win = window.open(); 
+            win.document.write("<iframe  width='100%'  height='100%'  src='" + base64 + "'><\/iframe>"); 
 
-        $.ajax({
-
-            headers:{'X-CSRF-TOKEN': token},
-            url: "{{url('utilerias/eliminarCreditos')}}/" + idK,
-            type: "POST",
-            success: function (response){
-                console.log(response)
-                if(response.status == "cancel"){
-                    swal({
-                        title: "<h3>¡Lo sentimos este servicio ya fue cancelado!</h3> ",
-                        html: true,
-                        type: "warning",
-                        confirmButtonText: "OK",
-                        showCancelButton: true,
-                    });
-                }else if (response.status == "error"){
-                    swal({
-                        title: "<h3>¡Lo sentimos no puedes cancelar este servicio porque esta en uso!</h3> ",
-                        html: true,
-                        type: "error",
-                        confirmButtonText: "OK",
-                        showCancelButton: true,
-                    });
-                }else if (response.status == "success"){
-                    swal({
-                        title: "<h3>¡Creditos cancelados exitosamente!</h3> ",
-                        html: true,
-                        type: "success",
-                        confirmButtonText: "OK",
-                        showCancelButton: true,
-                    });
-
-                    location.reload();
-                }
-            },
-            error: function(){
-
-            }
-        });
+        }else
+            swal("Aun no se ha cargado la incidencia legal!");
     }
+
+    
 </script>
