@@ -98,10 +98,10 @@ class AccionXclienteController extends Controller
         $file2 = $_FILES["carchivo"];
 
 
-        if($cuerpo != "" && $pie != "" && $asunto != "" ){
+        if($cuerpo != "" && $pie != "" && $asunto != "" && $request->correo != ""){
             $ntf = new Notificaciones();
             $ntf->sendNotificationAccion($cuerpo, $pie, $asunto, $request->id_cliente, $file2["tmp_name"], $file2["name"],$request->correo);
-            $op .= "(correo enviado)"; 
+            $op .= "(correo enviado a ".$request->correo.")"; 
 
         }
     }
