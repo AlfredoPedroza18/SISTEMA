@@ -836,10 +836,15 @@ public function sendNotificationAccion($cuerpo, $pie, $asunto, $id, $path='', $n
       );
       $mail->smtpConnect($options);                                  // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above       
         //Recipients
-        $mail->setFrom("valkyriefirewind@gmail.com" , utf8_decode('DSAIX Notificaciones'));
+        $mail->setFrom("valkyriefirewind@gmail.com" ,utf8_decode('Gen-T ESE Notificaciones'));
         $mails = [];
         
-        $cliente = DB::select("select u.email as Mail, c.nombre_comercial as name from users u inner join clientes c on u.idCliente = c.id where c.id = $id");
+        $cliente = DB::select("select c.nombre_comercial as name from clientes c where c.id = $id");
+        $firma = DB::select("select fileBase64 as firma from users where id =" .Auth::user()->id);
+
+      if(isset($firma[0]->firma)){
+          $cuerpo .= '<br> <img src="data:image/jpeg;base64,'.$firma[0]->firma.'" alt="Fiema" width="180px" height="68px">';
+      }
 
         $mail->addAddress($correo, $cliente[0]->name);
 
@@ -848,7 +853,7 @@ public function sendNotificationAccion($cuerpo, $pie, $asunto, $id, $path='', $n
         //Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject =  utf8_decode($asunto);
-        $mail->Body    =  utf8_decode($cuerpo.'<footer class="page-footer font-small orange pt-4" style="margin-top:1.5rem!important;bottom:0;color: #fff;background-color:#ff9800;font-family:Roboto,sans-serif;font-size:15px;"><div class="container-fluid text-center text-md-left" style="text-align:center!important;padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;text-align: center!important;"><div class="row" style="display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right: -15px;margin-left: -15px;"><div class="col-md-6 mt-md-0 mt-3" style="margin-top: 1rem!important;position: relative;width: 100%;padding-right: 15px;padding-left: 15px;"><h5 class="text-uppercase">INFORMACIÓN CONFIDENCIAL</h5><p>'.$pie.'</p></div></div></div></footer>');
+        $mail->Body    =  utf8_decode($cuerpo.'<footer class="page-footer font-small orange pt-4" style="margin-top:1.5rem!important;bottom:0;font-family:Roboto,sans-serif;font-size:15px;"><div class="container-fluid text-center text-md-left" style="text-align:center!important;padding-right: 15px;padding-left: 15px;margin-right: auto;margin-left: auto;text-align: center!important;"><div class="row" style="display: flex;-ms-flex-wrap: wrap;flex-wrap: wrap;margin-right: -15px;margin-left: -15px;"><div class="col-md-6 mt-md-0 mt-3" style="margin-top: 1rem!important;position: relative;width: 100%;padding-right: 15px;padding-left: 15px;"><p>'.$pie.'</p></div></div></div></footer>');
         $mail->AltBody =  utf8_decode($cuerpo);
 
       //   $mail->send();

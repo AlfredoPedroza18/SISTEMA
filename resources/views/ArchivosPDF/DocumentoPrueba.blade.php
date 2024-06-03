@@ -92,6 +92,9 @@
                 <h1 style="margin-left: 50px; margin-right: 50px; text-align: center;">CUESTIONARIO PARA IDENTIFICAR A LOS TRABAJADORES QUE FUERON SUJETOS A ACONTECIMIENTOS TRAUMATICOS SEVEROS</h1>
                 
                 <table>
+                    
+
+                    
                     @foreach($cuestionario as $pregunta)
                         @if($pregunta->iOrden == 0)
                             <tr><th colspan="2" style="font-weight: bold;">{{$pregunta->Agrupador}}</th></tr>
@@ -146,9 +149,13 @@
                 <p>1)   Cuando responda "Sí", en alguna de la Sección II Recuerdos persistentes sobre acontecimieno<br>
                 2)   Cuando responda "Sí", en 3 o más de la Sección III Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento.<br>
                 3)   Cuando responda "Sí", en dos o más de las preguntas de la Sección IV Afectación.</p>
-                <p>Los Resultados de esta evaluacion para: {{$cuestionario[0]->Nombre}} indican que Requiere Valoracion, y/o Atención Clinica ya que, Muestra indicios de haber sufrido algun acontecimiento traumatico severo.</p>
+                <p>Los Resultados de esta evaluacion para: {{$cuestionario[0]->Nombre}} indican que {{$cuestionario[0]->val}}, y/o Atención Clinica ya que, Muestra indicios de haber sufrido algun acontecimiento traumatico severo.</p>
                 <br><br><br><br><br><br><br><br><br><br>
             @endforeach
+
+            @php
+                var_dump($val);
+            @endphp
         </main>
     </body>
 </html>

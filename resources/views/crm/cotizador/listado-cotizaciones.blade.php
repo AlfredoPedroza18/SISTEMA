@@ -172,6 +172,30 @@
 					<tbody>
 
 						<tr>
+							<td>Propuesta de servicio</td>
+							<td>Persona Fisica</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(1)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						<tr>
+							<td>Propuesta de servicio</td>
+							<td>Persona Moral</td>
+							<td>
+								<a 	class="btn btn-primary btn-circle btn-sm" 
+								onclick="CotizacionPerzonalizada(2)"
+									>
+									<i class="fa fa-check"></i>
+								</a>
+							</td>
+						</tr>
+
+						<!--<tr>
 							<td>Atraccion de talento</td>
 							<td>1 mes</td>
 							<td>
@@ -238,7 +262,7 @@
 									<i class="fa fa-check"></i>
 								</a>
 							</td>
-						</tr>
+						</tr>-->
 						
 						
 					<!--

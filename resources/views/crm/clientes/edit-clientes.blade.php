@@ -694,8 +694,13 @@ $(document).ready(function(){
 
                    indice = value+1;
 
-                   $('#id_ejecutivo').append($('<option>', {value:data[value].id, text:data[value].nombre+" "+data[value].ap_paterno+" "+data[value].ap_materno}));
+                   idEje = "{{$IdEjecutivo}}";
 
+                   if(idEje  == data[value].id)
+                    $('#id_ejecutivo').append($('<option selected>', {value:data[value].id, text:data[value].nombre+" "+data[value].ap_paterno+" "+data[value].ap_materno}));
+                   else
+                    $('#id_ejecutivo').append($('<option>', {value:data[value].id, text:data[value].nombre+" "+data[value].ap_paterno+" "+data[value].ap_materno}));
+                  
 
 
                 });

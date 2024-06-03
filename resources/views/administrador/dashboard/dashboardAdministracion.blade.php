@@ -37,13 +37,13 @@
     <div class="row">
 
             <!--Columna numero 1-->
-            <div class="col-md-3 col-md-offset-3 col-sm-6">
+            <div class="col-md-3 col-sm-6">
 
                 <div class="widget widget-stats bg-black">
 
                     <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-                    <div class="stats-title">Usuarios</div>
+                    <div class="stats-title">Usuarios Staff</div>
 
                     <div class="stats-number" >{{$users[0]->contador}}</div>
 
@@ -59,6 +59,50 @@
 
             </div>
             <!--temrino de la Columna numero 1-->
+
+            <div class="col-md-3 col-sm-6">
+
+                <div class="widget widget-stats bg-black">
+
+                    <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+
+                    <div class="stats-title">Usuarios Investigadores</div>
+
+                    <div class="stats-number" >{{$users2[0]->contador}}</div>
+
+                    <div class="stats-progress progress">
+
+                        <div class="progress-bar" style="width: 76.9%;"></div>
+
+                    </div>
+
+                    <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3 col-sm-6">
+
+                <div class="widget widget-stats bg-black">
+
+                    <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+
+                    <div class="stats-title">Usuarios Cliente</div>
+
+                    <div class="stats-number" >{{$users3[0]->contador}}</div>
+
+                    <div class="stats-progress progress">
+
+                        <div class="progress-bar" style="width: 76.9%;"></div>
+
+                    </div>
+
+                    <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+
+                </div>
+
+            </div>
 
             <!--Columna numero 2-->
             <div class="col-md-3 col-sm-6">

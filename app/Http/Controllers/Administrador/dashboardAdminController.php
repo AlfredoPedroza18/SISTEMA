@@ -16,9 +16,11 @@ class dashboardAdminController extends Controller
      */
     public function index()
     {
-        $users = DB::select("SELECT count(id) as contador from users");
+        $users = DB::select("SELECT count(id) as contador from users where tipo = 's'");
+        $users2 = DB::select("SELECT count(id) as contador from users where tipo = 'f' ");
+        $users3 = DB::select("SELECT count(id) as contador from users where tipo = 'c'");
         $centro_negocios = DB::select("SELECT count(id) as contador from centros_negocio");
-        return view('administrador.dashboard.dashboardAdministracion', ["users"=>$users,"centro_negocios"=>$centro_negocios]);
+        return view('administrador.dashboard.dashboardAdministracion', ["users"=>$users,"users2"=>$users2,"users3"=>$users3,"centro_negocios"=>$centro_negocios]);
     }
 
     /**
