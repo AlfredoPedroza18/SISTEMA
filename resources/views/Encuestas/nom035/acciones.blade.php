@@ -485,7 +485,7 @@
         /*SE LLENAN LOS DATOS DE LA TABLA*/
     function llenarTablaEncuestados(response){
 
-            contar= 0;
+          
             response.forEach(function(response,index) {
 
                 
@@ -518,7 +518,6 @@
                                             <input name="IdPersonal" type="hidden" value="${response.IdPersonal}"/>
                                             <input name="IdPeriodo" type="hidden" value="${IdPeriodo}"/>
                                             <input name="IdCliente" type="hidden" value="${IdCliente}"/>
-                                            <input name="Valoracion" type="hidden" value="${response.Valoracion}"/>
                                         </div>
                                         <div class="col-lg-3 col-md-12 col-sm-12" style="padding:0">
                                             <button style="width:100%; background-color:inherit; padding:0" type="submit" name="Guardar${response.IdPersonal}" value="Subir" class="btn btn-block"><i style="font-size:20px; color:rgb(6, 140, 202);" class="fa fa-cloud-upload" aria-hidden="true"></i></button>
