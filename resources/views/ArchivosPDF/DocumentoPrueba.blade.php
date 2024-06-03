@@ -83,7 +83,11 @@
 
         <!-- Wrap the content of your PDF inside a main tag -->
         <main>
+
+            @php $contar = 0; @endphp
             @foreach($cuestionarios as $cuestionario)
+
+
                 <img class="header-img" src="data:image/png;base64,{{$cliente[0]->bLogo}}" alt="" width="100" height="1">
                 <h1 class="header-title">Perfil de: <strong>{{$cuestionario[0]->Nombre}}</strong></h1>
                 <div style="text-align:right; clear:left">
@@ -149,13 +153,14 @@
                 <p>1)   Cuando responda "Sí", en alguna de la Sección II Recuerdos persistentes sobre acontecimieno<br>
                 2)   Cuando responda "Sí", en 3 o más de la Sección III Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento.<br>
                 3)   Cuando responda "Sí", en dos o más de las preguntas de la Sección IV Afectación.</p>
-                <p>Los Resultados de esta evaluacion para: {{$cuestionario[0]->Nombre}} indican que {{$cuestionario[0]->val}}, y/o Atención Clinica ya que, Muestra indicios de haber sufrido algun acontecimiento traumatico severo.</p>
+                <p>Los Resultados de esta evaluacion para: {{$cuestionario[0]->Nombre}} indican que {{$requiere[$contar]}}, y/o Atención Clinica ya que, {{($requiere[$contar]=="No Requiere Valoración")?"No":""}} Muestra indicios de haber sufrido algun acontecimiento traumatico severo.</p>
                 <br><br><br><br><br><br><br><br><br><br>
+
+                @php $contar ++; @endphp
+
             @endforeach
 
-            @php
-                var_dump($val);
-            @endphp
+       
         </main>
     </body>
 </html>
