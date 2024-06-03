@@ -16,123 +16,159 @@
 
 
 
-	<!-- begin breadcrumb -->
+    <!-- begin breadcrumb -->
 
-	<ol class="breadcrumb ">
-
-		
-		<li>{{ link_to('home', $title = 'Módulos', $parameters = array(), $attributes = array()) }}</li>
-
-			<li class="active">Administrador-Dashboard</li>
+    <ol class="breadcrumb ">
 
 
-	</ol>
+        <li>{{ link_to('home', $title = 'Módulos', $parameters = array(), $attributes = array()) }}</li>
 
-	<!-- end breadcrumb -->
+        <li class="active">Administrador-Dashboard</li>
 
-	<!-- begin page-header -->
-	
-	<h1 class="page-header text-center">DASHBOARD<small></small></h1>
+
+    </ol>
+
+    <!-- end breadcrumb -->
+
+    <!-- begin page-header -->
+
+    <h1 class="page-header text-center">DASHBOARD<small></small></h1>
 
     <div class="row">
 
-            <!--Columna numero 1-->
-            <div class="col-md-3 col-sm-6">
+        <div class="col-md-2 col-sm-6"></div>
+        <!--Columna numero 1-->
+        <div class="col-md-3 col-sm-6">
 
-                <div class="widget widget-stats bg-black">
+            <div class="widget widget-stats bg-black">
 
-                    <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+                <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
 
-                    <div class="stats-title">Usuarios Staff</div>
+                <div class="stats-title">Usuarios Staff</div>
 
-                    <div class="stats-number" >{{$users[0]->contador}}</div>
+                <div class="stats-number">{{$users[0]->contador}}</div>
 
-                    <div class="stats-progress progress">
+                <div class="stats-progress progress">
 
-                        <div class="progress-bar" style="width: 76.9%;"></div>
-
-                    </div>
-
-                    <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+                    <div class="progress-bar" style="width: 76.9%;"></div>
 
                 </div>
 
+                <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+
             </div>
-            <!--temrino de la Columna numero 1-->
 
-            <div class="col-md-3 col-sm-6">
+        </div>
+        <!--temrino de la Columna numero 1-->
 
-                <div class="widget widget-stats bg-black">
+        <!--Columna numero 2-->
+        <div class="col-md-3 col-sm-6">
 
-                    <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+            <div class="widget widget-stats bg-purple">
 
-                    <div class="stats-title">Usuarios Investigadores</div>
+                <div class="stats-icon stats-icon-lg"><i class="fa fa-building"></i></div>
 
-                    <div class="stats-number" >{{$users2[0]->contador}}</div>
+                <div class="stats-title">Empresas</div>
 
-                    <div class="stats-progress progress">
+                <div class="stats-number">{{$empresa[0]->contador}}</div>
 
-                        <div class="progress-bar" style="width: 76.9%;"></div>
+                <div class="stats-progress progress">
 
-                    </div>
-
-                    <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+                    <div class="progress-bar" style="width: 76.9%;"></div>
 
                 </div>
 
+                <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+
             </div>
 
-            <div class="col-md-3 col-sm-6">
+        </div>
+        <!--temrino de la columna numero 2-->
 
-                <div class="widget widget-stats bg-black">
 
-                    <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+        <!--Columna numero 2-->
+        <div class="col-md-3 col-sm-6">
 
-                    <div class="stats-title">Usuarios Cliente</div>
+            <div class="widget widget-stats" style="background-color: #A76AA4;">
 
-                    <div class="stats-number" >{{$users3[0]->contador}}</div>
+                <div class="stats-icon stats-icon-lg"><i class="fa fa-building"></i></div>
 
-                    <div class="stats-progress progress">
+                <div class="stats-title">Departamentos</div>
 
-                        <div class="progress-bar" style="width: 76.9%;"></div>
+                <div class="stats-number">{{$centro_negocios[0]->contador}}</div>
 
-                    </div>
+                <div class="stats-progress progress">
 
-                    <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+                    <div class="progress-bar" style="width: 76.9%;"></div>
 
                 </div>
 
-            </div>
-
-            <!--Columna numero 2-->
-            <div class="col-md-3 col-sm-6">
-
-                <div class="widget widget-stats bg-purple">
-
-                    <div class="stats-icon stats-icon-lg"><i class="fa fa-building"></i></div>
-
-                    <div class="stats-title">Departamentos</div>
-
-                    <div class="stats-number" >{{$centro_negocios[0]->contador}}</div>
-
-                    <div class="stats-progress progress">
-
-                        <div class="progress-bar" style="width: 76.9%;"></div>
-
-                    </div>
-
-                    <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
-
-                </div>
+                <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
 
             </div>
-            <!--temrino de la columna numero 2-->
+
+        </div>
+        <!--temrino de la columna numero 2-->
 
     </div>
-	
+
+    <div class="row">
+
+    <div class="col-md-3 col-sm-6"></div>
+
+    <div class="col-md-3 col-sm-6">
+
+        <div class="widget widget-stats " style="background-color: #6A88A7;">
+
+            <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+
+            <div class="stats-title">Usuarios Cliente</div>
+
+            <div class="stats-number">{{$users3[0]->contador}}</div>
+
+            <div class="stats-progress progress">
+
+                <div class="progress-bar" style="width: 76.9%;"></div>
+
+            </div>
+
+            <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+
+        <div class="widget widget-stats " style="background-color: #548272;">
+
+            <div class="stats-icon stats-icon-lg"><i class="fa fa-1x fa-users"></i></div>
+
+            <div class="stats-title">Usuarios Investigadores</div>
+
+            <div class="stats-number">{{$users2[0]->contador}}</div>
+
+            <div class="stats-progress progress">
+
+                <div class="progress-bar" style="width: 76.9%;"></div>
+
+            </div>
+
+            <div class="stats-desc"> <label class="mes_actual stats-desc"></div>
+
+        </div>
+
+    </div>
+
+
+
 </div>
 
-	<!-- end #content -->
+
+</div>
+
+
+<!-- end #content -->
 
 
 
@@ -142,18 +178,18 @@
 
 
 
-	@endsection
+@endsection
 
 
 
-	@section('js-base')
+@section('js-base')
 
-	@include('librerias.base.base-begin')
+@include('librerias.base.base-begin')
 
-	@include('librerias.base.base-begin-page')
+@include('librerias.base.base-begin-page')
 
 
 
-	{!! Html::script('assets/js/highcharts.js') !!}
+{!! Html::script('assets/js/highcharts.js') !!}
 
-	{!! Html::script('assets/js/exporting.js') !!}
+{!! Html::script('assets/js/exporting.js') !!}
