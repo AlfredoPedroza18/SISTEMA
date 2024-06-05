@@ -176,6 +176,20 @@ Route::group(['prefix' => 'utilerias',
         Route::post('registrarCreditos/{idCliente}', 'Utilerias\creditosController@registrarCreditos');
         Route::post('obtenerCantidadCre/{idCliente}/{idModulo}', 'Utilerias\creditosController@obtenerCantidadCre');
         Route::post('eliminarCreditos/{idKardex}', 'Utilerias\creditosController@eliminarCreditos');
+
+        
+        
+        
+        /*----- Plantilla Firma Correo ---------*/
+        Route::resource('listaFirmas','Utilerias\firmaController');
+        Route::resource('firmaAdd','Utilerias\firmaController@crear');
+        Route::get('firmaAlt/{idPlantilla}','Utilerias\firmaController@editar');
+        Route::post('saveP','Utilerias\firmaController@saveP');
+        Route::post('updateP/{idp}','Utilerias\firmaController@updateP');
+
+        Route::post('asignar/{idPlantilla}/{idCentro}','Utilerias\firmaController@asignar');
+
+        Route::post('cambiar/{idPlantilla}/{idCentro}','Utilerias\firmaController@cambiar');
         /*----- PLANTILLAS CONTRATOS ---------*/
 
         Route::resource('plantilla_contratos', 'Utilerias\PlantillasContratosController');

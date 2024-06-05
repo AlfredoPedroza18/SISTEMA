@@ -458,6 +458,15 @@
                                               
                                                 },
 
+
+                                                {   
+                                                    id: '134',
+                                                    key:'134',
+                                                    title: 'Plantillas Firma Correo',
+                                                    @if( in_array(134, $permisos_asignados) ) selected:true ,@endif
+                                              
+                                                },
+
                                                 {   
                                                     id: '130',
                                                     key:'130',

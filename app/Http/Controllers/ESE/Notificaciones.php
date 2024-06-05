@@ -840,10 +840,41 @@ public function sendNotificationAccion($cuerpo, $pie, $asunto, $id, $path='', $n
         $mails = [];
         
         $cliente = DB::select("select c.nombre_comercial as name from clientes c where c.id = $id");
-        $firma = DB::select("select fileBase64 as firma from users where id =" .Auth::user()->id);
+        $firma = DB::select("select email,name from users where id =" .Auth::user()->id);
+        $contar = DB::select("select * from firma_correo_asig sa inner join firma_correo fc on sa.id_plantilla = fc.id where id_cn =".Auth::user()->idcn);
 
-      if(isset($firma[0]->firma)){
-          $cuerpo .= '<br> <img src="data:image/jpeg;base64,'.$firma[0]->firma.'" alt="Fiema" width="180px" height="68px">';
+        $usuario = DB::select("SELECT u.email as mail,
+        CONCAT(u.name, ' ', IFNULL(u.apellido_paterno,''),' ', IFNULL(u.apellido_materno,'')) AS nombre,
+        u.telefono_movil AS tel,
+        CONCAT(IFNULL(cn.calle,''),' No.', IFNULL(cn.no_exterior,''),' Col. ',IFNULL(cn.colonia,''),', Mun. ',IFNULL(cn.municipio,''),', C.P. ', IFNULL(cn.cp,''),', ',IFNULL(cn.estado,'')) AS dir
+      FROM users u INNER JOIN centros_negocio cn ON cn.id = u.idcn where u.id = ".Auth::user()->id);
+
+
+        $data = (count($contar)==0)?"":$contar[0];
+
+        if(count($contar)>0){
+          $cuerpo .= 
+          
+          '<br><br><div style="padding:5px;" align=center>
+
+          <div style=" width: 480px; height: 260px; background-color:'.$data->fondoF.' ;  border-radius: 3%;">
+              <div  align=center>
+                  <h4  style="color:'. $data->empresaF.'; font-size: 30px; text-align: center; ">Gen-T</h4>
+              </div>
+              <div style=" color:'.$data->infoF.';" align =center>
+                  <p >'.$usuario[0]->nombre.'</p>
+                  <p >'.$usuario[0]->mail.'</p>
+                  <p >Cel. '.$usuario[0]->tel.'</p>
+                  <p >'.$usuario[0]->dir.'</p>
+                  <p >www.paginaWeb.com</p>
+              </div>
+          </div>
+          </div><br><br><br>';
+        }
+        
+
+      if(isset($firma[0]->email)){
+        $mail->addAddress($firma[0]->email, $firma[0]->name);    
       }
 
         $mail->addAddress($correo, $cliente[0]->name);

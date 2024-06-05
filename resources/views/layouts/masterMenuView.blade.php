@@ -1258,6 +1258,15 @@ function activarLink( $url = '' )
                         </li>
                         @endpermission
 
+
+                        @permission('admin.utilerias.platilla.correo')
+                        <li class="{{ activarLink('utilerias/listaFirmas') }}">
+
+                            <a href="{{ url('utilerias/listaFirmas') }}">Plantillas Firma de Correo</a>
+
+                        </li>
+                        @endpermission
+
                         @permission('admin.utilerias.inpuestos')
                         <li class="{{ activarLink('utilerias/impuestos') }}">
 

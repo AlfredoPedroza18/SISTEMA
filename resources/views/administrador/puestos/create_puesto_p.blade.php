@@ -768,6 +768,13 @@
                                                 },
 
                                                 {   
+                                                    id: '134',
+                                                    key:'134',
+                                                    title: 'Plantillas Firma Correo',
+                                              
+                                                },
+
+                                                {   
                                                     id: '130',
                                                     key:'130',
                                                     title: 'Impuestos',

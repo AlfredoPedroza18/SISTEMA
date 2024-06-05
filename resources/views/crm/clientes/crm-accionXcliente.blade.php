@@ -311,7 +311,7 @@
 
 														<div class="col-md-4">
 															<label for="">Pie de pagina del correo</label>
-															<textarea name="pie" id="pie" class="form-control" style="height: 200px;"></textarea>
+															<textarea name="pie" id="pie" class="form-control" style="height: 200px;">{{isset($firma[0]->aviso)?$firma[0]->aviso:""}}</textarea>
 														</div>
 
 												

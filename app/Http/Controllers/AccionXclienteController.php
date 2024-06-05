@@ -304,7 +304,10 @@ class AccionXclienteController extends Controller
         INNER JOIN clientes c ON c.id_ejecutivo = u.id where c.id = ?',[$id]);
 
 
-        return view("crm.clientes.crm-accionXcliente",['cliente'=>$cliente,'kardex'=>$kardex,'eje'=>$eje]);
+        $contar = DB::select("select * from firma_correo_asig sa inner join firma_correo fc on sa.id_plantilla = fc.id where id_cn =".Auth::user()->idcn);
+
+        
+        return view("crm.clientes.crm-accionXcliente",['cliente'=>$cliente,'kardex'=>$kardex,'eje'=>$eje, "firma"=>$contar]);
 
 
 
