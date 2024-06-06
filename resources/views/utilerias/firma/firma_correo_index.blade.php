@@ -271,7 +271,7 @@
                     <br>
 
                     <select name="cn" id="cn" class="form-control">
-                        <option value="0">Seleccione un centro de negocio</option>
+                        <option value="0">Seleccione un departamento</option>
 
                         @foreach($lista_cn as $cn)
                         <option value="{{$cn->id}}">{{$cn->nombre}} ({{$cn->nomenclatura}})</option>
