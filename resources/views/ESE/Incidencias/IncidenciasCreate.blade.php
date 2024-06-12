@@ -217,7 +217,7 @@
         }
 
         .filePJ.required {
-            height: 25px;
+            height: 30px;
             background-color: white;
             box-shadow: 1px 2px 3px #ededed;
             position: relative;
@@ -293,6 +293,10 @@
             overflow-y: auto;
             margin-bottom: 1rem;
         }
+
+        .me, .ps, .il, .df, .po, .mi {
+            margin-top: 10px;
+        }
     </style>
 
 </head>
@@ -302,7 +306,7 @@
     <div class="content">
         <ol class="breadcrumb ">
             <li><a href="javascript:;">ESE</a></li>
-            <li><a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Incidencias Legales</a></li>
+            <li><a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Pruebas Laborales</a></li>
             <li><a>crear Servicio</a></li>
         </ol>
 
@@ -312,12 +316,24 @@
 
             <div class="panel-heading">
                 <div class="panel-heading-btn"></div>
-                <h4 class="panel-title">Solicitud de Incidencias Legales</h4>
+                <h4 class="panel-title">Solicitud de Pruebas Laborales</h4>
             </div>
             <div class="panel-body">
 
                 <div class="row">
-                    <dvi class="col-md-9"></dvi>
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-3">
+                        <label for="tipo">Tipo de servicio</label>
+                        <select name="tipo" id="tipo" class="form-control  filePJ required" onchange="validarCampos()">
+                            @foreach($servicios as $srv)
+
+                                <option value="{{$srv->id}}">{{$srv->nombre}}</option>
+
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="col-md-3">
                         <label for="solicitante">Solicitante</label>
                         <select name="solicitante" id="solicitante" class=" form-control filePJ required" onchange="clase()">
@@ -335,32 +351,58 @@
                 <br>
 
                 <div class="row">
-                    <div class="col-md-3 ">
-                        <label for="nombre" id='requerido'>Nombre del Candidatos</label>
+                    <div class="col-md-3 df">
+                        <label for="nombre" id='requerido'>Nombre del Candidato</label>
                         <input type="text" class=" form-control filePJ required" name="nombre" id="nombre" required>
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-3 il me ps">
                         <label for="fecha" id='requerido'>Fecha de nacimiento</label>
                         <input type="date" class=" form-control filePJ required" name="fecha" id="fecha" required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 il" >
                         <label for="lugar" id='requerido'>Lugar nacimiento</label>
                         <input type="text" class=" form-control filePJ required" name="lugar" id="lugar" required>
                     </div>
-                </div>
 
-                <br>
 
-                <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 ps"  hidden>
 
-                        <label for="">Numero:</label>
+                        <label for="">Tipo de psicometría:</label>
+                        <input type="tel" class="form-control filePJ" id="tipo2" >    
+
+                    </div>
+
+                    <div class="col-md-3 ps mi"  hidden>
+
+                        <label for="">Correo:</label>
+                        <input type="tel" class="form-control filePJ" id="correo" >    
+
+                    </div>
+
+                    <div class="col-md-3 il ps me po mi"   >
+
+                        <label for="">Teléfono:</label>
                         <input type="tel" class="form-control filePJ" id="telefono" maxlength="10">    
 
                     </div>
 
-                    <div class="col-md-9">
+                    <div class="col-md-3 ps"  hidden>
+
+                        <label for="">Escolaridad</label>
+                        <input type="tel" class="form-control filePJ" id="escolaridad" >    
+
+                    </div>
+
+                    <div class="col-md-3 ps me mi po"   hidden>
+
+                        <label for="">Puesto al que aplica</label>
+                        <input type="tel" class="form-control filePJ" id="puesto" >    
+
+                    </div>
+
+                    <div class="col-md-9 il me po"   >
 
                         <label for="">Domicilio:</label>
                         <input type="text" class="form-control filePJ" id="domicilio">    
@@ -627,7 +669,20 @@
 <script>
 
     
+    function validarCampos(){
+        
+        var tipo = $("#tipo").val();
 
+        if(tipo == 1){$(".ps").hide(); $(".me").hide();  $(".po").hide(); $(".mi").hide(); $(".il").show();}
+        if(tipo == 2){$(".il").hide(); $(".ps").hide();  $(".po").hide(); $(".mi").hide(); $(".me").show();}
+        if(tipo == 3){$(".ps").hide(); $(".me").hide();  $(".il").hide(); $(".mi").hide(); $(".po").show();}
+        if(tipo == 4){$(".ps").hide(); $(".me").hide();  $(".il").hide(); $(".mi").hide(); $(".po").show();}
+        if(tipo == 5){$(".ps").hide(); $(".me").hide();  $(".po").hide(); $(".il").hide(); $(".mi").show();}
+        if(tipo == 6){$(".il").hide(); $(".me").hide();  $(".po").hide(); $(".mi").hide(); $(".ps").show();}
+            
+
+
+    }
 
     function validate(id) {
         $("#image" + id).remove();
@@ -704,11 +759,19 @@
         var lugar = $("#lugar").val();
         var domiclio = $("#domicilio").val();
         var tel = $("#telefono").val();
-
-
         var token = $('meta[name="csrf-token"]').attr('content');
+        var tipo = $("#tipo").val();
+        
+        var validar = true;
 
-        if (candidato == "" || fecha == "" || lugar == "" || solicitante == "0") {
+        if( tipo == 1 && (candidato == "" || fecha == "" || lugar == "" || solicitante == "0")) validar = false;
+        if( tipo == 2 && (candidato == "" || fecha == "" || solicitante == "0")) validar = false;
+        if( tipo == 3 && (candidato == "" || solicitante == "0")) validar = false;
+        if( tipo == 4 && (candidato == "" || solicitante == "0")) validar = false;
+        if( tipo == 5 && (candidato == "" || solicitante == "0")) validar = false;
+        if( tipo == 6 && (candidato == "" || fecha == "" || solicitante == "0")) validar = false;
+
+        if (validar == false) {
             swal({
                 title: "<h3>¡ Llenar los campos obligatorios !</h3> ",
                 html: true,
@@ -716,7 +779,7 @@
             });
         } else {
 
-
+            
 
             $.ajax({
                 headers: {
@@ -726,7 +789,7 @@
                 method: "post",
                 dataType: "JSON",
                 data: {
-                    A: "A"
+                    tipo: tipo
                 },
 
                 success: function(data) {
@@ -779,6 +842,12 @@
         var candidato = $("#nombre").val();
         var fecha = $("#fecha").val();
         var lugar = $("#lugar").val();
+        var rfc2 = $("#RFC2").val();
+        var tipo2 = $("#tipo2").val();
+        var correo = $("#correo").val(); 
+        var escolaridad = $("#escolaridad").val(); 
+        var puesto = $("#puesto").val(); 
+
         var ineD = $("#11").val();
         var ineT = $("#12").val();
         var curp = $("#13").val();
@@ -804,7 +873,7 @@
                 data: {
                     solicitante:solicitante, candidato:candidato, fecha:fecha, lugar:lugar,
                     ineD:ineD,ineT:ineT, curp:curp, act:act, comD:comD, rfc:rfc, nss:nss,
-                    domiclio:domiclio, tel:tel
+                    domiclio:domiclio, tel:tel, rfc2:rfc2, tipo2:tipo2, escolaridad:escolaridad, puesto:puesto, correo:correo
                 },
 
                 success: function(data) {

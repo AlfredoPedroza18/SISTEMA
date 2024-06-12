@@ -176,11 +176,11 @@
                         <thead>
                             <tr>
                                 <th>#ID</th>
-                                <th>Nombre Plantilla</th>
-                                <th>Color de Fondo</th>
+                                <th>Nombre plantilla</th>
+                                <th>Color de fondo</th>
                                 <th>Color nombre empresa</th>
-                                <th>Color iformación usuario</th>
-                                <th>Accion</th>
+                                <th>Color información usuario</th>
+                                <th>Acción</th>
 
                             </tr>
                         </thead>

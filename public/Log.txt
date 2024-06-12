@@ -3351,3 +3351,36 @@
 2024-06-05 17:24:35 [ip] ::1 [text] Se envio el correo a 
 2024-06-05 17:26:42 [ip] ::1 [text] Se envio el correo a 
 2024-06-05 17:26:45 [ip] ::1 [text] Se envio el correo a 
+2024-06-06 15:24:43 [ip] ::1 [text] No se pudo enviar el mensaje. Mailer Error: Invalid address:  (to): evelyn.flores@gen-t.com.mx@gmail.com
+2024-06-06 15:45:39 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-06 15:45:42 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-06 15:53:37 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-06 15:53:40 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 11:47:57 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 11:48:00 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 11:48:58 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 11:49:01 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 11:49:46 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 11:49:48 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 11:50:24 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 11:50:26 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 11:51:13 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 11:51:15 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 11:52:20 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 11:52:23 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 12:42:25 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 12:42:28 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 12:53:52 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 12:53:54 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 12:56:33 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 12:56:36 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-07 12:57:05 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-07 12:57:07 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-10 15:17:26 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-10 15:17:29 [ip] ::1 [text] Se envio el correo a evelyn-floreso@hotmail.com
+2024-06-10 15:30:04 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-10 15:30:07 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-10 15:31:05 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-10 15:31:08 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com
+2024-06-10 15:31:50 [ip] ::1 [text] Se envio el correo a l191080345@iztapalapa.tecnm.mx
+2024-06-10 15:31:53 [ip] ::1 [text] Se envio el correo a mayaalfredo1@outlook.com

@@ -110,9 +110,9 @@
         <div class="caja_hija2" align =center id="infoT">
            
             <p>Nombre de usuario</p>
-            <p>CorreUsuario@gmail.com</p>
+            <p>CorreoUsuario@gmail.com</p>
             <p>Cel. 0000-000-000</p>
-            <p>Direccion</p>
+            <p>Dirección</p>
             <p>www.paginaWeb.com</p>
         </div>
     </div>

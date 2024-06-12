@@ -111,18 +111,18 @@
     <div class="content">
         <ol class="breadcrumb ">
             <li><a href="javascript:;">ESE</a></li>
-            <li><a>Incidencias Legales</a></li>
+            <li><a>Pruebas Laborales</a></li>
         </ol>
 
         <div class="row">
 
-            <h1 class="page-header text-center">Incidencias Legales</h1>
+            <h1 class="page-header text-center">Pruebas Laborales</h1>
             
             <div style="width: 100%;" align = "right" >
                 <button onclick=" window.location.href = ' {{ route('sig-erp-ese::NuevaOSCliente.index') }} ' " class="btn btn-inverse btn-icon btn-circle btn-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Agregar Creditos">
                 <i class="fa fa-plus fa-1x" aria-hidden="true"></i>
                 </button>
-                <label style="margin-right: 10px;">Solicitar Incidencia Legal </label>
+                <label style="margin-right: 10px;">Solicitar Prueba Laboral </label>
             </div>
             
 
@@ -134,7 +134,7 @@
 
                 <div class="panel-heading">
                     <div class="panel-heading-btn"></div>
-                    <h4 class="panel-title">Listado de Incidencias Legales</h4>
+                    <h4 class="panel-title">Listado de Pruebas Laborales</h4>
                 </div>
 
                 
@@ -145,14 +145,15 @@
 
                         <thead>
                             <tr>
-                                <th>#EIL</th>
+                                <th>#ID</th>
                                 <th>Cliente</th>
                                 <th>Departamento</th>
+                                <th>Tipo estudio</th>
                                 <th>Candidato</th>
                                 <th>Analista</th>
                                 <th>Estatus</th>
                                 <th>Solicitante</th>
-                                <th>Accion</th>
+                                <th>Acción</th>
                                 
                                 
                             </tr>
@@ -166,6 +167,7 @@
                                 <td>{{$row->EIL}}</td>
                                 <td>{{$row->cliente}}</td>
                                 <td>{{$row->centro}}</td>
+                                <td>{{$row->nombreT}}</td>
                                 <td>{{$row->Candidato}}</td>
                                 <td>{{$row->analista}}</td>
                                 <td>{{$row->estatus}}</td>
@@ -176,9 +178,17 @@
                                 @if($row->estatus != "Cancelado")
                                     <button onclick=" downloadFileBase64('{{$row->incidencia}}') " class="btn btn-primary btn-icon btn-circle btn-sm btn-success " data-toggle="tooltip" data-placement="top" title="Descargar Incidencia"><i class="fa fa-download"></i></button>&nbsp&nbsp</th>
                                     
-                                    <button onclick=" location.href = '{{url('editarServicio')}}/{{$row->id_c}}/{{$row->EIL}}' " class="btn btn-primary btn-icon btn-circle btn-sm btn-info " data-toggle="tooltip" data-placement="top" title="Editar Servicio"><i class="fa fa-pencil"></i></button>&nbsp&nbsp</th>
+                                    @if( Auth::user()->tipo == 'c') 
+                                        @if($row->estatus != "Finalizado" ) 
+                                            <button onclick=" location.href = '{{url('editarServicio')}}/{{$row->id_c}}/{{$row->EIL}}' " class="btn btn-primary btn-icon btn-circle btn-sm btn-info " data-toggle="tooltip" data-placement="top" title="Editar Servicio"><i class="fa fa-pencil"></i></button>&nbsp&nbsp</th>
+                                        @endif
+
+                                    @else
+
+                                        <button onclick=" location.href = '{{url('editarServicio')}}/{{$row->id_c}}/{{$row->EIL}}' " class="btn btn-primary btn-icon btn-circle btn-sm btn-info " data-toggle="tooltip" data-placement="top" title="Editar Servicio"><i class="fa fa-pencil"></i></button>&nbsp&nbsp</th>
+
+                                    @endif
                                 @endif
-                          
                                 
                                 </td>
                             </tr>
@@ -272,7 +282,7 @@ var iniciarTabla = function(){
             win.document.write("<iframe  width='100%'  height='100%'  src='" + base64 + "'><\/iframe>"); 
 
         }else
-            swal("Aun no se ha cargado la incidencia legal!");
+            swal("Tu prueba aun no se encuestra disponible!");
     }
 
     

@@ -165,7 +165,7 @@ class Notificaciones extends Controller
       );
       $mail->smtpConnect($options);                                  // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above       
         //Recipients
-        $mail->setFrom("valkyriefirewind@gmail.com" , utf8_decode('Gen-T ESE Notificaciones'));
+        $mail->setFrom("valkyriefirewind@gmail.com" , utf8_decode('Gen-T'));
         $mails = [];
         foreach ($recipients as $arecipient)
         {
@@ -583,7 +583,7 @@ class Notificaciones extends Controller
         );
         $mail->smtpConnect($options); 
         //Recipients
-        $mail->setFrom("valkyriefirewind@gmail.com" , utf8_decode('Gen-T ESE Notificaciones'));
+        $mail->setFrom("valkyriefirewind@gmail.com" , utf8_decode('Gen-T'));
         $recipient="";
        
             
@@ -725,12 +725,13 @@ public function replaceDataLabelsInci($ids, $data){
     $value1 = DB::select("select * from clientes where id = ".$servicio[0]->IdClientes );
     $value2 = DB::select("SELECT u.email as Email, 'Ejecutivo' as Tipo, 'Normal' AS ModoEnvio, CONCAT(u.name, ' ', u.apellido_paterno, ' ', u.apellido_materno) AS NombreDestinatario  FROM users u where  u.id = ".$servicio[0]->Id_analista);
     $value3 = DB::select("SELECT * from eis_servicio_detalle where IdServicio = $ids" );
-
+    $value4 = DB::select("select tp.nombre as servicio from eis_servicios es inner join eis_servicio_tipo tp on tp.id = es.tipo where es.id= $ids");
  
     $replace_labels = str_replace("{Analista}",$value2[0]->NombreDestinatario, $replace_labels);
     $replace_labels = str_replace("{cliente}",$value1[0]->nombre_comercial, $replace_labels);
     $replace_labels = str_replace("{solicitante}",$value3[0]->Candidato, $replace_labels);
-    
+    $replace_labels = str_replace("{srv}",$value4[0]->servicio, $replace_labels);
+
     return $replace_labels;
 }
 
@@ -836,7 +837,7 @@ public function sendNotificationAccion($cuerpo, $pie, $asunto, $id, $path='', $n
       );
       $mail->smtpConnect($options);                                  // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above       
         //Recipients
-        $mail->setFrom("valkyriefirewind@gmail.com" ,utf8_decode('Gen-T ESE Notificaciones'));
+        $mail->setFrom("valkyriefirewind@gmail.com" ,utf8_decode('Gen-T'));
         $mails = [];
         
         $cliente = DB::select("select c.nombre_comercial as name from clientes c where c.id = $id");
@@ -866,7 +867,7 @@ public function sendNotificationAccion($cuerpo, $pie, $asunto, $id, $path='', $n
                   <p >'.$usuario[0]->mail.'</p>
                   <p >Cel. '.$usuario[0]->tel.'</p>
                   <p >'.$usuario[0]->dir.'</p>
-                  <p >www.paginaWeb.com</p>
+                  <p >www.gen-t.com.mx</p>
               </div>
           </div>
           </div><br><br><br>';

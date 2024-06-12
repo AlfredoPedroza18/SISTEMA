@@ -2057,7 +2057,7 @@ function activarLink( $url = '' )
                         </li>
 
                         <li class="{{ activarLink('estudio-ese') }} {{ activarLink('ListadoOS') }} {{ activarLink('ListadoOS') }}">
-                            <a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Incidencias Legales</a>
+                            <a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Pruebas Laborales</a>
                         </li>
 
 

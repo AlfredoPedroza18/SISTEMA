@@ -209,7 +209,7 @@
         }
 
         .filePJ {
-            height: 25px;
+            height: 30px;
             background-color: white;
             box-shadow: 1px 2px 3px #ededed;
             position: relative;
@@ -217,7 +217,7 @@
         }
 
         .filePJ.required {
-            height: 25px;
+            height: 30px;
             background-color: white;
             box-shadow: 1px 2px 3px #ededed;
             position: relative;
@@ -293,6 +293,15 @@
             overflow-y: auto;
             margin-bottom: 1rem;
         }
+
+        .me,
+        .ps,
+        .il,
+        .df,
+        .po,
+        .mi {
+            margin-top: 10px;
+        }
     </style>
 
 </head>
@@ -302,7 +311,7 @@
     <div class="content">
         <ol class="breadcrumb ">
             <li><a href="javascript:;">ESE</a></li>
-            <li><a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Incidencias Legales</a></li>
+            <li><a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Pruebas Laborales</a></li>
             <li><a>Editar Servicio</a></li>
         </ol>
 
@@ -312,12 +321,25 @@
 
             <div class="panel-heading">
                 <div class="panel-heading-btn"></div>
-                <h4 class="panel-title">Edición de Incidencias Legales</h4>
+                <h4 class="panel-title">Edición de Pruebas Laborales</h4>
             </div>
             <div class="panel-body">
 
                 <div class="row">
-                    <dvi class="col-md-9"></dvi>
+
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-3">
+                        <label for="tipo">Tipo de servicio</label>
+                        <select name="tipo" id="tipo" class="form-control  filePJ required" onchange="validarCampos()" disabled>
+                            @foreach($servicios as $srv)
+
+                            <option {{($srv->id== $datos->tipo)?'selected':''}} value="{{$srv->id}}">{{$srv->nombre}}</option>
+
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="col-md-3">
                         <label for="solicitante">Solicitante</label>
                         <select name="solicitante" id="solicitante" class=" form-control filePJ required">
@@ -325,7 +347,7 @@
 
                             @foreach($contactos as $con)
 
-                            
+
                             <option @if($datos->Solicitante == $con->name) selected @endif value="{{$con->name}}">{{$con->name}}</option>
 
                             @endforeach
@@ -334,46 +356,71 @@
                     </div>
                 </div>
 
-                <br>
+
 
                 <div class="row">
-                    <div class="col-md-3 ">
-                        <label for="nombre" id='requerido'>Nombre del Candidatos</label>
+                    <div class="col-md-3 df">
+                        <label for="nombre" id='requerido'>Nombre del Candidato</label>
                         <input type="text" class=" form-control filePJ required" name="nombre" id="nombre" required value="{{$datos->Candidato}}">
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-3 il me ps">
                         <label for="nombre" id='requerido'>Fecha de nacimiento</label>
                         <input type="date" class=" form-control filePJ required" name="fecha" id="fecha" required value="{{$datos->FechaNacimiento}}">
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 il">
                         <label for="nombre" id='requerido'>Lugar nacimiento</label>
                         <input type="text" class=" form-control filePJ required" name="lugar" id="lugar" required value="{{$datos->LugarNacimiento}}">
                     </div>
-                </div>
 
-                <br>
+                    <div class="col-md-3 ps" hidden>
 
-                <br>
-
-                <div class="row">
-                    <div class="col-md-3">
-
-                        <label for="">Numero:</label>
-                        <input type="tel" class="form-control filePJ" id="telefono" maxlength="10" value="{{$datos->telefono}}">    
+                        <label for="">Tipo de psicometría:</label>
+                        <input type="tel" class="form-control filePJ" id="tipo2" value="{{$datos->tipops}}">
 
                     </div>
 
-                    <div class="col-md-9">
+                    <div class="col-md-3 ps mi" hidden>
+
+                        <label for="">Correo:</label>
+                        <input type="tel" class="form-control filePJ" id="correo" value="{{$datos->correo}}">
+
+                    </div>
+
+
+                    <div class="col-md-3 il ps me po mi">
+
+                        <label for="">Teléfono:</label>
+                        <input type="tel" class="form-control filePJ" id="telefono" maxlength="10" value="{{$datos->telefono}}">
+
+                    </div>
+
+                    <div class="col-md-3 ps">
+
+                        <label for="">Escolaridad</label>
+                        <input type="tel" class="form-control filePJ" id="escolaridad" value="{{$datos->escolaridad}}">
+
+                    </div>
+
+                    <div class="col-md-3 ps me mi po">
+
+                        <label for="">Puesto al que aplica</label>
+                        <input type="tel" class="form-control filePJ" id="puesto" value="{{$datos->puesto}}">
+
+                    </div>
+
+
+                    <div class="col-md-9  il me po">
 
                         <label for="">Domicilio:</label>
-                        <input type="text" class="form-control filePJ" id="domicilio" value="{{$datos->domicilio}}">    
+                        <input type="text" class="form-control filePJ" id="domicilio" value="{{$datos->domicilio}}">
 
                     </div>
                 </div>
 
                 <br>
-                
+
                 <br>
 
                 <div class="row">
@@ -386,7 +433,7 @@
                             <div id='filePJ1' class='filePJ '>
                                 <label id='buttonUP' for="1" style='font-family: Verdana,Arial,sans-serif;font-size: 1em;color: #fff;background:#f59c1a;border-color: #f59c1a;'>Seleccionar archivo</label>
                                 <input hidden type='image' src='https://www.sistemagent.com:8000/erp-demo/public/assets/img/7-72178_green-tick-simbolo-de-visto-verde.png' height='20' class='image_buscar' id='image1'>
-                                <input type='file' placeholder='Seleccionar archivo' accept='application/pdf' data-max-size='3' class='archivopdf input-group form-control entradas-g-a required' name='1' id='1' onchange='validate(1);' required >
+                                <input type='file' placeholder='Seleccionar archivo' accept='application/pdf' data-max-size='3' class='archivopdf input-group form-control entradas-g-a required' name='1' id='1' onchange='validate(1);' required>
                                 <!--<span id='buttonUP' style='font-family: Verdana,Arial,sans-serif;font-size: 1em;'>Seleccionar</span> -->
                                 <div id='buttonLoading1' class='spinner-border text-warning' role='status'></div>
                             </div>
@@ -582,12 +629,12 @@
 
 
 
-                    
+
                     <div class="col-md-4" @if(Auth::user()->tipo != "s") hidden @endif >
 
                         <form name='my_form8' id='my_form8' enctype='multipart/form-data' onsubmit='return false'>
 
-                            <label for="">Incidencia Legal</label>
+                            <label for="">Prueba Laboral</label>
                             <div id='filePJ8' class='filePJ '>
                                 <label id='buttonUP' for="8" style='font-family: Verdana,Arial,sans-serif;font-size: 1em;color: #fff;background:#f59c1a;border-color: #f59c1a;'>Seleccionar archivo</label>
                                 <input hidden type='image' src='https://www.sistemagent.com:8000/erp-demo/public/assets/img/7-72178_green-tick-simbolo-de-visto-verde.png' height='20' class='image_buscar' id='image8'>
@@ -610,26 +657,28 @@
 
                     </div>
 
-               
+
 
                 </div>
 
                 <div class="row">
 
+                
                     <div class="col-md-6"></div>
                     <div class="col-md-2">
-                        <button class="form-control btn btn-info" onclick="cancelarServicio()">Cancelar Servicio</button>
+                        @if(Auth::user()->tipo != "c") <button class="form-control btn btn-info" onclick="cancelarServicio()">Cancelar Servicio</button>@endif
                     </div>
 
                     <div class="col-md-2">
                         <button onclick="guardarInputs()" class="form-control btn btn-success">Guardar Servicio</button>
                     </div>
-
-                    @if(Auth::user()->tipo == "s")
+                
+                
+                
                     <div class="col-md-2">
-                        <button onclick="finalizarServicio()" class="form-control btn btn-success">Finalizar Servicio</button>
+                        @if(Auth::user()->tipo == "s")<button onclick="finalizarServicio()" class="form-control btn btn-success">Finalizar Servicio</button>@endif
                     </div>
-                    @endif 
+                    
                 </div>
 
 
@@ -665,79 +714,128 @@
 
 
 <script>
-
     $(document).ready(function() {
 
-        
-    
+        validarCampos()
+
     });
 
-    function iniciar(){
-        for(let id=1; id<=8; id++)
-            {
-                file = $("#1"+id).val()
+    function validarCampos() {
 
-                if(file != "" && file !="null" && file != null){
-                    warningel = document.getElementById('lbError' + id);
-                    warningel.innerHTML = "Archivo Seleccionado";
-                    $("label[for*='" + id + "']").html("Cambiar archivo");
-                    $("#buttonFile" + id).css("display", "inline-block");
-                    $("#buttonLoading" + id).hide();
-                    $("#image"+id).show();
-                    $("#buttonFile" + id).show();
-                }else{
+        var tipo = $("#tipo").val();
 
-                    $("#1"+id).val("");
+        if (tipo == 1) {
+            $(".ps").hide();
+            $(".me").hide();
+            $(".po").hide();
+            $(".mi").hide();
+            $(".il").show();
+        }
+        if (tipo == 2) {
+            $(".il").hide();
+            $(".ps").hide();
+            $(".po").hide();
+            $(".mi").hide();
+            $(".me").show();
+        }
+        if (tipo == 3) {
+            $(".ps").hide();
+            $(".me").hide();
+            $(".il").hide();
+            $(".mi").hide();
+            $(".po").show();
+        }
+        if (tipo == 4) {
+            $(".ps").hide();
+            $(".me").hide();
+            $(".il").hide();
+            $(".mi").hide();
+            $(".po").show();
+        }
+        if (tipo == 5) {
+            $(".ps").hide();
+            $(".me").hide();
+            $(".po").hide();
+            $(".il").hide();
+            $(".mi").show();
+        }
+        if (tipo == 6) {
+            $(".il").hide();
+            $(".me").hide();
+            $(".po").hide();
+            $(".mi").hide();
+            $(".ps").show();
+        }
 
-                }
+    }
+
+    function iniciar() {
+        for (let id = 1; id <= 8; id++) {
+            file = $("#1" + id).val()
+
+            if (file != "" && file != "null" && file != null) {
+                warningel = document.getElementById('lbError' + id);
+                warningel.innerHTML = "Archivo Seleccionado";
+                $("label[for*='" + id + "']").html("Cambiar archivo");
+                $("#buttonFile" + id).css("display", "inline-block");
+                $("#buttonLoading" + id).hide();
+                $("#image" + id).show();
+                $("#buttonFile" + id).show();
+            } else {
+
+                $("#1" + id).val("");
 
             }
+
+        }
     }
 
 
-    function guardar(i){
-        
+    function guardar(i) {
+
         var file
-        
-        file = document.querySelector('input[id="'+i+'"]').files[0]
-        
-        getBase64(file,i)
-      
-        
+
+        file = document.querySelector('input[id="' + i + '"]').files[0]
+
+        getBase64(file, i)
+
+
 
     }
-    function getBase64(file,id) {
+
+    function getBase64(file, id) {
 
         var base64;
 
         var reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = function () {
-            $("#1"+id).val(reader.result);
+        reader.onload = function() {
+            $("#1" + id).val(reader.result);
             console.log(id)
         };
-        reader.onerror = function (error) {
-            $("#1"+id).val("");
+        reader.onerror = function(error) {
+            $("#1" + id).val("");
         };
     }
-    function getBase64(file,id) {
+
+    function getBase64(file, id) {
 
         var base64;
 
         var reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = function () {
-            $("#1"+id).val(reader.result);
+        reader.onload = function() {
+            $("#1" + id).val(reader.result);
         };
-        reader.onerror = function (error) {
-            $("#1"+id).val("");
+        reader.onerror = function(error) {
+            $("#1" + id).val("");
         };
     }
 
     function validate(id) {
-        
+
         $("#image" + id).hide();
-       
+
 
         var input = document.getElementById(id);
         var idInput = id;
@@ -768,13 +866,13 @@
                         return false;
                     } else {
                         warningel.innerHTML = "";
-                        
+
 
                         warningel.innerHTML = "Archivo Seleccionado";
                         $("label[for*='" + id + "']").html("Cambiar archivo");
                         $("#buttonFile" + id).css("display", "inline-block");
                         $("#buttonLoading" + id).hide();
-                        $("#image"+id).show();
+                        $("#image" + id).show();
                         $("#buttonFile" + id).show();
                         guardar(id);
                     }
@@ -790,36 +888,42 @@
             return false;
     }
 
-    
+
 
     function remover(id) {
-     
+
         $("#" + id).val("");
-        $("#image"+id).hide();
+        $("#image" + id).hide();
         $("#buttonFile" + id).hide();
         $("label[for*='" + id + "']").html("Seleccionar");
         $("#lbError" + id).html("");
-        $("#1"+id).val("");
+        $("#1" + id).val("");
         swal("El archivo se eliminó con éxito!");
     }
 
 
-    function verArchivo(id){
+    function verArchivo(id) {
 
-        var win = window.open(); 
-        win.document.write("<iframe  width='100%'  height='100%'  src='" + $("#1"+id).val() + "'><\/iframe>"); 
+        var win = window.open();
+        win.document.write("<iframe  width='100%'  height='100%'  src='" + $("#1" + id).val() + "'><\/iframe>");
 
     }
 
 
     function guardarInputs() {
-        
 
-        
+
+
         var solicitante = $("#solicitante").val();
         var candidato = $("#nombre").val();
         var fecha = $("#fecha").val();
         var lugar = $("#lugar").val();
+        var rfc2 = $("#RFC2").val();
+        var tipo2 = $("#tipo2").val();
+        var correo = $("#correo").val();
+        var escolaridad = $("#escolaridad").val();
+        var puesto = $("#puesto").val();
+
         var ineD = $("#11").val();
         var ineT = $("#12").val();
         var curp = $("#13").val();
@@ -834,7 +938,16 @@
 
         var token = $('meta[name="csrf-token"]').attr('content');
 
-        if (candidato == "" || fecha == "" || lugar == "" || solicitante == "0") {
+        var validar = true;
+
+        if (tipo == 1 && (candidato == "" || fecha == "" || lugar == "" || solicitante == "0")) validar = false;
+        if (tipo == 2 && (candidato == "" || fecha == "" || solicitante == "0")) validar = false;
+        if (tipo == 3 && (candidato == "" || solicitante == "0")) validar = false;
+        if (tipo == 4 && (candidato == "" || solicitante == "0")) validar = false;
+        if (tipo == 5 && (candidato == "" || solicitante == "0")) validar = false;
+        if (tipo == 6 && (candidato == "" || fecha == "" || solicitante == "0")) validar = false;
+
+        if (validar == false) {
             swal({
                 title: "<h3>¡ Llenar los campos obligatorios !</h3> ",
                 html: true,
@@ -845,106 +958,121 @@
             var token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': token
-                    },
-                    url: "{{ url('guardarInputsUpdate') }}/" + "{{$IdCliente}}"+"/"+"{{$IdServicio}}",
-                    method: "post",
-                    dataType: "JSON",
-                    data: {
-                        solicitante:solicitante, candidato:candidato, fecha:fecha, lugar:lugar,
-                        ineD:ineD,ineT:ineT, curp:curp, act:act, comD:comD, rfc:rfc, nss:nss, inci:inci,domiclio:domiclio, tel:tel
-                    },
+                headers: {
+                    'X-CSRF-TOKEN': token
+                },
+                url: "{{ url('guardarInputsUpdate') }}/" + "{{$IdCliente}}" + "/" + "{{$IdServicio}}",
+                method: "post",
+                dataType: "JSON",
+                data: {
+                    solicitante: solicitante,
+                    candidato: candidato,
+                    fecha: fecha,
+                    lugar: lugar,
+                    ineD: ineD,
+                    ineT: ineT,
+                    curp: curp,
+                    act: act,
+                    comD: comD,
+                    rfc: rfc,
+                    nss: nss,
+                    inci: inci,
+                    domiclio: domiclio,
+                    tel: tel,
+                    rfc2: rfc2,
+                    tipo2: tipo2,
+                    escolaridad: escolaridad,
+                    puesto: puesto,
+                    correo: correo
+                },
 
-                    success: function(data) {
-                        swal({
-                                    title: "<h3>¡ Servicio guardado con exito !</h3> ",
-                                    html: true,
-                                    type: "success"
-                                });
-                                location.href = "{{ route('sig-erp-ese::ListadoIncidencias.index') }}";
-                    },
-                    complete: function() {
+                success: function(data) {
+                    swal({
+                        title: "<h3>¡ Servicio guardado con exito !</h3> ",
+                        html: true,
+                        type: "success"
+                    });
+                    location.href = "{{ route('sig-erp-ese::ListadoIncidencias.index') }}";
+                },
+                complete: function() {
 
-                    },
-                    error: function(e) {
-                        $("#buttonLoading" + id).hide();
-                        show_error_message(e.status, 'Ocurrió un error al crear el servicio');
-            
-                    }
+                },
+                error: function(e) {
+                    $("#buttonLoading" + id).hide();
+                    show_error_message(e.status, 'Ocurrió un error al crear el servicio');
+
+                }
             });
         }
 
     }
 
-    function finalizarServicio(){
+    function finalizarServicio() {
         var token = $('meta[name="csrf-token"]').attr('content');
 
-            $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': token
-                    },
-                    url: "{{ url('finalizarServicio') }}/" + "{{$IdCliente}}"+"/"+"{{$IdServicio}}",
-                    method: "post",
-                    dataType: "JSON",
-                    data: {
-                       A:"A"
-                    },
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': token
+            },
+            url: "{{ url('finalizarServicio') }}/" + "{{$IdCliente}}" + "/" + "{{$IdServicio}}",
+            method: "post",
+            dataType: "JSON",
+            data: {
+                A: "A"
+            },
 
-                    success: function(data) {
-                     swal({
-                                    title: "<h3>¡ Servicio Finalizado con exito !</h3> ",
-                                    html: true,
-                                    type: "success"
-                                });
-                                location.href = "{{ route('sig-erp-ese::ListadoIncidencias.index') }}";
-                    },
-                    complete: function() {
+            success: function(data) {
+                swal({
+                    title: "<h3>¡ Servicio Finalizado con exito !</h3> ",
+                    html: true,
+                    type: "success"
+                });
+                location.href = "{{ route('sig-erp-ese::ListadoIncidencias.index') }}";
+            },
+            complete: function() {
 
-                    },
-                    error: function(e) {
-                        $("#buttonLoading" + id).hide();
-                        show_error_message(e.status, 'Ocurrió un error al crear el servicio');
-            
-                    }
-            });
-    } 
+            },
+            error: function(e) {
+                $("#buttonLoading" + id).hide();
+                show_error_message(e.status, 'Ocurrió un error al crear el servicio');
 
-    function cancelarServicio(){
-
-            var token = $('meta[name="csrf-token"]').attr('content');
-
-            $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': token
-                    },
-                    url: "{{ url('cancelarServicio') }}/" + "{{$IdCliente}}"+"/"+"{{$IdServicio}}",
-                    method: "post",
-                    dataType: "JSON",
-                    data: {
-                       A:"A"
-                    },
-
-                    success: function(data) {
-                     swal({
-                                    title: "<h3>¡ Servicio cancelado con exito !</h3> ",
-                                    html: true,
-                                    type: "success"
-                                });
-                                location.href = "{{ route('sig-erp-ese::ListadoIncidencias.index') }}";
-                    },
-                    complete: function() {
-
-                    },
-                    error: function(e) {
-                        $("#buttonLoading" + id).hide();
-                        show_error_message(e.status, 'Ocurrió un error al crear el servicio');
-            
-                    }
-            });
-        
-
+            }
+        });
     }
 
+    function cancelarServicio() {
 
+        var token = $('meta[name="csrf-token"]').attr('content');
+
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': token
+            },
+            url: "{{ url('cancelarServicio') }}/" + "{{$IdCliente}}" + "/" + "{{$IdServicio}}",
+            method: "post",
+            dataType: "JSON",
+            data: {
+                A: "A"
+            },
+
+            success: function(data) {
+                swal({
+                    title: "<h3>¡ Servicio cancelado con exito !</h3> ",
+                    html: true,
+                    type: "success"
+                });
+                location.href = "{{ route('sig-erp-ese::ListadoIncidencias.index') }}";
+            },
+            complete: function() {
+
+            },
+            error: function(e) {
+                $("#buttonLoading" + id).hide();
+                show_error_message(e.status, 'Ocurrió un error al crear el servicio');
+
+            }
+        });
+
+
+    }
 </script>

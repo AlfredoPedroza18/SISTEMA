@@ -33,7 +33,7 @@ class IncidenciasController extends Controller
 
         }
 
-        $lista = DB::select("SELECT es.Id AS EIL, c.id as id_c , c.nombre_comercial AS cliente, cn.nombre AS centro, esd.Candidato, 
+        $lista = DB::select("SELECT st.nombre as nombreT, es.Id AS EIL, c.id as id_c , c.nombre_comercial AS cliente, cn.nombre AS centro, esd.Candidato, 
         CONCAT(IFNULL(u.name,''),' ',IFNULL(u.apellido_paterno,''),' ',IFNULL(u.apellido_materno,'')) AS analista,
         es.Estatus AS estatus, esd.Solicitante AS solicitante, esd.incidenciaLegal as incidencia
         FROM eis_servicios es 
@@ -41,6 +41,7 @@ class IncidenciasController extends Controller
         INNER JOIN centros_negocio cn ON es.Id_cn = cn.id
         INNER JOIN users u ON u.id = es.Id_analista
         INNER JOIN eis_servicio_detalle esd ON esd.IdServicio = es.Id
+        INNER JOIN eis_servicio_tipo st on es.tipo = st.id
         WHERE ($idcn = -1 OR ($idcn <> -1 AND es.Id_cn = $idcn))
         AND ($IdCliente= -1 OR ($IdCliente <> -1 AND es.IdClientes = $IdCliente))
         AND c.tipo = 2 ORDER BY es.id DESC");
@@ -50,18 +51,20 @@ class IncidenciasController extends Controller
 
     public function  CrearServicio($IdCliente){
         $nombreContacto = DB::select("select concat(nombre_con,' ',ifnull(apellido_paterno_con,''),' ',ifnull(apellido_materno_con,'')) as name from contactos where id_cliente = $IdCliente");
-       
+        $servicios = DB::select("select * from eis_servicio_tipo");
         return view( " ESE.Incidencias.IncidenciasCreate ",[
 
             "contactos"  => $nombreContacto,
-            "IdCLiente" => $IdCliente
+            "IdCLiente" => $IdCliente,
+            "servicios" => $servicios
         ]);
     }
 
     public function EditarServicio($IdCliente,$IdServicio){
         $nombreContacto = DB::select("select concat(nombre_con,' ',ifnull(apellido_paterno_con,''),' ',ifnull(apellido_materno_con,'')) as name from contactos where id_cliente = $IdCliente");
-        
-        $lista = DB::select("SELECT  esd.*
+        $servicios = DB::select("select * from eis_servicio_tipo");
+      
+        $lista = DB::select("SELECT  esd.*,es.tipo as tipo
         FROM eis_servicios es 
         INNER JOIN eis_servicio_detalle esd ON esd.IdServicio = es.Id
         WHERE es.id = $IdServicio AND es.IdClientes = $IdCliente");
@@ -72,7 +75,8 @@ class IncidenciasController extends Controller
             "contactos"  => $nombreContacto,
             "IdCliente" => $IdCliente,
             "IdServicio" =>$IdServicio,
-            "datos" => $lista[0]
+            "datos" => $lista[0],
+            "servicios" => $servicios
         ]);
     }
 
@@ -111,7 +115,9 @@ class IncidenciasController extends Controller
             "IdClientes" => $IdCliente,
             "Id_cn" => $id_cn[0]->id_cn,
             "Id_analista" =>$analista,
-            "Estatus" => "Activo"
+            "Estatus" => "Activo",
+            "tipo"=>$request->tipo,
+            "creacion" =>date("Y-m-d")
 
         ]);
 
@@ -196,7 +202,11 @@ class IncidenciasController extends Controller
             "compDomicilio"  => ($request->comD=="")?NULL:$request->comD,
             "incidenciaLegal"  => ($request->inci=="")?NULL:$request->inci,
             "domicilio"=>($request->domiclio=="")?"":$request->domiclio,
-            "telefono" =>($request->tel=="")?"":$request->tel
+            "telefono" =>($request->tel=="")?"":$request->tel,
+            "tipops"=>$request->tipo2,
+            "correo"=>$request->correo,
+            "escolaridad"=>$request->escolaridad,
+            "puesto"=>$request->puesto,
             
         ]);
 
@@ -211,7 +221,7 @@ class IncidenciasController extends Controller
 
 
     public function guardarInputs($IdCliente, $IdServicio,Request $request) {
-        
+       
         $status = "success";
         $id_servicio = DB::table("eis_servicio_detalle")->insertGetId([
 
@@ -228,7 +238,12 @@ class IncidenciasController extends Controller
             "actaNacimiento"  => ($request->act=="")?NULL:$request->act,
             "compDomicilio"  => ($request->comD=="")?NULL:$request->comD,
             "domicilio"=>($request->domiclio=="")?"":$request->domiclio,
-            "telefono" =>($request->tel=="")?"":$request->tel
+            "telefono" =>($request->tel=="")?"":$request->tel,
+            "tipops"=>$request->tipo2,
+            "correo"=>$request->correo,
+            "escolaridad"=>$request->escolaridad,
+            "puesto"=>$request->puesto,
+
 
         ]);
 

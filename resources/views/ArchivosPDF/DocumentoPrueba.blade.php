@@ -150,10 +150,11 @@
                 <p>a) Si todas las respuestas a la Sección I Acontecimiento traumático severo, son "NO", no es necesario responder las demás secciones, y el trabajador no requiere una valoración clínica.<br>
                 b) En caso contrario, si alguna respuesta a la Sección I es "SÍ", se requiere contestar las secciones: II , III y IV.</p>
                 <p>El trabajador requerirá atención clínica en cualquiera de los casos siguientes:</p>
-                <p>1)   Cuando responda "Sí", en alguna de la Sección II Recuerdos persistentes sobre acontecimieno<br>
+                <p>1)   Cuando responda "Sí", en alguna de la Sección II Recuerdos persistentes sobre acontecimiento<br>
                 2)   Cuando responda "Sí", en 3 o más de la Sección III Esfuerzo por evitar circunstancias parecidas o asociadas al acontecimiento.<br>
                 3)   Cuando responda "Sí", en dos o más de las preguntas de la Sección IV Afectación.</p>
-                <p>Los Resultados de esta evaluacion para: {{$cuestionario[0]->Nombre}} indican que {{$requiere[$contar]}}, y/o Atención Clinica ya que, {{($requiere[$contar]=="No Requiere Valoración")?"No":""}} Muestra indicios de haber sufrido algun acontecimiento traumatico severo.</p>
+                <p>Los Resultados de esta evaluación para: {{$cuestionario[0]->Nombre}} indican que {{$requiere[$contar]}}, y/o Atención Clínica ya que, {{($requiere[$contar]=="No Requiere Valoración")?"No":""}} Muestra indicios de haber sufrido algún acontecimiento traumático severo.</p>
+                
                 <br><br><br><br><br><br><br><br><br><br>
 
                 @php $contar ++; @endphp

@@ -737,7 +737,7 @@
                                 {   
                                     id: '133',
                                     key:'133',
-                                    title: 'Inicidencias',
+                                    title: 'Pruebas Laborales',
                                     @if( in_array(133, $permisos_asignados) ) selected:true, @endif  
                                 },
 
