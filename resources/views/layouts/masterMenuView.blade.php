@@ -2043,18 +2043,23 @@ function activarLink( $url = '' )
 
                         <ul class="sub-menu" >
                         
-                        <li class="{{ activarLink('dashboardese') }}" >
-                            <a href="{{url('dashboardese')}}">Dashboard</a>
-                        </li>
-
-
                         <li class="{{ activarLink('NuevaOSCliente') }} ">
                             <a href="{{ url('NuevaOSCliente') }}">Nuevo / Solicitar Servicio</a>
                         </li>
 
+                        <li class="{{ activarLink('dashboardese') }}" >
+                            <a href="{{url('dashboardese')}}">Dashboard ESE </a>
+                        </li>
+
+
+                        
+
                         <li class="{{ activarLink('ListadoOS') }}">
                             <a href="{{ url('ListadoOS') }}">Estudios Socioeconómicos</a>
                         </li>
+
+                        <li class="{{ activarLink('dashboardPl') }}"><a href="{{ route('sig-erp-ese::dashboardPl.index') }}">Dashboard PL</a></li>
+
 
                         <li class="{{ activarLink('estudio-ese') }} {{ activarLink('ListadoOS') }} {{ activarLink('ListadoOS') }}">
                             <a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Pruebas Laborales</a>

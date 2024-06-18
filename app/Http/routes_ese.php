@@ -646,10 +646,16 @@ Route::group(['as' => 'sig-erp-ese::','middleware' => ['auth','auth.module:ese']
 
             Route::resource('dashboardese','ESE\DashboardController');
 
+            Route::resource('dashboardPl','ESE\DashboardPlController');
+
             //filter dashboard
             Route::get('Filtros/{IdCliente}/{IdAnalista}/{IdInvestigador}/{IdModalidad}/{Dateini}/{Dateend}','ESE\DashboardController@Filtros');
 
+            Route::get('Filtros2/{IdCliente}/{IdAnalista}/{IdInvestigador}/{IdModalidad}/{Dateini}/{Dateend}','ESE\DashboardPlController@Filtros');
+
             Route::get('getDataChart/{Id}/{Dateini}/{Dateend}','ESE\DashboardController@getDataChart');
+
+            Route::get('getDataChart2/{Id}/{Dateini}/{Dateend}','ESE\DashboardPlController@getDataChart');
 
             Route::get('GetDataByClient/{IdCliente}/{Dateini}/{Dateend}','ESE\DashboardController@GetDataByClient');
 

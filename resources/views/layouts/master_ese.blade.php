@@ -50,14 +50,15 @@
 				@endif -->
 
 	<ul class="sub-menu" id="menu-ese"> 
-
-	<li class="{{ activarLink('dashboardese') }}"><a href="{{ route('sig-erp-ese::dashboardese.index') }}">Dashboard</a></li>
-
 	@permission('ese.solicitar.servicios')
 
 	<li class="{{ activarLink('nuevasolicitudcliente-ese') }} {{ activarLink('NuevaOSCliente') }} {{ activarLink('ServxCliente') }}"><a href="{{ route('sig-erp-ese::NuevaOSCliente.index') }}">Nuevo / Solicitar Servicio</a></li>
 
 	@endpermission
+	
+	<li class="{{ activarLink('dashboardese') }}"><a href="{{ route('sig-erp-ese::dashboardese.index') }}">Dashboard ESE </a></li>
+
+	
 
 	<!--<li class="{{ activarLink('nuevasolicitud-ese') }} {{ activarLink('NuevaOS') }} {{ activarLink('PlantillaxCliente') }} {{ activarLink('ConfiguracionOS/*') }}"><a href="{{ route('sig-erp-ese::NuevaOS.index') }}">Crear Servicio</a></li>-->
 
@@ -69,6 +70,10 @@
 
 	
 	@permission('ese.incidencias')
+
+	<li class="{{ activarLink('dashboardPl') }}"><a href="{{ route('sig-erp-ese::dashboardPl.index') }}">Dashboard PL</a></li>
+
+
 	<li class="{{ activarLink('estudio-ese') }} {{ activarLink('ListadoOS') }} {{ activarLink('ListadoOS') }}"><a href="{{ route('sig-erp-ese::ListadoIncidencias.index') }}">Pruebas Laborales</a></li>
 	@endpermission
 

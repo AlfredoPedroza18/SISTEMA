@@ -71,7 +71,7 @@
                                                 data-toggle="modal tooltip" data-target="#modal-editar"
                                                 data-placement="bottom top" 
                                                 data-id-servicio = "{{ $serv->id }}"
-                                                title="Editar registro">
+                                                title="Editar registro" onclick="RegistosEdicion({{ $serv->id }})">
                                                   <i class="fa fa-pencil"></i>
 
                                               </a>
@@ -297,7 +297,7 @@ $(document).ready(function(){
           guardarCambiosServiciosAlta();
         });
  
-       $(".btn-editar-registro-servicios").click(function(){
+       $(".btn-editar-registro-serviciosss").click(function(){
    
             
            id_servicio =$(this).attr("data-id-servicio");

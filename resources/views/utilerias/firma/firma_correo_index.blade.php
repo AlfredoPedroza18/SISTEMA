@@ -164,7 +164,7 @@
 
                 <div class="panel-heading">
                     <div class="panel-heading-btn"></div>
-                    <h4 class="panel-title">Listado de creditos</h4>
+                    <h4 class="panel-title">Listado de Firma Correo</h4>
                 </div>
 
 
