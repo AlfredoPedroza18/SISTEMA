@@ -183,7 +183,7 @@
 							</td>
 						</tr>
 
-						<tr>
+						<!-- <tr>
 							<td>Propuesta de servicio</td>
 							<td>Persona Moral</td>
 							<td>
@@ -193,7 +193,7 @@
 									<i class="fa fa-check"></i>
 								</a>
 							</td>
-						</tr>
+						</tr>-->
 
 						<!--<tr>
 							<td>Atraccion de talento</td>
