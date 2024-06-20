@@ -1172,7 +1172,9 @@ class NuevaOSController extends Controller
             $Estatus = $value->Estatus;           
         }
 
-        if($idP == 4){
+        if($idP == 8){
+            $ruta = "ESE.pdf.pdf-ingles";
+        }elseif($idP == 4){
             $ruta = "ESE.pdf.pdf-leon";
         }elseif($idP == 5){
             $ruta = "ESE.pdf.pdf-gsh";
