@@ -587,16 +587,12 @@ class CamposController extends Controller
     public function destroy($id)
     {
 
-          $sql="select count(*) as c from master_ese_agrupador where IdAgrupador =
-            (select e.IdAgrupador from master_ese_entrada as e where e.IdEntrada = {$id} )";
+        
 
-          $dato=DB::select($sql);
-
+     
           $valor=0;
-            foreach ($dato as $g) {
-              $valor = $g->c;
-            }
-            if($valor==0){
+         
+            if($valor==0 || $valor =='0'){
               $DeleteSubgrupo=MasterConsultas::exeSQLStatement("delete_catalogo_entrada", "UPDATE",
               array(
                   "IdEntrada" => $id

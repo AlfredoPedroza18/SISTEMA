@@ -261,7 +261,6 @@ class NuevaOSController extends Controller
             "ArchivoIne",
             "UltimoGradoArchivo",
             "ArchivoActaNacimientoHijo",
-            "ArchivoActaNacimientoHijo",
             "ArchivoActaNacimiento",
             "ArchivoComprobanteDom",
             "ArchivoActaMatrimonio",
@@ -274,11 +273,13 @@ class NuevaOSController extends Controller
         inner join master_ese_entrada mee on mee.IdEntrada=srve.IdEntrada
         INNER JOIN master_ese_agrupador a ON a.IdAgrupador = mee.IdAgrupador
         INNER JOIN master_ese_contenedor c ON a.IdContenedor = c.IdContenedor
-        WHERE srve.IdServicioEse=? and c.Etiqueta = 'documentación' order by srve.Indice,mee.orden;",[$IdServicioEse]);
+        WHERE srve.IdServicioEse=? and c.Etiqueta = 'documentación' AND mee.Formato = 'JPEG' order by srve.Indice,mee.orden;",[$IdServicioEse]);
+
+        
 
         $o=0;
         foreach($resultActual as $ou){
-            for($j=0; $j<=14;$j++){
+            for($j=0; $j<count($nombres);$j++){
                 if($ou->CampoNombre==$nombres[$j]) {$fotos[$o]=$ou->ValorCargado; $o++;};
             }
         }
@@ -286,7 +287,7 @@ class NuevaOSController extends Controller
         $target= "o.png";
         session_start();
         // DOMPDF según el tipo de documento a imprimir o la cantidad puede ser muy exigente así que aumentamos la memoria disponible
-        ini_set("memory_limit", "256M");
+        ini_set("memory_limit", "-1");
         $pdf = PDF::loadView('ESE.pdf.pdf-documentos',['fotos'=>$fotos]);
         return $pdf->stream();
     }
