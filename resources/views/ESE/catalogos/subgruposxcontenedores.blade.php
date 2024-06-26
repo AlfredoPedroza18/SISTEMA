@@ -202,9 +202,10 @@
                                 <select class="form-control" name="cnt" onchange="mostrarValor(this.value);" >
                                     <option value="">Seleccione un Contenedor</option>
                                     @foreach($contenedor as $c)
-                                    <option value="{{ $c->IdContenedor }}" >{{ $c->Etiqueta }}</option>
+                                    <option value="{{ $c->IdContenedor }}" @if(isset($cntC)) @if($cntC==$c->IdContenedor) selected @endif @endif>{{ $c->Etiqueta }}</option>
                                     @endforeach
                                 </select>
+                             
                                 <input type="hidden" id="valcnt" name="valcnt" value="">
 
                                 <div class="input-group-btn">

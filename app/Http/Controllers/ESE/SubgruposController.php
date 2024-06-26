@@ -136,7 +136,7 @@ class SubgruposController extends Controller
 
             $queryB='SELECT IdAgrupador,Etiqueta,Orden,
             (select mc.Etiqueta from master_ese_contenedor as mc where mc.IdContenedor= master_ese_agrupador.IdContenedor) as Grupo
-             FROM master_ese_agrupador WHERE master_ese_agrupador.IdContenedor = :contenedor';
+             FROM master_ese_agrupador WHERE master_ese_agrupador.IdContenedor = ?';
 
             $bem=DB::select($queryB,[$cnt]);
             $Orden='';
